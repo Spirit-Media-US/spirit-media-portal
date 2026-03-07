@@ -1,6 +1,6 @@
 import { d as createAstro, e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CE8Lg1Vy.mjs';
 import 'piccolore';
-import { $ as $$PortalLayout } from '../chunks/PortalLayout_BkmyhwS7.mjs';
+import { $ as $$PortalLayout } from '../chunks/PortalLayout_DBImZbIL.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Astro = createAstro("https://spirit-media-portal.netlify.app");
