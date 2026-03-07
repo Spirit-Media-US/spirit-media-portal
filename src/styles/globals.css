@@ -1,27 +1,30 @@
+/* Spirit Media Portal — Light Theme (inherits SMP tokens) */
 @import "tailwindcss";
 
-@theme {
-  --color-navy: #0f172a;
-  --color-gold: #d4a843;
-  --font-sans: "IBM Plex Sans", sans-serif;
-}
+/* Portal-specific overrides on top of SMP brand tokens */
+@layer base {
+  html {
+    font-family: var(--font-body, "Source Sans 3", system-ui, sans-serif);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  body {
+    background-color: var(--color-stone-50, #faf8f5);
+    color: var(--color-stone-700, #574e45);
+  }
 
-html {
-  font-family: "IBM Plex Sans", sans-serif;
-}
+  h1, h2, h3, h4 {
+    font-family: var(--font-display, "Playfair Display", Georgia, serif);
+    color: var(--color-ink-soft, #2e2a26);
+  }
 
-body {
-  background-color: #0f172a;
-  color: #ffffff;
-}
+  a {
+    color: var(--color-red, #c0392b);
+    text-decoration: none;
+  }
 
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: rgba(212, 168, 67, 0.05); }
-::-webkit-scrollbar-thumb { background: rgba(212, 168, 67, 0.3); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(212, 168, 67, 0.5); }
+  a:hover {
+    color: var(--color-red-deep, #9b2d20);
+  }
+}

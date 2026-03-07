@@ -18,110 +18,143 @@ const { title } = Astro.props;
     <link rel="stylesheet" href="https://spiritmediapublishing.com/spirit-media-tokens.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
   </head>
 
-  <body class="bg-navy text-white font-sans">
-    <div class="flex h-screen">
-      <!-- Sidebar Navigation -->
-      <nav class="w-64 bg-navy border-r border-gold border-opacity-20 flex flex-col">
-        <!-- Logo -->
-        <div class="px-6 py-8 border-b border-gold border-opacity-20">
-          <h1 class="text-2xl font-bold">
-            <span>Spirit</span>
-            <span class="text-gold">Media</span>
-          </h1>
-          <p class="text-gold text-xs font-semibold mt-2 uppercase tracking-wider">Portal</p>
+  <body>
+    <div class="portal-wrap">
+
+      <!-- Sidebar -->
+      <nav class="portal-sidebar">
+        <div class="portal-logo">
+          <span class="logo-spirit">Spirit</span>
+          <span class="logo-media">Media</span>
+          <div class="logo-sub">PORTAL</div>
         </div>
 
-        <!-- Navigation Links -->
-        <div class="flex-1 px-6 py-8">
-          <div class="space-y-2">
-            <a
-              href="/dashboard"
-              class="block px-4 py-3 rounded-lg hover:bg-gold hover:bg-opacity-10 transition text-gray-300 hover:text-gold font-600"
-            >
-              Dashboard
-            </a>
-            <a
-              href="/playbook"
-              class="block px-4 py-3 rounded-lg hover:bg-gold hover:bg-opacity-10 transition text-gray-300 hover:text-gold font-600"
-            >
-              Playbook
-            </a>
-            <a
-              href="/developers"
-              class="block px-4 py-3 rounded-lg hover:bg-gold hover:bg-opacity-10 transition text-gray-300 hover:text-gold font-600"
-            >
-              Developers
-            </a>
-            <a
-              href="/clients"
-              class="block px-4 py-3 rounded-lg hover:bg-gold hover:bg-opacity-10 transition text-gray-300 hover:text-gold font-600"
-            >
-              Clients
-            </a>
-          </div>
+        <div class="portal-nav">
+          <a href="/dashboard" class="portal-nav-link">Dashboard</a>
+          <a href="/playbook" class="portal-nav-link">Playbook</a>
+          <a href="/developers" class="portal-nav-link">Developers</a>
+          <a href="/clients" class="portal-nav-link">Clients</a>
         </div>
 
-        <!-- Logout Button -->
-        <div class="px-6 py-8 border-t border-gold border-opacity-20">
-          <a
-            href="/logout"
-            class="w-full block px-4 py-3 bg-gold bg-opacity-20 text-gold rounded-lg hover:bg-opacity-30 transition text-center font-600"
-          >
-            Logout
-          </a>
+        <div class="portal-sidebar-footer">
+          <a href="/logout" class="portal-logout">Logout</a>
         </div>
       </nav>
 
-      <!-- Main Content -->
-      <main class="flex-1 overflow-auto">
-        <div class="px-12 py-12">
-          <slot />
-        </div>
+      <!-- Main -->
+      <main class="portal-main">
+        <slot />
       </main>
+
     </div>
   </body>
 </html>
 
-<style is:global>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+<style>
+  .portal-wrap {
+    display: flex;
+    min-height: 100vh;
+    background-color: #faf8f5;
   }
 
-  html {
-    font-family: 'IBM Plex Sans', sans-serif;
+  /* Sidebar */
+  .portal-sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background-color: #1a1714;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
   }
 
-  :root {
-    --color-navy: #0f172a;
-    --color-gold: #d4a843;
+  .portal-logo {
+    padding: 2rem 1.5rem 1.5rem;
+    border-bottom: 1px solid rgba(192, 57, 43, 0.25);
   }
 
-  body {
-    background-color: var(--color-navy);
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(212, 168, 67, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(212, 168, 67, 0.03) 0%, transparent 50%);
+  .logo-spirit {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.01em;
   }
 
-  ::-webkit-scrollbar {
-    width: 8px;
+  .logo-media {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #c0392b;
+    letter-spacing: -0.01em;
+    margin-left: 0.35rem;
   }
 
-  ::-webkit-scrollbar-track {
-    background: rgba(212, 168, 67, 0.05);
+  .logo-sub {
+    font-family: "Source Sans 3", system-ui, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #9e9285;
+    margin-top: 0.25rem;
   }
 
-  ::-webkit-scrollbar-thumb {
-    background: rgba(212, 168, 67, 0.3);
-    border-radius: 4px;
+  .portal-nav {
+    flex: 1;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(212, 168, 67, 0.5);
+  .portal-nav-link {
+    display: block;
+    padding: 0.65rem 1rem;
+    font-family: "Source Sans 3", system-ui, sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #bfb4a4;
+    border-radius: 0.375rem;
+    transition: background 150ms, color 150ms;
+    text-decoration: none;
+  }
+
+  .portal-nav-link:hover {
+    background-color: rgba(192, 57, 43, 0.12);
+    color: #ffffff;
+  }
+
+  .portal-sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .portal-logout {
+    display: block;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-family: "Source Sans 3", system-ui, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #9e9285;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.375rem;
+    transition: all 150ms;
+    text-decoration: none;
+  }
+
+  .portal-logout:hover {
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  /* Main content area */
+  .portal-main {
+    flex: 1;
+    background-color: #faf8f5;
+    padding: 2.5rem 3rem;
+    overflow-y: auto;
   }
 </style>

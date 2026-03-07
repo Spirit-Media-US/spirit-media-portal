@@ -1,6 +1,6 @@
 import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, l as renderScript } from '../chunks/astro/server_CE8Lg1Vy.mjs';
 import 'piccolore';
-import { $ as $$PortalLayout } from '../chunks/PortalLayout_D4KKBHxh.mjs';
+import { $ as $$PortalLayout } from '../chunks/PortalLayout_DReyDbR4.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Developers = createComponent(($$result, $$props, $$slots) => {
