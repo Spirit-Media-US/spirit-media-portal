@@ -10,158 +10,114 @@ interface Site {
 }
 
 const sites: Site[] = [
-  {
-    name: 'Spirit Media Publishing',
-    slug: 'smp',
-    netlify: 'spiritmediapublishing.netlify.app',
-    sanity: 'spiritmediapublishing.sanity.studio',
-    liveUrl: 'spiritmediapublishing.com',
-  },
-  {
-    name: 'Fathers Heart Bible',
-    slug: 'fhb',
-    netlify: 'fathersheartbible.netlify.app',
-    sanity: 'fathersheartbible.sanity.studio',
-    liveUrl: 'fathersheartbible.org',
-  },
-  {
-    name: 'Work On Yourself',
-    slug: 'woy',
-    netlify: 'workonyourself.netlify.app',
-    sanity: 'workonyourself.sanity.studio',
-    liveUrl: 'workonyourself.com',
-  },
-  {
-    name: 'Arts By Justin',
-    slug: 'artsbyjustin',
-    netlify: 'artsbyjustin.netlify.app',
-    sanity: 'artsbyjustin.sanity.studio',
-    liveUrl: 'artsbyjustin.com',
-  },
-  {
-    name: 'The Kohler Group',
-    slug: 'kohler',
-    netlify: 'thekohlergroup.netlify.app',
-    sanity: 'thekohlergroup.sanity.studio',
-    liveUrl: 'thekohlergroup.net',
-  },
+  { name: 'Spirit Media Publishing', slug: 'smp', netlify: 'spiritmediapublishing.netlify.app', sanity: 'spiritmediapublishing.sanity.studio', liveUrl: 'spiritmediapublishing.com' },
+  { name: "Father's Heart Bible", slug: 'fhb', netlify: 'fathersheartbible.netlify.app', sanity: 'fathersheartbible.sanity.studio', liveUrl: 'fathersheartbible.org' },
+  { name: 'Work On Yourself', slug: 'woy', netlify: 'workonyourself.netlify.app', sanity: 'workonyourself.sanity.studio', liveUrl: 'workonyourself.com' },
+  { name: 'Arts By Justin', slug: 'artsbyjustin', netlify: 'artsbyjustin.netlify.app', sanity: 'artsbyjustin.sanity.studio', liveUrl: 'artsbyjustin.com' },
+  { name: 'The Kohler Group', slug: 'kohler', netlify: 'thekohlergroup.netlify.app', sanity: 'thekohlergroup.sanity.studio', liveUrl: 'thekohlergroup.net' },
 ];
 ---
 
 <PortalLayout title="Dashboard">
-  <div class="max-w-6xl">
-    <h1 class="text-4xl font-bold mb-2">Dashboard</h1>
-    <p class="text-gray-400 mb-8">Site inventory and management links</p>
-
-    <!-- Sites Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {
-        sites.map((site) => (
-          <div class="bg-white bg-opacity-5 border border-gold border-opacity-20 rounded-lg p-6 hover:border-opacity-40 transition">
-            {/* Site Header */}
-            <div class="mb-6">
-              <h2 class="text-2xl font-bold text-white mb-2">{site.name}</h2>
-              <div class="flex items-center gap-2">
-                <code class="text-sm bg-black bg-opacity-50 px-3 py-1 rounded text-gold font-mono">
-                  {site.slug}
-                </code>
-                <button
-                  class="copy-slug px-2 py-1 text-xs bg-gold bg-opacity-20 hover:bg-opacity-30 text-gold rounded transition"
-                  data-slug={site.slug}
-                  title="Copy slug"
-                >
-                  Copy
-                </button>
-              </div>
-            </div>
-
-            {/* Links Section */}
-            <div class="space-y-3">
-              {/* Live URL */}
-              <a
-                href={`https://${site.liveUrl}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center justify-between p-3 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-lg transition group"
-              >
-                <span class="text-gray-300 font-semibold">Live Website</span>
-                <span class="text-gold text-sm group-hover:underline">{site.liveUrl} →</span>
-              </a>
-
-              {/* Netlify Admin */}
-              <a
-                href={`https://app.netlify.com/sites/${site.netlify.split('.')[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center justify-between p-3 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-lg transition group"
-              >
-                <span class="text-gray-300 font-semibold">Netlify Admin</span>
-                <span class="text-gold text-sm group-hover:underline">Manage →</span>
-              </a>
-
-              {/* Sanity Studio */}
-              <a
-                href={`https://${site.sanity}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center justify-between p-3 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-lg transition group"
-              >
-                <span class="text-gray-300 font-semibold">Sanity Studio</span>
-                <span class="text-gold text-sm group-hover:underline">Edit Content →</span>
-              </a>
-            </div>
-
-            {/* Technical Details */}
-            <div class="mt-6 pt-6 border-t border-gold border-opacity-10">
-              <p class="text-xs text-gray-500 mb-2 font-semibold uppercase">Links</p>
-              <div class="space-y-1 text-xs">
-                <p class="text-gray-400">
-                  <span class="text-gold font-semibold">Netlify:</span>{' '}
-                  <code class="bg-black bg-opacity-50 px-2 py-0.5 rounded">{site.netlify}</code>
-                </p>
-                <p class="text-gray-400">
-                  <span class="text-gold font-semibold">Sanity:</span>{' '}
-                  <code class="bg-black bg-opacity-50 px-2 py-0.5 rounded">{site.sanity}</code>
-                </p>
-              </div>
-            </div>
-          </div>
-        ))
-      }
-    </div>
-
-    <!-- Quick Reference -->
-    <div class="mt-12 bg-gold bg-opacity-10 border border-gold border-opacity-40 rounded-lg p-8">
-      <h2 class="text-2xl font-bold text-gold mb-4">Quick Reference</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-300">
-        <div>
-          <h3 class="font-semibold text-gold mb-2">Live Website</h3>
-          <p class="text-sm">Visit the public-facing website</p>
-        </div>
-        <div>
-          <h3 class="font-semibold text-gold mb-2">Netlify Admin</h3>
-          <p class="text-sm">Manage deployments and site settings</p>
-        </div>
-        <div>
-          <h3 class="font-semibold text-gold mb-2">Sanity Studio</h3>
-          <p class="text-sm">Edit and publish content</p>
-        </div>
-      </div>
-    </div>
+  <div class="page-header">
+    <h1>Dashboard</h1>
+    <p>Site inventory and management links</p>
   </div>
 
-  <script>
-    document.querySelectorAll('.copy-slug').forEach((btn) => {
-      btn.addEventListener('click', function () {
-        const slug = this.getAttribute('data-slug');
-        navigator.clipboard.writeText(slug).then(() => {
-          const originalText = this.textContent;
-          this.textContent = 'Copied!';
-          setTimeout(() => {
-            this.textContent = originalText;
-          }, 2000);
-        });
-      });
-    });
-  </script>
+  <div class="sites-grid">
+    {sites.map((site) => (
+      <div class="site-card">
+        <div class="site-card-header">
+          <h2>{site.name}</h2>
+          <code class="site-slug">{site.slug}</code>
+        </div>
+        <div class="site-links">
+          <a href={`https://${site.liveUrl}`} target="_blank" rel="noopener noreferrer" class="site-link">
+            <span>Live Website</span>
+            <span class="link-url">{site.liveUrl} →</span>
+          </a>
+          <a href={`https://app.netlify.com/projects/${site.netlify.split('.')[0]}`} target="_blank" rel="noopener noreferrer" class="site-link">
+            <span>Netlify Admin</span>
+            <span class="link-action">Manage →</span>
+          </a>
+          <a href={`https://${site.sanity}`} target="_blank" rel="noopener noreferrer" class="site-link">
+            <span>Sanity Studio</span>
+            <span class="link-action">Edit Content →</span>
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
 </PortalLayout>
+
+<style>
+  .page-header { margin-bottom: 2rem; }
+  .page-header h1 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 2rem; font-weight: 700;
+    color: #1a1714; margin-bottom: 0.25rem;
+  }
+  .page-header p { color: #7a6e63; font-size: 0.9375rem; }
+
+  .sites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .site-card {
+    background: #ffffff;
+    border: 1px solid #ddd7cf;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 4px rgba(26,23,20,0.06);
+  }
+
+  .site-card-header {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.875rem;
+    border-bottom: 1px solid #ede7df;
+  }
+
+  .site-card-header h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.0625rem; font-weight: 700;
+    color: #1a1714; margin: 0;
+  }
+
+  .site-slug {
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: #f5f1ec; color: #7a6e63;
+    padding: 0.2rem 0.5rem; border-radius: 0.25rem;
+    font-family: "Courier New", monospace;
+  }
+
+  .site-links { display: flex; flex-direction: column; gap: 0.375rem; }
+
+  .site-link {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.875rem;
+    background: #faf8f5;
+    border: 1px solid #ede7df;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: border-color 150ms, background 150ms;
+    font-size: 0.875rem;
+  }
+
+  .site-link:hover {
+    background: #fff;
+    border-color: #c0392b;
+  }
+
+  .site-link span:first-child {
+    font-weight: 600; color: #2e2a26;
+  }
+
+  .link-url { color: #7a6e63; font-size: 0.8125rem; }
+  .link-action { color: #c0392b; font-size: 0.8125rem; font-weight: 600; }
+</style>
