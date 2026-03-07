@@ -1,0 +1,7 @@
+---
+// Logout page - clears auth cookie and redirects
+const cookies = Astro.cookies;
+cookies.delete('portal_auth', { path: '/' });
+
+return Astro.redirect('/login');
+---

@@ -1,0 +1,49 @@
+import { d as createAstro, e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CE8Lg1Vy.mjs';
+import 'piccolore';
+import { $ as $$PortalLayout } from '../chunks/PortalLayout_C_KPujhQ.mjs';
+export { renderers } from '../renderers.mjs';
+
+const $$Astro = createAstro("https://spirit-media-portal.netlify.app");
+const $$Playbook = createComponent(($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
+  Astro2.self = $$Playbook;
+  return renderTemplate`${renderComponent($$result, "PortalLayout", $$PortalLayout, { "title": "Playbook" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="max-w-4xl"> <h1 class="text-4xl font-bold mb-2">Spirit Media Architecture & Playbook</h1> <p class="text-gray-400 mb-8">Technical overview and deployment procedures</p> <div class="space-y-8"> <!-- Tech Stack --> <section class="bg-white bg-opacity-5 border border-gold border-opacity-20 rounded-lg p-6"> <h2 class="text-2xl font-bold text-gold mb-4">Technology Stack</h2> <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <div> <h3 class="font-semibold text-gray-300 mb-2">Frontend</h3> <ul class="space-y-1 text-gray-400 text-sm"> <li>✓ <strong>Astro</strong> - Static site generation</li> <li>✓ <strong>Vite</strong> - Fast module bundler</li> <li>✓ <strong>Tailwind CSS</strong> - Utility-first styling</li> </ul> </div> <div> <h3 class="font-semibold text-gray-300 mb-2">Backend & Infrastructure</h3> <ul class="space-y-1 text-gray-400 text-sm"> <li>✓ <strong>Sanity CMS</strong> - Headless content management</li> <li>✓ <strong>Netlify</strong> - Hosting & deployments</li> <li>✓ <strong>Cloudflare</strong> - DNS & CDN proxy</li> </ul> </div> </div> </section> <!-- Media & Storage --> <section class="bg-white bg-opacity-5 border border-gold border-opacity-20 rounded-lg p-6"> <h2 class="text-2xl font-bold text-gold mb-4">Media & Storage</h2> <div class="space-y-3"> <p class="text-gray-400"> <strong>Cloudflare R2</strong> handles all media files (images, videos, PDFs). This provides global CDN distribution and keeps the Git repository lean.
+</p> <div class="bg-black bg-opacity-50 border border-gold border-opacity-20 rounded-lg p-4"> <p class="text-gold font-semibold mb-2">⚠️ Critical Rule:</p> <p class="text-gray-300 text-sm"> <strong>Never store media files in Git.</strong> All images, videos, and large files must be uploaded to R2 and referenced by URL.
+</p> </div> </div> </section> <!-- Forms & Integrations --> <section class="bg-white bg-opacity-5 border border-gold border-opacity-20 rounded-lg p-6"> <h2 class="text-2xl font-bold text-gold mb-4">Integrations</h2> <ul class="space-y-2 text-gray-400"> <li>✓ <strong>Sanity CMS</strong> - Content API & webhooks</li> <li>✓ <strong>Netlify</strong> - Deployments & site analytics</li> <li>✓ <strong>Cloudflare DNS</strong> - Domain management</li> <li>✓ <strong>Cloudflare R2</strong> - Media storage & CDN</li> <li>✓ <strong>GHL (GoHighLevel)</strong> - Form submissions & CRM</li> </ul> </section> <!-- Infrastructure --> <section class="bg-white bg-opacity-5 border border-gold border-opacity-20 rounded-lg p-6"> <h2 class="text-2xl font-bold text-gold mb-4">Development Infrastructure</h2> <div class="space-y-4"> <div> <h3 class="font-semibold text-gray-300 mb-2">Server</h3> <div class="bg-black bg-opacity-50 px-4 py-2 rounded font-mono text-sm text-gray-300 mb-2">
+178.156.183.139
+</div> <p class="text-gray-500 text-sm">Ubuntu 22.04 running all project repositories</p> </div> <div> <h3 class="font-semibold text-gray-300 mb-2">Code Server</h3> <p class="text-gray-400 text-sm mb-2">Browser-based VS Code instance</p> <div class="bg-black bg-opacity-50 px-4 py-2 rounded font-mono text-sm text-gray-300">
+https://dev.spiritmediapublishing.com
+</div> <p class="text-gray-500 text-sm mt-2">Accessible via Tailscale VPN</p> </div> <div> <h3 class="font-semibold text-gray-300 mb-2">Tailscale VPN</h3> <div class="bg-black bg-opacity-50 px-4 py-2 rounded font-mono text-sm text-gray-300">
+100.114.220.65
+</div> <p class="text-gray-500 text-sm mt-2">Private network access to server and code-server</p> </div> <div> <h3 class="font-semibold text-gray-300 mb-2">Directory Structure</h3> <div class="space-y-1 text-gray-400 text-sm"> <p><code class="bg-black bg-opacity-50 px-2 py-1 rounded">/home/deploy/Sites/</code> - All project repos</p> <p><code class="bg-black bg-opacity-50 px-2 py-1 rounded">/home/deploy/bin/</code> - Binaries & config files</p> </div> </div> </div> </section> <!-- Deployment Workflow --> <section class="bg-white bg-opacity-5 border border-gold border-opacity-20 rounded-lg p-6"> <h2 class="text-2xl font-bold text-gold mb-4">Deployment Workflow</h2> <p class="text-gray-400 mb-4">Our standard development and deployment process:</p> <div class="space-y-3"> <div class="bg-black bg-opacity-30 px-4 py-3 rounded border-l-4 border-gold"> <p class="font-semibold text-gray-300 mb-1">1. Develop Locally</p> <div class="bg-black bg-opacity-50 px-3 py-2 rounded font-mono text-xs text-gray-400 mb-2">
+npm run dev
+</div> <p class="text-gray-500 text-sm">Start the local development server on port 3000 or 4321</p> </div> <div class="bg-black bg-opacity-30 px-4 py-3 rounded border-l-4 border-gold"> <p class="font-semibold text-gray-300 mb-1">2. Test Changes</p> <p class="text-gray-500 text-sm">Preview and test all changes locally before committing</p> </div> <div class="bg-black bg-opacity-30 px-4 py-3 rounded border-l-4 border-gold"> <p class="font-semibold text-gray-300 mb-1">3. Build for Production</p> <div class="bg-black bg-opacity-50 px-3 py-2 rounded font-mono text-xs text-gray-400 mb-2">
+npm run build
+</div> <p class="text-gray-500 text-sm">Fix any build errors before proceeding</p> </div> <div class="bg-black bg-opacity-30 px-4 py-3 rounded border-l-4 border-gold"> <p class="font-semibold text-gray-300 mb-1">4. Commit & Push</p> <div class="bg-black bg-opacity-50 px-3 py-2 rounded font-mono text-xs text-gray-400 mb-2">
+git add -A<br>git commit --no-verify -m "description"<br>git push origin main
+</div> <p class="text-gray-500 text-sm">One push per session to main branch</p> </div> <div class="bg-black bg-opacity-30 px-4 py-3 rounded border-l-4 border-gold"> <p class="font-semibold text-gray-300 mb-1">5. Netlify Auto-Deploy</p> <p class="text-gray-500 text-sm">Netlify automatically builds and deploys when main branch updates. Site is live in ~2 minutes.</p> </div> </div> </section> <!-- Sanity Integration --> <section class="bg-white bg-opacity-5 border border-gold border-opacity-20 rounded-lg p-6"> <h2 class="text-2xl font-bold text-gold mb-4">Sanity CMS</h2> <p class="text-gray-400 mb-4">
+Sanity is our headless CMS. Content is authored and published in Sanity Studio, then consumed by our Astro sites via API.
+</p> <div class="space-y-2 text-gray-400 text-sm"> <p>✓ Content is the source of truth</p> <p>✓ Schema-driven content modeling</p> <p>✓ Real-time preview in editor</p> <p>✓ API-first publishing</p> <p>✓ Media handled via Sanity CDN</p> </div> </section> <!-- Best Practices --> <section class="bg-gold bg-opacity-10 border border-gold border-opacity-40 rounded-lg p-6"> <h2 class="text-2xl font-bold text-gold mb-4">Best Practices</h2> <ul class="space-y-2 text-gray-300"> <li>✓ Always build before pushing: <code class="bg-black bg-opacity-50 px-2 py-1 rounded text-xs">npm run build</code></li> <li>✓ Never commit media files to Git</li> <li>✓ One push per development session</li> <li>✓ Test locally before deploying</li> <li>✓ Keep .env files in /home/deploy/bin/</li> <li>✓ Use environment variables for secrets</li> <li>✓ Document schema changes in Sanity</li> <li>✓ Use meaningful commit messages</li> </ul> </section> <!-- Troubleshooting --> <section class="bg-white bg-opacity-5 border border-gold border-opacity-20 rounded-lg p-6"> <h2 class="text-2xl font-bold text-gold mb-4">Common Issues</h2> <div class="space-y-3"> <div> <h3 class="font-semibold text-gray-300 mb-1">Build Fails</h3> <p class="text-gray-400 text-sm">Check error messages carefully. Usually: missing imports, type errors, or broken links. Never push broken builds.</p> </div> <div> <h3 class="font-semibold text-gray-300 mb-1">Content Not Updating</h3> <p class="text-gray-400 text-sm">Ensure you published in Sanity and the site rebuilt. Check Netlify deploy logs.</p> </div> <div> <h3 class="font-semibold text-gray-300 mb-1">Image Broken Links</h3> <p class="text-gray-400 text-sm">Verify images are in R2 with correct URLs. Never embed local file paths.</p> </div> </div> </section> <!-- Support --> <section class="bg-white bg-opacity-5 border border-gold border-opacity-20 rounded-lg p-6"> <h2 class="text-2xl font-bold text-gold mb-4">Resources</h2> <ul class="space-y-2 text-gray-400"> <li> <a href="https://docs.astro.build" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline">
+→ Astro Documentation
+</a> </li> <li> <a href="https://www.sanity.io/docs" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline">
+→ Sanity Documentation
+</a> </li> <li> <a href="https://tailwindcss.com/docs" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline">
+→ Tailwind CSS Documentation
+</a> </li> <li> <a href="https://docs.netlify.com" target="_blank" rel="noopener noreferrer" class="text-gold hover:underline">
+→ Netlify Documentation
+</a> </li> </ul> </section> </div> </div> ` })}`;
+}, "/home/deploy/Sites/spirit-media-portal/src/pages/playbook.astro", void 0);
+
+const $$file = "/home/deploy/Sites/spirit-media-portal/src/pages/playbook.astro";
+const $$url = "/playbook";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Playbook,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };
