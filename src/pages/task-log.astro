@@ -1,0 +1,152 @@
+---
+import PortalLayout from '../layouts/PortalLayout.astro';
+
+const tasks = [
+  {
+    site: 'All Sites',
+    status: 'pending',
+    title: 'Create dev branches for FHB, WOY, artsbyjustin, Kohler',
+    notes: 'Completed this session. All 6 repos now on dev branch.',
+    phase: 'Infrastructure',
+  },
+  {
+    site: 'All Sites',
+    status: 'pending',
+    title: 'Cloudflare proxy activation — FHB and WOY',
+    notes: 'SMP already proxied. FHB and WOY pending.',
+    phase: 'Infrastructure',
+  },
+  {
+    site: 'All Sites',
+    status: 'pending',
+    title: 'UptimeRobot monitoring — all 4 live sites',
+    notes: 'SMP, FHB, WOY, artsbyjustin.',
+    phase: 'Infrastructure',
+  },
+  {
+    site: 'All Sites',
+    status: 'pending',
+    title: 'R2 setup with custom domain (assets.spiritmediapublishing.com)',
+    notes: 'For all media-rich sites.',
+    phase: 'Infrastructure',
+  },
+  {
+    site: 'Spirit Media Publishing',
+    status: 'pending',
+    title: 'Bookstore — research missing ASINs, fill in format badges',
+    notes: 'Format counter and badges working. Many formats still missing while ASINs are being researched.',
+    phase: 'Content',
+  },
+  {
+    site: 'Spirit Media Publishing',
+    status: 'pending',
+    title: 'DMARC upgrade to p=quarantine',
+    notes: 'Wait 1 week clean after current p=none. Then upgrade.',
+    phase: 'Infrastructure',
+  },
+  {
+    site: 'Arts By Justin',
+    status: 'pending',
+    title: 'Connect artsbyjustin.com custom domain in Netlify + Cloudflare proxy',
+    notes: '',
+    phase: 'Infrastructure',
+  },
+  {
+    site: 'Arts By Justin',
+    status: 'pending',
+    title: 'Replace R2 image placeholders with real artwork',
+    notes: 'Client (Justin) to provide images via Google Drive.',
+    phase: 'Content',
+  },
+  {
+    site: 'Arts By Justin',
+    status: 'pending',
+    title: 'Replace placeholder divs with GHL form embed codes',
+    notes: '',
+    phase: 'Integration',
+  },
+  {
+    site: 'The Kohler Group',
+    status: 'pending',
+    title: 'Individual and marriage intensive video pages',
+    notes: 'Kevin waiting on YouTube URLs from client for individual.astro and marriage.astro.',
+    phase: 'Content',
+  },
+  {
+    site: 'Portal',
+    status: 'pending',
+    title: 'Verify /playbook and /developers pages are readable',
+    notes: 'Visual QA pass needed.',
+    phase: 'QA',
+  },
+  {
+    site: 'Portal',
+    status: 'pending',
+    title: 'Add feature request form or GitHub Issues link for team',
+    notes: 'Devs → GitHub Issues. Non-technical team → GHL form on /clients.',
+    phase: 'Content',
+  },
+  {
+    site: 'Portal',
+    status: 'pending',
+    title: 'NotebookLM explainer videos for /clients page',
+    notes: '',
+    phase: 'Content',
+  },
+  {
+    site: 'GHL',
+    status: 'pending',
+    title: 'Complete ACNotifications workflow — finish Email step, publish',
+    notes: 'Workflow exists at app.spiritmedia.us. Email step body needs webhook payload fields.',
+    phase: 'Integration',
+  },
+  {
+    site: 'Believer\'s Library',
+    status: 'pending',
+    title: 'Mobile app launch',
+    notes: 'Target: 2026.',
+    phase: 'New Site',
+  },
+];
+
+const phases = [...new Set(tasks.map(t => t.phase))];
+const statusLabel: Record<string, string> = {
+  pending: 'Pending',
+  inprogress: 'In Progress',
+  done: 'Done',
+};
+const statusColor: Record<string, string> = {
+  pending: 'background:#fef9ec;color:#92640a;border:1px solid #f5d99e;',
+  inprogress: 'background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;',
+  done: 'background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;',
+};
+---
+
+<PortalLayout title="Task Log">
+  <div class="max-w-4xl">
+    <h1 class="text-4xl font-bold mb-1">Task Log</h1>
+    <p class="text-stone-500 mb-8">Pending work across all sites — updated by Kevin and Claude each session</p>
+
+    {phases.map(phase => (
+      <div class="mb-8">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-3">{phase}</h2>
+        <div class="space-y-2">
+          {tasks.filter(t => t.phase === phase).map(task => (
+            <div class="bg-white border border-stone-200 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-start gap-3">
+              <div class="flex-1">
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <span class="text-xs font-semibold text-stone-400">{task.site}</span>
+                  <span style={statusColor[task.status]} class="text-xs font-bold px-2 py-0.5 rounded">
+                    {statusLabel[task.status]}
+                  </span>
+                </div>
+                <p class="text-sm font-semibold text-stone-800">{task.title}</p>
+                {task.notes && <p class="text-xs text-stone-500 mt-1">{task.notes}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</PortalLayout>
