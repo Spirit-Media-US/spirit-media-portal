@@ -4,17 +4,59 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 interface Site {
   name: string;
   slug: string;
-  netlify: string;
+  netlifyName: string;
+  netlifyPreview: string;
   sanity: string;
   liveUrl: string;
+  liveLabel: string;
 }
 
 const sites: Site[] = [
-  { name: 'Spirit Media Publishing', slug: 'smp', netlify: 'spiritmediapublishing.netlify.app', sanity: 'spiritmediapublishing.sanity.studio', liveUrl: 'spiritmediapublishing.com' },
-  { name: "Father's Heart Bible", slug: 'fhb', netlify: 'fathersheartbible.netlify.app', sanity: 'fathersheartbible.sanity.studio', liveUrl: 'fathersheartbible.org' },
-  { name: 'Work On Yourself', slug: 'woy', netlify: 'workonyourself.netlify.app', sanity: 'workonyourself.sanity.studio', liveUrl: 'workonyourself.com' },
-  { name: 'Arts By Justin', slug: 'artsbyjustin', netlify: 'artsbyjustin.netlify.app', sanity: 'artsbyjustin.sanity.studio', liveUrl: 'artsbyjustin.com' },
-  { name: 'The Kohler Group', slug: 'kohler', netlify: 'thekohlergroup.netlify.app', sanity: 'thekohlergroup.sanity.studio', liveUrl: 'thekohlergroup.net' },
+  {
+    name: 'Spirit Media Publishing',
+    slug: 'smp',
+    netlifyName: 'spirit-media-publishing',
+    netlifyPreview: 'spirit-media-publishing.netlify.app',
+    sanity: 'spiritmediapublishing.sanity.studio',
+    liveUrl: 'spiritmediapublishing.com',
+    liveLabel: 'spiritmediapublishing.com',
+  },
+  {
+    name: "Father's Heart Bible",
+    slug: 'fhb',
+    netlifyName: 'fhbible',
+    netlifyPreview: 'fhbible.netlify.app',
+    sanity: 'fathersheartbible.sanity.studio',
+    liveUrl: 'fathersheartbible.org',
+    liveLabel: 'fathersheartbible.org',
+  },
+  {
+    name: 'Work On Yourself',
+    slug: 'woy',
+    netlifyName: 'woyourself',
+    netlifyPreview: 'woyourself.netlify.app',
+    sanity: 'workonyourself.sanity.studio',
+    liveUrl: 'workonyourself.com',
+    liveLabel: 'workonyourself.com',
+  },
+  {
+    name: 'Arts By Justin',
+    slug: 'artsbyjustin',
+    netlifyName: 'artsbyjustin',
+    netlifyPreview: 'artsbyjustin.netlify.app',
+    sanity: 'artsbyjustin.sanity.studio',
+    liveUrl: 'artsbyjustin.com',
+    liveLabel: 'artsbyjustin.com',
+  },
+  {
+    name: 'The Kohler Group',
+    slug: 'kohler',
+    netlifyName: 'the-kohler-group',
+    netlifyPreview: 'the-kohler-group.netlify.app',
+    sanity: 'thekohlergroup.sanity.studio',
+    liveUrl: 'the-kohler-group.netlify.app',
+    liveLabel: '(no custom domain yet)',
+  },
 ];
 ---
 
@@ -34,9 +76,13 @@ const sites: Site[] = [
         <div class="site-links">
           <a href={`https://${site.liveUrl}`} target="_blank" rel="noopener noreferrer" class="site-link">
             <span>Live Website</span>
-            <span class="link-url">{site.liveUrl} →</span>
+            <span class="link-url">{site.liveLabel} →</span>
           </a>
-          <a href={`https://app.netlify.com/projects/${site.netlify.split('.')[0]}`} target="_blank" rel="noopener noreferrer" class="site-link">
+          <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="site-link">
+            <span>Netlify Preview</span>
+            <span class="link-url">{site.netlifyPreview} →</span>
+          </a>
+          <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="site-link">
             <span>Netlify Admin</span>
             <span class="link-action">Manage →</span>
           </a>
