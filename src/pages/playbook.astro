@@ -4,217 +4,226 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 
 <PortalLayout title="Playbook">
   <div class="max-w-4xl">
-    <h1 class="text-4xl font-bold mb-2">Spirit Media Architecture & Playbook</h1>
-    <p class="text-stone-600 mb-8">Technical overview and deployment procedures</p>
+    <h1 class="text-4xl font-bold mb-2">Spirit Media Playbook</h1>
+    <p class="text-stone-600 mb-8">Architecture, workflows, and standards for every site we build</p>
 
     <div class="space-y-8">
-      <!-- Tech Stack -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Technology Stack</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <!-- Full Stack -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Full Stack</h2>
+        <ol class="space-y-3">
+          <li class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">1.</span>
+            <div><strong>Astro + Tailwind CSS</strong> — pages and styling</div>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">2.</span>
+            <div><strong>GitHub (<a href="https://github.com/Spirit-Media-US" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">Spirit-Media-US</a>)</strong> — code only, never media</div>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">3.</span>
+            <div><strong>Netlify</strong> — hosting, auto-deploys on push to <code class="bg-stone-100 px-1 rounded text-xs">main</code></div>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">4.</span>
+            <div><strong>Cloudflare</strong> — domain, SSL, CDN, security</div>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">5.</span>
+            <div><strong>Cloudflare R2</strong> — all images, audio, video</div>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">6.</span>
+            <div><strong>Sanity (<a href="https://sanity.io" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">sanity.io</a>)</strong> — CMS for client content editing and media management with auto-optimization</div>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">7.</span>
+            <div><strong>GoHighLevel</strong> — all contact forms, tagged by site</div>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">8.</span>
+            <div><strong>Claude (<a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">claude.ai</a>)</strong> — conversational updates and builds</div>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">9.</span>
+            <div><strong>UptimeRobot</strong> — uptime monitoring <span class="text-xs text-stone-400 font-normal">(pending setup)</span></div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Launching a New Site -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Launching a New Site</h2>
+        <div class="space-y-5">
+
           <div>
-            <h3 class="font-semibold text-stone-700 mb-2">Frontend</h3>
+            <h3 class="font-bold text-stone-800 mb-2">Phase 1 — Infrastructure</h3>
             <ul class="space-y-1 text-stone-600 text-sm">
-              <li>✓ <strong>Astro</strong> - Static site generation</li>
-              <li>✓ <strong>Vite</strong> - Fast module bundler</li>
-              <li>✓ <strong>Tailwind CSS</strong> - Utility-first styling</li>
+              <li>✓ Create public GitHub repo under Spirit-Media-US</li>
+              <li class="ml-4">— Add .gitignore blocking all media types</li>
+              <li class="ml-4">— Connect to Netlify (Spirit Media team, <code class="bg-stone-100 px-1 rounded">npm run build</code>, publish dir: <code class="bg-stone-100 px-1 rounded">dist</code>)</li>
+              <li class="ml-4">— Create R2 bucket, enable public URL</li>
+              <li class="ml-4">— Add domain to Cloudflare, activate proxy</li>
             </ul>
           </div>
+
           <div>
-            <h3 class="font-semibold text-stone-700 mb-2">Backend & Infrastructure</h3>
+            <h3 class="font-bold text-stone-800 mb-2">Phase 2 — Structure</h3>
             <ul class="space-y-1 text-stone-600 text-sm">
-              <li>✓ <strong>Sanity CMS</strong> - Headless content management</li>
-              <li>✓ <strong>Netlify</strong> - Hosting & deployments</li>
-              <li>✓ <strong>Cloudflare</strong> - DNS & CDN proxy</li>
+              <li>✓ Initialize Astro + Tailwind locally</li>
+              <li class="ml-4">— Create all pages</li>
+              <li class="ml-4">— Build global nav and footer</li>
+              <li class="ml-4">— Rough in hero and page layouts</li>
             </ul>
           </div>
+
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">Phase 3 — Design and Content</h3>
+            <ul class="space-y-1 text-stone-600 text-sm">
+              <li>✓ Add all copy</li>
+              <li class="ml-4">— Upload media to R2, wire up URLs in code</li>
+              <li class="ml-4">— Add SEO meta per page (title + description)</li>
+              <li class="ml-4">— Refine design and UX</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">Phase 4 — Launch</h3>
+            <ul class="space-y-1 text-stone-600 text-sm">
+              <li>✓ Connect custom domain in Netlify</li>
+              <li class="ml-4">— Confirm SSL (www and apex) in Cloudflare</li>
+              <li class="ml-4">— Submit sitemap to Google Search Console</li>
+              <li class="ml-4">— Set up UptimeRobot monitoring</li>
+              <li class="ml-4">— Enable analytics (Fathom or Plausible)</li>
+            </ul>
+          </div>
+
         </div>
       </section>
 
-      <!-- Media & Storage -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Media & Storage</h2>
-        <div class="space-y-3">
-          <p class="text-stone-600">
-            <strong>Cloudflare R2</strong> handles all media files (images, videos, PDFs). This provides global CDN distribution and keeps the Git repository lean.
-          </p>
-          <div class="bg-stone-100 border border-stone-200 rounded-lg p-4">
-            <p class="text-red-700 font-semibold mb-2">⚠️ Critical Rule:</p>
-            <p class="text-stone-700 text-sm">
-              <strong>Never store media files in Git.</strong> All images, videos, and large files must be uploaded to R2 and referenced by URL.
-            </p>
-          </div>
+      <!-- Media -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-2">Media</h2>
+        <p class="text-stone-600 text-sm mb-4">Media never goes in GitHub. All repos block this via .gitignore. For media-heavy sites (portfolios, artist sites), use Sanity — it handles uploads, auto-optimizes images, and serves them via its own CDN. For video, use YouTube — embeds on site and adds SEO value. For audio, use Cloudflare R2. R2 can also serve as a backup for video if YouTube isn't appropriate for a given client. Once a file is live, never rename or delete it or it will break on the site.</p>
+
+        <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800 mb-4">
+          ⚠️ <strong>Never rename or delete a live media file</strong> — it will break every page that references it.
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">How to add media</h3>
+        <ol class="space-y-1 text-stone-600 text-sm">
+          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">1.</span> Client shares Google Drive folder with Kevin</li>
+          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">2.</span> Kevin downloads and unzips</li>
+          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">3.</span> Drag files into the site R2 bucket at <a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">dash.cloudflare.com</a></li>
+          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">4.</span> File is live immediately at the public URL</li>
+          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">5.</span> Kevin or team updates site code to point to the new R2 URL</li>
+        </ol>
+      </section>
+
+      <!-- Team Prompt -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-2">Team Prompt</h2>
+        <p class="text-stone-500 text-sm mb-3">Paste at the top of every new Claude chat to give full project context.</p>
+        <div class="relative">
+          <div class="bg-stone-100 border border-stone-200 rounded p-4 font-mono text-xs text-stone-700 whitespace-pre-wrap leading-relaxed" id="team-prompt">You are helping Spirit Media Publishing build and maintain websites. Stack: Astro + Tailwind CSS. GitHub org: Spirit-Media-US (all repos public). Hosting: Netlify, Spirit Media team, build = npm run build, publish = dist. DNS/SSL/CDN: Cloudflare, proxy active. Media: Sanity (sanity.io) for images on media-heavy sites — auto-optimizes and serves via CDN. Cloudflare R2 for audio. Video goes on YouTube and is embedded on site. R2 is backup for video when YouTube isn't appropriate. Never put media in GitHub, all repos block this via .gitignore. Forms: GoHighLevel, all contacts tagged by site.
+
+This site: [site name] | Repo: github.com/Spirit-Media-US/[repo-name] | Domain: [domain] | R2 bucket: [bucket-name]
+
+Rules: Never push without local preview first (npm run dev). One push per session to main. Pricing off all public pages. All contacts to GHL. Media always to R2 or Sanity.
+
+Today's task: [describe what you need]</div>
+          <button id="copy-prompt-btn" class="mt-3 px-4 py-2 bg-red-50 border border-stone-200 hover:bg-white hover:border-red-700 text-red-700 text-xs font-semibold rounded transition-colors">Copy Prompt</button>
         </div>
       </section>
 
-      <!-- Forms & Integrations -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Integrations</h2>
-        <ul class="space-y-2 text-stone-600">
-          <li>✓ <strong>Sanity CMS</strong> - Content API & webhooks</li>
-          <li>✓ <strong>Netlify</strong> - Deployments & site analytics</li>
-          <li>✓ <strong>Cloudflare DNS</strong> - Domain management</li>
-          <li>✓ <strong>Cloudflare R2</strong> - Media storage & CDN</li>
-          <li>✓ <strong>GHL (GoHighLevel)</strong> - Form submissions & CRM</li>
-        </ul>
-      </section>
-
-      <!-- Infrastructure -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <!-- Development Infrastructure -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Development Infrastructure</h2>
         <div class="space-y-4">
           <div>
             <h3 class="font-semibold text-stone-700 mb-2">Server</h3>
-            <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-700 mb-2">
-              178.156.183.139
-            </div>
-            <p class="text-stone-500 text-sm">Ubuntu 22.04 running all project repositories</p>
+            <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-700 mb-1">178.156.183.139</div>
+            <p class="text-stone-500 text-sm">CCX33 Hetzner — Ubuntu 22.04, all project repos at <code class="bg-stone-100 px-1 rounded">/home/deploy/Sites/</code></p>
           </div>
-
           <div>
-            <h3 class="font-semibold text-stone-700 mb-2">Code Server</h3>
-            <p class="text-stone-600 text-sm mb-2">Browser-based VS Code instance</p>
-            <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-700">
-              https://dev.spiritmediapublishing.com
-            </div>
-            <p class="text-stone-500 text-sm mt-2">Accessible via Tailscale VPN</p>
+            <h3 class="font-semibold text-stone-700 mb-2">Code Server (VS Code in browser)</h3>
+            <a href="https://dev.spiritmediapublishing.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline text-sm font-mono">dev.spiritmediapublishing.com</a>
+            <p class="text-stone-500 text-sm mt-1">Requires Tailscale VPN. Full IDE access to all repos.</p>
           </div>
-
           <div>
             <h3 class="font-semibold text-stone-700 mb-2">Tailscale VPN</h3>
-            <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-700">
-              100.114.220.65
-            </div>
-            <p class="text-stone-500 text-sm mt-2">Private network access to server and code-server</p>
-          </div>
-
-          <div>
-            <h3 class="font-semibold text-stone-700 mb-2">Directory Structure</h3>
-            <div class="space-y-1 text-stone-600 text-sm">
-              <p><code class="bg-stone-100 px-2 py-1 rounded">/home/deploy/Sites/</code> - All project repos</p>
-              <p><code class="bg-stone-100 px-2 py-1 rounded">/home/deploy/bin/</code> - Binaries & config files</p>
-            </div>
+            <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-700">100.114.220.65</div>
+            <p class="text-stone-500 text-sm mt-1">Required for SSH and code-server access</p>
           </div>
         </div>
       </section>
 
       <!-- Deployment Workflow -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Deployment Workflow</h2>
-        <p class="text-stone-600 mb-4">Our standard development and deployment process:</p>
-
+        <p class="text-stone-500 text-sm mb-4">All work happens on <code class="bg-stone-100 px-1 rounded">dev</code>. Only merge to <code class="bg-stone-100 px-1 rounded">main</code> when ready to publish. Each push to main = one Netlify build credit.</p>
         <div class="space-y-3">
-          <div class="bg-stone-100 px-4 py-3 rounded border-l-4 border-gold">
-            <p class="font-semibold text-stone-700 mb-1">1. Develop Locally</p>
-            <div class="bg-stone-100 px-3 py-2 rounded font-mono text-xs text-stone-600 mb-2">
-              npm run dev
-            </div>
-            <p class="text-stone-500 text-sm">Start the local development server on port 3000 or 4321</p>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">1. Switch to dev</p>
+            <code class="text-xs text-stone-600">git checkout dev</code>
           </div>
-
-          <div class="bg-stone-100 px-4 py-3 rounded border-l-4 border-gold">
-            <p class="font-semibold text-stone-700 mb-1">2. Test Changes</p>
-            <p class="text-stone-500 text-sm">Preview and test all changes locally before committing</p>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">2. Preview locally</p>
+            <code class="text-xs text-stone-600">npm run dev</code>
+            <p class="text-stone-500 text-xs mt-1">localhost:4321 — never push without previewing first</p>
           </div>
-
-          <div class="bg-stone-100 px-4 py-3 rounded border-l-4 border-gold">
-            <p class="font-semibold text-stone-700 mb-1">3. Build for Production</p>
-            <div class="bg-stone-100 px-3 py-2 rounded font-mono text-xs text-stone-600 mb-2">
-              npm run build
-            </div>
-            <p class="text-stone-500 text-sm">Fix any build errors before proceeding</p>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">3. Commit and push to dev</p>
+            <code class="text-xs text-stone-600">git add . && git commit --no-verify -m "message" && git push origin dev</code>
           </div>
-
-          <div class="bg-stone-100 px-4 py-3 rounded border-l-4 border-gold">
-            <p class="font-semibold text-stone-700 mb-1">4. Commit & Push</p>
-            <div class="bg-stone-100 px-3 py-2 rounded font-mono text-xs text-stone-600 mb-2">
-              git add -A<br />git commit --no-verify -m "description"<br />git push origin main
-            </div>
-            <p class="text-stone-500 text-sm">One push per session to main branch</p>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">4. Merge to main to publish</p>
+            <code class="text-xs text-stone-600">git checkout main && git merge dev && git push origin main && git checkout dev</code>
           </div>
-
-          <div class="bg-stone-100 px-4 py-3 rounded border-l-4 border-gold">
-            <p class="font-semibold text-stone-700 mb-1">5. Netlify Auto-Deploy</p>
-            <p class="text-stone-500 text-sm">Netlify automatically builds and deploys when main branch updates. Site is live in ~2 minutes.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Sanity Integration -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Sanity CMS</h2>
-        <p class="text-stone-600 mb-4">
-          Sanity is our headless CMS. Content is authored and published in Sanity Studio, then consumed by our Astro sites via API.
-        </p>
-        <div class="space-y-2 text-stone-600 text-sm">
-          <p>✓ Content is the source of truth</p>
-          <p>✓ Schema-driven content modeling</p>
-          <p>✓ Real-time preview in editor</p>
-          <p>✓ API-first publishing</p>
-          <p>✓ Media handled via Sanity CDN</p>
         </div>
       </section>
 
       <!-- Best Practices -->
       <section class="bg-red-50 border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Best Practices</h2>
-        <ul class="space-y-2 text-stone-700">
-          <li>✓ Always build before pushing: <code class="bg-stone-100 px-2 py-1 rounded text-xs">npm run build</code></li>
+        <ul class="space-y-2 text-stone-700 text-sm">
+          <li>✓ Always preview before pushing: <code class="bg-stone-100 px-1 rounded">npm run dev</code></li>
+          <li>✓ Always build before merging to main: <code class="bg-stone-100 px-1 rounded">npm run build</code></li>
           <li>✓ Never commit media files to Git</li>
-          <li>✓ One push per development session</li>
-          <li>✓ Test locally before deploying</li>
-          <li>✓ Keep .env files in /home/deploy/bin/</li>
-          <li>✓ Use environment variables for secrets</li>
-          <li>✓ Document schema changes in Sanity</li>
+          <li>✓ Never rename or delete a live media file</li>
+          <li>✓ One push to main per session — batch all changes first</li>
+          <li>✓ Pricing off all public pages</li>
+          <li>✓ All form submissions route to GHL, tagged by site</li>
+          <li>✓ Keep .env files in <code class="bg-stone-100 px-1 rounded">/home/deploy/bin/</code></li>
           <li>✓ Use meaningful commit messages</li>
+          <li>✓ Kevin approves all merges to main</li>
         </ul>
       </section>
 
-      <!-- Troubleshooting -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Common Issues</h2>
-        <div class="space-y-3">
-          <div>
-            <h3 class="font-semibold text-stone-700 mb-1">Build Fails</h3>
-            <p class="text-stone-600 text-sm">Check error messages carefully. Usually: missing imports, type errors, or broken links. Never push broken builds.</p>
-          </div>
-          <div>
-            <h3 class="font-semibold text-stone-700 mb-1">Content Not Updating</h3>
-            <p class="text-stone-600 text-sm">Ensure you published in Sanity and the site rebuilt. Check Netlify deploy logs.</p>
-          </div>
-          <div>
-            <h3 class="font-semibold text-stone-700 mb-1">Image Broken Links</h3>
-            <p class="text-stone-600 text-sm">Verify images are in R2 with correct URLs. Never embed local file paths.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Support -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <!-- Resources -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Resources</h2>
-        <ul class="space-y-2 text-stone-600">
-          <li>
-            <a href="https://docs.astro.build" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">
-              → Astro Documentation
-            </a>
-          </li>
-          <li>
-            <a href="https://www.sanity.io/docs" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">
-              → Sanity Documentation
-            </a>
-          </li>
-          <li>
-            <a href="https://tailwindcss.com/docs" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">
-              → Tailwind CSS Documentation
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.netlify.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">
-              → Netlify Documentation
-            </a>
-          </li>
+        <ul class="space-y-2 text-stone-600 text-sm">
+          <li><a href="https://docs.astro.build" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Astro Documentation</a></li>
+          <li><a href="https://www.sanity.io/docs" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Sanity Documentation</a></li>
+          <li><a href="https://tailwindcss.com/docs" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Tailwind CSS Documentation</a></li>
+          <li><a href="https://docs.netlify.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Netlify Documentation</a></li>
+          <li><a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Cloudflare Dashboard</a></li>
+          <li><a href="https://github.com/Spirit-Media-US" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Spirit-Media-US GitHub</a></li>
         </ul>
       </section>
+
     </div>
   </div>
 </PortalLayout>
+
+<script>
+  document.getElementById('copy-prompt-btn')?.addEventListener('click', function() {
+    const text = document.getElementById('team-prompt')?.textContent || '';
+    navigator.clipboard.writeText(text).then(() => {
+      this.textContent = 'Copied!';
+      setTimeout(() => { this.textContent = 'Copy Prompt'; }, 2000);
+    });
+  });
+</script>
