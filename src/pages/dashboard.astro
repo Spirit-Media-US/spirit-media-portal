@@ -68,16 +68,16 @@ const sites: Site[] = [
           <code class="site-slug">{site.slug}</code>
         </div>
         <div class="btn-grid">
-          <a href={`https://${site.liveUrl}`} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          <a href={`https://${site.liveUrl}`} target="_blank" rel="noopener noreferrer" class="btn">
             🌐 Live Site
           </a>
-          <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn btn-secondary" title="First load may take 1–3s after inactivity (Netlify cold start)">
+          <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn" title="First load may take 1–3s after inactivity (Netlify cold start)">
             👁 Preview
           </a>
-          <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="btn">
             ⚙️ Netlify
           </a>
-          <a href={`https://${site.sanity}`} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <a href={`https://${site.sanity}`} target="_blank" rel="noopener noreferrer" class="btn">
             ✏️ Sanity
           </a>
         </div>
@@ -132,8 +132,8 @@ const sites: Site[] = [
   }
 
   .btn-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 0.5rem;
   }
 
@@ -146,17 +146,9 @@ const sites: Site[] = [
     font-size: 0.8125rem; font-weight: 600;
     transition: opacity 150ms, box-shadow 150ms;
     text-align: center;
-  }
-
-  .btn:hover { opacity: 0.85; box-shadow: 0 2px 6px rgba(26,23,20,0.12); }
-
-  .btn-primary {
-    background: #c0392b; color: #fff;
-    grid-column: span 2;
-  }
-
-  .btn-secondary {
     background: #f5f1ec; color: #2e2a26;
     border: 1px solid #ddd7cf;
   }
+
+  .btn:hover { background: #fff; border-color: #c0392b; }
 </style>
