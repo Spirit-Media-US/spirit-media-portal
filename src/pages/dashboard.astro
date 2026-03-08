@@ -3,7 +3,6 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 
 interface Site {
   name: string;
-  slug: string;
   netlifyName: string;
   netlifyPreview: string;
   sanity: string;
@@ -13,7 +12,6 @@ interface Site {
 const sites: Site[] = [
   {
     name: 'Spirit Media Publishing',
-    slug: 'smp',
     netlifyName: 'spirit-media-publishing',
     netlifyPreview: 'spirit-media-publishing.netlify.app',
     sanity: 'spiritmediapublishing.sanity.studio',
@@ -21,7 +19,6 @@ const sites: Site[] = [
   },
   {
     name: "Father's Heart Bible",
-    slug: 'fhb',
     netlifyName: 'fhbible',
     netlifyPreview: 'fhbible.netlify.app',
     sanity: 'fathersheartbible.sanity.studio',
@@ -29,7 +26,6 @@ const sites: Site[] = [
   },
   {
     name: 'Work On Yourself',
-    slug: 'woy',
     netlifyName: 'woyourself',
     netlifyPreview: 'woyourself.netlify.app',
     sanity: 'workonyourself.sanity.studio',
@@ -37,7 +33,6 @@ const sites: Site[] = [
   },
   {
     name: 'Arts By Justin',
-    slug: 'artsbyjustin',
     netlifyName: 'artsbyjustin',
     netlifyPreview: 'artsbyjustin.netlify.app',
     sanity: 'artsbyjustin.sanity.studio',
@@ -45,7 +40,6 @@ const sites: Site[] = [
   },
   {
     name: 'The Kohler Group',
-    slug: 'kohler',
     netlifyName: 'the-kohler-group',
     netlifyPreview: 'the-kohler-group.netlify.app',
     sanity: 'thekohlergroup.sanity.studio',
@@ -65,7 +59,6 @@ const sites: Site[] = [
       <div class="site-card">
         <div class="site-card-header">
           <h2>{site.name}</h2>
-          <code class="site-slug">{site.slug}</code>
         </div>
         <div class="btn-grid">
           <a href={`https://${site.liveUrl}`} target="_blank" rel="noopener noreferrer" class="btn">
@@ -110,8 +103,6 @@ const sites: Site[] = [
   }
 
   .site-card-header {
-    display: flex; align-items: center;
-    justify-content: space-between;
     margin-bottom: 1rem;
     padding-bottom: 0.875rem;
     border-bottom: 1px solid #ede7df;
@@ -121,14 +112,6 @@ const sites: Site[] = [
     font-family: "Playfair Display", Georgia, serif;
     font-size: 1.0625rem; font-weight: 700;
     color: #1a1714; margin: 0;
-  }
-
-  .site-slug {
-    font-size: 0.7rem; font-weight: 700;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    background: #f5f1ec; color: #7a6e63;
-    padding: 0.2rem 0.5rem; border-radius: 0.25rem;
-    font-family: "Courier New", monospace;
   }
 
   .btn-grid {
