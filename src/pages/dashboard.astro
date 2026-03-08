@@ -79,7 +79,7 @@ const sites: Site[] = [
             <span class="link-url">{site.liveLabel} →</span>
           </a>
           <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="site-link">
-            <span>Netlify Preview</span>
+            <span>Netlify Preview <span class="note">1–3s cold start after inactivity — normal</span></span>
             <span class="link-url">{site.netlifyPreview} →</span>
           </a>
           <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="site-link">
@@ -107,7 +107,7 @@ const sites: Site[] = [
 
   .sites-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.25rem;
   }
 
@@ -166,4 +166,5 @@ const sites: Site[] = [
 
   .link-url { color: #7a6e63; font-size: 0.8125rem; }
   .link-action { color: #c0392b; font-size: 0.8125rem; font-weight: 600; }
+  .note { font-size: 0.7rem; font-weight: 400; color: #a89e94; margin-left: 0.375rem; }
 </style>
