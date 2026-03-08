@@ -1,152 +1,294 @@
 ---
 import PortalLayout from '../layouts/PortalLayout.astro';
 
-const tasks = [
+type Owner = 'Kevin' | 'Claude' | 'AC' | 'Kevin + Claude';
+type Status = 'pending' | 'inprogress' | 'done';
+
+interface Task {
+  site: string;
+  title: string;
+  notes?: string;
+  owner: Owner;
+  status: Status;
+}
+
+const tasks: Task[] = [
+
+  // ── INFRASTRUCTURE ──────────────────────────────────────────────
   {
-    site: 'All Sites',
+    site: 'FHB + WOY',
+    title: 'Activate Cloudflare proxy',
+    notes: 'SMP already proxied. FHB and WOY still need proxy toggled on in Cloudflare DNS.',
+    owner: 'Claude',
     status: 'pending',
-    title: 'Create dev branches for FHB, WOY, artsbyjustin, Kohler',
-    notes: 'Completed this session. All 6 repos now on dev branch.',
-    phase: 'Infrastructure',
   },
   {
     site: 'All Sites',
+    title: 'Set up UptimeRobot monitoring',
+    notes: 'Monitor SMP, FHB, WOY, artsbyjustin. Alert Kevin on downtime.',
+    owner: 'Kevin',
     status: 'pending',
-    title: 'Cloudflare proxy activation — FHB and WOY',
-    notes: 'SMP already proxied. FHB and WOY pending.',
-    phase: 'Infrastructure',
   },
   {
     site: 'All Sites',
+    title: 'R2 custom domain: assets.spiritmediapublishing.com',
+    notes: 'Set up custom domain in Cloudflare R2 for cleaner media URLs across all sites.',
+    owner: 'Claude',
     status: 'pending',
-    title: 'UptimeRobot monitoring — all 4 live sites',
-    notes: 'SMP, FHB, WOY, artsbyjustin.',
-    phase: 'Infrastructure',
   },
   {
-    site: 'All Sites',
+    site: 'Portal',
+    title: 'Preview environment for dev branch',
+    notes: 'Option 2 (Hetzner): Run npm run dev on server, expose via preview.spiritmediapublishing.com on port 4001. nginx config already exists with SSL.',
+    owner: 'Claude',
     status: 'pending',
-    title: 'R2 setup with custom domain (assets.spiritmediapublishing.com)',
-    notes: 'For all media-rich sites.',
-    phase: 'Infrastructure',
   },
   {
-    site: 'Spirit Media Publishing',
+    site: 'Portal',
+    title: 'Add .gitignore to portal repo',
+    notes: 'Portal is committing .netlify/ and dist/ build folders to git — noisy and wasteful.',
+    owner: 'Claude',
     status: 'pending',
-    title: 'Bookstore — research missing ASINs, fill in format badges',
-    notes: 'Format counter and badges working. Many formats still missing while ASINs are being researched.',
-    phase: 'Content',
   },
   {
-    site: 'Spirit Media Publishing',
-    status: 'pending',
+    site: 'SMP',
     title: 'DMARC upgrade to p=quarantine',
-    notes: 'Wait 1 week clean after current p=none. Then upgrade.',
-    phase: 'Infrastructure',
+    notes: 'Wait 1 week clean after current p=none, then upgrade. Kevin to confirm timing.',
+    owner: 'Kevin + Claude',
+    status: 'pending',
+  },
+
+  // ── ARTS BY JUSTIN ──────────────────────────────────────────────
+  {
+    site: 'Arts By Justin',
+    title: 'Connect artsbyjustin.com custom domain in Netlify',
+    notes: 'Then activate Cloudflare proxy.',
+    owner: 'Claude',
+    status: 'pending',
   },
   {
     site: 'Arts By Justin',
-    status: 'pending',
-    title: 'Connect artsbyjustin.com custom domain in Netlify + Cloudflare proxy',
-    notes: '',
-    phase: 'Infrastructure',
-  },
-  {
-    site: 'Arts By Justin',
-    status: 'pending',
     title: 'Replace R2 image placeholders with real artwork',
-    notes: 'Client (Justin) to provide images via Google Drive.',
-    phase: 'Content',
+    notes: 'Justin shares Google Drive folder → Kevin downloads → drag to R2 bucket → update URLs in code.',
+    owner: 'Kevin',
+    status: 'pending',
   },
   {
     site: 'Arts By Justin',
-    status: 'pending',
     title: 'Replace placeholder divs with GHL form embed codes',
-    notes: '',
-    phase: 'Integration',
+    notes: 'Kevin to provide GHL embed codes for each form location.',
+    owner: 'Kevin + Claude',
+    status: 'pending',
+  },
+
+  // ── SPIRIT MEDIA PUBLISHING ─────────────────────────────────────
+  {
+    site: 'SMP',
+    title: 'Bookstore: research missing ASINs and fill in format badges',
+    notes: 'Format badges and stats counter are working. Many titles still missing format data. Kevin noted 300+ titles total.',
+    owner: 'Kevin + Claude',
+    status: 'pending',
+  },
+
+  // ── THE KOHLER GROUP ────────────────────────────────────────────
+  {
+    site: 'The Kohler Group',
+    title: 'Individual and marriage intensive video pages',
+    notes: 'Kevin waiting on YouTube URLs from client. Will update individual.astro and marriage.astro once received.',
+    owner: 'Kevin',
+    status: 'pending',
   },
   {
     site: 'The Kohler Group',
+    title: 'Connect custom domain (thekohlergroup.net)',
+    notes: 'Currently live at the-kohler-group.netlify.app only.',
+    owner: 'Claude',
     status: 'pending',
-    title: 'Individual and marriage intensive video pages',
-    notes: 'Kevin waiting on YouTube URLs from client for individual.astro and marriage.astro.',
-    phase: 'Content',
+  },
+
+  // ── PORTAL ──────────────────────────────────────────────────────
+  {
+    site: 'Portal',
+    title: 'Make Task Log editable without a code push',
+    notes: 'Options: Netlify Blobs (inline editing, no build needed) or Sanity. Netlify Blobs recommended for now.',
+    owner: 'Claude',
+    status: 'pending',
   },
   {
     site: 'Portal',
-    status: 'pending',
-    title: 'Verify /playbook and /developers pages are readable',
-    notes: 'Visual QA pass needed.',
-    phase: 'QA',
-  },
-  {
-    site: 'Portal',
-    status: 'pending',
-    title: 'Add feature request form or GitHub Issues link for team',
-    notes: 'Devs → GitHub Issues. Non-technical team → GHL form on /clients.',
-    phase: 'Content',
-  },
-  {
-    site: 'Portal',
-    status: 'pending',
     title: 'NotebookLM explainer videos for /clients page',
-    notes: '',
-    phase: 'Content',
+    notes: 'Kevin to record or provide videos.',
+    owner: 'Kevin',
+    status: 'pending',
   },
+  {
+    site: 'Portal',
+    title: 'Feature request flow for non-technical team',
+    notes: 'Add GHL form on /clients page for Jim, Sheila, Adam to submit requests. Nathan/devs use GitHub Issues.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+
+  // ── GHL ─────────────────────────────────────────────────────────
   {
     site: 'GHL',
+    title: 'Complete ACNotifications workflow',
+    notes: 'Finish Email step body with webhook payload fields, save, publish. Workflow: app.spiritmedia.us → ACNotifications.',
+    owner: 'Kevin',
     status: 'pending',
-    title: 'Complete ACNotifications workflow — finish Email step, publish',
-    notes: 'Workflow exists at app.spiritmedia.us. Email step body needs webhook payload fields.',
-    phase: 'Integration',
+  },
+
+  // ── AC TASKS ────────────────────────────────────────────────────
+  {
+    site: 'AC',
+    title: 'Launch new site from template — error-free',
+    notes: 'AC should scaffold a full Astro + Tailwind + Sanity + Netlify site from the locked template at /home/deploy/bin/templates/astro-base/ with zero errors.',
+    owner: 'AC',
+    status: 'pending',
   },
   {
-    site: 'Believer\'s Library',
+    site: 'AC',
+    title: 'Extract an existing static site into Astro',
+    notes: 'Given a live URL or HTML export, AC rebuilds it as a proper Astro site with components, layouts, and Tailwind.',
+    owner: 'AC',
     status: 'pending',
+  },
+  {
+    site: 'AC',
+    title: 'Clone a WordPress site into Astro',
+    notes: 'Pull content via WordPress REST API, rebuild pages in Astro, migrate media to R2 or Sanity.',
+    owner: 'AC',
+    status: 'pending',
+  },
+
+  // ── PLAYBOOK IMPROVEMENTS (from Google Doc) ─────────────────────
+  {
+    site: 'Playbook',
+    title: 'Add pre-launch QA checklist',
+    notes: 'Test all links, forms → GHL, mobile/tablet responsive, Lighthouse, sitemap.xml + robots.txt, analytics, Safari/Chrome/Firefox.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'Playbook',
+    title: 'Add standard page structure',
+    notes: 'Home, About, Services/Work, Blog/Articles, Contact, Privacy Policy. Speeds onboarding.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'Playbook',
+    title: 'Add performance standards',
+    notes: 'Target Lighthouse 90+, images < 300kb, lazy-load all media, use Astro components for reusable blocks.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'Playbook',
+    title: 'Add Cloudflare configuration expectations',
+    notes: 'Enable Bot Fight Mode, Automatic HTTPS Rewrites, Always Use HTTPS, WAF basic rules.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'Playbook',
+    title: 'Add backup / recovery process',
+    notes: 'GitHub = source code, R2 = media backup, Netlify deploy history = rollback option.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'Playbook',
+    title: 'Add SEO standards',
+    notes: 'H1 only once per page, alt tags required for all images, structured data for organizations, OpenGraph tags.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'Playbook',
+    title: 'Add to Client Workflow: clients never receive GitHub access',
+    notes: '"Clients never receive GitHub access. All deployments are handled by Spirit Media." Avoids confusion.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+
+  // ── NEW SITES ───────────────────────────────────────────────────
+  {
+    site: "Believer's Library",
     title: 'Mobile app launch',
     notes: 'Target: 2026.',
-    phase: 'New Site',
+    owner: 'Kevin + Claude',
+    status: 'pending',
   },
 ];
 
-const phases = [...new Set(tasks.map(t => t.phase))];
-const statusLabel: Record<string, string> = {
-  pending: 'Pending',
-  inprogress: 'In Progress',
-  done: 'Done',
+const ownerColor: Record<Owner, string> = {
+  'Kevin':         'background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;',
+  'Claude':        'background:#fdf4ff;color:#7e22ce;border:1px solid #e9d5ff;',
+  'AC':            'background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;',
+  'Kevin + Claude':'background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;',
 };
-const statusColor: Record<string, string> = {
-  pending: 'background:#fef9ec;color:#92640a;border:1px solid #f5d99e;',
-  inprogress: 'background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;',
-  done: 'background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;',
+const ownerIcon: Record<Owner, string> = {
+  'Kevin':          '👤 Kevin',
+  'Claude':         '🤖 Claude',
+  'AC':             '⚡ AC',
+  'Kevin + Claude': '👤🤖 Kevin + Claude',
 };
+
+const groups = [
+  { label: 'Infrastructure',             site: null },
+  { label: 'Arts By Justin',             site: 'Arts By Justin' },
+  { label: 'Spirit Media Publishing',    site: 'SMP' },
+  { label: 'The Kohler Group',           site: 'The Kohler Group' },
+  { label: 'Portal',                     site: 'Portal' },
+  { label: 'GoHighLevel',               site: 'GHL' },
+  { label: 'AC Tasks',                   site: 'AC' },
+  { label: 'Playbook Improvements',      site: 'Playbook' },
+  { label: "New Sites",                  site: "Believer's Library" },
+];
+
+function tasksForGroup(label: string, site: string | null) {
+  if (label === 'Infrastructure') {
+    return tasks.filter(t => ['FHB + WOY', 'All Sites', 'SMP'].includes(t.site) && t.site !== 'SMP' || 
+      (t.site === 'SMP' && t.title.includes('DMARC')));
+  }
+  return tasks.filter(t => t.site === site);
+}
 ---
 
 <PortalLayout title="Task Log">
   <div class="max-w-4xl">
     <h1 class="text-4xl font-bold mb-1">Task Log</h1>
-    <p class="text-stone-500 mb-8">Pending work across all sites — updated by Kevin and Claude each session</p>
+    <p class="text-stone-500 mb-2">All pending work across Spirit Media sites</p>
+    <div class="flex flex-wrap gap-3 mb-8 text-xs">
+      <span style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;" class="px-2 py-1 rounded font-semibold">👤 Kevin — needs your action</span>
+      <span style="background:#fdf4ff;color:#7e22ce;border:1px solid #e9d5ff;" class="px-2 py-1 rounded font-semibold">🤖 Claude — I handle this with you</span>
+      <span style="background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;" class="px-2 py-1 rounded font-semibold">⚡ AC — autonomous agent task</span>
+      <span style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;" class="px-2 py-1 rounded font-semibold">👤🤖 Kevin + Claude — collaboration</span>
+    </div>
 
-    {phases.map(phase => (
-      <div class="mb-8">
-        <h2 class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-3">{phase}</h2>
-        <div class="space-y-2">
-          {tasks.filter(t => t.phase === phase).map(task => (
-            <div class="bg-white border border-stone-200 rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-start gap-3">
-              <div class="flex-1">
+    {groups.map(group => {
+      const groupTasks = tasksForGroup(group.label, group.site);
+      if (groupTasks.length === 0) return null;
+      return (
+        <div class="mb-8">
+          <h2 class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-3">{group.label}</h2>
+          <div class="space-y-2">
+            {groupTasks.map(task => (
+              <div class="bg-white border border-stone-200 rounded-lg px-5 py-4">
                 <div class="flex flex-wrap items-center gap-2 mb-1">
                   <span class="text-xs font-semibold text-stone-400">{task.site}</span>
-                  <span style={statusColor[task.status]} class="text-xs font-bold px-2 py-0.5 rounded">
-                    {statusLabel[task.status]}
+                  <span style={ownerColor[task.owner]} class="text-xs font-bold px-2 py-0.5 rounded">
+                    {ownerIcon[task.owner]}
                   </span>
                 </div>
                 <p class="text-sm font-semibold text-stone-800">{task.title}</p>
                 {task.notes && <p class="text-xs text-stone-500 mt-1">{task.notes}</p>}
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    ))}
+      );
+    })}
   </div>
 </PortalLayout>
