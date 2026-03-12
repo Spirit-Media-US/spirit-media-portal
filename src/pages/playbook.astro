@@ -158,11 +158,14 @@ Today I need: [describe what you want]</div>
       <!-- Development Infrastructure -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Development Infrastructure</h2>
+        <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800 mb-4">
+          <strong>Naming Conventions:</strong> <code class="bg-stone-100 px-1 rounded text-xs">bethel</code> = the server &nbsp;|&nbsp; <code class="bg-stone-100 px-1 rounded text-xs">dev</code> = the git branch &nbsp;|&nbsp; <code class="bg-stone-100 px-1 rounded text-xs">main</code> = the production branch
+        </div>
         <div class="space-y-4">
           <div>
-            <h3 class="font-semibold text-stone-700 mb-2">Server</h3>
-            <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-700 mb-1">178.156.183.139</div>
-            <p class="text-stone-500 text-sm">CCX33 Hetzner — Ubuntu 22.04, all project repos at <code class="bg-stone-100 px-1 rounded">/home/deploy/Sites/</code></p>
+            <h3 class="font-semibold text-stone-700 mb-2">Bethel (Dev Server)</h3>
+            <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-700 mb-1">ssh bethel</div>
+            <p class="text-stone-500 text-sm">Hetzner CCX33 — Ubuntu 22.04, Tailscale IP <code class="bg-stone-100 px-1 rounded">100.114.220.65</code>, all project repos at <code class="bg-stone-100 px-1 rounded">/home/deploy/Sites/</code></p>
           </div>
           <div>
             <h3 class="font-semibold text-stone-700 mb-2">Code Server (VS Code in browser)</h3>
@@ -216,6 +219,7 @@ Today I need: [describe what you want]</div>
           <li>✓ Keep .env files in <code class="bg-stone-100 px-1 rounded">/home/deploy/bin/</code></li>
           <li>✓ Use meaningful commit messages</li>
           <li>✓ Kevin approves all merges to main</li>
+          <li>✓ Before pushing any fix, verify it doesn't break something else — check affected pages on mobile and desktop</li>
         </ul>
       </section>
 
