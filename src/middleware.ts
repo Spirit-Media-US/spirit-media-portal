@@ -18,8 +18,8 @@ export const onRequest = defineMiddleware((context, next) => {
   // Check for protected routes
   if (isProtected) {
     const authCookie = context.cookies.get('portal_auth');
-    
-    if (!authCookie || authCookie.value !== 'authenticated') {
+
+    if (!authCookie || authCookie.value !== 'pin_030126') {
       return context.redirect('/login');
     }
   }

@@ -2,14 +2,14 @@
 import PortalLayout from '../layouts/PortalLayout.astro';
 ---
 
-<PortalLayout title="Developers">
+<PortalLayout title="Developers" mainBg="#ecfdf5">
   <div class="max-w-4xl">
-    <h1 class="text-4xl font-bold mb-2">Developer Onboarding</h1>
-    <p class="text-stone-600 mb-8">Everything you need to get started.</p>
+    <h1 class="text-4xl font-bold mb-2">Developers</h1>
+    <p class="text-stone-600 mb-8">Everything you need — otherwise request improvements in Slack.</p>
 
     <div class="space-y-8">
       <!-- Naming Conventions -->
-      <section class="bg-amber-50 border border-amber-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Naming Conventions</h2>
         <p class="text-stone-700 mb-3">To avoid confusion, the team uses these terms consistently:</p>
         <ul class="space-y-2 text-stone-700">
@@ -21,7 +21,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </section>
 
       <!-- SSH Access -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">SSH Access to Bethel</h2>
         <p class="text-stone-600 mb-4">Connect to the development server via Tailscale:</p>
         <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
@@ -36,7 +36,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </section>
 
       <!-- GitHub SSH Key Setup -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">GitHub SSH Key Setup</h2>
         <p class="text-stone-600 mb-4">Generate an SSH key and add it to your GitHub account so you can push/pull without entering passwords.</p>
         <div class="space-y-4">
@@ -72,14 +72,14 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </section>
 
       <!-- Code Server -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Code Server (VS Code in Browser)</h2>
         <p class="text-stone-600 mb-4">Browser-based IDE with full project access:</p>
         <a
           href="https://dev.spiritmediapublishing.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-block px-4 py-2 bg-gold text-navy rounded font-600 hover:bg-opacity-90 transition"
+          class="inline-block px-4 py-2 bg-red-50 border border-stone-200 hover:bg-white hover:border-red-700 text-red-700 text-sm font-semibold rounded transition-colors"
         >
           Open Code Server
         </a>
@@ -87,7 +87,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </section>
 
       <!-- GitHub Organization -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">GitHub Organization</h2>
         <p class="text-stone-600 mb-4">
           <a href="https://github.com/Spirit-Media-US" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">
@@ -107,61 +107,8 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         </div>
       </section>
 
-      <!-- Sanity Project IDs -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Sanity Project IDs</h2>
-        <p class="text-stone-600 mb-4">For configuration and API calls:</p>
-        <div class="space-y-2">
-          <div class="flex items-center justify-between bg-stone-100 px-4 py-2 rounded">
-            <div>
-              <p class="text-stone-700 font-semibold">Spirit Media Publishing</p>
-              <code class="text-xs text-stone-500">pmowd8uo</code>
-            </div>
-            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="pmowd8uo">
-              Copy
-            </button>
-          </div>
-          <div class="flex items-center justify-between bg-stone-100 px-4 py-2 rounded">
-            <div>
-              <p class="text-stone-700 font-semibold">Fathers Heart Bible</p>
-              <code class="text-xs text-stone-500">rusi1hyi</code>
-            </div>
-            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="rusi1hyi">
-              Copy
-            </button>
-          </div>
-          <div class="flex items-center justify-between bg-stone-100 px-4 py-2 rounded">
-            <div>
-              <p class="text-stone-700 font-semibold">Work On Yourself</p>
-              <code class="text-xs text-stone-500">u8tg0g1c</code>
-            </div>
-            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="u8tg0g1c">
-              Copy
-            </button>
-          </div>
-          <div class="flex items-center justify-between bg-stone-100 px-4 py-2 rounded">
-            <div>
-              <p class="text-stone-700 font-semibold">The Kohler Group</p>
-              <code class="text-xs text-stone-500">2bom5gqg</code>
-            </div>
-            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="2bom5gqg">
-              Copy
-            </button>
-          </div>
-          <div class="flex items-center justify-between bg-stone-100 px-4 py-2 rounded">
-            <div>
-              <p class="text-stone-700 font-semibold">Arts By Justin</p>
-              <code class="text-xs text-stone-500">oqoqh3p3</code>
-            </div>
-            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="oqoqh3p3">
-              Copy
-            </button>
-          </div>
-        </div>
-      </section>
-
       <!-- Google Analytics -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Google Analytics</h2>
         <p class="text-stone-600 mb-4">Access via <code class="bg-stone-100 px-2 py-1 rounded text-xs">admin@spiritmedia.us</code></p>
         <div class="space-y-2">
@@ -187,7 +134,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </section>
 
       <!-- Credentials -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Credentials & Secrets</h2>
         <p class="text-stone-600 mb-2">All sensitive credentials are stored in:</p>
         <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-700 mb-4">
@@ -199,13 +146,13 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </section>
 
       <!-- Deploy Workflow -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Deploy Workflow</h2>
         <p class="text-stone-600 text-sm">See the full deployment workflow, troubleshooting guide, and best practices on the <a href="/playbook" class="text-red-700 hover:underline font-semibold">Playbook</a>.</p>
       </section>
 
       <!-- Quick Start -->
-      <section class="bg-red-50 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Quick Start Checklist</h2>
         <ul class="space-y-2 text-stone-700">
           <li>✓ Request Tailscale VPN access</li>
@@ -219,7 +166,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </section>
 
       <!-- Support -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Need Help?</h2>
         <p class="text-stone-600">
           Check the <a href="/playbook" class="text-red-700 hover:underline">Playbook</a> for architecture & workflows, or direct questions to the team lead.

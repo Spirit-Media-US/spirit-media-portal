@@ -3,9 +3,10 @@ import '../styles/globals.css';
 
 interface Props {
   title: string;
+  mainBg?: string;
 }
 
-const { title } = Astro.props;
+const { title, mainBg } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -27,12 +28,6 @@ const { title } = Astro.props;
 
       <!-- Sidebar -->
       <nav class="portal-sidebar">
-        <div class="portal-logo">
-          <span class="logo-spirit">Spirit</span>
-          <span class="logo-media">Media</span>
-          <div class="logo-sub">PORTAL</div>
-        </div>
-
         <div class="portal-nav">
           <a href="/dashboard" class="portal-nav-link">Dashboard</a>
           <a href="/playbook" class="portal-nav-link">Playbook</a>
@@ -47,8 +42,15 @@ const { title } = Astro.props;
       </nav>
 
       <!-- Main -->
-      <main class="portal-main">
+      <main class="portal-main" style={mainBg ? `background-color: ${mainBg}` : undefined}>
+        <header class="portal-header">
+          <img src="https://cdn.sanity.io/images/pmowd8uo/production/dc16e3c604bd5d52de7647af46836ff418c22898-6575x656.png?w=440&h=88&fit=max&auto=format" alt="Spirit Media Publishing" class="portal-logo-img" />
+          <p class="logo-sub">SMP PORTAL</p>
+        </header>
         <slot />
+        <footer class="portal-footer">
+          <p>Spirit Media Publishing &copy; 2026 | <a href="mailto:hello@spiritmediapublishing.com">hello@spiritmediapublishing.com</a> | Powered by <a href="https://spiritmediapublishing.com" target="_blank" rel="noopener noreferrer">Spirit Media Publishing</a></p>
+        </footer>
       </main>
 
     </div>
@@ -66,41 +68,30 @@ const { title } = Astro.props;
   .portal-sidebar {
     width: 240px;
     min-height: 100vh;
-    background-color: #1a1714;
+    background-color: #d6d3d1;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
   }
 
-  .portal-logo {
-    padding: 2rem 1.5rem 1.5rem;
-    border-bottom: 1px solid rgba(192, 57, 43, 0.25);
+  .portal-header {
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e7e5e4;
   }
 
-  .logo-spirit {
-    font-family: "Playfair Display", Georgia, serif;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #ffffff;
-    letter-spacing: -0.01em;
-  }
-
-  .logo-media {
-    font-family: "Playfair Display", Georgia, serif;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #c0392b;
-    letter-spacing: -0.01em;
-    margin-left: 0.35rem;
+  .portal-logo-img {
+    height: 3rem;
+    width: auto;
   }
 
   .logo-sub {
     font-family: "Source Sans 3", system-ui, sans-serif;
-    font-size: 0.65rem;
+    font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.2em;
-    color: #9e9285;
-    margin-top: 0.25rem;
+    color: #78716c;
+    margin-top: 0.5rem;
   }
 
   .portal-nav {
@@ -117,20 +108,20 @@ const { title } = Astro.props;
     font-family: "Source Sans 3", system-ui, sans-serif;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: #bfb4a4;
+    color: #1c1917;
     border-radius: 0.375rem;
     transition: background 150ms, color 150ms;
     text-decoration: none;
   }
 
   .portal-nav-link:hover {
-    background-color: rgba(192, 57, 43, 0.12);
-    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #c0392b;
   }
 
   .portal-sidebar-footer {
     padding: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .portal-logout {
@@ -140,16 +131,16 @@ const { title } = Astro.props;
     font-family: "Source Sans 3", system-ui, sans-serif;
     font-size: 0.875rem;
     font-weight: 700;
-    color: #9e9285;
-    border: 1px solid rgba(255,255,255,0.12);
+    color: #1c1917;
+    border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.375rem;
     transition: all 150ms;
     text-decoration: none;
   }
 
   .portal-logout:hover {
-    color: #ffffff;
-    border-color: rgba(255,255,255,0.3);
+    color: #c0392b;
+    border-color: rgba(192, 57, 43, 0.4);
   }
 
   /* Main content area */
@@ -158,5 +149,31 @@ const { title } = Astro.props;
     background-color: #faf8f5;
     padding: 2.5rem 3rem;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .portal-main > :first-child {
+    flex: 1;
+  }
+
+  .portal-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e7e5e4;
+    text-align: center;
+    font-family: "Source Sans 3", system-ui, sans-serif;
+    font-size: 0.8125rem;
+    color: #78716c;
+  }
+
+  .portal-footer a {
+    color: #a8a29e;
+    text-decoration: none;
+  }
+
+  .portal-footer a:hover {
+    text-decoration: underline;
+    color: #78716c;
   }
 </style>
