@@ -39,7 +39,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           </li>
           <li class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">7.</span>
-            <div><strong>GoHighLevel</strong> — all contact forms, tagged by site</div>
+            <div><strong>GoHighLevel</strong> — CRM &amp; forms for internal sites, tagged by ministry</div>
           </li>
           <li class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">8.</span>
@@ -47,7 +47,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           </li>
           <li class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">9.</span>
-            <div><strong>UptimeRobot</strong> — uptime monitoring <span class="text-xs text-stone-400 font-normal">(pending setup)</span></div>
+            <div><strong>UptimeRobot</strong> — uptime monitoring (every 5 min, all sites)</div>
           </li>
         </ol>
       </section>
@@ -93,6 +93,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
             <ul class="space-y-1 text-stone-600 text-sm">
               <li>✓ Connect custom domain in Netlify</li>
               <li class="ml-4">— Confirm SSL (www and apex) in Cloudflare</li>
+              <li class="ml-4">— Ensure Cloudflare proxy is <strong>orange</strong> (Proxied) on all DNS records pointing to Netlify</li>
               <li class="ml-4">— Submit sitemap to Google Search Console</li>
               <li class="ml-4">— Set up UptimeRobot monitoring</li>
               <li class="ml-4">— Enable analytics (Fathom or Plausible)</li>
@@ -111,14 +112,59 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           ⚠️ <strong>Never rename or delete a live media file</strong> — it will break every page that references it.
         </div>
 
+        <h3 class="font-bold text-stone-800 mb-2">R2 Bucket &amp; Custom Domain</h3>
+        <p class="text-stone-600 text-sm mb-2">One bucket organized by site, served from a clean subdomain:</p>
+        <div class="bg-stone-100 px-4 py-2 rounded font-mono text-xs text-stone-600 mb-2">assets.spiritmediapublishing.com</div>
+        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-xs text-stone-600 mb-4 whitespace-pre leading-relaxed">spirit-media-assets/
+├── spirit-media-publishing/  (videos, audio, pdfs)
+├── fathers-heart-bible/      (audio, videos)
+├── work-on-yourself/         (audio)
+└── believers-library/        (videos)</div>
+        <p class="text-stone-500 text-xs mb-4">Shared assets (logos used across sites) go in <code class="bg-stone-100 px-1 rounded">spirit-media-publishing/</code>. Name files lowercase with hyphens: <code class="bg-stone-100 px-1 rounded">genesis-chapter-1-audio.mp3</code></p>
+
         <h3 class="font-bold text-stone-800 mb-2">How to add media</h3>
         <ol class="space-y-1 text-stone-600 text-sm">
           <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">1.</span> Client shares Google Drive folder with Kevin</li>
           <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">2.</span> Kevin downloads and unzips</li>
-          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">3.</span> Drag files into the site R2 bucket at <a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">dash.cloudflare.com</a></li>
-          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">4.</span> File is live immediately at the public URL</li>
+          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">3.</span> Drag files into the correct site folder in R2 at <a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">dash.cloudflare.com</a></li>
+          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">4.</span> File is live immediately at <code class="bg-stone-100 px-1 rounded text-xs">assets.spiritmediapublishing.com/[site]/[file]</code></li>
           <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">5.</span> Kevin or team updates site code to point to the new R2 URL</li>
         </ol>
+      </section>
+
+      <!-- Forms & GHL -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-2">Forms &amp; GoHighLevel</h2>
+        <p class="text-stone-600 text-sm mb-4">For Spirit Media internal sites, contact forms route to our GoHighLevel CRM, tagged by site. For client sites, forms may use Netlify Forms or another provider depending on the project.</p>
+
+        <h3 class="font-bold text-stone-800 mb-2">GHL Tagging Strategy (Internal Sites)</h3>
+        <p class="text-stone-500 text-sm mb-2">Every internal form applies a source tag so contacts can be segmented by ministry:</p>
+        <div class="overflow-x-auto mb-4">
+          <table class="w-full text-sm text-left border border-stone-200 rounded">
+            <thead class="bg-stone-100">
+              <tr>
+                <th class="px-3 py-2 text-stone-700 font-semibold">Form / Entry Point</th>
+                <th class="px-3 py-2 text-stone-700 font-semibold">GHL Tag</th>
+                <th class="px-3 py-2 text-stone-700 font-semibold">Pipeline</th>
+              </tr>
+            </thead>
+            <tbody class="text-stone-600">
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">SMP general contact</td><td class="px-3 py-2"><code class="bg-stone-100 px-1 rounded text-xs">source:smp</code></td><td class="px-3 py-2">General Inquiry</td></tr>
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">Father's Heart Bible</td><td class="px-3 py-2"><code class="bg-stone-100 px-1 rounded text-xs">source:fhb</code></td><td class="px-3 py-2">FHB Waitlist</td></tr>
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">Work On Yourself coaching</td><td class="px-3 py-2"><code class="bg-stone-100 px-1 rounded text-xs">source:woy</code></td><td class="px-3 py-2">Coaching</td></tr>
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">Believer's Library waitlist</td><td class="px-3 py-2"><code class="bg-stone-100 px-1 rounded text-xs">source:believers-library</code></td><td class="px-3 py-2">App Launch</td></tr>
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">Kingdom Messenger signup</td><td class="px-3 py-2"><code class="bg-stone-100 px-1 rounded text-xs">source:kingdom-messenger</code></td><td class="px-3 py-2">Newsletter</td></tr>
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">Prayer request forms</td><td class="px-3 py-2"><code class="bg-stone-100 px-1 rounded text-xs">source:prayer</code></td><td class="px-3 py-2">Pastoral Care</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">Embedding a GHL Form in Astro</h3>
+        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-xs text-stone-600 whitespace-pre leading-relaxed">&lt;!-- In your .astro file --&gt;
+&lt;div class="ghl-form-wrapper"&gt;
+  &lt;!-- Paste GHL embed code here --&gt;
+&lt;/div&gt;</div>
+        <p class="text-stone-500 text-xs mt-2">Request embed codes from Kevin. He creates forms in GHL with proper tags and pipelines.</p>
       </section>
 
       <!-- Team Prompt -->
@@ -215,12 +261,42 @@ Today I need: [describe what you want]</div>
           <li>✓ Never rename or delete a live media file</li>
           <li>✓ One push to main per session — batch all changes first</li>
           <li>✓ Pricing off all public pages</li>
-          <li>✓ All form submissions route to GHL, tagged by site</li>
+          <li>✓ Internal site forms route to GHL, tagged by site</li>
           <li>✓ Keep .env files in <code class="bg-stone-100 px-1 rounded">/home/deploy/bin/</code></li>
           <li>✓ Use meaningful commit messages</li>
           <li>✓ Kevin approves all merges to main</li>
           <li>✓ Before pushing any fix, verify it doesn't break something else — check affected pages on mobile and desktop</li>
         </ul>
+      </section>
+
+      <!-- Uptime Monitoring -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Uptime Monitoring</h2>
+        <p class="text-stone-600 text-sm mb-4">UptimeRobot checks every site every 5 minutes and sends email alerts if anything goes down. This is a standard requirement for all Spirit Media sites.</p>
+
+        <h3 class="font-bold text-stone-800 mb-2">Monitored Sites</h3>
+        <div class="overflow-x-auto mb-4">
+          <table class="w-full text-sm text-left border border-stone-200 rounded">
+            <thead class="bg-stone-100">
+              <tr>
+                <th class="px-3 py-2 text-stone-700 font-semibold">Site</th>
+                <th class="px-3 py-2 text-stone-700 font-semibold">URL</th>
+              </tr>
+            </thead>
+            <tbody class="text-stone-600">
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">Spirit Media Publishing</td><td class="px-3 py-2 font-mono text-xs">spiritmediapublishing.com</td></tr>
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">Father's Heart Bible</td><td class="px-3 py-2 font-mono text-xs">fathersheartbible.com</td></tr>
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">Work On Yourself</td><td class="px-3 py-2 font-mono text-xs">workonyourself.com</td></tr>
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">The Kohler Group</td><td class="px-3 py-2 font-mono text-xs">thekohlergroup.net</td></tr>
+              <tr class="border-t border-stone-100"><td class="px-3 py-2">R2 Assets</td><td class="px-3 py-2 font-mono text-xs">assets.spiritmediapublishing.com</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">Downtime Response</h3>
+        <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800">
+          <strong>If you receive a downtime alert:</strong> Do not push a new build. First check if the issue resolves on its own within 2 minutes (Netlify occasionally has brief hiccups). If the site is still down after 5 minutes, contact Nathan immediately.
+        </div>
       </section>
 
       <!-- Resources -->
