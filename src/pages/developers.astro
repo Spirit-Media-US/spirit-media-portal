@@ -8,14 +8,31 @@ import PortalLayout from '../layouts/PortalLayout.astro';
     <p class="text-stone-600 mb-8">Welcome Nathan! Here's everything you need to get started.</p>
 
     <div class="space-y-8">
+      <!-- Naming Conventions -->
+      <section class="bg-amber-50 border border-amber-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Naming Conventions</h2>
+        <p class="text-stone-700 mb-3">To avoid confusion, the team uses these terms consistently:</p>
+        <ul class="space-y-2 text-stone-700">
+          <li><code class="bg-stone-100 px-2 py-1 rounded text-xs font-bold">bethel</code> = the server (Hetzner VPS at 100.114.220.65)</li>
+          <li><code class="bg-stone-100 px-2 py-1 rounded text-xs font-bold">dev</code> = always the git branch (where all work happens)</li>
+          <li><code class="bg-stone-100 px-2 py-1 rounded text-xs font-bold">main</code> = always the production branch (triggers Netlify build)</li>
+        </ul>
+        <p class="text-stone-500 text-sm mt-3">Example: "SSH into Bethel, push to dev, Kevin approves merge to main."</p>
+      </section>
+
       <!-- SSH Access -->
       <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">SSH Access</h2>
+        <h2 class="text-2xl font-bold text-red-700 mb-4">SSH Access to Bethel</h2>
         <p class="text-stone-600 mb-4">Connect to the development server via Tailscale:</p>
-        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
-          ssh deploy@100.114.220.65
+        <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
+          <span>ssh bethel</span>
+          <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy="ssh bethel">Copy</button>
         </div>
-        <p class="text-stone-500 text-sm mt-3">You'll need Tailscale VPN access first.</p>
+        <p class="text-stone-500 text-sm mt-3">Requires Tailscale VPN access. Add this to your <code class="bg-stone-100 px-1 rounded">~/.ssh/config</code>:</p>
+        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-xs text-stone-600 mt-2 whitespace-pre">Host bethel
+  HostName 100.114.220.65
+  User deploy
+  IdentityFile ~/.ssh/id_ed25519</div>
       </section>
 
       <!-- Code Server -->
@@ -170,7 +187,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         <ul class="space-y-2 text-stone-700">
           <li>✓ Request Tailscale VPN access</li>
           <li>✓ Ask for Bitwarden vault invitation</li>
-          <li>✓ SSH into the server: <code class="bg-stone-100 px-2 py-1 rounded text-xs">ssh deploy@100.114.220.65</code></li>
+          <li>✓ SSH into Bethel: <code class="bg-stone-100 px-2 py-1 rounded text-xs">ssh bethel</code> (see SSH config above)</li>
           <li>✓ Access Code Server: <a href="https://dev.spiritmediapublishing.com" class="text-red-700 hover:underline">dev.spiritmediapublishing.com</a></li>
           <li>✓ Clone repos from Spirit-Media-US org</li>
           <li>✓ Install dependencies: <code class="bg-stone-100 px-2 py-1 rounded text-xs">npm install</code></li>
