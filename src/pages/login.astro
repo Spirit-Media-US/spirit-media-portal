@@ -16,7 +16,7 @@ import '../styles/globals.css';
     <div class="login-bg">
       <div class="login-card">
         <div class="login-logo">
-          <span class="logo-spirit">Spirit</span><span class="logo-media">Media</span>
+          <img src="https://cdn.sanity.io/images/pmowd8uo/production/dc16e3c604bd5d52de7647af46836ff418c22898-6575x656.png?w=440&h=88&fit=max&auto=format" alt="Spirit Media Publishing" class="login-logo-img" />
           <div class="logo-sub">PORTAL</div>
         </div>
 
@@ -74,29 +74,22 @@ import '../styles/globals.css';
 
   .login-logo {
     margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .logo-spirit {
-    font-family: "Playfair Display", Georgia, serif;
-    font-size: 2rem;
-    font-weight: 800;
-    color: #1a1714;
-  }
-
-  .logo-media {
-    font-family: "Playfair Display", Georgia, serif;
-    font-size: 2rem;
-    font-weight: 800;
-    color: #c0392b;
-    margin-left: 0.35rem;
+  .login-logo-img {
+    max-width: 260px;
+    height: auto;
   }
 
   .logo-sub {
-    font-size: 0.65rem;
+    font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.2em;
     color: #9e9285;
-    margin-top: 0.25rem;
+    margin-top: 0.35rem;
   }
 
   label {
