@@ -35,6 +35,42 @@ import PortalLayout from '../layouts/PortalLayout.astro';
   IdentityFile ~/.ssh/id_ed25519</div>
       </section>
 
+      <!-- GitHub SSH Key Setup -->
+      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">GitHub SSH Key Setup</h2>
+        <p class="text-stone-600 mb-4">Generate an SSH key and add it to your GitHub account so you can push/pull without entering passwords.</p>
+        <div class="space-y-4">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 1 — Generate a key</p>
+            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
+              <span>ssh-keygen -t ed25519 -C "your@email.com"</span>
+              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy='ssh-keygen -t ed25519 -C "your@email.com"'>Copy</button>
+            </div>
+            <p class="text-stone-500 text-xs mt-1">Press Enter to accept the default file location. Add a passphrase if desired.</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 2 — Copy the public key</p>
+            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
+              <span>cat ~/.ssh/id_ed25519.pub</span>
+              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy="cat ~/.ssh/id_ed25519.pub">Copy</button>
+            </div>
+            <p class="text-stone-500 text-xs mt-1">Copy the entire output (starts with <code class="bg-stone-100 px-1 rounded">ssh-ed25519</code>).</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 3 — Add to GitHub</p>
+            <p class="text-stone-600 text-sm">Go to <a href="https://github.com/settings/keys" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">github.com/settings/keys</a> → <strong>New SSH key</strong> → paste the public key → Save.</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 4 — Test the connection</p>
+            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
+              <span>ssh -T git@github.com</span>
+              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy="ssh -T git@github.com">Copy</button>
+            </div>
+            <p class="text-stone-500 text-xs mt-1">You should see: "Hi [username]! You've successfully authenticated."</p>
+          </div>
+        </div>
+      </section>
+
       <!-- Code Server -->
       <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Code Server (VS Code in Browser)</h2>
