@@ -4,8 +4,8 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 
 <PortalLayout title="Connecting" mainBg="#fdf2f8">
   <div class="max-w-4xl">
-    <h1 class="text-4xl font-bold mb-2">Connecting to Claude</h1>
-    <p class="text-stone-600 mb-8">Three ways to work with Claude depending on your role</p>
+    <h1 class="text-4xl font-bold mb-2">Connecting to Bethel</h1>
+    <p class="text-stone-600 mb-8">Four ways to work on our remote server (Bethel) with Claude depending on your role</p>
 
     <div class="space-y-8">
 
@@ -13,7 +13,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <div class="flex items-center gap-3 mb-4">
           <span class="text-2xl">&#x1F5A5;</span>
-          <h2 class="text-2xl font-bold text-red-700">1. Claude Code on Bethel <span class="text-sm font-normal text-stone-500">(Developers)</span></h2>
+          <h2 class="text-2xl font-bold text-red-700">1. Claude Console on Bethel <span class="text-sm font-normal text-stone-500">(Developers)</span></h2>
         </div>
         <p class="text-stone-600 mb-4">For building, editing code, running builds, and deploying. Runs on the dev server so your Mac doesn't do the heavy lifting.</p>
 
@@ -24,34 +24,37 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Connect to the server:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">ssh deploy@bethel</div>
-              <p class="text-xs text-stone-500 mt-1">Requires Tailscale VPN &mdash; ask Kevin for access</p>
-            </div>
+            <div>Get your username and password from <strong>Jay or Kevin</strong></div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">3.</span>
-            <div>Go to the sites directory:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">cd ~/Sites</div>
+            <div>Set up <a href="https://tailscale.com/download" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-semibold">Tailscale VPN</a>
+              <p class="text-xs text-stone-500 mt-1">Login through Google to <strong>admin@spiritmedia.us</strong> (password: <strong>Admin2025SM!</strong>). Notify Jay for login approval.</p>
             </div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">4.</span>
+            <div>Connect to the server with your username:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">ssh <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">5.</span>
+            <div>Go to the site you want to work on:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">cd ~/Sites/<span class="text-red-700">site-name</span></div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">6.</span>
             <div>Start Claude:
               <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">claude</div>
             </div>
           </div>
           <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">5.</span>
-            <div>Tell Claude which site you want to work on:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm italic">"I want to work on the Father's Heart Bible site"</div>
-              <p class="text-xs text-stone-500 mt-1">Or ask: "What sites are available?"</p>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">6.</span>
+            <span class="text-red-700 font-bold shrink-0">7.</span>
             <div>Talk to it in <strong>plain English</strong>:
               <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm space-y-1">
+                <p class="italic">"What other sites are available?"</p>
                 <p class="italic">"Make sure the site builds correctly"</p>
                 <p class="italic">"What pages does this site have?"</p>
                 <p class="italic">"Fix any broken imports"</p>
@@ -59,14 +62,12 @@ import PortalLayout from '../layouts/PortalLayout.astro';
             </div>
           </div>
           <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">7.</span>
-            <div>When done, tell Claude:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm italic">"Update CLAUDE.md with what we did today"</div>
-            </div>
+            <span class="text-red-700 font-bold shrink-0">8.</span>
+            <div>When done: <span class="italic">"Update CLAUDE.md with what we did today"</span></div>
           </div>
           <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">8.</span>
-            <div>To exit: type <code class="bg-stone-100 px-2 py-0.5 rounded text-sm">/exit</code></div>
+            <span class="text-red-700 font-bold shrink-0">9.</span>
+            <div>To exit: <code class="bg-stone-100 px-2 py-0.5 rounded text-sm">/exit</code></div>
           </div>
         </div>
 
@@ -79,39 +80,23 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <div class="flex items-center gap-3 mb-4">
           <span class="text-2xl">&#x1F4BB;</span>
-          <h2 class="text-2xl font-bold text-red-700">2. Claude Code on Desktop <span class="text-sm font-normal text-stone-500">(Kevin / Mac developers)</span></h2>
+          <h2 class="text-2xl font-bold text-red-700">2. Claude Code on Desktop <span class="text-sm font-normal text-stone-500">(Developers — Mac or Windows)</span></h2>
         </div>
-        <p class="text-stone-600 mb-4">For planning, strategy, reviewing screenshots, and multi-site coordination. Runs on your Mac.</p>
+        <p class="text-stone-600 mb-4">For planning, strategy, reviewing screenshots, and multi-site coordination. Runs on your computer.</p>
 
         <div class="space-y-4">
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>Open <strong>Terminal</strong></div>
+            <div>Open <strong>Claude Code</strong> on <strong>Claude Desktop</strong></div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Go to the sites directory:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">cd ~/Sites</div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">3.</span>
-            <div>Start Claude:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">claude</div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">4.</span>
-            <div>Tell Claude which site you want to work on, or ask <span class="italic">"What sites are available?"</span></div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">5.</span>
-            <div>Talk to it in <strong>plain English</strong> &mdash; same as bethel.</div>
+            <div>Talk to it in <strong>plain English</strong> — same as Bethel.</div>
           </div>
         </div>
 
         <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
-          <p class="text-sm text-stone-700"><strong>Best practice:</strong> Use Mac for planning and reviewing. Use Bethel for building and deploying. Both read the same CLAUDE.md so they share the same context.</p>
+          <p class="text-sm text-stone-700"><strong>Best practice:</strong> Use Desktop for planning and reviewing. Use Bethel for building and deploying. Both read the same CLAUDE.md so they share the same context.</p>
         </div>
       </section>
 
@@ -119,7 +104,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <div class="flex items-center gap-3 mb-4">
           <span class="text-2xl">&#x1F3A8;</span>
-          <h2 class="text-2xl font-bold text-red-700">3. Claude AI for Clients <span class="text-sm font-normal text-stone-500">(Justin, Barbara, etc.)</span></h2>
+          <h2 class="text-2xl font-bold text-red-700">3. Claude AI for Clients</h2>
         </div>
         <p class="text-stone-600 mb-4">For content writing, design mockups, and planning site changes. Runs in your browser &mdash; no Terminal needed.</p>
 
@@ -135,10 +120,14 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">3.</span>
             <div><strong>Start every new conversation</strong> by pasting this prompt:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm relative" id="client-prompt">
-                You are helping me update my website <strong>[SITE NAME]</strong> at <strong>[DOMAIN]</strong>. The site is built with Astro and hosted on Netlify by Spirit Media Publishing. I am the client &mdash; I provide content and design direction. Spirit Media handles all code and deployment. Help me plan changes, write content, and create designs I can share with the Spirit Media team.
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm relative leading-relaxed" id="client-prompt">
+                You are helping me update and maintain my website. My site is <strong>[SITE NAME]</strong> at <strong>[DOMAIN]</strong>. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity &mdash; I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments &mdash; do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.<br/><br/>
+                <strong>What I can help with:</strong> rewrite copy, plan new pages, describe design changes, draft content.<br/>
+                <strong>What I cannot do:</strong> push code, deploy, edit HTML/CSS directly, or upload media to GitHub.<br/><br/>
+                My live site: <strong>[URL]</strong><br/>
+                Today I need: <strong>[describe what you want]</strong>
               </div>
-              <button onclick="navigator.clipboard.writeText('You are helping me update my website [SITE NAME] at [DOMAIN]. The site is built with Astro and hosted on Netlify by Spirit Media Publishing. I am the client — I provide content and design direction. Spirit Media handles all code and deployment. Help me plan changes, write content, and create designs I can share with the Spirit Media team.')" class="mt-2 px-3 py-1 bg-red-700 text-white rounded text-sm hover:bg-red-800 transition-colors">Copy Prompt</button>
+              <button onclick="navigator.clipboard.writeText('You are helping me update and maintain my website. My site is [SITE NAME] at [DOMAIN]. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity — I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments — do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.\n\nWhat I can help with: rewrite copy, plan new pages, describe design changes, draft content.\nWhat I cannot do: push code, deploy, edit HTML/CSS directly, or upload media to GitHub.\n\nMy live site: [URL]\nToday I need: [describe what you want]')" class="mt-2 px-3 py-1 bg-red-700 text-white rounded text-sm hover:bg-red-800 transition-colors">Copy Prompt</button>
             </div>
           </div>
           <div class="flex gap-3">
@@ -173,6 +162,83 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         </div>
       </section>
 
+      <!-- 4. Remote Bethel from Desktop -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">&#x1F680;</span>
+          <h2 class="text-2xl font-bold text-red-700">4. Remote Bethel from Desktop <span class="text-sm font-normal text-stone-500">(Advanced)</span></h2>
+        </div>
+        <p class="text-stone-600 mb-4">Run Claude Code on Bethel without leaving Claude Desktop. One window does everything &mdash; planning, building, and deploying.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div class="p-3 bg-green-50 border border-green-200 rounded-lg">
+            <p class="text-sm font-semibold text-green-800 mb-1">Pros</p>
+            <ul class="text-sm text-green-700 space-y-1">
+              <li>&bull; One window &mdash; no tab switching</li>
+              <li>&bull; Desktop orchestrates everything</li>
+              <li>&bull; Visual diff review before commits</li>
+              <li>&bull; Builds run on Bethel&rsquo;s power, not your Mac</li>
+            </ul>
+          </div>
+          <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+            <p class="text-sm font-semibold text-amber-800 mb-1">Cons</p>
+            <ul class="text-sm text-amber-700 space-y-1">
+              <li>&bull; Requires Tailscale VPN to be connected</li>
+              <li>&bull; More complex initial setup</li>
+              <li>&bull; Single point of failure if VPN drops</li>
+              <li>&bull; Harder for new developers to replicate</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-3">One-Time Setup</h3>
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">1.</span>
+            <div>In Claude Desktop, click the <strong>environment dropdown</strong> (where it says "Local")</div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">2.</span>
+            <div>Select <strong>+ Add SSH connection</strong></div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">3.</span>
+            <div>Fill in:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm space-y-1">
+                <p><strong>Name:</strong> bethel</p>
+                <p><strong>SSH Host:</strong> <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</p>
+                <p><strong>SSH Port:</strong> <span class="text-stone-400">(leave blank)</span></p>
+                <p><strong>Identity File:</strong> <span class="text-stone-400">(leave blank &mdash; uses your SSH config)</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">4.</span>
+            <div>Click <strong>Add connection</strong></div>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mt-6 mb-3">To Use It</h3>
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">1.</span>
+            <div>Select <strong>bethel</strong> from the environment dropdown (instead of "Local")</div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">2.</span>
+            <div>Choose your project folder on Bethel</div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">3.</span>
+            <div>Talk to it in <strong>plain English</strong> &mdash; Claude runs all commands on Bethel, not your Mac</div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
+          <p class="text-sm text-stone-700"><strong>When to use this vs. SSH:</strong> Use Remote Bethel when you want to plan and build in the same conversation. Use SSH (Section 1) when you want a dedicated build session or when multiple developers need independent sessions.</p>
+        </div>
+      </section>
+
       <!-- After a Mac Reboot -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <div class="flex items-center gap-3 mb-4">
@@ -183,19 +249,17 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="p-4 bg-stone-50 rounded-lg">
-            <h3 class="font-bold mb-2">Claude Code (Mac)</h3>
+            <h3 class="font-bold mb-2">Claude Code (Desktop)</h3>
             <ol class="text-sm space-y-1">
-              <li>1. Open Terminal</li>
-              <li>2. <code class="bg-white px-1 rounded">cd ~/Sites</code></li>
-              <li>3. <code class="bg-white px-1 rounded">claude</code></li>
+              <li>1. Open Claude Code on Claude Desktop</li>
             </ol>
           </div>
           <div class="p-4 bg-stone-50 rounded-lg">
             <h3 class="font-bold mb-2">Claude Code (Bethel)</h3>
             <ol class="text-sm space-y-1">
               <li>1. Open Terminal</li>
-              <li>2. <code class="bg-white px-1 rounded">ssh deploy@bethel</code></li>
-              <li>3. <code class="bg-white px-1 rounded">cd ~/Sites</code></li>
+              <li>2. <code class="bg-white px-1 rounded">ssh <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</code></li>
+              <li>3. <code class="bg-white px-1 rounded">cd ~/Sites/<span class="text-red-700">site-name</span></code></li>
               <li>4. <code class="bg-white px-1 rounded">claude</code></li>
             </ol>
           </div>
