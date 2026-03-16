@@ -238,7 +238,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       <!-- Shared Templates -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Shared Templates</h2>
-        <p class="text-stone-600 mb-4">Reusable checklists and scripts stored on Bethel. All templates use <code class="bg-stone-100 px-2 py-1 rounded text-xs">[PLACEHOLDERS]</code> for site-specific values.</p>
+        <p class="text-stone-600 mb-4">Reusable checklists and scripts stored on Bethel. Tell Claude which template to run and it handles the rest.</p>
 
         <h3 class="font-bold text-stone-800 mb-2">Location</h3>
         <div class="bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 mb-4">
@@ -282,10 +282,11 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         </div>
 
         <h3 class="font-bold text-stone-800 mb-2">How to Use a Template</h3>
-        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 mb-4">
-          cp /home/deploy/bin/templates/post-launch-checklist.md ~/Sites/[repo]/LAUNCH-CHECKLIST.md
+        <p class="text-stone-600 text-sm mb-2">Just tell Claude in plain English:</p>
+        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 mb-2 italic">
+          Run the post-launch checklist for thekohlergroup.net. Save the report and upload to Google Drive.
         </div>
-        <p class="text-stone-600 text-sm mb-4">Then replace <code class="bg-stone-100 px-1 py-0.5 rounded text-xs">[SITE_DOMAIN]</code>, <code class="bg-stone-100 px-1 py-0.5 rounded text-xs">[SITE_NAME]</code>, <code class="bg-stone-100 px-1 py-0.5 rounded text-xs">[CLIENT_NAME]</code>, and <code class="bg-stone-100 px-1 py-0.5 rounded text-xs">[BRAND_COLOR]</code> with actual values. Or tell Claude: <em>"Run the post-launch checklist for thekohlergroup.net"</em></p>
+        <p class="text-stone-500 text-xs mb-4">Claude reads the template, fills in the site details automatically from CLAUDE.md and the codebase, runs the audit, and uploads the report.</p>
 
         <h3 class="font-bold text-stone-800 mb-2">How to Add a New Template</h3>
         <p class="text-stone-600 text-sm mb-2">Build it with Claude on Bethel, then save:</p>
