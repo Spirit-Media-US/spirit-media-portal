@@ -5,8 +5,10 @@ type Role = 'Admin' | 'Web Developer' | 'GHL Developer';
 type Status = 'pending' | 'inprogress' | 'done';
 
 interface Task {
+  site?: string;
   title: string;
   notes?: string;
+  owner?: string;
   status: Status;
 }
 
