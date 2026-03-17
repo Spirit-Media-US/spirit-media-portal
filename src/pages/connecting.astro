@@ -1,0 +1,232 @@
+---
+import PortalLayout from '../layouts/PortalLayout.astro';
+---
+
+<PortalLayout title="Connecting" mainBg="#fdf2f8">
+  <div class="max-w-4xl">
+    <h1 class="text-4xl font-bold mb-2">Connecting to Bethel</h1>
+    <p class="text-stone-600 mb-8">Three ways to work with Claude depending on your role</p>
+
+    <div class="space-y-8">
+
+      <!-- 1. Claude Console on Bethel -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">&#x1F5A5;</span>
+          <h2 class="text-2xl font-bold text-red-700">1. Claude Console on Bethel <span class="text-sm font-normal text-stone-500">(Developers)</span></h2>
+        </div>
+        <p class="text-stone-600 mb-4">For building, editing code, running builds, and deploying. Runs on the dev server so your Mac doesn&rsquo;t do the heavy lifting.</p>
+
+        <h3 class="font-bold text-stone-800 mb-3">First-Time Setup</h3>
+        <div class="space-y-4 mb-6">
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">1.</span>
+            <div>Get your <strong>username and password</strong> from Kevin or Nathan</div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">2.</span>
+            <div>Install <a href="https://tailscale.com/download" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-semibold">Tailscale VPN</a>
+              <p class="text-xs text-stone-500 mt-1">Login through Google to <strong>admin@spiritmedia.us</strong> (password: <strong>Admin2025SM!</strong>). Notify Jay for login approval.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">3.</span>
+            <div>Open <strong>Terminal</strong> and connect:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">ssh <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</div>
+              <p class="text-xs text-stone-500 mt-1">Enter your password when prompted. You should see <em>&ldquo;Spirit Media &mdash; Bethel Server&rdquo;</em>.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">4.</span>
+            <div>Run Claude Code for the first time:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">claude</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">5.</span>
+            <div>
+              <p>When asked to choose a login method, select <strong>option 1 — Claude account with subscription</strong> (Pro, Max, Team, or Enterprise).</p>
+              <div class="mt-2 p-3 bg-amber-50 border border-amber-200 rounded text-sm text-amber-800">
+                ⚠️ Do <strong>not</strong> select option 2 (Anthropic Console / API key) or option 3 (third-party platform).
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">6.</span>
+            <div>
+              <p>A URL will appear in the terminal. <strong>Copy it and open it in a browser on your local machine.</strong></p>
+              <p class="text-xs text-stone-500 mt-1">The browser won&rsquo;t open automatically — you must copy and paste the URL yourself.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">7.</span>
+            <div>
+              <p>Sign in at <strong>claude.ai</strong> using your <strong>Spirit Media team email</strong> — the one Kevin invited you with (e.g. <code class="bg-stone-100 px-1 rounded text-xs">yourname@spiritmedia.us</code>).</p>
+              <div class="mt-2 p-3 bg-stone-50 border border-stone-200 rounded text-sm text-stone-600">
+                💡 If your browser is already logged into a personal Claude account, log out first, then sign in with your Spirit Media email.
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">8.</span>
+            <div><strong>This is a one-time setup.</strong> Claude Code saves your session — future sessions just run <code class="bg-stone-100 px-1 rounded text-xs">claude</code> with no login prompt.</div>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-3">Every Session</h3>
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">1.</span>
+            <div>Open <strong>Terminal</strong> and connect:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">ssh <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">2.</span>
+            <div>Go to the site you want to work on:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">cd ~/Sites/<span class="text-red-700">site-name</span></div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">3.</span>
+            <div>Start Claude:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">claude</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">4.</span>
+            <div>Talk to it in <strong>plain English</strong>:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm space-y-1">
+                <p class="italic">&ldquo;What other sites are available?&rdquo;</p>
+                <p class="italic">&ldquo;Make sure the site builds correctly&rdquo;</p>
+                <p class="italic">&ldquo;Fix any broken imports&rdquo;</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">5.</span>
+            <div>When done: <span class="italic">&ldquo;Update CLAUDE.md with what we did today&rdquo;</span></div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">6.</span>
+            <div>To exit: <code class="bg-stone-100 px-2 py-0.5 rounded text-sm">/exit</code></div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
+          <p class="text-sm text-stone-700"><strong>Parallel sessions:</strong> Open multiple Terminal tabs, SSH into bethel in each, go to a different site, and run <code class="bg-white px-1 rounded text-xs">claude</code>. Each tab is its own independent session.</p>
+        </div>
+      </section>
+
+      <!-- 2. Claude Code on Desktop -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">&#x1F4BB;</span>
+          <h2 class="text-2xl font-bold text-red-700">2. Claude Code on Desktop <span class="text-sm font-normal text-stone-500">(Developers &mdash; Mac or Windows)</span></h2>
+        </div>
+        <p class="text-stone-600 mb-4">For planning, strategy, reviewing screenshots, and multi-site coordination. Runs on your computer.</p>
+
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">1.</span>
+            <div>Open <strong>Claude Code</strong> on <strong>Claude Desktop</strong></div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">2.</span>
+            <div>Talk to it in <strong>plain English</strong> &mdash; same as Bethel.</div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
+          <p class="text-sm text-stone-700"><strong>Best practice:</strong> Use Desktop for planning and reviewing. Use Bethel for building and deploying. Both read the same CLAUDE.md so they share the same context.</p>
+        </div>
+      </section>
+
+      <!-- 3. Claude AI for Clients -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">&#x1F3A8;</span>
+          <h2 class="text-2xl font-bold text-red-700">3. Claude AI for Clients</h2>
+        </div>
+        <p class="text-stone-600 mb-4">For content writing, design mockups, and planning site changes. Runs in your browser &mdash; no Terminal needed.</p>
+
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">1.</span>
+            <div>Go to <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-bold">claude.ai</a> in your browser</div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">2.</span>
+            <div>Sign in to your Claude account</div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">3.</span>
+            <div><strong>Start every new conversation</strong> by pasting this prompt:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm relative leading-relaxed" id="client-prompt">
+                You are helping me update and maintain my website. My site is <strong>[SITE NAME]</strong> at <strong>[DOMAIN]</strong>. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity &mdash; I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments &mdash; do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.<br/><br/>
+                <strong>What I can help with:</strong> rewrite copy, plan new pages, describe design changes, draft content.<br/>
+                <strong>What I cannot do:</strong> push code, deploy, edit HTML/CSS directly, or upload media to GitHub.<br/><br/>
+                My live site: <strong>[URL]</strong><br/>
+                Today I need: <strong>[describe what you want]</strong>
+              </div>
+              <button onclick="navigator.clipboard.writeText('You are helping me update and maintain my website. My site is [SITE NAME] at [DOMAIN]. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity — I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments — do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.\n\nWhat I can help with: rewrite copy, plan new pages, describe design changes, draft content.\nWhat I cannot do: push code, deploy, edit HTML/CSS directly, or upload media to GitHub.\n\nMy live site: [URL]\nToday I need: [describe what you want]')" class="mt-2 px-3 py-1 bg-red-700 text-white rounded text-sm hover:bg-red-800 transition-colors">Copy Prompt</button>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">4.</span>
+            <div>Then describe what you want in plain English:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm space-y-1">
+                <p class="italic">&ldquo;I want to add a new page for my press features&rdquo;</p>
+                <p class="italic">&ldquo;Help me write copy for my about page&rdquo;</p>
+                <p class="italic">&ldquo;Design a timeline showing my career milestones&rdquo;</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">5.</span>
+            <div>When Claude creates a design (called an <strong>artifact</strong>):
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm space-y-1">
+                <p>&bull; Click the <code class="bg-white px-1 rounded">&lt;/&gt;</code> icon to see the code</p>
+                <p>&bull; Click <strong>Copy</strong></p>
+                <p>&bull; Save it as a <code class="bg-white px-1 rounded">.html</code> file</p>
+                <p>&bull; Send it to Kevin</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">6.</span>
+            <div>The Spirit Media team will convert your design into the actual website pages.</div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
+          <p class="text-sm text-stone-700"><strong>Important:</strong> Claude AI creates previews only &mdash; they are NOT your live website. Spirit Media must build and deploy all changes.</p>
+        </div>
+      </section>
+
+      <!-- Troubleshooting -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">&#x1F527;</span>
+          <h2 class="text-2xl font-bold text-red-700">Troubleshooting</h2>
+        </div>
+
+        <div class="space-y-4 text-sm">
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800">&ldquo;Connection refused&rdquo; or can&rsquo;t reach server</p>
+            <p class="text-stone-600 mt-1">Make sure Tailscale VPN is connected. The server is only reachable through VPN.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800">&ldquo;Permission denied&rdquo; or wrong password</p>
+            <p class="text-stone-600 mt-1">Double-check your username and password. Contact Kevin or Nathan to reset.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800">Claude says &ldquo;Max or Pro is required&rdquo; during login</p>
+            <p class="text-stone-600 mt-1">You signed in with a personal Claude account that doesn&rsquo;t have a subscription. Log out of claude.ai in your browser, then sign back in with your Spirit Media team email (e.g. <code class="bg-white px-1 rounded text-xs">yourname@spiritmedia.us</code>).</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</PortalLayout>
