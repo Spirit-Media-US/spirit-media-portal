@@ -1,7 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 
-const protectedRoutes = ['/dashboard', '/playbook', '/developers', '/task-log'];
-const publicRoutes = ['/clients', '/login', '/api/auth', '/'];
+const protectedRoutes = ['/dashboard', '/connecting', '/playbook', '/developers', '/task-log'];
+const publicRoutes = ['/clients', '/login', '/api/auth'];
 
 export const onRequest = defineMiddleware((context, next) => {
   const { pathname } = context.url;
@@ -18,8 +18,8 @@ export const onRequest = defineMiddleware((context, next) => {
   // Check for protected routes
   if (isProtected) {
     const authCookie = context.cookies.get('portal_auth');
-    
-    if (!authCookie || authCookie.value !== 'authenticated') {
+
+    if (!authCookie || authCookie.value !== 'pin_030126') {
       return context.redirect('/login');
     }
   }

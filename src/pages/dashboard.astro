@@ -3,6 +3,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 
 interface Site {
   name: string;
+  repo: string;
   netlifyName: string;
   netlifyPreview: string;
   sanity: string;
@@ -12,13 +13,23 @@ interface Site {
 const sites: Site[] = [
   {
     name: 'Arts By Justin',
+    repo: 'artsbyjustin',
     netlifyName: 'artsbyjustin',
     netlifyPreview: 'artsbyjustin.netlify.app',
     sanity: 'artsbyjustin.sanity.studio',
     liveUrl: 'artsbyjustin.com',
   },
   {
+    name: 'Clowning from the Heart',
+    repo: 'clowning-from-the-heart',
+    netlifyName: 'clowning-from-the-heart',
+    netlifyPreview: 'clowning-from-the-heart.netlify.app',
+    sanity: 'clowningfromtheheart.sanity.studio',
+    liveUrl: 'clowningfromtheheart.com',
+  },
+  {
     name: "Father's Heart Bible",
+    repo: 'FHB',
     netlifyName: 'fhbible',
     netlifyPreview: 'fhbible.netlify.app',
     sanity: 'fathersheartbible.sanity.studio',
@@ -26,6 +37,7 @@ const sites: Site[] = [
   },
   {
     name: 'Spirit Media Publishing',
+    repo: 'spirit-media-publishing',
     netlifyName: 'spirit-media-publishing',
     netlifyPreview: 'spirit-media-publishing.netlify.app',
     sanity: 'spiritmediapublishing.sanity.studio',
@@ -33,13 +45,15 @@ const sites: Site[] = [
   },
   {
     name: 'The Kohler Group',
+    repo: 'the-kohler-group',
     netlifyName: 'the-kohler-group',
     netlifyPreview: 'the-kohler-group.netlify.app',
     sanity: 'thekohlergroup.sanity.studio',
-    liveUrl: 'the-kohler-group.netlify.app',
+    liveUrl: 'thekohlergroup.net',
   },
   {
     name: 'Work On Yourself',
+    repo: 'WOY',
     netlifyName: 'woyourself',
     netlifyPreview: 'woyourself.netlify.app',
     sanity: 'workonyourself.sanity.studio',
@@ -48,7 +62,7 @@ const sites: Site[] = [
 ];
 ---
 
-<PortalLayout title="Dashboard">
+<PortalLayout title="Dashboard" mainBg="#fef2f2">
   <div class="page-header">
     <h1>Dashboard</h1>
     <p>Site inventory and management links</p>
@@ -61,27 +75,17 @@ const sites: Site[] = [
           <h2>{site.name}</h2>
         </div>
         <div class="btn-grid">
-          <a href={`https://${site.liveUrl}`} target="_blank" rel="noopener noreferrer" class="btn">
-            🌐 Live Site
-          </a>
-          <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn" title="First load may take 1–3s after inactivity (Netlify cold start)">
-            👁 Preview
-          </a>
-          <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="btn">
-            ⚙️ Netlify
-          </a>
-          <a href={`https://${site.sanity}`} target="_blank" rel="noopener noreferrer" class="btn">
-            ✏️ Sanity
-          </a>
+          <a href={`https://${site.liveUrl}`} target="_blank" rel="noopener noreferrer" class="btn"><span class="status-lights" data-url={site.liveUrl}><span class="light green"></span><span class="light red"></span></span> Live</a>
+          <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn" title="First load may take 1–3s (cold start)">👁 Preview</a>
+          <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>
+          <a href={`https://${site.sanity}`} target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>
+          <a href={`https://github.com/Spirit-Media-US/${site.repo}`} target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>
+          <a href={`https://search.google.com/search-console?resource_id=sc-domain:${site.liveUrl}`} target="_blank" rel="noopener noreferrer" class="btn">📊 Search</a>
         </div>
       </div>
     ))}
   </div>
 </PortalLayout>
-
-<style is:global>
-  .portal-main { background-color: #fef2f2 !important; }
-</style>
 
 <style>
   .page-header { margin-bottom: 2rem; }  .page-header h1 {
@@ -111,6 +115,19 @@ const sites: Site[] = [
     border-bottom: 1px solid #ede7df;
   }
 
+  .status-lights {
+    display: inline-flex; gap: 0.2rem; align-items: center;
+  }
+  .light {
+    width: 0.45rem; height: 0.45rem;
+    border-radius: 50%;
+    background: #e7e5e4;
+  }
+  .light.green { background: #d6d3d1; }
+  .light.red { background: #d6d3d1; }
+  .status-lights.up .light.green { background: #22c55e; }
+  .status-lights.down .light.red { background: #ef4444; }
+
   .site-card-header h2 {
     font-family: "Playfair Display", Georgia, serif;
     font-size: 1.0625rem; font-weight: 700;
@@ -118,15 +135,15 @@ const sites: Site[] = [
   }
 
   .btn-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.375rem;
   }
 
   .btn {
     display: flex; align-items: center; justify-content: center;
     gap: 0.375rem;
-    padding: 0.625rem 0.75rem;
+    padding: 0.4rem 0.5rem;
     border-radius: 0.375rem;
     text-decoration: none;
     font-size: 0.8125rem; font-weight: 600;
@@ -138,3 +155,13 @@ const sites: Site[] = [
 
   .btn:hover { background: #fff; border-color: #c0392b; }
 </style>
+
+<script>
+  document.querySelectorAll('.status-lights').forEach((el) => {
+    const url = el.getAttribute('data-url');
+    if (!url) return;
+    fetch(`https://${url}`, { mode: 'no-cors', cache: 'no-store' })
+      .then(() => el.classList.add('up'))
+      .catch(() => el.classList.add('down'));
+  });
+</script>

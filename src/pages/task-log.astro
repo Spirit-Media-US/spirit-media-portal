@@ -1,20 +1,16 @@
 ---
 import PortalLayout from '../layouts/PortalLayout.astro';
 
-type Owner = 'Kevin' | 'Claude' | 'AC' | 'Kevin + Claude';
+type Role = 'Admin' | 'Web Developer' | 'GHL Developer';
 type Status = 'pending' | 'inprogress' | 'done';
 
 interface Task {
-  site: string;
   title: string;
   notes?: string;
-  owner: Owner;
   status: Status;
 }
 
-const tasks: Task[] = [
-
-  // ── INFRASTRUCTURE ──────────────────────────────────────────────
+const admin: Task[] = [
   {
     site: 'FHB + WOY',
     title: 'Activate Cloudflare proxy',
@@ -131,178 +127,143 @@ const tasks: Task[] = [
   {
     site: 'Portal',
     title: 'Make Task Log editable without a code push',
-    notes: 'Options: Netlify Blobs (inline editing, no build needed) or Sanity. Netlify Blobs recommended for now.',
-    owner: 'Claude',
+    notes: 'Options: Netlify Blobs or Sanity. Netlify Blobs recommended for now.',
     status: 'pending',
   },
   {
-    site: 'Portal',
-    title: 'NotebookLM explainer videos for /clients page',
-    notes: 'Kevin to record or provide videos.',
-    owner: 'Kevin',
+    title: 'Complete ACNotifications workflow in GHL',
+    notes: 'Finish Email step body with webhook payload fields, save, publish.',
     status: 'pending',
   },
   {
-    site: 'Portal',
-    title: 'Feature request flow for non-technical team',
-    notes: 'Add GHL form on /clients page for Jim, Sheila, Adam to submit requests. Nathan/devs use GitHub Issues.',
-    owner: 'Claude',
-    status: 'pending',
-  },
-
-  // ── GHL ─────────────────────────────────────────────────────────
-  {
-    site: 'GHL',
-    title: 'Complete ACNotifications workflow',
-    notes: 'Finish Email step body with webhook payload fields, save, publish. Workflow: app.spiritmedia.us → ACNotifications.',
-    owner: 'Kevin',
-    status: 'pending',
-  },
-
-  // ── AC TASKS ────────────────────────────────────────────────────
-  {
-    site: 'AC',
-    title: 'Launch new site from template — error-free',
-    notes: 'AC should scaffold a full Astro + Tailwind + Sanity + Netlify site from the locked template at /home/deploy/bin/templates/astro-base/ with zero errors.',
-    owner: 'AC',
+    title: 'Develop Scale Plan',
     status: 'pending',
   },
   {
-    site: 'AC',
-    title: 'Extract an existing static site into Astro',
-    notes: 'Given a live URL or HTML export, AC rebuilds it as a proper Astro site with components, layouts, and Tailwind.',
-    owner: 'AC',
+    title: 'Script for manuscript review',
     status: 'pending',
   },
   {
-    site: 'AC',
-    title: 'Clone a WordPress site into Astro',
-    notes: 'Pull content via WordPress REST API, rebuild pages in Astro, migrate media to R2 or Sanity.',
-    owner: 'AC',
-    status: 'pending',
-  },
-
-  // ── PLAYBOOK IMPROVEMENTS (from Google Doc) ─────────────────────
-  {
-    site: 'Playbook',
-    title: 'Add pre-launch QA checklist',
-    notes: 'Test all links, forms → GHL, mobile/tablet responsive, Lighthouse, sitemap.xml + robots.txt, analytics, Safari/Chrome/Firefox.',
-    owner: 'Claude',
+    title: 'Script for manuscript evaluation',
     status: 'pending',
   },
   {
-    site: 'Playbook',
-    title: 'Add standard page structure',
-    notes: 'Home, About, Services/Work, Blog/Articles, Contact, Privacy Policy. Speeds onboarding.',
-    owner: 'Claude',
+    title: 'Publishing Checklist Portal',
     status: 'pending',
   },
   {
-    site: 'Playbook',
-    title: 'Add performance standards',
-    notes: 'Target Lighthouse 90+, images < 300kb, lazy-load all media, use Astro components for reusable blocks.',
-    owner: 'Claude',
-    status: 'pending',
-  },
-  {
-    site: 'Playbook',
-    title: 'Add Cloudflare configuration expectations',
-    notes: 'Enable Bot Fight Mode, Automatic HTTPS Rewrites, Always Use HTTPS, WAF basic rules.',
-    owner: 'Claude',
-    status: 'pending',
-  },
-  {
-    site: 'Playbook',
-    title: 'Add backup / recovery process',
-    notes: 'GitHub = source code, R2 = media backup, Netlify deploy history = rollback option.',
-    owner: 'Claude',
-    status: 'pending',
-  },
-  {
-    site: 'Playbook',
-    title: 'Add SEO standards',
-    notes: 'H1 only once per page, alt tags required for all images, structured data for organizations, OpenGraph tags.',
-    owner: 'Claude',
-    status: 'pending',
-  },
-  {
-    site: 'Playbook',
-    title: 'Add to Client Workflow: clients never receive GitHub access',
-    notes: '"Clients never receive GitHub access. All deployments are handled by Spirit Media." Avoids confusion.',
-    owner: 'Claude',
-    status: 'pending',
-  },
-
-  // ── NEW SITES ───────────────────────────────────────────────────
-  {
-    site: "Believer's Library",
-    title: 'Mobile app launch',
+    title: "Believer's Library mobile app launch",
     notes: 'Target: 2026.',
-    owner: 'Kevin + Claude',
     status: 'pending',
   },
 ];
 
-const ownerColor: Record<Owner, string> = {
-  'Kevin':         'background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;',
-  'Claude':        'background:#fdf4ff;color:#7e22ce;border:1px solid #e9d5ff;',
-  'AC':            'background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;',
-  'Kevin + Claude':'background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;',
-};
-const ownerIcon: Record<Owner, string> = {
-  'Kevin':          '👤 Kevin',
-  'Claude':         '🤖 Claude',
-  'AC':             '⚡ AC',
-  'Kevin + Claude': '👤🤖 Kevin + Claude',
-};
-
-const groups = [
-  { label: 'Infrastructure',             site: null },
-  { label: 'Arts By Justin',             site: 'Arts By Justin' },
-  { label: 'Spirit Media Publishing',    site: 'SMP' },
-  { label: 'The Kohler Group',           site: 'The Kohler Group' },
-  { label: 'Portal',                     site: 'Portal' },
-  { label: 'GoHighLevel',               site: 'GHL' },
-  { label: 'AC Tasks',                   site: 'AC' },
-  { label: 'Playbook Improvements',      site: 'Playbook' },
-  { label: "New Sites",                  site: "Believer's Library" },
+const webDev: Task[] = [
+  {
+    title: 'SMP Bookstore — research missing ASINs and fill in format badges',
+    notes: 'Format badges and stats counter working. Many titles still missing format data. 300+ titles total.',
+    status: 'pending',
+  },
+  {
+    title: 'Portal — NotebookLM explainer videos for /clients page',
+    notes: 'Kevin to record or provide videos.',
+    status: 'pending',
+  },
+  {
+    title: 'Portal — feature request flow for non-technical team',
+    notes: 'Add GHL form on /clients page for Jim, Sheila, Adam to submit requests.',
+    status: 'pending',
+  },
+  {
+    title: 'Playbook — add standard page structure',
+    notes: 'Home, About, Services/Work, Blog/Articles, Contact, Privacy Policy.',
+    status: 'pending',
+  },
+  {
+    title: 'Playbook — add backup / recovery process',
+    notes: 'GitHub = source code, R2 = media backup, Netlify deploy history = rollback.',
+    status: 'pending',
+  },
+  {
+    title: 'Playbook — add SEO standards',
+    notes: 'H1 once per page, alt tags required, structured data, OpenGraph tags.',
+    status: 'pending',
+  },
+  {
+    title: 'Script for website checklist',
+    status: 'pending',
+  },
+  {
+    title: 'Script for website extraction',
+    status: 'pending',
+  },
+  {
+    title: 'Script for website migration',
+    status: 'pending',
+  },
 ];
 
-function tasksForGroup(label: string, site: string | null) {
-  if (label === 'Infrastructure') {
-    return tasks.filter(t => ['FHB + WOY', 'All Sites', 'SMP'].includes(t.site) && t.site !== 'SMP' || 
-      (t.site === 'SMP' && t.title.includes('DMARC')));
-  }
-  return tasks.filter(t => t.site === site);
-}
+const ghlDev: Task[] = [
+  {
+    title: 'Angel Writing Onboarding',
+    status: 'pending',
+  },
+  {
+    title: 'Prove Claude empowered GHL',
+    status: 'pending',
+  },
+  {
+    title: 'Landing Page Onboarding',
+    status: 'pending',
+  },
+  {
+    title: 'Website Builder Onboarding',
+    status: 'pending',
+  },
+];
+
+const sections: { label: string; role: Role; tasks: Task[] }[] = [
+  { label: 'Admin', role: 'Admin', tasks: admin },
+  { label: 'Web Developer', role: 'Web Developer', tasks: webDev },
+  { label: 'GHL Developer', role: 'GHL Developer', tasks: ghlDev },
+];
+
+const roleColor: Record<Role, string> = {
+  'Admin':          'background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;',
+  'Web Developer':  'background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;',
+  'GHL Developer':  'background:#fdf2f8;color:#9d174d;border:1px solid #fbcfe8;',
+};
+const roleBg: Record<Role, string> = {
+  'Admin':          'background:#eff6ff;border-color:#bfdbfe;',
+  'Web Developer':  'background:#f0fdf4;border-color:#bbf7d0;',
+  'GHL Developer':  'background:#fdf2f8;border-color:#fbcfe8;',
+};
+const roleIcon: Record<Role, string> = {
+  'Admin':          '\uD83D\uDC64',
+  'Web Developer':  '\uD83D\uDEE0\uFE0F',
+  'GHL Developer':  '\uD83D\uDE80',
+};
 ---
 
 <PortalLayout title="Task Log">
   <div class="max-w-4xl">
     <h1 class="text-4xl font-bold mb-1">Task Log</h1>
-    <p class="text-stone-500 mb-2">All pending work across Spirit Media sites</p>
+    <p class="text-stone-500 mb-2">All pending work sorted by role</p>
     <div class="flex flex-wrap gap-3 mb-8 text-xs">
-      <span style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;" class="px-2 py-1 rounded font-semibold">👤 Kevin — needs your action</span>
-      <span style="background:#fdf4ff;color:#7e22ce;border:1px solid #e9d5ff;" class="px-2 py-1 rounded font-semibold">🤖 Claude — I handle this with you</span>
-      <span style="background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;" class="px-2 py-1 rounded font-semibold">⚡ AC — autonomous agent task</span>
-      <span style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;" class="px-2 py-1 rounded font-semibold">👤🤖 Kevin + Claude — collaboration</span>
+      <span style={roleColor['Admin']} class="px-2 py-1 rounded font-semibold">{roleIcon['Admin']} Admin &mdash; {admin.filter(t => t.status === 'pending').length} tasks</span>
+      <span style={roleColor['Web Developer']} class="px-2 py-1 rounded font-semibold">{roleIcon['Web Developer']} Web Developer &mdash; {webDev.filter(t => t.status === 'pending').length} tasks</span>
+      <span style={roleColor['GHL Developer']} class="px-2 py-1 rounded font-semibold">{roleIcon['GHL Developer']} GHL Developer &mdash; {ghlDev.filter(t => t.status === 'pending').length} tasks</span>
     </div>
 
-    {groups.map(group => {
-      const groupTasks = tasksForGroup(group.label, group.site);
-      if (groupTasks.length === 0) return null;
+    {sections.map(section => {
+      const pending = section.tasks.filter(t => t.status === 'pending');
+      if (pending.length === 0) return null;
       return (
         <div class="mb-8">
-          <h2 class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-3">{group.label}</h2>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-3">{roleIcon[section.role]} {section.label} <span class="text-stone-300">({pending.length})</span></h2>
           <div class="space-y-2">
-            {groupTasks.map(task => (
-              <div class="bg-white border border-stone-200 rounded-lg px-5 py-4">
-                <div class="flex flex-wrap items-center gap-2 mb-1">
-                  <span class="text-xs font-semibold text-stone-400">{task.site}</span>
-                  <span style={ownerColor[task.owner]} class="text-xs font-bold px-2 py-0.5 rounded">
-                    {ownerIcon[task.owner]}
-                  </span>
-                </div>
+            {pending.map(task => (
+              <div class="border rounded-lg px-5 py-4" style={roleBg[section.role]}>
                 <p class="text-sm font-semibold text-stone-800">{task.title}</p>
                 {task.notes && <p class="text-xs text-stone-500 mt-1">{task.notes}</p>}
               </div>

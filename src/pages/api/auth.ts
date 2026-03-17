@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-const CORRECT_PIN = '060622';
+const CORRECT_PIN = '030126';
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   // Parse form data
@@ -9,13 +9,13 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 
   // Validate PIN
   if (pin === CORRECT_PIN) {
-    // Set cookie
-    cookies.set('portal_auth', 'authenticated', {
+    // Set cookie with PIN-derived token so changing PIN invalidates all sessions
+    cookies.set('portal_auth', `pin_${CORRECT_PIN}`, {
       path: '/',
       httpOnly: true,
       secure: true,
       sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 30, // 30 days
+      maxAge: 60 * 60 * 24 * 7, // 7 days
     });
 
     // Redirect to dashboard

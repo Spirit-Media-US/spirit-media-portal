@@ -2,31 +2,153 @@
 import PortalLayout from '../layouts/PortalLayout.astro';
 ---
 
-<PortalLayout title="Developers">
+<PortalLayout title="Developers" mainBg="#ecfdf5">
   <div class="max-w-4xl">
-    <h1 class="text-4xl font-bold mb-2">Developer Onboarding</h1>
-    <p class="text-stone-600 mb-8">Welcome Nathan! Here's everything you need to get started.</p>
+    <h1 class="text-4xl font-bold mb-2">Developers</h1>
+    <p class="text-stone-600 mb-8">Everything you need — otherwise request improvements in Slack.</p>
 
     <div class="space-y-8">
+      <!-- Naming Conventions -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Naming Conventions</h2>
+        <p class="text-stone-700 mb-3">To avoid confusion, the team uses these terms consistently:</p>
+        <ul class="space-y-2 text-stone-700">
+          <li><code class="bg-stone-100 px-2 py-1 rounded text-xs font-bold">bethel</code> = the server (Hetzner VPS at 100.114.220.65)</li>
+          <li><code class="bg-stone-100 px-2 py-1 rounded text-xs font-bold">dev</code> = always the git branch (where all work happens)</li>
+          <li><code class="bg-stone-100 px-2 py-1 rounded text-xs font-bold">main</code> = always the production branch (triggers Netlify build)</li>
+        </ul>
+        <p class="text-stone-500 text-sm mt-3">Example: "SSH into Bethel, push to dev, Kevin approves merge to main."</p>
+      </section>
+
       <!-- SSH Access -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">SSH Access</h2>
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">SSH Access to Bethel</h2>
         <p class="text-stone-600 mb-4">Connect to the development server via Tailscale:</p>
-        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
-          ssh deploy@100.114.220.65
+        <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
+          <span>ssh <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</span>
         </div>
-        <p class="text-stone-500 text-sm mt-3">You'll need Tailscale VPN access first.</p>
+        <p class="text-stone-500 text-sm mt-3">Requires Tailscale VPN. See <a href="/connecting" class="text-red-700 hover:underline">Connecting</a> for Tailscale setup and credentials.</p>
+      </section>
+
+      <!-- Bethel User Accounts -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Bethel User Accounts</h2>
+        <p class="text-stone-600 mb-4">Each developer has their own SSH account. Passwords are in the <strong>Bethel Admin Guide</strong> &mdash; ask Kevin for access.</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-stone-200">
+                <th class="text-left py-2 pr-4 text-stone-500 font-semibold">Name</th>
+                <th class="text-left py-2 pr-4 text-stone-500 font-semibold">Username</th>
+                <th class="text-left py-2 pr-4 text-stone-500 font-semibold">Role</th>
+                <th class="text-left py-2 text-stone-500 font-semibold">Preview Ports</th>
+              </tr>
+            </thead>
+            <tbody class="text-stone-700">
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">Kevin White</td><td class="py-2 pr-4 font-mono text-xs">kevin</td><td class="py-2 pr-4">Owner</td><td class="py-2 font-mono text-xs">4321&ndash;4340</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">Nathan Bost</td><td class="py-2 pr-4 font-mono text-xs">nathan</td><td class="py-2 pr-4">Technical / Git</td><td class="py-2 font-mono text-xs">4341&ndash;4360</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">Jufrey</td><td class="py-2 pr-4 font-mono text-xs">jufrey</td><td class="py-2 pr-4">Web Developer</td><td class="py-2 font-mono text-xs">4361&ndash;4380</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">Justin Keishing</td><td class="py-2 pr-4 font-mono text-xs">justin</td><td class="py-2 pr-4">Team Member</td><td class="py-2 font-mono text-xs">4381&ndash;4400</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">GHL Support</td><td class="py-2 pr-4 font-mono text-xs">support</td><td class="py-2 pr-4">GHL / CRM</td><td class="py-2 font-mono text-xs">&mdash;</td></tr>
+              <tr><td class="py-2 pr-4">Deploy</td><td class="py-2 pr-4 font-mono text-xs">deploy</td><td class="py-2 pr-4">Deployments only</td><td class="py-2 font-mono text-xs">&mdash;</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-stone-500 text-xs mt-3">Preview ports prevent conflicts when multiple developers run dev servers simultaneously.</p>
+      </section>
+
+      <!-- Managing Users -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Managing Bethel Accounts</h2>
+        <p class="text-stone-600 mb-4">Claude handles all user management on Bethel. No manual commands needed.</p>
+        <div class="space-y-4">
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Add a user</p>
+            <p class="text-sm text-stone-700 italic">"Create a new Bethel account for [Full Name]. Their email is [email]. Their role is [role]."</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Remove a user</p>
+            <p class="text-sm text-stone-700 italic">"Remove [username]'s Bethel account."</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Reset a password</p>
+            <p class="text-sm text-stone-700 italic">"Reset the password for [username]."</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Rotate the API key</p>
+            <p class="text-sm text-stone-700">1. Go to <a href="https://console.anthropic.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">console.anthropic.com</a> &rarr; API Keys<br/>2. Create a new key named "Bethel Server"<br/>3. Tell Claude: <span class="italic">"Update the Bethel API key to [new key]"</span><br/>4. Delete the old key in console.anthropic.com</p>
+          </div>
+        </div>
+        <p class="text-stone-500 text-xs mt-3">Claude generates credentials and updates the Bethel Admin Guide automatically.</p>
+      </section>
+
+      <!-- Security -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Security Notes</h2>
+        <ul class="space-y-2 text-stone-700 text-sm">
+          <li>&bull; Never commit passwords or API keys to Git</li>
+          <li>&bull; All secrets are stored in <code class="bg-stone-100 px-1 rounded text-xs">~/.secrets</code> on each account (chmod 600)</li>
+          <li>&bull; The <code class="bg-stone-100 px-1 rounded text-xs">deploy</code> account is for automated deployments only &mdash; not daily work</li>
+          <li>&bull; Each user's Claude session history is private to their account</li>
+          <li>&bull; API key should be rotated every 90 days</li>
+        </ul>
+      </section>
+
+      <!-- Session Tips -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Session Best Practices</h2>
+        <p class="text-stone-600 mb-4">At the end of every session, tell Claude:</p>
+        <div class="bg-stone-100 rounded px-4 py-3 text-sm italic text-stone-700 mb-4">"Update CLAUDE.md with what we did today"</div>
+        <p class="text-stone-600 mb-4">At the start of a new session, tell Claude:</p>
+        <div class="bg-stone-100 rounded px-4 py-3 text-sm italic text-stone-700">"Read CLAUDE.md — that's our current state. Then [your task]."</div>
+        <p class="text-stone-500 text-xs mt-3">This gives every new session full context of what happened before.</p>
+      </section>
+
+      <!-- GitHub SSH Key Setup -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">GitHub SSH Key Setup</h2>
+        <p class="text-stone-600 mb-4">Generate an SSH key and add it to your GitHub account so you can push/pull without entering passwords.</p>
+        <div class="space-y-4">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 1 — Generate a key</p>
+            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
+              <span>ssh-keygen -t ed25519 -C "your@email.com"</span>
+              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy='ssh-keygen -t ed25519 -C "your@email.com"'>Copy</button>
+            </div>
+            <p class="text-stone-500 text-xs mt-1">Press Enter to accept the default file location. Add a passphrase if desired.</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 2 — Copy the public key</p>
+            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
+              <span>cat ~/.ssh/id_ed25519.pub</span>
+              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy="cat ~/.ssh/id_ed25519.pub">Copy</button>
+            </div>
+            <p class="text-stone-500 text-xs mt-1">Copy the entire output (starts with <code class="bg-stone-100 px-1 rounded">ssh-ed25519</code>).</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 3 — Add to GitHub</p>
+            <p class="text-stone-600 text-sm">Go to <a href="https://github.com/settings/keys" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">github.com/settings/keys</a> → <strong>New SSH key</strong> → paste the public key → Save.</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 4 — Test the connection</p>
+            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
+              <span>ssh -T git@github.com</span>
+              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy="ssh -T git@github.com">Copy</button>
+            </div>
+            <p class="text-stone-500 text-xs mt-1">You should see: "Hi [username]! You've successfully authenticated."</p>
+          </div>
+        </div>
       </section>
 
       <!-- Code Server -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Code Server (VS Code in Browser)</h2>
         <p class="text-stone-600 mb-4">Browser-based IDE with full project access:</p>
         <a
           href="https://dev.spiritmediapublishing.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-block px-4 py-2 bg-gold text-navy rounded font-600 hover:bg-opacity-90 transition"
+          class="inline-block px-4 py-2 bg-red-50 border border-stone-200 hover:bg-white hover:border-red-700 text-red-700 text-sm font-semibold rounded transition-colors"
         >
           Open Code Server
         </a>
@@ -34,7 +156,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </section>
 
       <!-- GitHub Organization -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">GitHub Organization</h2>
         <p class="text-stone-600 mb-4">
           <a href="https://github.com/Spirit-Media-US" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">
@@ -54,53 +176,26 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         </div>
       </section>
 
-      <!-- Sanity Project IDs -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Sanity Project IDs</h2>
-        <p class="text-stone-600 mb-4">For configuration and API calls:</p>
+      <!-- Google Analytics -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Google Analytics</h2>
+        <p class="text-stone-600 mb-4">Access via <code class="bg-stone-100 px-2 py-1 rounded text-xs">admin@spiritmedia.us</code></p>
         <div class="space-y-2">
           <div class="flex items-center justify-between bg-stone-100 px-4 py-2 rounded">
             <div>
-              <p class="text-stone-700 font-semibold">Spirit Media Publishing</p>
-              <code class="text-xs text-stone-500">pmowd8uo</code>
+              <p class="text-stone-700 font-semibold">Google Tag Manager ID</p>
+              <code class="text-xs text-stone-500">526725965</code>
             </div>
-            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="pmowd8uo">
+            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="526725965">
               Copy
             </button>
           </div>
           <div class="flex items-center justify-between bg-stone-100 px-4 py-2 rounded">
             <div>
-              <p class="text-stone-700 font-semibold">Fathers Heart Bible</p>
-              <code class="text-xs text-stone-500">rusi1hyi</code>
+              <p class="text-stone-700 font-semibold">GA4 Property ID</p>
+              <code class="text-xs text-stone-500">G-W3R21TNHTX</code>
             </div>
-            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="rusi1hyi">
-              Copy
-            </button>
-          </div>
-          <div class="flex items-center justify-between bg-stone-100 px-4 py-2 rounded">
-            <div>
-              <p class="text-stone-700 font-semibold">Work On Yourself</p>
-              <code class="text-xs text-stone-500">u8tg0g1c</code>
-            </div>
-            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="u8tg0g1c">
-              Copy
-            </button>
-          </div>
-          <div class="flex items-center justify-between bg-stone-100 px-4 py-2 rounded">
-            <div>
-              <p class="text-stone-700 font-semibold">The Kohler Group</p>
-              <code class="text-xs text-stone-500">2bom5gqg</code>
-            </div>
-            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="2bom5gqg">
-              Copy
-            </button>
-          </div>
-          <div class="flex items-center justify-between bg-stone-100 px-4 py-2 rounded">
-            <div>
-              <p class="text-stone-700 font-semibold">Arts By Justin</p>
-              <code class="text-xs text-stone-500">oqoqh3p3</code>
-            </div>
-            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="oqoqh3p3">
+            <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-opacity-30 text-red-700 rounded text-xs font-600" data-copy="G-W3R21TNHTX">
               Copy
             </button>
           </div>
@@ -108,7 +203,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </section>
 
       <!-- Credentials -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Credentials & Secrets</h2>
         <p class="text-stone-600 mb-2">All sensitive credentials are stored in:</p>
         <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-700 mb-4">
@@ -120,66 +215,93 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </section>
 
       <!-- Deploy Workflow -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Deploy Workflow</h2>
-        <p class="text-stone-500 text-sm mb-5">Netlify builds count against a monthly credit limit. Every push to <code class="bg-stone-100 px-1 rounded">main</code> triggers a production build. All development work stays on <code class="bg-stone-100 px-1 rounded">dev</code> &#8212; only merge to <code class="bg-stone-100 px-1 rounded">main</code> when ready to publish.</p>
-        <div class="space-y-5">
-          <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 1 &#8212; Switch to dev branch</p>
-            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700">
-              <span>git checkout dev</span>
-              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy="git checkout dev">Copy</button>
-            </div>
-          </div>
-          <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 2 &#8212; Preview locally before pushing</p>
-            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700">
-              <span>npm run dev</span>
-              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy="npm run dev">Copy</button>
-            </div>
-            <p class="text-stone-500 text-xs mt-1">Preview at localhost:4321. Never push without previewing first.</p>
-          </div>
-          <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 3 &#8212; Push to dev (no Netlify build)</p>
-            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700">
-              <span class="truncate mr-2">git add . &amp;&amp; git commit --no-verify -m "msg" &amp;&amp; git push origin dev</span>
-              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-2 flex-shrink-0 font-sans" data-copy='git add . && git commit --no-verify -m "msg" && git push origin dev'>Copy</button>
-            </div>
-            <p class="text-stone-500 text-xs mt-1">The --no-verify flag skips the pre-commit hook (required for SMP).</p>
-          </div>
-          <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 4 &#8212; Merge to main when ready to publish</p>
-            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700">
-              <span class="truncate mr-2">git checkout main &amp;&amp; git merge dev &amp;&amp; git push origin main &amp;&amp; git checkout dev</span>
-              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-2 flex-shrink-0 font-sans" data-copy="git checkout main && git merge dev && git push origin main && git checkout dev">Copy</button>
-            </div>
-            <p class="text-stone-500 text-xs mt-1">Triggers one Netlify production build. Always switch back to dev immediately after.</p>
-          </div>
-          <div class="bg-stone-50 border border-stone-200 rounded p-3 text-sm text-stone-600">
-            &#128161; <strong>Netlify preview URLs may take 1–3 seconds on first load</strong> after a period of inactivity. This is a Netlify free-plan cold start — not a code issue. Subsequent requests are fast.
-          </div>
-          <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800">
-            &#9888;&#65039; <strong>One push to main = one Netlify build credit.</strong> Batch all changes into one session before merging. Kevin approves all merges to main.
-          </div>
-        </div>
+        <p class="text-stone-600 text-sm">See the full deployment workflow, troubleshooting guide, and best practices on the <a href="/playbook" class="text-red-700 hover:underline font-semibold">Playbook</a>.</p>
       </section>
 
       <!-- Quick Start -->
-      <section class="bg-red-50 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Quick Start Checklist</h2>
         <ul class="space-y-2 text-stone-700">
-          <li>✓ Request Tailscale VPN access</li>
-          <li>✓ Ask for Bitwarden vault invitation</li>
-          <li>✓ SSH into the server: <code class="bg-stone-100 px-2 py-1 rounded text-xs">ssh deploy@100.114.220.65</code></li>
-          <li>✓ Access Code Server: <a href="https://dev.spiritmediapublishing.com" class="text-red-700 hover:underline">dev.spiritmediapublishing.com</a></li>
+          <li>✓ Get your username and password from Jay or Kevin</li>
+          <li>✓ Set up <a href="/connecting" class="text-red-700 hover:underline">Tailscale VPN</a> (see Connecting page)</li>
+          <li>✓ SSH into Bethel: <code class="bg-stone-100 px-2 py-1 rounded text-xs">ssh yourusername@bethel.spiritmediapublishing.com</code></li>
+          <li>✓ Set up your <a href="https://github.com/settings/keys" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">GitHub SSH key</a> (see setup above)</li>
           <li>✓ Clone repos from Spirit-Media-US org</li>
           <li>✓ Install dependencies: <code class="bg-stone-100 px-2 py-1 rounded text-xs">npm install</code></li>
-          <li>✓ Read the Playbook for deployment workflow</li>
+          <li>✓ Read the <a href="/playbook" class="text-red-700 hover:underline">Playbook</a> for deployment workflow</li>
+          <li>✓ Read the <a href="/connecting" class="text-red-700 hover:underline">Connecting</a> page for Claude setup</li>
+        </ul>
+      </section>
+
+      <!-- Shared Templates -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Shared Templates</h2>
+        <p class="text-stone-600 mb-4">Reusable checklists and scripts stored on Bethel. Tell Claude which template to run and it handles the rest.</p>
+
+        <h3 class="font-bold text-stone-800 mb-2">Location</h3>
+        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 mb-4">
+          /home/deploy/bin/templates/
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">Available Templates</h3>
+        <div class="overflow-x-auto mb-4">
+          <table class="w-full text-sm text-left">
+            <thead class="text-xs text-stone-500 uppercase border-b">
+              <tr><th class="py-2 pr-4">Template</th><th class="py-2 pr-4">File</th><th class="py-2">Purpose</th></tr>
+            </thead>
+            <tbody class="text-stone-700">
+              <tr class="border-b border-stone-100">
+                <td class="py-2 pr-4 font-medium">Post-Launch Checklist</td>
+                <td class="py-2 pr-4 font-mono text-xs">post-launch-checklist.md</td>
+                <td class="py-2">58-item QA, SEO, accessibility, performance, and deployment checklist</td>
+              </tr>
+              <tr class="border-b border-stone-100 text-stone-400">
+                <td class="py-2 pr-4 font-medium">New Website Setup</td>
+                <td class="py-2 pr-4 font-mono text-xs">website-setup.md</td>
+                <td class="py-2">Coming soon</td>
+              </tr>
+              <tr class="border-b border-stone-100 text-stone-400">
+                <td class="py-2 pr-4 font-medium">Website Evaluation</td>
+                <td class="py-2 pr-4 font-mono text-xs">website-evaluation.md</td>
+                <td class="py-2">Coming soon</td>
+              </tr>
+              <tr class="border-b border-stone-100 text-stone-400">
+                <td class="py-2 pr-4 font-medium">Website Extraction</td>
+                <td class="py-2 pr-4 font-mono text-xs">website-extraction.md</td>
+                <td class="py-2">Coming soon</td>
+              </tr>
+              <tr class="border-b border-stone-100 text-stone-400">
+                <td class="py-2 pr-4 font-medium">Website Migration</td>
+                <td class="py-2 pr-4 font-mono text-xs">website-migration.md</td>
+                <td class="py-2">Coming soon</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">How to Use a Template</h3>
+        <p class="text-stone-600 text-sm mb-2">Just tell Claude in plain English:</p>
+        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 mb-2 italic">
+          Run the post-launch checklist for thekohlergroup.net. Save the report and upload to Google Drive.
+        </div>
+        <p class="text-stone-500 text-xs mb-4">Claude reads the template, fills in the site details automatically from CLAUDE.md and the codebase, runs the audit, and uploads the report.</p>
+
+        <h3 class="font-bold text-stone-800 mb-2">How to Add a New Template</h3>
+        <p class="text-stone-600 text-sm mb-2">Build it with Claude on Bethel, then save:</p>
+        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 mb-2">
+          Save this template to /home/deploy/bin/templates/[template-name].md
+        </div>
+        <ul class="text-stone-600 text-sm space-y-1 ml-4 list-disc">
+          <li>Use <code class="bg-stone-100 px-1 py-0.5 rounded text-xs">[PLACEHOLDERS]</code> for site-specific values</li>
+          <li>Add a header: who created it, last updated, what it's for</li>
+          <li>Requires deploy group membership (ask Kevin)</li>
         </ul>
       </section>
 
       <!-- Support -->
-      <section class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-6">
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Need Help?</h2>
         <p class="text-stone-600">
           Check the <a href="/playbook" class="text-red-700 hover:underline">Playbook</a> for architecture & workflows, or direct questions to the team lead.
