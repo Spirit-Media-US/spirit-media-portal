@@ -4,8 +4,8 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 
 <PortalLayout title="Connecting" mainBg="#fdf2f8">
   <div class="max-w-4xl">
-    <h1 class="text-4xl font-bold mb-2">Connecting to Bethel</h1>
-    <p class="text-stone-600 mb-8">Three ways to work with Claude depending on your role</p>
+    <h1 class="text-4xl font-bold mb-2">Connecting to Claude</h1>
+    <p class="text-stone-600 mb-8">Three ways to work with Claude depending on what you&rsquo;re doing</p>
 
     <div class="space-y-8">
 
@@ -114,59 +114,39 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         </div>
       </section>
 
-      <!-- 2. Claude Code on Desktop -->
+      <!-- 2. Claude AI for Developers (Planning) -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <div class="flex items-center gap-3 mb-4">
-          <span class="text-2xl">&#x1F4BB;</span>
-          <h2 class="text-2xl font-bold text-red-700">2. Claude Code on Desktop <span class="text-sm font-normal text-stone-500">(Developers &mdash; Mac or Windows)</span></h2>
+          <span class="text-2xl">&#x1F4AC;</span>
+          <h2 class="text-2xl font-bold text-red-700">2. Claude AI for Developers <span class="text-sm font-normal text-stone-500">(Planning &amp; Strategy)</span></h2>
         </div>
-        <p class="text-stone-600 mb-4">Claude Code on your Mac connects directly to Bethel over SSH — you work from your desktop but everything runs on the server.</p>
+        <p class="text-stone-600 mb-4">For planning, strategy, reviewing screenshots, and multi-site coordination. No SSH or Terminal needed — runs in your browser.</p>
 
-        <h3 class="font-bold text-stone-800 mb-3">First-Time Setup</h3>
-        <div class="space-y-4 mb-6">
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>Install Claude Code:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">npm install -g @anthropic-ai/claude-code</div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Add Bethel to your SSH config (<code class="bg-stone-100 px-1 rounded text-xs">~/.ssh/config</code>):
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm whitespace-pre">Host bethel
-  HostName 100.114.220.65
-  User <span class="text-red-700">yourusername</span>
-  IdentityFile ~/.ssh/id_ed25519</div>
-              <p class="text-xs text-stone-500 mt-1">Tailscale VPN must be connected for this to work.</p>
-            </div>
-          </div>
-        </div>
-
-        <h3 class="font-bold text-stone-800 mb-3">Every Session</h3>
         <div class="space-y-4">
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>Connect Tailscale VPN on your Mac.</div>
+            <div>Go to <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-bold">claude.ai</a> and sign in with your Spirit Media team email.</div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Open Terminal and connect Claude Code to Bethel:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">claude --ssh bethel --ssh-dir ~/Sites/<span class="text-red-700">site-name</span></div>
-              <p class="text-xs text-stone-500 mt-1">Replace <code class="bg-white px-1 rounded">site-name</code> with the site you&rsquo;re working on (e.g. <code class="bg-white px-1 rounded">FHB</code>, <code class="bg-white px-1 rounded">WOY</code>, <code class="bg-white px-1 rounded">spirit-media-publishing</code>).</p>
+            <div><strong>Start every new conversation</strong> by pasting the team prompt below — this gives Claude full project context so you don&rsquo;t have to explain the stack every time.
+              <div class="bg-stone-100 rounded px-3 py-2 mt-2 text-sm leading-relaxed">
+                You are helping Spirit Media Publishing build and maintain websites. Stack: Astro + Tailwind CSS. GitHub org: Spirit-Media-US (all repos public). Hosting: Netlify, Spirit Media team, build = npm run build, publish = dist. DNS/SSL/CDN: Cloudflare, proxy active. Media: Sanity for images on media-heavy sites — auto-optimizes and serves via CDN. Cloudflare R2 for audio. Video goes on YouTube and is embedded on site. R2 is backup for video when YouTube isn&rsquo;t appropriate. Never put media in GitHub, all repos block this via .gitignore. Forms: GoHighLevel, all contacts tagged by site.<br/><br/>
+                This site: [site name] | Repo: github.com/Spirit-Media-US/[repo-name] | Domain: [domain] | R2 bucket: [bucket-name or n/a]<br/><br/>
+                Rules: Never push without local preview first (npm run dev). All work goes to the dev branch — never push directly to main. Only merge dev to main when Kevin says &ldquo;push to main.&rdquo; Pricing off all public pages. All contacts to GHL. Media always to R2 or Sanity.<br/><br/>
+                Today&rsquo;s task: [describe what you need]
+              </div>
+              <button class="copy-btn mt-2 px-3 py-1 bg-red-700 text-white rounded text-sm hover:bg-red-800 transition-colors" data-copy="You are helping Spirit Media Publishing build and maintain websites. Stack: Astro + Tailwind CSS. GitHub org: Spirit-Media-US (all repos public). Hosting: Netlify, Spirit Media team, build = npm run build, publish = dist. DNS/SSL/CDN: Cloudflare, proxy active. Media: Sanity for images on media-heavy sites — auto-optimizes and serves via CDN. Cloudflare R2 for audio. Video goes on YouTube and is embedded on site. R2 is backup for video when YouTube is not appropriate. Never put media in GitHub, all repos block this via .gitignore. Forms: GoHighLevel, all contacts tagged by site.&#10;&#10;This site: [site name] | Repo: github.com/Spirit-Media-US/[repo-name] | Domain: [domain] | R2 bucket: [bucket-name or n/a]&#10;&#10;Rules: Never push without local preview first (npm run dev). All work goes to the dev branch — never push directly to main. Only merge dev to main when Kevin says push to main. Pricing off all public pages. All contacts to GHL. Media always to R2 or Sanity.&#10;&#10;Today's task: [describe what you need]">Copy Prompt</button>
             </div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">3.</span>
-            <div>Claude Code opens connected to Bethel. Talk to it in <strong>plain English</strong> — same as a direct SSH session.</div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">4.</span>
-            <div>To exit: <code class="bg-stone-100 px-2 py-0.5 rounded text-sm">/exit</code></div>
+            <div>Fill in the bracketed fields, then describe what you need in plain English.</div>
           </div>
         </div>
 
         <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
-          <p class="text-sm text-stone-700"><strong>Note:</strong> Claude Code runs on Bethel, not your Mac. Your terminal is just the interface. All builds, files, and git operations happen on the server.</p>
+          <p class="text-sm text-stone-700"><strong>When to use this vs Bethel:</strong> Use claude.ai for planning, reviewing, and strategy. Use Bethel (Section 1) for actually building, editing files, running builds, and deploying.</p>
         </div>
       </section>
 
