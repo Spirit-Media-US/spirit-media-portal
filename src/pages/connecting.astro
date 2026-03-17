@@ -120,21 +120,53 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           <span class="text-2xl">&#x1F4BB;</span>
           <h2 class="text-2xl font-bold text-red-700">2. Claude Code on Desktop <span class="text-sm font-normal text-stone-500">(Developers &mdash; Mac or Windows)</span></h2>
         </div>
-        <p class="text-stone-600 mb-4">For planning, strategy, reviewing screenshots, and multi-site coordination. Runs on your computer.</p>
+        <p class="text-stone-600 mb-4">Claude Code on your Mac connects directly to Bethel over SSH — you work from your desktop but everything runs on the server.</p>
 
-        <div class="space-y-4">
+        <h3 class="font-bold text-stone-800 mb-3">First-Time Setup</h3>
+        <div class="space-y-4 mb-6">
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>Open <strong>Claude Code</strong> on <strong>Claude Desktop</strong></div>
+            <div>Install Claude Code:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">npm install -g @anthropic-ai/claude-code</div>
+            </div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Talk to it in <strong>plain English</strong> &mdash; same as Bethel.</div>
+            <div>Add Bethel to your SSH config (<code class="bg-stone-100 px-1 rounded text-xs">~/.ssh/config</code>):
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm whitespace-pre">Host bethel
+  HostName 100.114.220.65
+  User <span class="text-red-700">yourusername</span>
+  IdentityFile ~/.ssh/id_ed25519</div>
+              <p class="text-xs text-stone-500 mt-1">Tailscale VPN must be connected for this to work.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-3">Every Session</h3>
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">1.</span>
+            <div>Connect Tailscale VPN on your Mac.</div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">2.</span>
+            <div>Open Terminal and connect Claude Code to Bethel:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">claude --ssh bethel --ssh-dir ~/Sites/<span class="text-red-700">site-name</span></div>
+              <p class="text-xs text-stone-500 mt-1">Replace <code class="bg-white px-1 rounded">site-name</code> with the site you&rsquo;re working on (e.g. <code class="bg-white px-1 rounded">FHB</code>, <code class="bg-white px-1 rounded">WOY</code>, <code class="bg-white px-1 rounded">spirit-media-publishing</code>).</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">3.</span>
+            <div>Claude Code opens connected to Bethel. Talk to it in <strong>plain English</strong> — same as a direct SSH session.</div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">4.</span>
+            <div>To exit: <code class="bg-stone-100 px-2 py-0.5 rounded text-sm">/exit</code></div>
           </div>
         </div>
 
         <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
-          <p class="text-sm text-stone-700"><strong>Best practice:</strong> Use Desktop for planning and reviewing. Use Bethel for building and deploying. Both read the same CLAUDE.md so they share the same context.</p>
+          <p class="text-sm text-stone-700"><strong>Note:</strong> Claude Code runs on Bethel, not your Mac. Your terminal is just the interface. All builds, files, and git operations happen on the server.</p>
         </div>
       </section>
 
