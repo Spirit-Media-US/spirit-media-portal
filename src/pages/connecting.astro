@@ -5,7 +5,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 <PortalLayout title="Connecting" mainBg="#fdf2f8">
   <div class="max-w-4xl">
     <h1 class="text-4xl font-bold mb-2">Connecting to Bethel</h1>
-    <p class="text-stone-600 mb-8">Four ways to work on our remote server (Bethel) with Claude depending on your role</p>
+    <p class="text-stone-600 mb-8">Three ways to work with Claude depending on your role</p>
 
     <div class="space-y-8">
 
@@ -15,13 +15,13 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           <span class="text-2xl">&#x1F5A5;</span>
           <h2 class="text-2xl font-bold text-red-700">1. Claude Console on Bethel <span class="text-sm font-normal text-stone-500">(Developers)</span></h2>
         </div>
-        <p class="text-stone-600 mb-4">For building, editing code, running builds, and deploying. Runs on the dev server so your Mac doesn't do the heavy lifting.</p>
+        <p class="text-stone-600 mb-4">For building, editing code, running builds, and deploying. Runs on the dev server so your Mac doesn&rsquo;t do the heavy lifting.</p>
 
         <h3 class="font-bold text-stone-800 mb-3">First-Time Setup</h3>
-        <div class="space-y-4 mb-8">
+        <div class="space-y-4 mb-6">
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>Get your <strong>username</strong> from <strong>Kevin or Nathan</strong></div>
+            <div>Get your <strong>username and password</strong> from Kevin or Nathan</div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">2.</span>
@@ -31,39 +31,15 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">3.</span>
-            <div>Generate an SSH key (if you don&rsquo;t have one):
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">ssh-keygen -t ed25519 -C "<span class="text-red-700">your@email.com</span>" -f ~/.ssh/id_ed25519 -N ""</div>
-              <p class="text-xs text-stone-500 mt-1">Press Enter through all prompts. This creates your key pair.</p>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">4.</span>
-            <div>Send your <strong>public key</strong> to Kevin or Nathan:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">cat ~/.ssh/id_ed25519.pub</div>
-              <p class="text-xs text-stone-500 mt-1">Copy the output and send it. They&rsquo;ll add it to your bethel account. You cannot connect until this is done.</p>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">5.</span>
-            <div>Add SSH config <span class="text-stone-500">(optional but recommended)</span>:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm whitespace-pre">Host bethel
-  HostName bethel.spiritmediapublishing.com
-  User <span class="text-red-700">yourusername</span>
-  IdentityFile ~/.ssh/id_ed25519</div>
-              <p class="text-xs text-stone-500 mt-1">Add this to <code class="bg-white px-1 rounded">~/.ssh/config</code>. Then you can just type <code class="bg-white px-1 rounded">ssh bethel</code> instead of the full hostname.</p>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">6.</span>
-            <div>Test your connection:
+            <div>Open <strong>Terminal</strong> and connect:
               <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">ssh <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</div>
-              <p class="text-xs text-stone-500 mt-1">You should see <em>&ldquo;Spirit Media &mdash; Bethel Server&rdquo;</em>. If it asks for a password, your key wasn&rsquo;t added yet &mdash; contact Kevin or Nathan.</p>
+              <p class="text-xs text-stone-500 mt-1">Enter your password when prompted. You should see <em>&ldquo;Spirit Media &mdash; Bethel Server&rdquo;</em>.</p>
             </div>
           </div>
         </div>
 
-        <div class="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <p class="text-sm text-stone-700"><strong>Claude authentication is pre-configured.</strong> You do not need to create a Claude account or log in. When you run <code class="bg-white px-1 rounded text-xs">claude</code>, it uses the shared team credentials automatically. If Claude asks you to log in, contact Kevin.</p>
+        <div class="p-4 bg-green-50 border border-green-200 rounded-lg mb-6">
+          <p class="text-sm text-stone-700"><strong>Claude is pre-configured.</strong> You do not need a Claude account or API key. When you run <code class="bg-white px-1 rounded text-xs">claude</code>, it uses the shared team credentials automatically.</p>
         </div>
 
         <h3 class="font-bold text-stone-800 mb-3">Every Session</h3>
@@ -71,7 +47,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">1.</span>
             <div>Open <strong>Terminal</strong> and connect:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">ssh bethel</div>
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">ssh <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</div>
             </div>
           </div>
           <div class="flex gap-3">
@@ -90,25 +66,20 @@ import PortalLayout from '../layouts/PortalLayout.astro';
             <span class="text-red-700 font-bold shrink-0">4.</span>
             <div>Talk to it in <strong>plain English</strong>:
               <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm space-y-1">
-                <p class="italic">"What other sites are available?"</p>
-                <p class="italic">"Make sure the site builds correctly"</p>
-                <p class="italic">"What pages does this site have?"</p>
-                <p class="italic">"Fix any broken imports"</p>
+                <p class="italic">&ldquo;What other sites are available?&rdquo;</p>
+                <p class="italic">&ldquo;Make sure the site builds correctly&rdquo;</p>
+                <p class="italic">&ldquo;Fix any broken imports&rdquo;</p>
               </div>
             </div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">5.</span>
-            <div>When done: <span class="italic">"Update CLAUDE.md with what we did today"</span></div>
+            <div>When done: <span class="italic">&ldquo;Update CLAUDE.md with what we did today&rdquo;</span></div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">6.</span>
             <div>To exit: <code class="bg-stone-100 px-2 py-0.5 rounded text-sm">/exit</code></div>
           </div>
-        </div>
-
-        <div class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-          <p class="text-sm text-stone-700"><strong>Troubleshooting:</strong> If Claude shows &ldquo;API Usage Billing&rdquo; or an auth conflict, exit with <code class="bg-white px-1 rounded text-xs">/exit</code>, run <code class="bg-white px-1 rounded text-xs">unset ANTHROPIC_API_KEY</code>, then start <code class="bg-white px-1 rounded text-xs">claude</code> again.</p>
         </div>
 
         <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
@@ -120,7 +91,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <div class="flex items-center gap-3 mb-4">
           <span class="text-2xl">&#x1F4BB;</span>
-          <h2 class="text-2xl font-bold text-red-700">2. Claude Code on Desktop <span class="text-sm font-normal text-stone-500">(Developers — Mac or Windows)</span></h2>
+          <h2 class="text-2xl font-bold text-red-700">2. Claude Code on Desktop <span class="text-sm font-normal text-stone-500">(Developers &mdash; Mac or Windows)</span></h2>
         </div>
         <p class="text-stone-600 mb-4">For planning, strategy, reviewing screenshots, and multi-site coordination. Runs on your computer.</p>
 
@@ -131,7 +102,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Talk to it in <strong>plain English</strong> — same as Bethel.</div>
+            <div>Talk to it in <strong>plain English</strong> &mdash; same as Bethel.</div>
           </div>
         </div>
 
@@ -174,9 +145,9 @@ import PortalLayout from '../layouts/PortalLayout.astro';
             <span class="text-red-700 font-bold shrink-0">4.</span>
             <div>Then describe what you want in plain English:
               <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm space-y-1">
-                <p class="italic">"I want to add a new page for my press features"</p>
-                <p class="italic">"Help me write copy for my about page"</p>
-                <p class="italic">"Design a timeline showing my career milestones"</p>
+                <p class="italic">&ldquo;I want to add a new page for my press features&rdquo;</p>
+                <p class="italic">&ldquo;Help me write copy for my about page&rdquo;</p>
+                <p class="italic">&ldquo;Design a timeline showing my career milestones&rdquo;</p>
               </div>
             </div>
           </div>
@@ -202,114 +173,25 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         </div>
       </section>
 
-      <!-- 4. Remote Bethel from Desktop -->
+      <!-- Troubleshooting -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <div class="flex items-center gap-3 mb-4">
-          <span class="text-2xl">&#x1F680;</span>
-          <h2 class="text-2xl font-bold text-red-700">4. Remote Bethel from Desktop <span class="text-sm font-normal text-stone-500">(Advanced)</span></h2>
-        </div>
-        <p class="text-stone-600 mb-4">Run Claude Code on Bethel without leaving Claude Desktop. One window does everything &mdash; planning, building, and deploying.</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div class="p-3 bg-green-50 border border-green-200 rounded-lg">
-            <p class="text-sm font-semibold text-green-800 mb-1">Pros</p>
-            <ul class="text-sm text-green-700 space-y-1">
-              <li>&bull; One window &mdash; no tab switching</li>
-              <li>&bull; Desktop orchestrates everything</li>
-              <li>&bull; Visual diff review before commits</li>
-              <li>&bull; Builds run on Bethel&rsquo;s power, not your Mac</li>
-            </ul>
-          </div>
-          <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg">
-            <p class="text-sm font-semibold text-amber-800 mb-1">Cons</p>
-            <ul class="text-sm text-amber-700 space-y-1">
-              <li>&bull; Requires Tailscale VPN to be connected</li>
-              <li>&bull; More complex initial setup</li>
-              <li>&bull; Single point of failure if VPN drops</li>
-              <li>&bull; Harder for new developers to replicate</li>
-            </ul>
-          </div>
+          <span class="text-2xl">&#x1F527;</span>
+          <h2 class="text-2xl font-bold text-red-700">Troubleshooting</h2>
         </div>
 
-        <h3 class="font-bold text-stone-800 mb-3">One-Time Setup</h3>
-        <div class="space-y-4">
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>In Claude Desktop, click the <strong>environment dropdown</strong> (where it says "Local")</div>
+        <div class="space-y-4 text-sm">
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800">&ldquo;Connection refused&rdquo; or can&rsquo;t reach server</p>
+            <p class="text-stone-600 mt-1">Make sure Tailscale VPN is connected. The server is only reachable through VPN.</p>
           </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Select <strong>+ Add SSH connection</strong></div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800">&ldquo;Permission denied&rdquo; or wrong password</p>
+            <p class="text-stone-600 mt-1">Double-check your username and password. Contact Kevin or Nathan to reset.</p>
           </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">3.</span>
-            <div>Fill in:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm space-y-1">
-                <p><strong>Name:</strong> bethel</p>
-                <p><strong>SSH Host:</strong> <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</p>
-                <p><strong>SSH Port:</strong> <span class="text-stone-400">(leave blank)</span></p>
-                <p><strong>Identity File:</strong> <span class="text-stone-400">(leave blank &mdash; uses your SSH config)</span></p>
-              </div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">4.</span>
-            <div>Click <strong>Add connection</strong></div>
-          </div>
-        </div>
-
-        <h3 class="font-bold text-stone-800 mt-6 mb-3">To Use It</h3>
-        <div class="space-y-4">
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>Select <strong>bethel</strong> from the environment dropdown (instead of "Local")</div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Choose your project folder on Bethel</div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">3.</span>
-            <div>Talk to it in <strong>plain English</strong> &mdash; Claude runs all commands on Bethel, not your Mac</div>
-          </div>
-        </div>
-
-        <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
-          <p class="text-sm text-stone-700"><strong>When to use this vs. SSH:</strong> Use Remote Bethel when you want to plan and build in the same conversation. Use SSH (Section 1) when you want a dedicated build session or when multiple developers need independent sessions.</p>
-        </div>
-      </section>
-
-      <!-- After a Mac Reboot -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="text-2xl">&#x1F504;</span>
-          <h2 class="text-2xl font-bold text-red-700">After a Reboot</h2>
-        </div>
-        <p class="text-stone-600 mb-4">Getting back to where you were:</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="p-4 bg-stone-50 rounded-lg">
-            <h3 class="font-bold mb-2">Claude Code (Desktop)</h3>
-            <ol class="text-sm space-y-1">
-              <li>1. Open Claude Code on Claude Desktop</li>
-            </ol>
-          </div>
-          <div class="p-4 bg-stone-50 rounded-lg">
-            <h3 class="font-bold mb-2">Claude Code (Bethel)</h3>
-            <ol class="text-sm space-y-1">
-              <li>1. Open Terminal</li>
-              <li>2. <code class="bg-white px-1 rounded">ssh <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</code></li>
-              <li>3. <code class="bg-white px-1 rounded">cd ~/Sites/<span class="text-red-700">site-name</span></code></li>
-              <li>4. <code class="bg-white px-1 rounded">claude</code></li>
-            </ol>
-          </div>
-          <div class="p-4 bg-stone-50 rounded-lg md:col-span-2">
-            <h3 class="font-bold mb-2">Claude AI (Clients)</h3>
-            <ol class="text-sm space-y-1">
-              <li>1. Go to <a href="https://claude.ai" class="text-red-700 hover:underline">claude.ai</a></li>
-              <li>2. Sign in</li>
-              <li>3. Paste the client prompt (above) into a new conversation</li>
-            </ol>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800">Claude shows &ldquo;API Usage Billing&rdquo; or asks you to log in</p>
+            <p class="text-stone-600 mt-1">Exit with <code class="bg-white px-1 rounded">/exit</code>, run <code class="bg-white px-1 rounded">unset ANTHROPIC_API_KEY</code>, then start <code class="bg-white px-1 rounded">claude</code> again. If it persists, contact Kevin.</p>
           </div>
         </div>
       </section>
