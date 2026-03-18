@@ -15,7 +15,7 @@ export const POST: APIRoute = async ({ request }) => {
       },
       body: JSON.stringify(body),
       // @ts-ignore — node-fetch timeout
-      signal: AbortSignal.timeout(240_000),
+      signal: AbortSignal.timeout(660_000),
     });
 
     const data = await resp.json();
