@@ -108,6 +108,10 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 </PortalLayout>
 
 <script>
+  // Guard against duplicate event listeners on re-renders
+  if (!(window as any).__portalInitialized) {
+    (window as any).__portalInitialized = true;
+
   // Load templates
   async function loadTemplates() {
     const select = document.getElementById('template-select') as HTMLSelectElement;
@@ -274,4 +278,6 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       btn.disabled = false;
     }
   });
+
+  } // end __portalInitialized guard
 </script>
