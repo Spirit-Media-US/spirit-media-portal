@@ -1,6 +1,6 @@
 import { defineMiddleware } from 'astro:middleware';
 
-const protectedRoutes = ['/dashboard', '/connecting', '/playbook', '/developers', '/task-log'];
+const protectedRoutes = ['/dashboard', '/connecting', '/playbook', '/developers', '/task-log', '/templates'];
 const publicRoutes = ['/clients', '/login', '/api/auth'];
 
 export const onRequest = defineMiddleware((context, next) => {
