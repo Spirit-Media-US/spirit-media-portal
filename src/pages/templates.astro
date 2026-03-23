@@ -1,30 +1,19 @@
 ---
 import PortalLayout from '../layouts/PortalLayout.astro';
-
-const sites = [
-  'artsbyjustin',
-  'clowning-from-the-heart',
-  'FHB',
-  'scripture-alive',
-  'spirit-media-publishing',
-  'spirit-media-portal',
-  'the-kohler-group',
-  'WOY',
-];
 ---
 
 <PortalLayout title="Tools">
   <div class="max-w-3xl">
     <h1 class="text-4xl font-bold mb-2">Tools</h1>
-    <p class="text-stone-600 mb-10">Spirit Media build tools — run in sequence for each new client.</p>
+    <p class="text-stone-600 mb-10">Spirit Media build pipeline — run steps in sequence for each client project.</p>
 
     <!-- ── Step 1: Website Migration Proposal ──────────────── -->
     <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-6 shadow-sm">
       <div class="flex items-center gap-3 mb-1">
-        <span class="flex items-center justify-center w-7 h-7 rounded-full bg-stone-800 text-white text-xs font-bold shrink-0">1</span>
+        <span class="w-7 h-7 rounded-full bg-stone-800 text-white text-xs font-bold flex items-center justify-center shrink-0">1</span>
         <h2 class="text-2xl font-bold">Website Migration Proposal</h2>
       </div>
-      <p class="text-stone-500 text-sm mb-6 ml-10">Enter the client's current website URL. Generates the full proposal and complexity report with bottom / mid / top pricing.</p>
+      <p class="text-stone-500 text-sm mb-6 ml-10">Enter the client's current site URL. Generates the full proposal and complexity report with bottom / mid / top pricing. Creates a project record for Steps 2 and 3.</p>
 
       <form id="proposal-form" class="space-y-4">
         <input type="url" id="site-url" required placeholder="https://clientsite.com"
@@ -44,11 +33,10 @@ const sites = [
           <span>Auditing site and building proposal — 2–4 minutes…</span>
         </div>
         <div id="proposal-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-2">
-          <p class="text-sm font-bold text-green-800">Proposal ready!</p>
-          <a id="proposal-link" href="#" target="_blank" rel="noopener noreferrer"
-            class="block text-green-700 underline font-medium text-sm">Open Proposal →</a>
-          <a id="report-link" href="#" target="_blank" rel="noopener noreferrer"
-            class="block text-green-700 underline text-sm hidden">Open Complexity Report →</a>
+          <p class="text-sm font-bold text-green-800">Proposal ready! Project added to pipeline.</p>
+          <a id="proposal-link" href="#" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline font-medium text-sm">Open Proposal →</a>
+          <a id="report-link" href="#" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm hidden">Open Complexity Report →</a>
+          <p class="text-xs text-stone-500 pt-1">When the sale closes, use Step 2 below to initiate the build.</p>
         </div>
         <div id="proposal-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
           <p class="text-sm font-bold text-red-800 mb-1">Error</p>
@@ -60,24 +48,22 @@ const sites = [
     <!-- ── Step 2: Initiate Build ───────────────────────────── -->
     <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-6 shadow-sm">
       <div class="flex items-center gap-3 mb-1">
-        <span class="flex items-center justify-center w-7 h-7 rounded-full bg-stone-800 text-white text-xs font-bold shrink-0">2</span>
+        <span class="w-7 h-7 rounded-full bg-stone-800 text-white text-xs font-bold flex items-center justify-center shrink-0">2</span>
         <h2 class="text-2xl font-bold">Initiate Build</h2>
       </div>
-      <p class="text-stone-500 text-sm mb-6 ml-10">Phase 1 infrastructure. Creates the GitHub repo, Sanity project, and Netlify site — fully automated. Run this once the proposal is accepted.</p>
+      <p class="text-stone-500 text-sm mb-6 ml-10">Select a project from the pipeline. Creates the GitHub repo, Sanity project, and Netlify site — fully automated. Run once the proposal is accepted.</p>
 
       <div class="space-y-4">
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label for="build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Title</label>
-            <input type="text" id="build-title" placeholder="Scripture Alive"
-              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
-          </div>
-          <div>
-            <label for="build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
-            <input type="text" id="build-slug" placeholder="scripture-alive"
-              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 font-mono" />
-            <p class="text-xs text-stone-400 mt-1">Spirit-Media-US/<span id="slug-preview" class="font-mono">…</span></p>
-          </div>
+        <div>
+          <label for="build-project" class="block text-sm font-semibold text-stone-700 mb-1">Project</label>
+          <select id="build-project"
+            class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400 bg-white">
+            <option value="">Loading pipeline…</option>
+          </select>
+        </div>
+        <div id="build-meta" class="hidden text-xs text-stone-500 -mt-2 space-y-0.5">
+          <div>Slug: <span id="build-slug-display" class="font-mono"></span></div>
+          <div>Client URL: <span id="build-url-display"></span></div>
         </div>
         <button id="bootstrap-btn"
           class="w-full bg-stone-800 hover:bg-stone-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
@@ -94,7 +80,7 @@ const sites = [
           <span>Creating infrastructure — GitHub, Sanity, Netlify… (~2 min)</span>
         </div>
         <div id="bootstrap-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-3">
-          <p class="text-sm font-bold text-green-800">Phase 1 complete!</p>
+          <p class="text-sm font-bold text-green-800">Phase 1 complete! Project updated in pipeline.</p>
           <div id="bootstrap-links" class="space-y-1.5"></div>
           <p class="text-xs text-stone-500">Next: SSH into Bethel, <code class="bg-stone-100 px-1 rounded">cd ~/Sites/<span id="bootstrap-slug-echo"></span></code>, run <code class="bg-stone-100 px-1 rounded">claude</code>, work through Phases 2–4.</p>
         </div>
@@ -108,18 +94,17 @@ const sites = [
     <!-- ── Step 3: Pre-Launch QA ────────────────────────────── -->
     <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-10 shadow-sm">
       <div class="flex items-center gap-3 mb-1">
-        <span class="flex items-center justify-center w-7 h-7 rounded-full bg-stone-800 text-white text-xs font-bold shrink-0">3</span>
+        <span class="w-7 h-7 rounded-full bg-stone-800 text-white text-xs font-bold flex items-center justify-center shrink-0">3</span>
         <h2 class="text-2xl font-bold">Pre-Launch QA</h2>
       </div>
-      <p class="text-stone-500 text-sm mb-6 ml-10">Run after the Audit Gate. Scans the site repo for hardcoded colors, missing alt text, missing SEO meta, leftover WordPress URLs, broken internal links, and TODO comments. Returns a full pass/fail report for final human review before delivery.</p>
+      <p class="text-stone-500 text-sm mb-6 ml-10">Run after the Audit Gate. Select a project that has completed Phase 1. Scans for hardcoded colors, missing alt text, missing SEO meta, leftover WordPress URLs, broken links, and TODO comments. Returns pass/fail for human review before delivery.</p>
 
       <div class="space-y-4">
         <div>
-          <label for="qa-slug" class="block text-sm font-semibold text-stone-700 mb-1">Site Repo</label>
-          <select id="qa-slug"
+          <label for="qa-project" class="block text-sm font-semibold text-stone-700 mb-1">Project</label>
+          <select id="qa-project"
             class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400 bg-white">
-            <option value="">Select a site…</option>
-            {sites.map(s => <option value={s}>{s}</option>)}
+            <option value="">Loading pipeline…</option>
           </select>
         </div>
         <button id="qa-btn"
@@ -244,6 +229,55 @@ const sites = [
 if (!(window as any).__portalInitialized) {
   (window as any).__portalInitialized = true;
 
+  // ── Project registry helpers ─────────────────────────────────
+  let allProjects: any[] = [];
+
+  async function loadProjects() {
+    try {
+      const resp = await fetch('/api/tools-projects');
+      allProjects = await resp.json();
+    } catch { allProjects = []; }
+    populateBuildDropdown();
+    populateQADropdown();
+  }
+
+  function statusLabel(s: string) {
+    const map: Record<string, string> = {
+      proposal_pending: 'proposal running…',
+      proposal_failed:  'proposal failed',
+      proposal_ready:   'proposal ready',
+      building:         'building…',
+      build_failed:     'build failed',
+      built:            'built — dev in progress',
+      qa_failed:        'QA failed',
+      qa_passed:        'QA passed',
+      launched:         'launched',
+    };
+    return map[s] ?? s;
+  }
+
+  function populateBuildDropdown() {
+    const sel = document.getElementById('build-project') as HTMLSelectElement;
+    const eligible = allProjects.filter(p => ['proposal_ready', 'build_failed'].includes(p.status));
+    if (!eligible.length) {
+      sel.innerHTML = '<option value="">No projects with accepted proposals yet</option>';
+      return;
+    }
+    sel.innerHTML = '<option value="">Select a project…</option>' +
+      eligible.map(p => `<option value="${p.id}">${p.title} — ${p.client_url} (${statusLabel(p.status)})</option>`).join('');
+  }
+
+  function populateQADropdown() {
+    const sel = document.getElementById('qa-project') as HTMLSelectElement;
+    const eligible = allProjects.filter(p => ['built', 'qa_failed', 'qa_passed'].includes(p.status));
+    if (!eligible.length) {
+      sel.innerHTML = '<option value="">No projects with completed builds yet</option>';
+      return;
+    }
+    sel.innerHTML = '<option value="">Select a project…</option>' +
+      eligible.map(p => `<option value="${p.id}">${p.title} (${statusLabel(p.status)})</option>`).join('');
+  }
+
   // ── 1. Website Migration Proposal ──────────────────────────
   document.getElementById('proposal-form')!.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -272,16 +306,8 @@ if (!(window as any).__portalInitialized) {
           const r = document.getElementById('report-link') as HTMLAnchorElement;
           r.href = data.report_url; r.classList.remove('hidden');
         }
-        // Pre-fill build fields
-        try {
-          const host = new URL(url).hostname.replace(/^www\./, '');
-          const part = host.split('.')[0];
-          const slug = part.replace(/[^a-z0-9]+/g, '-');
-          const title = part.split('-').map((w: string) => w[0].toUpperCase() + w.slice(1)).join(' ');
-          (document.getElementById('build-title') as HTMLInputElement).value = title;
-          (document.getElementById('build-slug') as HTMLInputElement).value = slug;
-          (document.getElementById('slug-preview') as HTMLElement).textContent = slug;
-        } catch {}
+        // Refresh dropdowns so Step 2 shows this new project
+        await loadProjects();
       }
     } catch (err: any) {
       document.getElementById('proposal-spinner')!.classList.add('hidden');
@@ -292,15 +318,25 @@ if (!(window as any).__portalInitialized) {
   });
 
   // ── 2. Initiate Build ───────────────────────────────────────
-  document.getElementById('build-slug')!.addEventListener('input', (e) => {
-    document.getElementById('slug-preview')!.textContent = (e.target as HTMLInputElement).value || '…';
+  document.getElementById('build-project')!.addEventListener('change', (e) => {
+    const id = (e.target as HTMLSelectElement).value;
+    const project = allProjects.find(p => p.id === id);
+    const meta = document.getElementById('build-meta')!;
+    if (project) {
+      meta.classList.remove('hidden');
+      document.getElementById('build-slug-display')!.textContent = project.slug;
+      document.getElementById('build-url-display')!.textContent = project.client_url;
+    } else {
+      meta.classList.add('hidden');
+    }
   });
 
   document.getElementById('bootstrap-btn')!.addEventListener('click', async () => {
-    const title = (document.getElementById('build-title') as HTMLInputElement).value.trim();
-    const slug  = (document.getElementById('build-slug') as HTMLInputElement).value.trim();
-    if (!title || !slug) { alert('Site title and slug are required.'); return; }
-    if (!confirm(`Launch Phase 1 build for "${title}" (${slug})?\n\nCreates:\n• GitHub: Spirit-Media-US/${slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
+    const projectId = (document.getElementById('build-project') as HTMLSelectElement).value;
+    if (!projectId) { alert('Select a project from the pipeline first.'); return; }
+    const project = allProjects.find(p => p.id === projectId);
+    if (!project) return;
+    if (!confirm(`Launch Phase 1 build for "${project.title}" (${project.slug})?\n\nCreates:\n• GitHub: Spirit-Media-US/${project.slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
 
     const btn = document.getElementById('bootstrap-btn') as HTMLButtonElement;
     btn.disabled = true; btn.textContent = 'Building…';
@@ -312,7 +348,7 @@ if (!(window as any).__portalInitialized) {
     try {
       const resp = await fetch('/api/tools-bootstrap', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, title }),
+        body: JSON.stringify({ project_id: projectId }),
       });
       const data = await resp.json();
       document.getElementById('bootstrap-spinner')!.classList.add('hidden');
@@ -321,7 +357,7 @@ if (!(window as any).__portalInitialized) {
         document.getElementById('bootstrap-error-text')!.textContent = data.error + (data.log ? '\n\n' + data.log : '');
       } else {
         document.getElementById('bootstrap-result')!.classList.remove('hidden');
-        (document.getElementById('bootstrap-slug-echo') as HTMLElement).textContent = slug;
+        (document.getElementById('bootstrap-slug-echo') as HTMLElement).textContent = project.slug;
         document.getElementById('bootstrap-links')!.innerHTML = [
           { label: 'GitHub', url: data.github },
           { label: 'Netlify Preview', url: data.netlify_url },
@@ -329,6 +365,8 @@ if (!(window as any).__portalInitialized) {
         ].filter((l: any) => l.url)
          .map((l: any) => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`)
          .join('');
+        // Refresh so Step 3 now shows this project
+        await loadProjects();
       }
     } catch (err: any) {
       document.getElementById('bootstrap-spinner')!.classList.add('hidden');
@@ -340,8 +378,8 @@ if (!(window as any).__portalInitialized) {
 
   // ── 3. Pre-Launch QA ────────────────────────────────────────
   document.getElementById('qa-btn')!.addEventListener('click', async () => {
-    const slug = (document.getElementById('qa-slug') as HTMLSelectElement).value;
-    if (!slug) { alert('Select a site first.'); return; }
+    const projectId = (document.getElementById('qa-project') as HTMLSelectElement).value;
+    if (!projectId) { alert('Select a project from the pipeline first.'); return; }
 
     const btn = document.getElementById('qa-btn') as HTMLButtonElement;
     btn.disabled = true; btn.textContent = 'Scanning…';
@@ -353,7 +391,7 @@ if (!(window as any).__portalInitialized) {
     try {
       const resp = await fetch('/api/tools-prelaunch', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug }),
+        body: JSON.stringify({ project_id: projectId }),
       });
       const data = await resp.json();
       document.getElementById('qa-spinner')!.classList.add('hidden');
@@ -367,34 +405,30 @@ if (!(window as any).__portalInitialized) {
         const summary = document.getElementById('qa-summary')!;
         summary.className = `mb-4 p-4 rounded-lg text-sm font-semibold ${allPass ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-amber-50 border border-amber-200 text-amber-800'}`;
         summary.textContent = allPass
-          ? `✅ All ${data.total} scans passed — ready for human review.`
-          : `⚠️ ${data.passed} of ${data.total} scans passed — fix findings before delivery.`;
+          ? `✅ All ${data.total} scans passed — ready for human review before delivery.`
+          : `⚠️ ${data.passed} of ${data.total} scans passed — fix all findings before delivery.`;
 
         document.getElementById('qa-scans')!.innerHTML = data.scans.map((s: any) => `
           <div class="border border-stone-200 rounded-xl overflow-hidden">
-            <div class="flex items-center justify-between px-4 py-3 ${s.pass ? 'bg-green-50' : 'bg-red-50'} cursor-pointer scan-header" data-id="${s.id}">
-              <span class="text-sm font-semibold ${s.pass ? 'text-green-800' : 'text-red-800'}">
-                ${s.pass ? '✅' : '❌'} ${s.name}
-              </span>
-              ${!s.pass ? `<span class="text-xs text-red-600 font-mono">${s.findings.length} finding${s.findings.length !== 1 ? 's' : ''}</span>` : ''}
+            <div class="flex items-center justify-between px-4 py-3 ${s.pass ? 'bg-green-50' : 'bg-red-50'} cursor-pointer scan-toggle">
+              <span class="text-sm font-semibold ${s.pass ? 'text-green-800' : 'text-red-800'}">${s.pass ? '✅' : '❌'} ${s.name}</span>
+              ${!s.pass ? `<span class="text-xs text-red-600 font-mono">${s.findings.length} finding${s.findings.length !== 1 ? 's' : ''} ▾</span>` : ''}
             </div>
             ${!s.pass && s.findings.length ? `
-              <div class="px-4 py-3 bg-white scan-findings hidden" data-for="${s.id}">
-                <ul class="space-y-1">
-                  ${s.findings.map((f: string) => `<li class="text-xs font-mono text-stone-700 break-all">${f}</li>`).join('')}
-                </ul>
+              <div class="px-4 py-3 bg-white hidden scan-body">
+                <ul class="space-y-1">${s.findings.map((f: string) => `<li class="text-xs font-mono text-stone-700 break-all">${f}</li>`).join('')}</ul>
               </div>` : ''}
           </div>
         `).join('');
 
-        // Toggle findings on click
-        document.querySelectorAll('.scan-header').forEach(h => {
+        document.querySelectorAll('.scan-toggle').forEach(h => {
           h.addEventListener('click', () => {
-            const id = (h as HTMLElement).dataset.id;
-            const findings = document.querySelector(`.scan-findings[data-for="${id}"]`);
-            if (findings) findings.classList.toggle('hidden');
+            const body = h.nextElementSibling;
+            if (body?.classList.contains('scan-body')) body.classList.toggle('hidden');
           });
         });
+
+        await loadProjects();
       }
     } catch (err: any) {
       document.getElementById('qa-spinner')!.classList.add('hidden');
@@ -472,9 +506,6 @@ if (!(window as any).__portalInitialized) {
     btn.disabled = false;
   });
 
-  loadTemplates();
-  loadHistory();
-
   // ── Blog Post Publisher ──────────────────────────────────────
   document.getElementById('blog-form')!.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -513,6 +544,11 @@ if (!(window as any).__portalInitialized) {
     }
     btn.disabled = false;
   });
+
+  // ── Init ─────────────────────────────────────────────────────
+  loadProjects();
+  loadTemplates();
+  loadHistory();
 
 } // end __portalInitialized guard
 </script>
