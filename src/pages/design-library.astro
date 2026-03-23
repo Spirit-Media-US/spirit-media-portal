@@ -1,0 +1,472 @@
+---
+// PUBLIC PAGE - NO AUTH REQUIRED
+import '../styles/globals.css';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design Style Library — Spirit Media Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@400;600&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Syne:wght@700;800&family=Archivo+Black&family=Archivo:wght@400;500;700&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+  </head>
+  <body style="margin:0;padding:0;background:#0f172a;font-family:'IBM Plex Sans',sans-serif;">
+
+    <!-- Portal Header -->
+    <header style="background:#0f172a;border-bottom:1px solid #334155;padding:1.75rem 2.5rem;">
+      <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <img src="https://cdn.sanity.io/images/pmowd8uo/production/dc16e3c604bd5d52de7647af46836ff418c22898-6575x656.png?w=440&h=88&fit=max&auto=format" alt="Spirit Media Publishing" style="height:2.25rem;width:auto;display:block;" />
+          <p style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#94a3b8;margin-top:0.3rem;">Design Style Library</p>
+        </div>
+        <nav style="display:flex;gap:1.5rem;align-items:center;">
+          <a href="/dashboard" style="font-family:'IBM Plex Sans',sans-serif;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;">← Dashboard</a>
+          <a href="/clients" style="font-family:'IBM Plex Sans',sans-serif;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;">Client Guide</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Intro Banner -->
+    <div style="background:#1e293b;border-bottom:1px solid #334155;padding:1.75rem 2.5rem;">
+      <div style="max-width:1280px;margin:0 auto;">
+        <h1 style="font-family:'IBM Plex Sans',sans-serif;font-size:1.375rem;font-weight:700;color:#f1f5f9;margin:0 0 0.375rem;">7 Style Packages · 21 Color Palettes</h1>
+        <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.9rem;color:#94a3b8;margin:0;max-width:640px;">Pre-built design systems for new Spirit Media sites. Each package includes fonts, colors, Tailwind config, and component patterns. Use with Claude: <em style="color:#d4a843;">"Build me a [Site] using Style Package: Herald."</em></p>
+      </div>
+    </div>
+
+    <!-- ===== STYLE PACKAGES WRAPPER ===== -->
+    <div style="background:#0a0a0a;">
+
+    <style>
+      .pkg{display:grid;grid-template-columns:300px 1fr;min-height:540px;}
+      .pkg-meta{padding:40px 36px;display:flex;flex-direction:column;gap:24px;}
+      .pkg-preview{padding:40px 44px;display:flex;flex-direction:column;gap:36px;border-left:1px solid;}
+      .pkg-num{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;}
+      .sw-row{display:flex;align-items:center;gap:10px;}
+      .sw-dot{width:22px;height:22px;border-radius:4px;flex-shrink:0;}
+      .sw-nm{font-size:12px;font-weight:600;display:block;line-height:1.3;}
+      .sw-hx{font-size:10px;font-family:'Courier New',monospace;display:block;}
+      .sec-lbl{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;}
+      .btn-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+      .pkg-div{height:1px;background:linear-gradient(to right,transparent,#2a2a2a,transparent);}
+      .pal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+      .pal-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:9px;padding:18px 16px;}
+      .pal-swatches{display:flex;gap:5px;margin-bottom:9px;}
+      .pal-swatch{height:26px;flex:1;border-radius:3px;}
+      .pal-hexes{display:flex;gap:4px;flex-wrap:wrap;}
+      .pal-hex{font-family:'Courier New',monospace;font-size:9px;color:#555;background:#111;padding:2px 5px;border-radius:3px;}
+      @media(max-width:900px){.pkg{grid-template-columns:1fr;}.pkg-preview{border-left:none;border-top:1px solid;}.pal-grid{grid-template-columns:1fr 1fr;}}
+      @media(max-width:600px){.pal-grid{grid-template-columns:1fr;}}
+    </style>
+
+    <!-- TOC Pills -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:7px;padding:20px 40px;background:#0a0a0a;border-bottom:1px solid #1e1e1e;">
+      <span style="font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.07em;padding:5px 12px;border-radius:99px;border:1px solid #2a2a2a;color:#888;">01 Herald · Warm Editorial</span>
+      <span style="font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.07em;padding:5px 12px;border-radius:99px;border:1px solid #2a2a2a;color:#888;">02 Torch · Bold Dark</span>
+      <span style="font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.07em;padding:5px 12px;border-radius:99px;border:1px solid #2a2a2a;color:#888;">03 Still Waters · Contemplative</span>
+      <span style="font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.07em;padding:5px 12px;border-radius:99px;border:1px solid #2a2a2a;color:#888;">04 Cornerstone · Corporate</span>
+      <span style="font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.07em;padding:5px 12px;border-radius:99px;border:1px solid #2a2a2a;color:#888;">05 Radiance · Vibrant Gradient</span>
+      <span style="font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.07em;padding:5px 12px;border-radius:99px;border:1px solid #2a2a2a;color:#888;">06 Signal · Neo-Brutalist</span>
+      <span style="font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.07em;padding:5px 12px;border-radius:99px;border:1px solid #2a2a2a;color:#888;">07 Summit · Luxury Minimal</span>
+      <span style="font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.07em;padding:5px 12px;border-radius:99px;border:1px solid #332e00;color:#d4a843;">+ 21 Color Palettes ↓</span>
+    </div>
+
+    <!-- ===== 01 HERALD ===== -->
+    <div class="pkg" style="background:#FAF7F2;">
+      <div class="pkg-meta" style="background:#EDE8DF;">
+        <div class="pkg-num" style="color:#B8922A;font-family:'Source Sans 3',sans-serif;">01 · Herald</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#1C1A17;line-height:1.05;">Herald</div>
+          <div style="margin-top:7px;font-family:'Source Sans 3',sans-serif;font-size:13px;color:#6B6359;line-height:1.65;">Warm editorial authority. Publishing, Bible translation, theological teaching, authorship.</div>
+        </div>
+        <div>
+          <div style="font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#B8922A;margin-bottom:3px;">Best for</div>
+          <div style="font-family:'Source Sans 3',sans-serif;font-size:13px;color:#6B6359;line-height:1.6;">Publishing · Bible projects · Author sites · Theological teaching</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div class="sw-row"><div class="sw-dot" style="background:#FAF7F2;border:1px solid #D9D2C8;"></div><div><span class="sw-nm" style="color:#1C1A17;font-family:'Source Sans 3',sans-serif;">Cream</span><span class="sw-hx" style="color:#6B6359;">#FAF7F2</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#EDE8DF;"></div><div><span class="sw-nm" style="color:#1C1A17;font-family:'Source Sans 3',sans-serif;">Parchment</span><span class="sw-hx" style="color:#6B6359;">#EDE8DF</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#1C1A17;"></div><div><span class="sw-nm" style="color:#1C1A17;font-family:'Source Sans 3',sans-serif;">Ink</span><span class="sw-hx" style="color:#6B6359;">#1C1A17</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#B8922A;"></div><div><span class="sw-nm" style="color:#1C1A17;font-family:'Source Sans 3',sans-serif;">Gold</span><span class="sw-hx" style="color:#6B6359;">#B8922A</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#6B6359;"></div><div><span class="sw-nm" style="color:#1C1A17;font-family:'Source Sans 3',sans-serif;">Warm Gray</span><span class="sw-hx" style="color:#6B6359;">#6B6359</span></div></div>
+        </div>
+        <div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:#1C1A17;margin-bottom:2px;">Cormorant Garamond</div><div style="font-family:'Source Sans 3',sans-serif;font-size:12px;color:#6B6359;">Source Sans 3</div></div>
+      </div>
+      <div class="pkg-preview" style="border-color:#D9D2C8;">
+        <div>
+          <div class="sec-lbl" style="color:#B8922A;font-family:'Source Sans 3',sans-serif;">Typography</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:#1C1A17;line-height:1.05;letter-spacing:-.02em;">The Word <em style="font-style:italic;color:#B8922A;">Endures</em><br>Forever</div>
+          <div style="margin-top:10px;font-family:'Source Sans 3',sans-serif;font-size:15px;color:#6B6359;line-height:1.7;">We equip Kingdom Messengers with tools to carry God's word to the ends of the earth.</div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#B8922A;font-family:'Source Sans 3',sans-serif;">Buttons</div>
+          <div class="btn-row">
+            <span style="display:inline-block;padding:10px 22px;background:#B8922A;color:#FAF7F2;font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;">Begin Your Journey</span>
+            <span style="display:inline-block;padding:10px 22px;background:transparent;color:#B8922A;font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;border:1px solid #B8922A;">Learn More</span>
+          </div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#B8922A;font-family:'Source Sans 3',sans-serif;">Card</div>
+          <div style="background:#fff;border:1px solid #D9D2C8;padding:20px 24px;border-radius:4px;max-width:380px;">
+            <div style="font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#B8922A;margin-bottom:6px;">Publishing</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:#1C1A17;line-height:1.2;margin-bottom:7px;">From Manuscript to Ministry Impact</div>
+            <div style="font-family:'Source Sans 3',sans-serif;font-size:13.5px;color:#6B6359;line-height:1.65;">Our publishing process walks alongside authors from first draft to marketplace.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pkg-div"></div>
+
+    <!-- ===== 02 TORCH ===== -->
+    <div class="pkg" style="background:#09090B;">
+      <div class="pkg-meta" style="background:#0D0D10;border-right:1px solid #27272A;">
+        <div class="pkg-num" style="color:#F59E0B;font-family:'Inter',sans-serif;">02 · Torch</div>
+        <div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:42px;font-weight:800;color:#FAFAFA;line-height:1.0;letter-spacing:-.02em;">Torch</div>
+          <div style="margin-top:7px;font-family:'Inter',sans-serif;font-size:13px;color:#A1A1AA;line-height:1.65;">Bold apostolic urgency. Global missions, prophetic media, training networks, movements.</div>
+        </div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#F59E0B;margin-bottom:3px;">Best for</div>
+          <div style="font-family:'Inter',sans-serif;font-size:13px;color:#A1A1AA;line-height:1.6;">Global missions · Apostolic networks · Leadership training · Movements</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div class="sw-row"><div class="sw-dot" style="background:#09090B;border:1px solid #27272A;"></div><div><span class="sw-nm" style="color:#FAFAFA;font-family:'Inter',sans-serif;">Void</span><span class="sw-hx" style="color:#A1A1AA;">#09090B</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#18181B;"></div><div><span class="sw-nm" style="color:#FAFAFA;font-family:'Inter',sans-serif;">Surface</span><span class="sw-hx" style="color:#A1A1AA;">#18181B</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#F59E0B;"></div><div><span class="sw-nm" style="color:#FAFAFA;font-family:'Inter',sans-serif;">Amber</span><span class="sw-hx" style="color:#A1A1AA;">#F59E0B</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#A1A1AA;"></div><div><span class="sw-nm" style="color:#FAFAFA;font-family:'Inter',sans-serif;">Ash</span><span class="sw-hx" style="color:#A1A1AA;">#A1A1AA</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#3F3F46;"></div><div><span class="sw-nm" style="color:#FAFAFA;font-family:'Inter',sans-serif;">Ghost</span><span class="sw-hx" style="color:#A1A1AA;">#3F3F46</span></div></div>
+        </div>
+        <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:#FAFAFA;margin-bottom:2px;">Bricolage Grotesque</div><div style="font-family:'Inter',sans-serif;font-size:12px;color:#A1A1AA;">Inter</div></div>
+      </div>
+      <div class="pkg-preview" style="border-color:#27272A;">
+        <div>
+          <div class="sec-lbl" style="color:#A1A1AA;font-family:'Inter',sans-serif;">Typography</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:52px;font-weight:800;color:#FAFAFA;line-height:1.0;letter-spacing:-.03em;">A <span style="color:#F59E0B;">Kingdom</span><br>Without Walls</div>
+          <div style="margin-top:10px;font-family:'Inter',sans-serif;font-size:15px;color:#A1A1AA;line-height:1.65;">Spirit Media trains and mobilizes believers for global impact — from your city to every nation.</div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#A1A1AA;font-family:'Inter',sans-serif;">Buttons</div>
+          <div class="btn-row">
+            <span style="display:inline-block;padding:10px 22px;background:#F59E0B;color:#09090B;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;box-shadow:0 0 14px rgba(245,158,11,.2);">Join the Movement</span>
+            <span style="display:inline-block;padding:10px 22px;background:transparent;color:#FAFAFA;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;border:1px solid #3F3F46;">Our Mission</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start;">
+          <div>
+            <div class="sec-lbl" style="color:#A1A1AA;font-family:'Inter',sans-serif;">Card</div>
+            <div style="background:#18181B;border:1px solid #27272A;border-top:2px solid #F59E0B;padding:20px 24px;border-radius:8px;max-width:280px;">
+              <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#F59E0B;margin-bottom:6px;">Global Mission</div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:600;color:#FAFAFA;line-height:1.2;margin-bottom:7px;">Training Leaders Across 40+ Nations</div>
+              <div style="font-family:'Inter',sans-serif;font-size:13.5px;color:#A1A1AA;line-height:1.65;">Our intensive has equipped men and women in every major world region.</div>
+            </div>
+          </div>
+          <div>
+            <div class="sec-lbl" style="color:#A1A1AA;font-family:'Inter',sans-serif;">Stat</div>
+            <div style="text-align:center;padding:12px 16px;">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:62px;font-weight:800;color:#F59E0B;line-height:1;letter-spacing:-.03em;">40+</div>
+              <div style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#A1A1AA;margin-top:3px;">Nations Reached</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pkg-div"></div>
+
+    <!-- ===== 03 STILL WATERS ===== -->
+    <div class="pkg" style="background:#FFFFFF;">
+      <div class="pkg-meta" style="background:#F7F4EF;">
+        <div class="pkg-num" style="color:#4E6B5E;font-family:'DM Sans',sans-serif;">03 · Still Waters</div>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:38px;color:#2C2C2C;line-height:1.1;">Still Waters</div>
+          <div style="margin-top:7px;font-family:'DM Sans',sans-serif;font-size:13px;color:#6B7280;line-height:1.7;">Clean contemplative depth. Formation, coaching, soul care, discipleship.</div>
+        </div>
+        <div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#4E6B5E;margin-bottom:3px;">Best for</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#6B7280;line-height:1.6;">Leadership intensives · Soul care · Coaching · Retreats · Devotional</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div class="sw-row"><div class="sw-dot" style="background:#FFFFFF;border:1px solid #E8E4DD;"></div><div><span class="sw-nm" style="color:#2C2C2C;font-family:'DM Sans',sans-serif;">White</span><span class="sw-hx" style="color:#6B7280;">#FFFFFF</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#F7F4EF;"></div><div><span class="sw-nm" style="color:#2C2C2C;font-family:'DM Sans',sans-serif;">Linen</span><span class="sw-hx" style="color:#6B7280;">#F7F4EF</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#4E6B5E;"></div><div><span class="sw-nm" style="color:#2C2C2C;font-family:'DM Sans',sans-serif;">Sage</span><span class="sw-hx" style="color:#6B7280;">#4E6B5E</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#C9A96E;"></div><div><span class="sw-nm" style="color:#2C2C2C;font-family:'DM Sans',sans-serif;">Sand</span><span class="sw-hx" style="color:#6B7280;">#C9A96E</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#6B7280;"></div><div><span class="sw-nm" style="color:#2C2C2C;font-family:'DM Sans',sans-serif;">Slate</span><span class="sw-hx" style="color:#6B7280;">#6B7280</span></div></div>
+        </div>
+        <div><div style="font-family:'DM Serif Display',serif;font-size:17px;color:#2C2C2C;margin-bottom:2px;">DM Serif Display</div><div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#6B7280;">DM Sans</div></div>
+      </div>
+      <div class="pkg-preview" style="border-color:#E8E4DD;">
+        <div>
+          <div class="sec-lbl" style="color:#6B7280;font-family:'DM Sans',sans-serif;">Typography</div>
+          <div style="font-family:'DM Serif Display',serif;font-size:52px;color:#2C2C2C;line-height:1.1;letter-spacing:-.01em;">Lead from the <em style="font-style:italic;color:#4E6B5E;">Inside</em><br>Out</div>
+          <div style="margin-top:10px;font-family:'DM Sans',sans-serif;font-size:15px;color:#6B7280;line-height:1.75;">A 12-month leadership intensive for those ready to lead from wholeness, not wounds.</div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#6B7280;font-family:'DM Sans',sans-serif;">Buttons</div>
+          <div class="btn-row">
+            <span style="display:inline-block;padding:10px 22px;background:#4E6B5E;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border-radius:9999px;">Apply Now</span>
+            <span style="display:inline-block;padding:10px 22px;background:transparent;color:#4E6B5E;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border-radius:9999px;border:2px solid #4E6B5E;">Learn More</span>
+          </div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#6B7280;font-family:'DM Sans',sans-serif;">Card + Quote</div>
+          <div style="background:#fff;border:1px solid #E8E4DD;padding:20px 24px;border-radius:16px;max-width:380px;box-shadow:0 4px 20px rgba(44,44,44,.07);">
+            <div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4E6B5E;margin-bottom:6px;">Soul Care</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:21px;color:#2C2C2C;line-height:1.25;margin-bottom:9px;">Healing the Leader Before Scaling the Vision</div>
+            <div style="border-left:3px solid #C9A96E;padding-left:13px;font-family:'DM Serif Display',serif;font-style:italic;font-size:16px;color:#2C2C2C;line-height:1.55;">"Formation precedes function."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pkg-div"></div>
+
+    <!-- ===== 04 CORNERSTONE ===== -->
+    <div class="pkg" style="background:#F8FAFC;">
+      <div class="pkg-meta" style="background:#EEF2F7;">
+        <div class="pkg-num" style="color:#0EA5E9;font-family:'Inter',sans-serif;">04 · Cornerstone</div>
+        <div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:38px;font-weight:800;color:#0F172A;line-height:1.1;letter-spacing:-.02em;">Cornerstone</div>
+          <div style="margin-top:7px;font-family:'Inter',sans-serif;font-size:13px;color:#475569;line-height:1.65;">Corporate professional clean. Nonprofits, donor-facing orgs, professional services.</div>
+        </div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:#0EA5E9;margin-bottom:3px;">Best for</div>
+          <div style="font-family:'Inter',sans-serif;font-size:13px;color:#475569;line-height:1.6;">Nonprofits · Donor-facing · Professional services · Training institutes</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div class="sw-row"><div class="sw-dot" style="background:#FFFFFF;border:1px solid #E2E8F0;"></div><div><span class="sw-nm" style="color:#0F172A;font-family:'Inter',sans-serif;">White</span><span class="sw-hx" style="color:#475569;">#FFFFFF</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#0F2D52;"></div><div><span class="sw-nm" style="color:#0F172A;font-family:'Inter',sans-serif;">Navy</span><span class="sw-hx" style="color:#475569;">#0F2D52</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#0EA5E9;"></div><div><span class="sw-nm" style="color:#0F172A;font-family:'Inter',sans-serif;">Accent</span><span class="sw-hx" style="color:#475569;">#0EA5E9</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#475569;"></div><div><span class="sw-nm" style="color:#0F172A;font-family:'Inter',sans-serif;">Slate</span><span class="sw-hx" style="color:#475569;">#475569</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#E2E8F0;"></div><div><span class="sw-nm" style="color:#0F172A;font-family:'Inter',sans-serif;">Border</span><span class="sw-hx" style="color:#475569;">#E2E8F0</span></div></div>
+        </div>
+        <div><div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:700;color:#0F172A;margin-bottom:2px;">Plus Jakarta Sans</div><div style="font-family:'Inter',sans-serif;font-size:12px;color:#475569;">Inter</div></div>
+      </div>
+      <div class="pkg-preview" style="border-color:#E2E8F0;background:#fff;">
+        <div>
+          <div class="sec-lbl" style="color:#94A3B8;font-family:'Inter',sans-serif;">Typography</div>
+          <div style="display:inline-flex;align-items:center;padding:3px 11px;background:rgba(14,165,233,.1);color:#0EA5E9;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;border-radius:9999px;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;">2025 Annual Report Available</div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:50px;font-weight:800;color:#0F172A;line-height:1.1;letter-spacing:-.02em;">Building Kingdom<br>Infrastructure</div>
+          <div style="margin-top:10px;font-family:'Inter',sans-serif;font-size:15px;color:#475569;line-height:1.7;">We partner with local leaders to plant and multiply healthy communities in the world's hardest-to-reach places.</div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#94A3B8;font-family:'Inter',sans-serif;">Buttons</div>
+          <div class="btn-row">
+            <span style="display:inline-block;padding:10px 20px;background:#0F2D52;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;border-radius:8px;">Get Started</span>
+            <span style="display:inline-block;padding:10px 20px;background:transparent;color:#0F2D52;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;border-radius:8px;border:1.5px solid #0F2D52;">Learn More</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start;">
+          <div>
+            <div class="sec-lbl" style="color:#94A3B8;font-family:'Inter',sans-serif;">Card</div>
+            <div style="background:#fff;border:1px solid #E2E8F0;padding:20px 24px;border-radius:12px;max-width:260px;">
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:700;color:#0F172A;line-height:1.25;margin-bottom:7px;letter-spacing:-.01em;">Equipping Local Leaders</div>
+              <div style="font-family:'Inter',sans-serif;font-size:13.5px;color:#475569;line-height:1.65;">A concise description of what this program does and who it serves.</div>
+            </div>
+          </div>
+          <div>
+            <div class="sec-lbl" style="color:#94A3B8;font-family:'Inter',sans-serif;">Stat</div>
+            <div style="padding:12px 16px;">
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:48px;font-weight:800;color:#0F2D52;line-height:1;letter-spacing:-.02em;">12K+</div>
+              <div style="font-family:'Inter',sans-serif;font-size:13px;color:#475569;margin-top:3px;">People Served</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pkg-div"></div>
+
+    <!-- ===== 05 RADIANCE ===== -->
+    <div class="pkg" style="background:#0D0A1E;">
+      <div class="pkg-meta" style="background:#0A0817;border-right:1px solid #2E2B4A;">
+        <div class="pkg-num" style="color:#A855F7;font-family:'Inter',sans-serif;">05 · Radiance</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:#F0EEFF;line-height:1.0;letter-spacing:-.02em;">Radiance</div>
+          <div style="margin-top:7px;font-family:'Inter',sans-serif;font-size:13px;color:#A09CC0;line-height:1.65;">Vibrant modern gradient. Conferences, Gen Z ministry, media brands, campaigns.</div>
+        </div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#A855F7;margin-bottom:3px;">Best for</div>
+          <div style="font-family:'Inter',sans-serif;font-size:13px;color:#A09CC0;line-height:1.6;">Conferences · Events · Gen Z ministry · Media brands · Campaigns</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div class="sw-row"><div class="sw-dot" style="background:#0D0A1E;border:1px solid #2E2B4A;"></div><div><span class="sw-nm" style="color:#F0EEFF;font-family:'Inter',sans-serif;">Deep</span><span class="sw-hx" style="color:#A09CC0;">#0D0A1E</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#7C3AED;"></div><div><span class="sw-nm" style="color:#F0EEFF;font-family:'Inter',sans-serif;">Violet</span><span class="sw-hx" style="color:#A09CC0;">#7C3AED</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#A855F7;"></div><div><span class="sw-nm" style="color:#F0EEFF;font-family:'Inter',sans-serif;">Violet Light</span><span class="sw-hx" style="color:#A09CC0;">#A855F7</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#C026D3;"></div><div><span class="sw-nm" style="color:#F0EEFF;font-family:'Inter',sans-serif;">Purple</span><span class="sw-hx" style="color:#A09CC0;">#C026D3</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#A09CC0;"></div><div><span class="sw-nm" style="color:#F0EEFF;font-family:'Inter',sans-serif;">Muted</span><span class="sw-hx" style="color:#A09CC0;">#A09CC0</span></div></div>
+        </div>
+        <div><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#F0EEFF;margin-bottom:2px;">Syne</div><div style="font-family:'Inter',sans-serif;font-size:12px;color:#A09CC0;">Inter</div></div>
+      </div>
+      <div class="pkg-preview" style="border-color:#2E2B4A;">
+        <div>
+          <div class="sec-lbl" style="color:#A09CC0;font-family:'Inter',sans-serif;">Typography</div>
+          <div style="font-family:'Syne',sans-serif;font-size:52px;font-weight:800;color:#F0EEFF;line-height:1.0;letter-spacing:-.025em;">Where the Kingdom<br><span style="background:linear-gradient(135deg,#7C3AED,#A855F7,#C026D3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Comes Alive</span></div>
+          <div style="margin-top:10px;font-family:'Inter',sans-serif;font-size:15px;color:#A09CC0;line-height:1.7;">Three days designed to disrupt comfort and activate calling. Don't sit on the sidelines.</div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#A09CC0;font-family:'Inter',sans-serif;">Buttons</div>
+          <div class="btn-row">
+            <span style="display:inline-block;padding:11px 22px;background:linear-gradient(135deg,#7C3AED,#A855F7,#C026D3);color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;border-radius:9999px;box-shadow:0 0 20px rgba(124,58,237,.3);">Register Now</span>
+            <span style="display:inline-block;padding:11px 22px;background:transparent;color:#F0EEFF;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;border-radius:9999px;border:1px solid #2E2B4A;">Learn More</span>
+          </div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#A09CC0;font-family:'Inter',sans-serif;">Glass Card</div>
+          <div style="background:rgba(30,27,58,.6);backdrop-filter:blur(12px);border:1px solid rgba(124,58,237,.2);padding:20px 24px;border-radius:20px;max-width:360px;">
+            <div style="display:inline-block;padding:3px 11px;background:rgba(124,58,237,.2);color:#A855F7;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;border-radius:9999px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px;">Main Stage</div>
+            <div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:700;color:#F0EEFF;line-height:1.2;margin-bottom:7px;">Identity in the Kingdom</div>
+            <div style="font-family:'Inter',sans-serif;font-size:13.5px;color:#A09CC0;line-height:1.65;">A session about finding your place in God's global story and stepping into it without apology.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pkg-div"></div>
+
+    <!-- ===== 06 SIGNAL ===== -->
+    <div class="pkg" style="background:#FFFFFF;">
+      <div class="pkg-meta" style="background:#F5F5F5;border-right:4px solid #0A0A0A;">
+        <div class="pkg-num" style="color:#0A0A0A;font-family:'Archivo',sans-serif;">06 · Signal</div>
+        <div>
+          <div style="font-family:'Archivo Black',sans-serif;font-size:42px;color:#0A0A0A;line-height:1.0;">Signal</div>
+          <div style="margin-top:7px;font-family:'Archivo',sans-serif;font-size:13px;color:#6B6B6B;line-height:1.65;">Neo-brutalist bold structural. Activist orgs, disruptive ministry, justice, counter-cultural brands.</div>
+        </div>
+        <div>
+          <div style="font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#0A0A0A;margin-bottom:3px;">Best for</div>
+          <div style="font-family:'Archivo',sans-serif;font-size:13px;color:#6B6B6B;line-height:1.6;">Justice ministry · Activist orgs · Bold prophetic brands · Creative audiences</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div class="sw-row"><div class="sw-dot" style="background:#FFFFFF;border:2px solid #0A0A0A;"></div><div><span class="sw-nm" style="color:#0A0A0A;font-family:'Archivo',sans-serif;">White</span><span class="sw-hx" style="color:#6B6B6B;">#FFFFFF</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#0A0A0A;"></div><div><span class="sw-nm" style="color:#0A0A0A;font-family:'Archivo',sans-serif;">Black</span><span class="sw-hx" style="color:#6B6B6B;">#0A0A0A</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#FFE500;border:1px solid #CCC;"></div><div><span class="sw-nm" style="color:#0A0A0A;font-family:'Archivo',sans-serif;">Signal Yellow</span><span class="sw-hx" style="color:#6B6B6B;">#FFE500</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#F5F5F5;border:1px solid #CCC;"></div><div><span class="sw-nm" style="color:#0A0A0A;font-family:'Archivo',sans-serif;">Off-White</span><span class="sw-hx" style="color:#6B6B6B;">#F5F5F5</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#6B6B6B;"></div><div><span class="sw-nm" style="color:#0A0A0A;font-family:'Archivo',sans-serif;">Mid</span><span class="sw-hx" style="color:#6B6B6B;">#6B6B6B</span></div></div>
+        </div>
+        <div><div style="font-family:'Archivo Black',sans-serif;font-size:16px;color:#0A0A0A;margin-bottom:2px;">Archivo Black</div><div style="font-family:'Archivo',sans-serif;font-size:12px;color:#6B6B6B;">Archivo</div></div>
+      </div>
+      <div class="pkg-preview" style="border-color:#0A0A0A;border-left-width:4px;">
+        <div>
+          <div class="sec-lbl" style="color:#6B6B6B;font-family:'Archivo',sans-serif;">Typography</div>
+          <div style="font-family:'Archivo Black',sans-serif;font-size:54px;color:#0A0A0A;line-height:1.0;">The Kingdom<br><span style="background:#FFE500;padding:0 4px;">Doesn't Wait.</span></div>
+          <div style="margin-top:10px;font-family:'Archivo',sans-serif;font-size:15px;color:#6B6B6B;line-height:1.65;">We mobilize believers in the hardest places — not because it's safe, but because it's the call.</div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#6B6B6B;font-family:'Archivo',sans-serif;">Buttons</div>
+          <div class="btn-row">
+            <span style="display:inline-block;padding:10px 20px;background:#FFE500;color:#0A0A0A;font-family:'Archivo',sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:2px solid #0A0A0A;box-shadow:4px 4px 0px #0A0A0A;">Take Action</span>
+            <span style="display:inline-block;padding:10px 20px;background:#0A0A0A;color:#fff;font-family:'Archivo',sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:2px solid #0A0A0A;box-shadow:4px 4px 0px #FFE500;">Learn More</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start;">
+          <div>
+            <div class="sec-lbl" style="color:#6B6B6B;font-family:'Archivo',sans-serif;">Card</div>
+            <div style="background:#fff;border:2px solid #0A0A0A;padding:20px 24px;box-shadow:6px 6px 0px #0A0A0A;max-width:260px;">
+              <div style="display:inline-block;background:#FFE500;color:#0A0A0A;font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:2px 9px;border:1px solid #0A0A0A;margin-bottom:9px;">Justice</div>
+              <div style="font-family:'Archivo Black',sans-serif;font-size:19px;color:#0A0A0A;line-height:1.2;margin-bottom:7px;">Every Voice Must Be Heard</div>
+              <div style="font-family:'Archivo',sans-serif;font-size:13.5px;color:#6B6B6B;line-height:1.65;">We train advocates at the grassroots level to speak truth into broken systems.</div>
+            </div>
+          </div>
+          <div>
+            <div class="sec-lbl" style="color:#6B6B6B;font-family:'Archivo',sans-serif;">Stat Block</div>
+            <div style="background:#FFE500;border:2px solid #0A0A0A;padding:14px 20px;text-align:center;box-shadow:4px 4px 0 #0A0A0A;">
+              <div style="font-family:'Archivo Black',sans-serif;font-size:60px;color:#0A0A0A;line-height:1;">127</div>
+              <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0A0A0A;margin-top:3px;">Cities Activated</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pkg-div"></div>
+
+    <!-- ===== 07 SUMMIT ===== -->
+    <div class="pkg" style="background:#FFFFFF;">
+      <div class="pkg-meta" style="background:#FAFAFA;border-right:1px solid #EFEFEF;">
+        <div class="pkg-num" style="color:#C8C8C8;font-family:'Inter',sans-serif;">07 · Summit</div>
+        <div>
+          <div style="font-family:'Cormorant',serif;font-size:42px;font-weight:300;font-style:italic;color:#141210;line-height:1.0;">Summit</div>
+          <div style="margin-top:7px;font-family:'Inter',sans-serif;font-size:13px;font-weight:300;color:#6B6B6B;line-height:1.75;">Luxury minimal. Elite coaching, capital campaigns, flagship brands, premium membership.</div>
+        </div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#C8C8C8;margin-bottom:3px;">Best for</div>
+          <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:300;color:#6B6B6B;line-height:1.6;">Elite coaching · Capital campaigns · Flagship launches · Premium intensives</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div class="sw-row"><div class="sw-dot" style="background:#FFFFFF;border:1px solid #EFEFEF;"></div><div><span class="sw-nm" style="color:#141210;font-family:'Inter',sans-serif;">White</span><span class="sw-hx" style="color:#6B6B6B;">#FFFFFF</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#141210;"></div><div><span class="sw-nm" style="color:#141210;font-family:'Inter',sans-serif;">Near Black</span><span class="sw-hx" style="color:#6B6B6B;">#141210</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#C9A96E;"></div><div><span class="sw-nm" style="color:#141210;font-family:'Inter',sans-serif;">Champagne</span><span class="sw-hx" style="color:#6B6B6B;">#C9A96E</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#6B6B6B;"></div><div><span class="sw-nm" style="color:#141210;font-family:'Inter',sans-serif;">Mid Gray</span><span class="sw-hx" style="color:#6B6B6B;">#6B6B6B</span></div></div>
+          <div class="sw-row"><div class="sw-dot" style="background:#C8C8C8;"></div><div><span class="sw-nm" style="color:#141210;font-family:'Inter',sans-serif;">Light Gray</span><span class="sw-hx" style="color:#6B6B6B;">#C8C8C8</span></div></div>
+        </div>
+        <div><div style="font-family:'Cormorant',serif;font-size:19px;font-weight:300;font-style:italic;color:#141210;margin-bottom:2px;">Cormorant</div><div style="font-family:'Inter',sans-serif;font-size:12px;font-weight:300;color:#6B6B6B;">Inter Light</div></div>
+      </div>
+      <div class="pkg-preview" style="border-color:#EFEFEF;">
+        <div>
+          <div class="sec-lbl" style="color:#C8C8C8;font-family:'Inter',sans-serif;">Typography</div>
+          <div style="font-family:'Cormorant',serif;font-size:72px;font-weight:300;color:#141210;line-height:1.0;letter-spacing:-.02em;">The Work<br>Begins <em style="font-style:italic;color:#C9A96E;">Within</em></div>
+          <div style="width:34px;height:1px;background:#C9A96E;margin:14px 0;"></div>
+          <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:300;color:#6B6B6B;line-height:1.8;">For leaders at the height of their influence who sense there is a deeper invitation — and are ready to answer it.</div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#C8C8C8;font-family:'Inter',sans-serif;">Buttons</div>
+          <div class="btn-row">
+            <span style="display:inline-block;padding:11px 24px;background:#141210;color:#fff;font-family:'Inter',sans-serif;font-size:11px;font-weight:400;letter-spacing:.15em;text-transform:uppercase;border-radius:2px;">Apply Now</span>
+            <span style="display:inline-block;padding:11px 24px;background:transparent;color:#141210;font-family:'Inter',sans-serif;font-size:11px;font-weight:400;letter-spacing:.15em;text-transform:uppercase;border-radius:2px;border:1px solid #141210;">Learn More</span>
+            <span style="display:inline-block;padding:11px 24px;background:transparent;color:#C9A96E;font-family:'Inter',sans-serif;font-size:11px;font-weight:400;letter-spacing:.15em;text-transform:uppercase;border-radius:2px;border:1px solid #C9A96E;">Inquire</span>
+          </div>
+        </div>
+        <div>
+          <div class="sec-lbl" style="color:#C8C8C8;font-family:'Inter',sans-serif;">Card</div>
+          <div style="background:#EFEFEF;padding:26px 28px;max-width:380px;">
+            <div style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#C8C8C8;margin-bottom:13px;">Cohort III · 2025</div>
+            <div style="font-family:'Cormorant',serif;font-size:24px;font-weight:400;color:#141210;line-height:1.2;margin-bottom:10px;">The Art of Kingdom Leadership</div>
+            <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:300;color:#6B6B6B;line-height:1.75;">An intimate 12-month cohort for leaders who have already built something — and want to build what truly matters.</div>
+            <div style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6B6B6B;border-bottom:1px solid #C9A96E;padding-bottom:2px;display:inline-block;margin-top:13px;">Request Information</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /style packages -->
+
+    <!-- ===== 21 PALETTES ===== -->
+    <div style="background:#111;padding:64px 52px;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <div style="font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#555;margin-bottom:10px;">Color Palette Reference</div>
+        <div style="font-family:'IBM Plex Sans',sans-serif;font-size:26px;font-weight:600;color:#F0F0F0;margin-bottom:8px;">21 Popular Alternates</div>
+        <div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;color:#666;line-height:1.6;max-width:540px;margin:0 auto;">None of these are in the 7 packages above. Use them to recolor any template. Tell Claude: <em style="color:#d4a843;">"Build [Site] using Still Waters with the Midnight Forest palette."</em></div>
+      </div>
+      <div class="pal-grid">
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 01</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Midnight Forest</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Deep woodsy. Theological depth, men's retreats.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#0D1F0F;"></div><div class="pal-swatch" style="background:#1A3A1C;"></div><div class="pal-swatch" style="background:#F5EED9;"></div><div class="pal-swatch" style="background:#C9A96E;"></div><div class="pal-swatch" style="background:#7A9A7C;"></div></div><div class="pal-hexes"><span class="pal-hex">#0D1F0F</span><span class="pal-hex">#1A3A1C</span><span class="pal-hex">#F5EED9</span><span class="pal-hex">#C9A96E</span><span class="pal-hex">#7A9A7C</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Herald, Still Waters, Summit</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Herald with Midnight Forest"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 02</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Ocean Breeze</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Coastal calm. Beach ministry, island missions.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#F0FAFA;"></div><div class="pal-swatch" style="background:#0D9488;"></div><div class="pal-swatch" style="background:#0F766E;"></div><div class="pal-swatch" style="background:#F87171;"></div><div class="pal-swatch" style="background:#94A3B8;"></div></div><div class="pal-hexes"><span class="pal-hex">#F0FAFA</span><span class="pal-hex">#0D9488</span><span class="pal-hex">#0F766E</span><span class="pal-hex">#F87171</span><span class="pal-hex">#94A3B8</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Cornerstone, Still Waters</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Cornerstone with Ocean Breeze"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 03</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Rose Garden</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Romantic, soft. Women's ministry, inner healing.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#FDF4F5;"></div><div class="pal-swatch" style="background:#E8B4BC;"></div><div class="pal-swatch" style="background:#B5546A;"></div><div class="pal-swatch" style="background:#7D2E46;"></div><div class="pal-swatch" style="background:#C8A99B;"></div></div><div class="pal-hexes"><span class="pal-hex">#FDF4F5</span><span class="pal-hex">#E8B4BC</span><span class="pal-hex">#B5546A</span><span class="pal-hex">#7D2E46</span><span class="pal-hex">#C8A99B</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Still Waters, Summit</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Still Waters with Rose Garden"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 04</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Deep Burgundy</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Rich, academic. Seminary, credentialing, authority.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#FAF5F0;"></div><div class="pal-swatch" style="background:#7B1D2A;"></div><div class="pal-swatch" style="background:#5C1220;"></div><div class="pal-swatch" style="background:#C9A96E;"></div><div class="pal-swatch" style="background:#8B6359;"></div></div><div class="pal-hexes"><span class="pal-hex">#FAF5F0</span><span class="pal-hex">#7B1D2A</span><span class="pal-hex">#5C1220</span><span class="pal-hex">#C9A96E</span><span class="pal-hex">#8B6359</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Herald, Summit</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Herald with Deep Burgundy"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 05</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Carbon & Lime</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Tech-forward. Ministry apps, digital platforms.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#111111;"></div><div class="pal-swatch" style="background:#1C1C1C;"></div><div class="pal-swatch" style="background:#84CC16;"></div><div class="pal-swatch" style="background:#A3E635;"></div><div class="pal-swatch" style="background:#6B7280;"></div></div><div class="pal-hexes"><span class="pal-hex">#111111</span><span class="pal-hex">#1C1C1C</span><span class="pal-hex">#84CC16</span><span class="pal-hex">#A3E635</span><span class="pal-hex">#6B7280</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Torch, Signal</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Torch with Carbon & Lime"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 06</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Slate & Blush</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Professional warmth. Women in leadership, coaching.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#F9F7F7;"></div><div class="pal-swatch" style="background:#3D5A73;"></div><div class="pal-swatch" style="background:#2C4257;"></div><div class="pal-swatch" style="background:#F0A8A8;"></div><div class="pal-swatch" style="background:#D4B8B8;"></div></div><div class="pal-hexes"><span class="pal-hex">#F9F7F7</span><span class="pal-hex">#3D5A73</span><span class="pal-hex">#2C4257</span><span class="pal-hex">#F0A8A8</span><span class="pal-hex">#D4B8B8</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Still Waters, Cornerstone</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Still Waters with Slate & Blush"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 07</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Emerald & Ivory</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Lush, elevated. Luxury wellness, creation care.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#FAFAF5;"></div><div class="pal-swatch" style="background:#065F46;"></div><div class="pal-swatch" style="background:#047857;"></div><div class="pal-swatch" style="background:#D4AF7A;"></div><div class="pal-swatch" style="background:#6B7B6E;"></div></div><div class="pal-hexes"><span class="pal-hex">#FAFAF5</span><span class="pal-hex">#065F46</span><span class="pal-hex">#047857</span><span class="pal-hex">#D4AF7A</span><span class="pal-hex">#6B7B6E</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Summit, Herald, Still Waters</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Summit with Emerald & Ivory"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 08</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Neon Noir</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Street-level, urban. Urban mission, city church plants.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#080808;"></div><div class="pal-swatch" style="background:#161616;"></div><div class="pal-swatch" style="background:#F000B8;"></div><div class="pal-swatch" style="background:#FF4DFF;"></div><div class="pal-swatch" style="background:#8888AA;"></div></div><div class="pal-hexes"><span class="pal-hex">#080808</span><span class="pal-hex">#161616</span><span class="pal-hex">#F000B8</span><span class="pal-hex">#FF4DFF</span><span class="pal-hex">#8888AA</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Signal, Radiance, Torch</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Signal with Neon Noir"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 09</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Desert Dusk</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Southwest warm. Desert retreats, Indigenous missions.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#FDF6EE;"></div><div class="pal-swatch" style="background:#D4845A;"></div><div class="pal-swatch" style="background:#A85C3A;"></div><div class="pal-swatch" style="background:#C4B49A;"></div><div class="pal-swatch" style="background:#6B7A5E;"></div></div><div class="pal-hexes"><span class="pal-hex">#FDF6EE</span><span class="pal-hex">#D4845A</span><span class="pal-hex">#A85C3A</span><span class="pal-hex">#C4B49A</span><span class="pal-hex">#6B7A5E</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Still Waters, Herald</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Still Waters with Desert Dusk"</div></div>
+      </div>
+      <div class="pal-grid" style="margin-top:16px;">
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 10</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Arctic</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Cold, crisp, Scandinavian. Nordic missions.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#F4F8FC;"></div><div class="pal-swatch" style="background:#DAEAF7;"></div><div class="pal-swatch" style="background:#4A7FA5;"></div><div class="pal-swatch" style="background:#2D5F80;"></div><div class="pal-swatch" style="background:#9BB8CC;"></div></div><div class="pal-hexes"><span class="pal-hex">#F4F8FC</span><span class="pal-hex">#DAEAF7</span><span class="pal-hex">#4A7FA5</span><span class="pal-hex">#2D5F80</span><span class="pal-hex">#9BB8CC</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Cornerstone, Still Waters</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Cornerstone with Arctic"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 11</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Signal Red</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Urgent, activist. Signal template — red accent.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#FFFFFF;border:1px solid #333;"></div><div class="pal-swatch" style="background:#0A0A0A;"></div><div class="pal-swatch" style="background:#FF3333;"></div><div class="pal-swatch" style="background:#FF6666;"></div><div class="pal-swatch" style="background:#6B6B6B;"></div></div><div class="pal-hexes"><span class="pal-hex">#FFFFFF</span><span class="pal-hex">#0A0A0A</span><span class="pal-hex">#FF3333</span><span class="pal-hex">#FF6666</span><span class="pal-hex">#6B6B6B</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Signal only (accent swap)</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Signal with Signal Red"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 12</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Lavender Fields</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Gentle, spiritual. Prayer ministries, inner healing.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#F8F5FF;"></div><div class="pal-swatch" style="background:#EDE9FE;"></div><div class="pal-swatch" style="background:#7C6FCD;"></div><div class="pal-swatch" style="background:#5B4FAA;"></div><div class="pal-swatch" style="background:#A89DC8;"></div></div><div class="pal-hexes"><span class="pal-hex">#F8F5FF</span><span class="pal-hex">#EDE9FE</span><span class="pal-hex">#7C6FCD</span><span class="pal-hex">#5B4FAA</span><span class="pal-hex">#A89DC8</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Still Waters, Summit</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Still Waters with Lavender Fields"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 13</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Navy & Peach</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Classic American. Traditional ministry, family-focused.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#FFF8F3;"></div><div class="pal-swatch" style="background:#1B3A6B;"></div><div class="pal-swatch" style="background:#14284E;"></div><div class="pal-swatch" style="background:#F9A77A;"></div><div class="pal-swatch" style="background:#E8C8B4;"></div></div><div class="pal-hexes"><span class="pal-hex">#FFF8F3</span><span class="pal-hex">#1B3A6B</span><span class="pal-hex">#14284E</span><span class="pal-hex">#F9A77A</span><span class="pal-hex">#E8C8B4</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Cornerstone, Herald</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Cornerstone with Navy & Peach"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 14</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Cobalt & Cream</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Bold, trustworthy. International orgs, humanitarian.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#F9F7F2;"></div><div class="pal-swatch" style="background:#1341C8;"></div><div class="pal-swatch" style="background:#0D2FA0;"></div><div class="pal-swatch" style="background:#EDE8DF;"></div><div class="pal-swatch" style="background:#8094CC;"></div></div><div class="pal-hexes"><span class="pal-hex">#F9F7F2</span><span class="pal-hex">#1341C8</span><span class="pal-hex">#0D2FA0</span><span class="pal-hex">#EDE8DF</span><span class="pal-hex">#8094CC</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Cornerstone, Herald</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Herald with Cobalt & Cream"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 15</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Charcoal & Teal</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Modern professional. Executive orgs, urban professional.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#F5F5F5;"></div><div class="pal-swatch" style="background:#1E2A2A;"></div><div class="pal-swatch" style="background:#0D9488;"></div><div class="pal-swatch" style="background:#14B8A6;"></div><div class="pal-swatch" style="background:#6B8080;"></div></div><div class="pal-hexes"><span class="pal-hex">#F5F5F5</span><span class="pal-hex">#1E2A2A</span><span class="pal-hex">#0D9488</span><span class="pal-hex">#14B8A6</span><span class="pal-hex">#6B8080</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Cornerstone, Torch, Signal</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Cornerstone with Charcoal & Teal"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 16</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Autumn Harvest</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Warm, seasonal. Fall conferences, agricultural missions.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#FDF5EE;"></div><div class="pal-swatch" style="background:#B45309;"></div><div class="pal-swatch" style="background:#92400E;"></div><div class="pal-swatch" style="background:#F59E0B;"></div><div class="pal-swatch" style="background:#78350F;"></div></div><div class="pal-hexes"><span class="pal-hex">#FDF5EE</span><span class="pal-hex">#B45309</span><span class="pal-hex">#92400E</span><span class="pal-hex">#F59E0B</span><span class="pal-hex">#78350F</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Herald, Still Waters</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Herald with Autumn Harvest"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 17</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Mono Warm</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Tonal warmth, no accent. Quiet visual confidence.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#FDFAF5;"></div><div class="pal-swatch" style="background:#E8DFD0;"></div><div class="pal-swatch" style="background:#A08C74;"></div><div class="pal-swatch" style="background:#5C4A36;"></div><div class="pal-swatch" style="background:#2E1F10;"></div></div><div class="pal-hexes"><span class="pal-hex">#FDFAF5</span><span class="pal-hex">#E8DFD0</span><span class="pal-hex">#A08C74</span><span class="pal-hex">#5C4A36</span><span class="pal-hex">#2E1F10</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Summit, Herald</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Summit with Mono Warm"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 18</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Sky & Citrus</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Bright, cheerful. Children's ministry, family camps.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#F0F9FF;"></div><div class="pal-swatch" style="background:#0EA5E9;"></div><div class="pal-swatch" style="background:#0284C7;"></div><div class="pal-swatch" style="background:#FACC15;"></div><div class="pal-swatch" style="background:#FB923C;"></div></div><div class="pal-hexes"><span class="pal-hex">#F0F9FF</span><span class="pal-hex">#0EA5E9</span><span class="pal-hex">#0284C7</span><span class="pal-hex">#FACC15</span><span class="pal-hex">#FB923C</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Cornerstone, Signal</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Cornerstone with Sky & Citrus"</div></div>
+      </div>
+      <div class="pal-grid" style="margin-top:16px;">
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 19</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Warm Graphite</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Sophisticated neutral. Premium orgs, gravitas.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#F7F6F4;"></div><div class="pal-swatch" style="background:#3A3632;"></div><div class="pal-swatch" style="background:#1E1B18;"></div><div class="pal-swatch" style="background:#C0A882;"></div><div class="pal-swatch" style="background:#7A7268;"></div></div><div class="pal-hexes"><span class="pal-hex">#F7F6F4</span><span class="pal-hex">#3A3632</span><span class="pal-hex">#1E1B18</span><span class="pal-hex">#C0A882</span><span class="pal-hex">#7A7268</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Summit, Herald, Still Waters</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Summit with Warm Graphite"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 20</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Electric Indigo</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Bold, prophetic. Night prayer, breakthrough campaigns.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#0A0A1A;"></div><div class="pal-swatch" style="background:#1E1040;"></div><div class="pal-swatch" style="background:#4F46E5;"></div><div class="pal-swatch" style="background:#818CF8;"></div><div class="pal-swatch" style="background:#C7D2FE;"></div></div><div class="pal-hexes"><span class="pal-hex">#0A0A1A</span><span class="pal-hex">#1E1040</span><span class="pal-hex">#4F46E5</span><span class="pal-hex">#818CF8</span><span class="pal-hex">#C7D2FE</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Radiance, Torch</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Radiance with Electric Indigo"</div></div>
+        <div class="pal-card"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:7px;">Palette 21</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:700;color:#e0e0e0;margin-bottom:3px;">Forest & Rust</div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:#666;margin-bottom:11px;line-height:1.5;">Rugged, grounded. Outdoor ministry, men's discipleship.</div><div class="pal-swatches"><div class="pal-swatch" style="background:#F5F0E8;"></div><div class="pal-swatch" style="background:#2D5016;"></div><div class="pal-swatch" style="background:#1F3A0F;"></div><div class="pal-swatch" style="background:#C2521C;"></div><div class="pal-swatch" style="background:#8B7355;"></div></div><div class="pal-hexes"><span class="pal-hex">#F5F0E8</span><span class="pal-hex">#2D5016</span><span class="pal-hex">#1F3A0F</span><span class="pal-hex">#C2521C</span><span class="pal-hex">#8B7355</span></div><div style="font-family:'IBM Plex Sans',sans-serif;font-size:10px;color:#555;margin-top:8px;padding-top:7px;border-top:1px solid #2a2a2a;font-style:italic;">Pairs: Still Waters, Herald, Signal</div><div style="display:inline-block;margin-top:6px;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:500;color:#d4a843;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);padding:3px 8px;border-radius:4px;">→ "Still Waters with Forest & Rust"</div></div>
+      </div>
+    </div><!-- /21 palettes -->
+
+    <!-- Footer -->
+    <footer style="background:#0f172a;border-top:1px solid #334155;padding:1.5rem 2.5rem;text-align:center;">
+      <p style="font-family:'IBM Plex Sans',sans-serif;font-size:0.8rem;color:#475569;margin:0;">Spirit Media Publishing &copy; 2026 | <a href="mailto:hello@spiritmediapublishing.com" style="color:#64748b;text-decoration:none;">hello@spiritmediapublishing.com</a> | <a href="https://spiritmediapublishing.com" target="_blank" rel="noopener noreferrer" style="color:#64748b;text-decoration:none;">spiritmediapublishing.com</a></p>
+    </footer>
+
+  </body>
+</html>
