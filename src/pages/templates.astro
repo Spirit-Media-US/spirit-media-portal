@@ -2,13 +2,120 @@
 import PortalLayout from '../layouts/PortalLayout.astro';
 ---
 
-<PortalLayout title="Templates">
+<PortalLayout title="Tools">
   <div class="max-w-3xl">
-    <h1 class="text-4xl font-bold mb-2">Templates</h1>
-    <p class="text-stone-600 mb-10">Generate a document from a template. Paste a Google Drive link to your file — Google Doc, Word, or PDF all work.</p>
+    <h1 class="text-4xl font-bold mb-2">Tools</h1>
+    <p class="text-stone-600 mb-10">All Spirit Media tools in one place.</p>
 
-    <!-- Generate Form -->
+    <!-- ── Website Migration Proposal ────────────────────────── -->
     <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-10 shadow-sm">
+      <h2 class="text-2xl font-bold mb-1">Website Migration Proposal</h2>
+      <p class="text-stone-500 text-sm mb-6">Enter the client's current website URL to generate a full proposal and complexity report.</p>
+
+      <form id="proposal-form" class="space-y-4">
+        <div>
+          <label for="site-url" class="block text-sm font-semibold text-stone-700 mb-2">Client Website URL</label>
+          <input type="url" id="site-url" name="site_url" required
+            placeholder="https://scripturealive.com"
+            class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 text-base" />
+        </div>
+        <button type="submit" id="proposal-btn"
+          class="w-full bg-stone-800 hover:bg-stone-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          Generate Proposal
+        </button>
+      </form>
+
+      <div id="proposal-status" class="hidden mt-6">
+        <div id="proposal-spinner" class="hidden flex items-center gap-3 text-stone-600">
+          <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+          <span>Auditing site and building proposal — 2–4 minutes…</span>
+        </div>
+        <div id="proposal-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-2">
+          <p class="text-sm font-bold text-green-800">Proposal ready!</p>
+          <a id="proposal-link" href="#" target="_blank" rel="noopener noreferrer"
+            class="block text-green-700 underline font-medium text-sm">Open Proposal →</a>
+          <a id="report-link" href="#" target="_blank" rel="noopener noreferrer"
+            class="block text-green-700 underline text-sm hidden">Open Complexity Report →</a>
+        </div>
+        <div id="proposal-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+          <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+          <p id="proposal-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Phase 1 Bootstrap (unlocks after proposal) ─────────── -->
+    <div id="build-section" class="hidden bg-white rounded-2xl border border-stone-200 p-8 mb-10 shadow-sm">
+      <div class="flex items-start justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-bold">Initiate Build</h2>
+          <p class="text-stone-500 text-sm mt-1">Phase 1 — Infrastructure. Creates GitHub repo, Sanity project, and Netlify site automatically.</p>
+        </div>
+        <label class="flex items-center gap-2 cursor-pointer select-none mt-1">
+          <span class="text-sm font-semibold text-stone-600">Mark as Sold</span>
+          <div class="relative">
+            <input type="checkbox" id="sold-toggle" class="sr-only peer" />
+            <div class="w-11 h-6 bg-stone-300 peer-checked:bg-green-500 rounded-full transition-colors"></div>
+            <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform peer-checked:translate-x-5"></div>
+          </div>
+        </label>
+      </div>
+
+      <div id="build-locked" class="text-center py-6 text-stone-400 text-sm">
+        Toggle "Mark as Sold" to unlock the build.
+      </div>
+
+      <div id="build-form" class="hidden space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Title <span class="text-red-500">*</span></label>
+            <input type="text" id="build-title" placeholder="Scripture Alive"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
+          </div>
+          <div>
+            <label for="build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug <span class="text-red-500">*</span></label>
+            <input type="text" id="build-slug" placeholder="scripture-alive"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 font-mono" />
+            <p class="text-xs text-stone-400 mt-1">Spirit-Media-US/<span id="slug-preview" class="font-mono">scripture-alive</span></p>
+          </div>
+        </div>
+        <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
+          Creates the GitHub repo from the Spirit Media template, Sanity project, and Netlify site with auto-deploy. ~2 minutes.
+        </div>
+        <button id="bootstrap-btn"
+          class="w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          Initiate Build — Phase 1
+        </button>
+      </div>
+
+      <div id="bootstrap-status" class="hidden mt-6">
+        <div id="bootstrap-spinner" class="hidden flex items-center gap-3 text-stone-600">
+          <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+          <span>Creating infrastructure — GitHub, Sanity, Netlify… (~2 min)</span>
+        </div>
+        <div id="bootstrap-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-3">
+          <p class="text-sm font-bold text-green-800">Phase 1 complete!</p>
+          <div id="bootstrap-links" class="space-y-1.5"></div>
+          <p class="text-xs text-stone-500 mt-2">Next: open the GitHub repo in a Claude Code session and begin Phase 2.</p>
+        </div>
+        <div id="bootstrap-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+          <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+          <p id="bootstrap-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Document Generator ─────────────────────────────────── -->
+    <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-10 shadow-sm">
+      <h2 class="text-2xl font-bold mb-1">Document Generator</h2>
+      <p class="text-stone-500 text-sm mb-6">Generate a document from a template. Paste a Google Drive link to your file — Google Doc, Word, or PDF all work.</p>
+
       <form id="generate-form" class="space-y-6">
         <div>
           <label for="template-select" class="block text-sm font-semibold text-stone-700 mb-2">Template</label>
@@ -17,21 +124,18 @@ import PortalLayout from '../layouts/PortalLayout.astro';
             <option value="">Loading templates…</option>
           </select>
         </div>
-
         <div>
           <label for="file-url" class="block text-sm font-semibold text-stone-700 mb-2">Manuscript Link</label>
           <input type="url" id="file-url" name="file_url" required placeholder="https://docs.google.com/document/d/… or Google Drive link"
             class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
           <p class="text-xs text-stone-500 mt-1">Supports Google Docs, Word (.docx), and PDF files from Google Drive.</p>
         </div>
-
         <button type="submit" id="submit-btn"
           class="w-full bg-stone-800 hover:bg-stone-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
           Generate
         </button>
       </form>
 
-      <!-- Status -->
       <div id="status" class="hidden mt-6">
         <div id="status-spinner" class="hidden flex items-center gap-3 text-stone-600">
           <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -52,7 +156,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </div>
     </div>
 
-    <!-- Blog Post Publisher -->
+    <!-- ── Blog Post Publisher ────────────────────────────────── -->
     <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-10 shadow-sm">
       <h2 class="text-2xl font-bold mb-1">Publish Blog Post</h2>
       <p class="text-stone-500 text-sm mb-6">Paste your content below — Claude will extract all fields and post directly to Sanity. For the feature image, upload it in Sanity Studio first and paste the CDN URL here.</p>
@@ -63,14 +167,12 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           <textarea id="blog-content" name="content" required rows="14" placeholder="Paste everything here — title, body, SEO title, meta description, whatever you have. Claude will sort it out."
             class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 font-mono text-sm resize-y"></textarea>
         </div>
-
         <div>
           <label for="hero-image-url" class="block text-sm font-semibold text-stone-700 mb-2">Feature Image URL <span class="text-stone-400 font-normal">(optional)</span></label>
           <input type="url" id="hero-image-url" name="hero_image_url" placeholder="https://cdn.sanity.io/images/pmowd8uo/production/…"
             class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
           <p class="text-xs text-stone-400 mt-1">Upload in Sanity Studio → copy the CDN URL → paste here.</p>
         </div>
-
         <button type="submit" id="blog-submit-btn"
           class="w-full bg-stone-800 hover:bg-stone-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
           Publish to Sanity
@@ -97,7 +199,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </div>
     </div>
 
-    <!-- History -->
+    <!-- ── Recent Documents ───────────────────────────────────── -->
     <div>
       <h2 class="text-2xl font-bold mb-4">Recent Documents</h2>
       <div id="history-list" class="space-y-2">
@@ -108,11 +210,125 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 </PortalLayout>
 
 <script>
-  // Guard against duplicate event listeners on re-renders
-  if (!(window as any).__portalInitialized) {
-    (window as any).__portalInitialized = true;
+if (!(window as any).__portalInitialized) {
+  (window as any).__portalInitialized = true;
 
-  // Load templates
+  // ── Website Migration Proposal ──────────────────────────────
+  document.getElementById('proposal-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const url = (document.getElementById('site-url') as HTMLInputElement).value.trim();
+    const btn = document.getElementById('proposal-btn') as HTMLButtonElement;
+
+    btn.disabled = true;
+    btn.textContent = 'Generating…';
+    document.getElementById('proposal-status')!.classList.remove('hidden');
+    document.getElementById('proposal-spinner')!.classList.remove('hidden');
+    document.getElementById('proposal-result')!.classList.add('hidden');
+    document.getElementById('proposal-error')!.classList.add('hidden');
+
+    try {
+      const resp = await fetch('/api/tools-proposal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url }),
+      });
+      const data = await resp.json();
+      document.getElementById('proposal-spinner')!.classList.add('hidden');
+
+      if (data.error) {
+        document.getElementById('proposal-error')!.classList.remove('hidden');
+        document.getElementById('proposal-error-text')!.textContent = data.error + (data.log ? '\n\n' + data.log : '');
+      } else {
+        document.getElementById('proposal-result')!.classList.remove('hidden');
+        const pLink = document.getElementById('proposal-link') as HTMLAnchorElement;
+        pLink.href = data.proposal_url;
+        if (data.report_url) {
+          const rLink = document.getElementById('report-link') as HTMLAnchorElement;
+          rLink.href = data.report_url;
+          rLink.classList.remove('hidden');
+        }
+        // Pre-fill build fields from domain
+        try {
+          const host  = new URL(url).hostname.replace(/^www\./, '');
+          const part  = host.split('.')[0];
+          const slug  = part.replace(/[^a-z0-9]+/g, '-');
+          const title = part.split('-').map((w: string) => w[0].toUpperCase() + w.slice(1)).join(' ');
+          (document.getElementById('build-title') as HTMLInputElement).value = title;
+          (document.getElementById('build-slug') as HTMLInputElement).value = slug;
+          (document.getElementById('slug-preview') as HTMLElement).textContent = slug;
+        } catch {}
+        document.getElementById('build-section')!.classList.remove('hidden');
+      }
+    } catch (err: any) {
+      document.getElementById('proposal-spinner')!.classList.add('hidden');
+      document.getElementById('proposal-error')!.classList.remove('hidden');
+      document.getElementById('proposal-error-text')!.textContent = err.message;
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Generate Proposal';
+  });
+
+  // ── Sold toggle ─────────────────────────────────────────────
+  document.getElementById('sold-toggle')!.addEventListener('change', (e) => {
+    const checked = (e.target as HTMLInputElement).checked;
+    document.getElementById('build-locked')!.classList.toggle('hidden', checked);
+    document.getElementById('build-form')!.classList.toggle('hidden', !checked);
+  });
+
+  // ── Slug preview ────────────────────────────────────────────
+  document.getElementById('build-slug')!.addEventListener('input', (e) => {
+    document.getElementById('slug-preview')!.textContent = (e.target as HTMLInputElement).value || 'site-slug';
+  });
+
+  // ── Bootstrap ───────────────────────────────────────────────
+  document.getElementById('bootstrap-btn')!.addEventListener('click', async () => {
+    const title = (document.getElementById('build-title') as HTMLInputElement).value.trim();
+    const slug  = (document.getElementById('build-slug') as HTMLInputElement).value.trim();
+    if (!title || !slug) { alert('Site title and slug are required.'); return; }
+    if (!confirm(`Launch Phase 1 build for "${title}" (${slug})?\n\nCreates:\n• GitHub: Spirit-Media-US/${slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
+
+    const btn = document.getElementById('bootstrap-btn') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Building…';
+    document.getElementById('bootstrap-status')!.classList.remove('hidden');
+    document.getElementById('bootstrap-spinner')!.classList.remove('hidden');
+    document.getElementById('bootstrap-result')!.classList.add('hidden');
+    document.getElementById('bootstrap-error')!.classList.add('hidden');
+
+    try {
+      const resp = await fetch('/api/tools-bootstrap', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, title }),
+      });
+      const data = await resp.json();
+      document.getElementById('bootstrap-spinner')!.classList.add('hidden');
+
+      if (data.error) {
+        document.getElementById('bootstrap-error')!.classList.remove('hidden');
+        document.getElementById('bootstrap-error-text')!.textContent = data.error + (data.log ? '\n\n' + data.log : '');
+      } else {
+        document.getElementById('bootstrap-result')!.classList.remove('hidden');
+        document.getElementById('bootstrap-links')!.innerHTML = [
+          { label: 'GitHub Repository', url: data.github },
+          { label: 'Netlify Preview',   url: data.netlify_url },
+          { label: 'Sanity Studio',     url: data.sanity_studio },
+        ].filter((l: any) => l.url)
+         .map((l: any) => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`)
+         .join('');
+      }
+    } catch (err: any) {
+      document.getElementById('bootstrap-spinner')!.classList.add('hidden');
+      document.getElementById('bootstrap-error')!.classList.remove('hidden');
+      document.getElementById('bootstrap-error-text')!.textContent = err.message;
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Initiate Build — Phase 1';
+  });
+
+  // ── Document Generator ───────────────────────────────────────
   async function loadTemplates() {
     const select = document.getElementById('template-select') as HTMLSelectElement;
     try {
@@ -126,7 +342,6 @@ import PortalLayout from '../layouts/PortalLayout.astro';
     }
   }
 
-  // Load history
   async function loadHistory() {
     const list = document.getElementById('history-list')!;
     try {
@@ -152,12 +367,10 @@ import PortalLayout from '../layouts/PortalLayout.astro';
     }
   }
 
-  // Handle form submit
   document.getElementById('generate-form')!.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const btn = document.getElementById('submit-btn') as HTMLButtonElement;
-    const status = document.getElementById('status')!;
     const spinner = document.getElementById('status-spinner')!;
     const statusText = document.getElementById('status-text')!;
     const resultDiv = document.getElementById('status-result')!;
@@ -165,9 +378,8 @@ import PortalLayout from '../layouts/PortalLayout.astro';
     const resultLink = document.getElementById('result-link') as HTMLAnchorElement;
     const errorText = document.getElementById('error-text')!;
 
-    // Reset
     btn.disabled = true;
-    status.classList.remove('hidden');
+    document.getElementById('status')!.classList.remove('hidden');
     spinner.classList.remove('hidden');
     resultDiv.classList.add('hidden');
     errorDiv.classList.add('hidden');
@@ -185,21 +397,16 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       const resp = await fetch('/api/tools-generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          template_id: data.get('template_id'),
-          file_url: data.get('file_url'),
-        }),
+        body: JSON.stringify({ template_id: data.get('template_id'), file_url: data.get('file_url') }),
       });
-
       clearInterval(msgInterval);
       const result = await resp.json();
-
       if (result.doc_url) {
         spinner.classList.add('hidden');
         resultDiv.classList.remove('hidden');
         resultLink.href = result.doc_url;
         resultLink.textContent = result.doc_name || result.doc_url;
-        loadHistory(); // refresh history
+        loadHistory();
       } else {
         throw new Error(result.error || 'Unknown error');
       }
@@ -208,20 +415,18 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       spinner.classList.add('hidden');
       errorDiv.classList.remove('hidden');
       errorText.textContent = err.message;
-    } finally {
-      btn.disabled = false;
     }
+    btn.disabled = false;
   });
 
   loadTemplates();
   loadHistory();
 
-  // Blog post form
+  // ── Blog Post Publisher ──────────────────────────────────────
   document.getElementById('blog-form')!.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const btn = document.getElementById('blog-submit-btn') as HTMLButtonElement;
-    const status = document.getElementById('blog-status')!;
     const spinner = document.getElementById('blog-spinner')!;
     const statusText = document.getElementById('blog-status-text')!;
     const resultDiv = document.getElementById('blog-result')!;
@@ -231,7 +436,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
     const errorText = document.getElementById('blog-error-text')!;
 
     btn.disabled = true;
-    status.classList.remove('hidden');
+    document.getElementById('blog-status')!.classList.remove('hidden');
     spinner.classList.remove('hidden');
     resultDiv.classList.add('hidden');
     errorDiv.classList.add('hidden');
@@ -249,15 +454,10 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       const resp = await fetch('/api/blog-post', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          content: data.get('content'),
-          hero_image_url: data.get('hero_image_url') || '',
-        }),
+        body: JSON.stringify({ content: data.get('content'), hero_image_url: data.get('hero_image_url') || '' }),
       });
-
       clearInterval(msgInterval);
       const result = await resp.json();
-
       if (result.url) {
         spinner.classList.add('hidden');
         resultDiv.classList.remove('hidden');
@@ -274,10 +474,9 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       spinner.classList.add('hidden');
       errorDiv.classList.remove('hidden');
       errorText.textContent = err.message;
-    } finally {
-      btn.disabled = false;
     }
+    btn.disabled = false;
   });
 
-  } // end __portalInitialized guard
+} // end __portalInitialized guard
 </script>
