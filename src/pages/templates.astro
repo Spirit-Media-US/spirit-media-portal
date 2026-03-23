@@ -51,19 +51,25 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         <span class="w-7 h-7 rounded-full bg-stone-800 text-white text-xs font-bold flex items-center justify-center shrink-0">2</span>
         <h2 class="text-2xl font-bold">Initiate Build</h2>
       </div>
-      <p class="text-stone-500 text-sm mb-6 ml-10">Select a project from the pipeline. Creates the GitHub repo, Sanity project, and Netlify site — fully automated. Run once the proposal is accepted.</p>
+      <p class="text-stone-500 text-sm mb-6 ml-10">Sale closed? Enter the project details below. Creates the GitHub repo, Sanity project, and Netlify site — fully automated.</p>
 
       <div class="space-y-4">
-        <div>
-          <label for="build-project" class="block text-sm font-semibold text-stone-700 mb-1">Project</label>
-          <select id="build-project"
-            class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400 bg-white">
-            <option value="">Loading pipeline…</option>
-          </select>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
+            <input id="build-title" type="text" placeholder="Global Hope India"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400" />
+          </div>
+          <div>
+            <label for="build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Slug</label>
+            <input id="build-slug" type="text" placeholder="global-hope-india"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 font-mono focus:outline-none focus:ring-2 focus:ring-stone-400" />
+          </div>
         </div>
-        <div id="build-meta" class="hidden text-xs text-stone-500 -mt-2 space-y-0.5">
-          <div>Slug: <span id="build-slug-display" class="font-mono"></span></div>
-          <div>Client URL: <span id="build-url-display"></span></div>
+        <div>
+          <label for="build-client-url" class="block text-sm font-semibold text-stone-700 mb-1">Client's Existing URL</label>
+          <input id="build-client-url" type="url" placeholder="https://globalhopeindia.org"
+            class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400" />
         </div>
         <button id="bootstrap-btn"
           class="w-full bg-stone-800 hover:bg-stone-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
@@ -237,7 +243,7 @@ if (!(window as any).__portalInitialized) {
       const resp = await fetch('/api/tools-projects');
       allProjects = await resp.json();
     } catch { allProjects = []; }
-    populateBuildDropdown();
+
     populateQADropdown();
   }
 
@@ -256,18 +262,7 @@ if (!(window as any).__portalInitialized) {
     return map[s] ?? s;
   }
 
-  function populateBuildDropdown() {
-    const sel = document.getElementById('build-project') as HTMLSelectElement;
-    const eligible = allProjects.filter(p => ['proposal_ready', 'build_failed'].includes(p.status));
-    if (!eligible.length) {
-      sel.innerHTML = '<option value="">No projects with accepted proposals yet</option>';
-      return;
-    }
-    sel.innerHTML = '<option value="">Select a project…</option>' +
-      eligible.map(p => `<option value="${p.id}">${p.title} — ${p.client_url} (${statusLabel(p.status)})</option>`).join('');
-  }
-
-  function populateQADropdown() {
+function populateQADropdown() {
     const sel = document.getElementById('qa-project') as HTMLSelectElement;
     const eligible = allProjects.filter(p => ['built', 'qa_failed', 'qa_passed'].includes(p.status));
     if (!eligible.length) {
@@ -298,27 +293,25 @@ if (!(window as any).__portalInitialized) {
       const start = await resp.json();
       if (start.error) throw new Error(start.error);
 
-      const projectId = start.project_id;
+      const jobId = start.job_id;
 
-      // Poll every 4s until proposal_ready or proposal_failed
+      // Poll every 4s until done or failed
       const poll = async (): Promise<void> => {
         await new Promise(r => setTimeout(r, 4000));
-        const pr = await fetch('/api/tools-projects');
-        const projects = await pr.json();
-        const project = (projects as any[]).find((p: any) => p.id === projectId);
-        if (!project || project.status === 'proposal_pending') return poll();
+        const pr = await fetch(`/api/tools-proposal-status?job_id=${jobId}`);
+        const job = await pr.json();
+        if (job.status === 'pending') return poll();
         document.getElementById('proposal-spinner')!.classList.add('hidden');
-        if (project.status === 'proposal_failed') {
+        if (job.status === 'failed') {
           document.getElementById('proposal-error')!.classList.remove('hidden');
-          document.getElementById('proposal-error-text')!.textContent = 'Proposal generation failed. Check the tools API log.';
+          document.getElementById('proposal-error-text')!.textContent = job.log || 'Proposal generation failed.';
         } else {
           document.getElementById('proposal-result')!.classList.remove('hidden');
-          (document.getElementById('proposal-link') as HTMLAnchorElement).href = project.proposal_url;
-          if (project.report_url) {
+          (document.getElementById('proposal-link') as HTMLAnchorElement).href = job.proposal_url;
+          if (job.report_url) {
             const r = document.getElementById('report-link') as HTMLAnchorElement;
-            r.href = project.report_url; r.classList.remove('hidden');
+            r.href = job.report_url; r.classList.remove('hidden');
           }
-          await loadProjects();
         }
         btn.disabled = false; btn.textContent = 'Generate Proposal';
       };
@@ -332,25 +325,24 @@ if (!(window as any).__portalInitialized) {
   });
 
   // ── 2. Initiate Build ───────────────────────────────────────
-  document.getElementById('build-project')!.addEventListener('change', (e) => {
-    const id = (e.target as HTMLSelectElement).value;
-    const project = allProjects.find(p => p.id === id);
-    const meta = document.getElementById('build-meta')!;
-    if (project) {
-      meta.classList.remove('hidden');
-      document.getElementById('build-slug-display')!.textContent = project.slug;
-      document.getElementById('build-url-display')!.textContent = project.client_url;
-    } else {
-      meta.classList.add('hidden');
+  // Auto-generate slug from title
+  document.getElementById('build-title')!.addEventListener('input', (e) => {
+    const title = (e.target as HTMLInputElement).value;
+    const slugEl = document.getElementById('build-slug') as HTMLInputElement;
+    if (!slugEl.dataset.manualEdit) {
+      slugEl.value = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     }
+  });
+  document.getElementById('build-slug')!.addEventListener('input', (e) => {
+    (e.target as HTMLInputElement).dataset.manualEdit = '1';
   });
 
   document.getElementById('bootstrap-btn')!.addEventListener('click', async () => {
-    const projectId = (document.getElementById('build-project') as HTMLSelectElement).value;
-    if (!projectId) { alert('Select a project from the pipeline first.'); return; }
-    const project = allProjects.find(p => p.id === projectId);
-    if (!project) return;
-    if (!confirm(`Launch Phase 1 build for "${project.title}" (${project.slug})?\n\nCreates:\n• GitHub: Spirit-Media-US/${project.slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
+    const title     = (document.getElementById('build-title') as HTMLInputElement).value.trim();
+    const slug      = (document.getElementById('build-slug') as HTMLInputElement).value.trim();
+    const clientUrl = (document.getElementById('build-client-url') as HTMLInputElement).value.trim();
+    if (!title || !slug) { alert('Site Name and Slug are required.'); return; }
+    if (!confirm(`Launch Phase 1 build for "${title}" (${slug})?\n\nCreates:\n• GitHub: Spirit-Media-US/${slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
 
     const btn = document.getElementById('bootstrap-btn') as HTMLButtonElement;
     btn.disabled = true; btn.textContent = 'Building…';
@@ -362,7 +354,7 @@ if (!(window as any).__portalInitialized) {
     try {
       const resp = await fetch('/api/tools-bootstrap', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ project_id: projectId }),
+        body: JSON.stringify({ slug, title, client_url: clientUrl }),
       });
       const data = await resp.json();
       document.getElementById('bootstrap-spinner')!.classList.add('hidden');
@@ -371,7 +363,7 @@ if (!(window as any).__portalInitialized) {
         document.getElementById('bootstrap-error-text')!.textContent = data.error + (data.log ? '\n\n' + data.log : '');
       } else {
         document.getElementById('bootstrap-result')!.classList.remove('hidden');
-        (document.getElementById('bootstrap-slug-echo') as HTMLElement).textContent = project.slug;
+        (document.getElementById('bootstrap-slug-echo') as HTMLElement).textContent = slug;
         document.getElementById('bootstrap-links')!.innerHTML = [
           { label: 'GitHub', url: data.github },
           { label: 'Netlify Preview', url: data.netlify_url },
@@ -379,7 +371,6 @@ if (!(window as any).__portalInitialized) {
         ].filter((l: any) => l.url)
          .map((l: any) => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`)
          .join('');
-        // Refresh so Step 3 now shows this project
         await loadProjects();
       }
     } catch (err: any) {
