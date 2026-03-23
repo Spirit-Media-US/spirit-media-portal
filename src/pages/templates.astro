@@ -1,33 +1,43 @@
 ---
 import PortalLayout from '../layouts/PortalLayout.astro';
+
+const sites = [
+  'artsbyjustin',
+  'clowning-from-the-heart',
+  'FHB',
+  'scripture-alive',
+  'spirit-media-publishing',
+  'spirit-media-portal',
+  'the-kohler-group',
+  'WOY',
+];
 ---
 
 <PortalLayout title="Tools">
   <div class="max-w-3xl">
     <h1 class="text-4xl font-bold mb-2">Tools</h1>
-    <p class="text-stone-600 mb-10">All Spirit Media tools in one place.</p>
+    <p class="text-stone-600 mb-10">Spirit Media build tools — run in sequence for each new client.</p>
 
-    <!-- ── Website Migration Proposal ────────────────────────── -->
-    <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-10 shadow-sm">
-      <h2 class="text-2xl font-bold mb-1">Website Migration Proposal</h2>
-      <p class="text-stone-500 text-sm mb-6">Enter the client's current website URL to generate a full proposal and complexity report.</p>
+    <!-- ── Step 1: Website Migration Proposal ──────────────── -->
+    <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-6 shadow-sm">
+      <div class="flex items-center gap-3 mb-1">
+        <span class="flex items-center justify-center w-7 h-7 rounded-full bg-stone-800 text-white text-xs font-bold shrink-0">1</span>
+        <h2 class="text-2xl font-bold">Website Migration Proposal</h2>
+      </div>
+      <p class="text-stone-500 text-sm mb-6 ml-10">Enter the client's current website URL. Generates the full proposal and complexity report with bottom / mid / top pricing.</p>
 
       <form id="proposal-form" class="space-y-4">
-        <div>
-          <label for="site-url" class="block text-sm font-semibold text-stone-700 mb-2">Client Website URL</label>
-          <input type="url" id="site-url" name="site_url" required
-            placeholder="https://scripturealive.com"
-            class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 text-base" />
-        </div>
+        <input type="url" id="site-url" required placeholder="https://clientsite.com"
+          class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 text-base" />
         <button type="submit" id="proposal-btn"
           class="w-full bg-stone-800 hover:bg-stone-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
           Generate Proposal
         </button>
       </form>
 
-      <div id="proposal-status" class="hidden mt-6">
-        <div id="proposal-spinner" class="hidden flex items-center gap-3 text-stone-600">
-          <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <div id="proposal-status" class="hidden mt-5">
+        <div id="proposal-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
+          <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
           </svg>
@@ -47,53 +57,37 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </div>
     </div>
 
-    <!-- ── Phase 1 Bootstrap (unlocks after proposal) ─────────── -->
-    <div id="build-section" class="hidden bg-white rounded-2xl border border-stone-200 p-8 mb-10 shadow-sm">
-      <div class="flex items-start justify-between mb-6">
-        <div>
-          <h2 class="text-2xl font-bold">Initiate Build</h2>
-          <p class="text-stone-500 text-sm mt-1">Phase 1 — Infrastructure. Creates GitHub repo, Sanity project, and Netlify site automatically.</p>
-        </div>
-        <label class="flex items-center gap-2 cursor-pointer select-none mt-1">
-          <span class="text-sm font-semibold text-stone-600">Mark as Sold</span>
-          <div class="relative">
-            <input type="checkbox" id="sold-toggle" class="sr-only peer" />
-            <div class="w-11 h-6 bg-stone-300 peer-checked:bg-green-500 rounded-full transition-colors"></div>
-            <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform peer-checked:translate-x-5"></div>
-          </div>
-        </label>
+    <!-- ── Step 2: Initiate Build ───────────────────────────── -->
+    <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-6 shadow-sm">
+      <div class="flex items-center gap-3 mb-1">
+        <span class="flex items-center justify-center w-7 h-7 rounded-full bg-stone-800 text-white text-xs font-bold shrink-0">2</span>
+        <h2 class="text-2xl font-bold">Initiate Build</h2>
       </div>
+      <p class="text-stone-500 text-sm mb-6 ml-10">Phase 1 infrastructure. Creates the GitHub repo, Sanity project, and Netlify site — fully automated. Run this once the proposal is accepted.</p>
 
-      <div id="build-locked" class="text-center py-6 text-stone-400 text-sm">
-        Toggle "Mark as Sold" to unlock the build.
-      </div>
-
-      <div id="build-form" class="hidden space-y-4">
+      <div class="space-y-4">
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label for="build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Title <span class="text-red-500">*</span></label>
+            <label for="build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Title</label>
             <input type="text" id="build-title" placeholder="Scripture Alive"
               class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
           </div>
           <div>
-            <label for="build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug <span class="text-red-500">*</span></label>
+            <label for="build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
             <input type="text" id="build-slug" placeholder="scripture-alive"
               class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 font-mono" />
-            <p class="text-xs text-stone-400 mt-1">Spirit-Media-US/<span id="slug-preview" class="font-mono">scripture-alive</span></p>
+            <p class="text-xs text-stone-400 mt-1">Spirit-Media-US/<span id="slug-preview" class="font-mono">…</span></p>
           </div>
         </div>
-        <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
-          Creates the GitHub repo from the Spirit Media template, Sanity project, and Netlify site with auto-deploy. ~2 minutes.
-        </div>
         <button id="bootstrap-btn"
-          class="w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          class="w-full bg-stone-800 hover:bg-stone-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
           Initiate Build — Phase 1
         </button>
       </div>
 
-      <div id="bootstrap-status" class="hidden mt-6">
-        <div id="bootstrap-spinner" class="hidden flex items-center gap-3 text-stone-600">
-          <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <div id="bootstrap-status" class="hidden mt-5">
+        <div id="bootstrap-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
+          <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
           </svg>
@@ -102,7 +96,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         <div id="bootstrap-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-3">
           <p class="text-sm font-bold text-green-800">Phase 1 complete!</p>
           <div id="bootstrap-links" class="space-y-1.5"></div>
-          <p class="text-xs text-stone-500 mt-2">Next: open the GitHub repo in a Claude Code session and begin Phase 2.</p>
+          <p class="text-xs text-stone-500">Next: SSH into Bethel, <code class="bg-stone-100 px-1 rounded">cd ~/Sites/<span id="bootstrap-slug-echo"></span></code>, run <code class="bg-stone-100 px-1 rounded">claude</code>, work through Phases 2–4.</p>
         </div>
         <div id="bootstrap-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
           <p class="text-sm font-bold text-red-800 mb-1">Error</p>
@@ -111,11 +105,52 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       </div>
     </div>
 
+    <!-- ── Step 3: Pre-Launch QA ────────────────────────────── -->
+    <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-10 shadow-sm">
+      <div class="flex items-center gap-3 mb-1">
+        <span class="flex items-center justify-center w-7 h-7 rounded-full bg-stone-800 text-white text-xs font-bold shrink-0">3</span>
+        <h2 class="text-2xl font-bold">Pre-Launch QA</h2>
+      </div>
+      <p class="text-stone-500 text-sm mb-6 ml-10">Run after the Audit Gate. Scans the site repo for hardcoded colors, missing alt text, missing SEO meta, leftover WordPress URLs, broken internal links, and TODO comments. Returns a full pass/fail report for final human review before delivery.</p>
+
+      <div class="space-y-4">
+        <div>
+          <label for="qa-slug" class="block text-sm font-semibold text-stone-700 mb-1">Site Repo</label>
+          <select id="qa-slug"
+            class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400 bg-white">
+            <option value="">Select a site…</option>
+            {sites.map(s => <option value={s}>{s}</option>)}
+          </select>
+        </div>
+        <button id="qa-btn"
+          class="w-full bg-stone-800 hover:bg-stone-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          Run Pre-Launch QA
+        </button>
+      </div>
+
+      <div id="qa-status" class="hidden mt-5">
+        <div id="qa-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
+          <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+          <span>Running scans…</span>
+        </div>
+        <div id="qa-result" class="hidden">
+          <div id="qa-summary" class="mb-4 p-4 rounded-lg text-sm font-semibold"></div>
+          <div id="qa-scans" class="space-y-3"></div>
+        </div>
+        <div id="qa-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+          <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+          <p id="qa-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+        </div>
+      </div>
+    </div>
+
     <!-- ── Document Generator ─────────────────────────────────── -->
     <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-10 shadow-sm">
       <h2 class="text-2xl font-bold mb-1">Document Generator</h2>
-      <p class="text-stone-500 text-sm mb-6">Generate a document from a template. Paste a Google Drive link to your file — Google Doc, Word, or PDF all work.</p>
-
+      <p class="text-stone-500 text-sm mb-6">Generate a document from a template. Paste a Google Drive link — Google Doc, Word, or PDF all work.</p>
       <form id="generate-form" class="space-y-6">
         <div>
           <label for="template-select" class="block text-sm font-semibold text-stone-700 mb-2">Template</label>
@@ -126,7 +161,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         </div>
         <div>
           <label for="file-url" class="block text-sm font-semibold text-stone-700 mb-2">Manuscript Link</label>
-          <input type="url" id="file-url" name="file_url" required placeholder="https://docs.google.com/document/d/… or Google Drive link"
+          <input type="url" id="file-url" name="file_url" required placeholder="https://docs.google.com/document/d/…"
             class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
           <p class="text-xs text-stone-500 mt-1">Supports Google Docs, Word (.docx), and PDF files from Google Drive.</p>
         </div>
@@ -135,7 +170,6 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           Generate
         </button>
       </form>
-
       <div id="status" class="hidden mt-6">
         <div id="status-spinner" class="hidden flex items-center gap-3 text-stone-600">
           <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -146,8 +180,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         </div>
         <div id="status-result" class="hidden p-4 bg-green-50 border border-green-200 rounded-lg">
           <p class="text-sm font-semibold text-green-800 mb-2">Done!</p>
-          <a id="result-link" href="#" target="_blank" rel="noopener noreferrer"
-            class="text-green-700 underline font-medium break-all"></a>
+          <a id="result-link" href="#" target="_blank" rel="noopener noreferrer" class="text-green-700 underline font-medium break-all"></a>
         </div>
         <div id="status-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
           <p class="text-sm font-semibold text-red-800 mb-1">Error</p>
@@ -159,8 +192,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
     <!-- ── Blog Post Publisher ────────────────────────────────── -->
     <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-10 shadow-sm">
       <h2 class="text-2xl font-bold mb-1">Publish Blog Post</h2>
-      <p class="text-stone-500 text-sm mb-6">Paste your content below — Claude will extract all fields and post directly to Sanity. For the feature image, upload it in Sanity Studio first and paste the CDN URL here.</p>
-
+      <p class="text-stone-500 text-sm mb-6">Paste your content — Claude extracts all fields and publishes directly to Sanity.</p>
       <form id="blog-form" class="space-y-5">
         <div>
           <label for="blog-content" class="block text-sm font-semibold text-stone-700 mb-2">Blog Content</label>
@@ -178,7 +210,6 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           Publish to Sanity
         </button>
       </form>
-
       <div id="blog-status" class="hidden mt-6">
         <div id="blog-spinner" class="hidden flex items-center gap-3 text-stone-600">
           <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -213,14 +244,12 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 if (!(window as any).__portalInitialized) {
   (window as any).__portalInitialized = true;
 
-  // ── Website Migration Proposal ──────────────────────────────
+  // ── 1. Website Migration Proposal ──────────────────────────
   document.getElementById('proposal-form')!.addEventListener('submit', async (e) => {
     e.preventDefault();
     const url = (document.getElementById('site-url') as HTMLInputElement).value.trim();
     const btn = document.getElementById('proposal-btn') as HTMLButtonElement;
-
-    btn.disabled = true;
-    btn.textContent = 'Generating…';
+    btn.disabled = true; btn.textContent = 'Generating…';
     document.getElementById('proposal-status')!.classList.remove('hidden');
     document.getElementById('proposal-spinner')!.classList.remove('hidden');
     document.getElementById('proposal-result')!.classList.add('hidden');
@@ -228,60 +257,45 @@ if (!(window as any).__portalInitialized) {
 
     try {
       const resp = await fetch('/api/tools-proposal', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url }),
       });
       const data = await resp.json();
       document.getElementById('proposal-spinner')!.classList.add('hidden');
-
       if (data.error) {
         document.getElementById('proposal-error')!.classList.remove('hidden');
         document.getElementById('proposal-error-text')!.textContent = data.error + (data.log ? '\n\n' + data.log : '');
       } else {
         document.getElementById('proposal-result')!.classList.remove('hidden');
-        const pLink = document.getElementById('proposal-link') as HTMLAnchorElement;
-        pLink.href = data.proposal_url;
+        (document.getElementById('proposal-link') as HTMLAnchorElement).href = data.proposal_url;
         if (data.report_url) {
-          const rLink = document.getElementById('report-link') as HTMLAnchorElement;
-          rLink.href = data.report_url;
-          rLink.classList.remove('hidden');
+          const r = document.getElementById('report-link') as HTMLAnchorElement;
+          r.href = data.report_url; r.classList.remove('hidden');
         }
-        // Pre-fill build fields from domain
+        // Pre-fill build fields
         try {
-          const host  = new URL(url).hostname.replace(/^www\./, '');
-          const part  = host.split('.')[0];
-          const slug  = part.replace(/[^a-z0-9]+/g, '-');
+          const host = new URL(url).hostname.replace(/^www\./, '');
+          const part = host.split('.')[0];
+          const slug = part.replace(/[^a-z0-9]+/g, '-');
           const title = part.split('-').map((w: string) => w[0].toUpperCase() + w.slice(1)).join(' ');
           (document.getElementById('build-title') as HTMLInputElement).value = title;
           (document.getElementById('build-slug') as HTMLInputElement).value = slug;
           (document.getElementById('slug-preview') as HTMLElement).textContent = slug;
         } catch {}
-        document.getElementById('build-section')!.classList.remove('hidden');
       }
     } catch (err: any) {
       document.getElementById('proposal-spinner')!.classList.add('hidden');
       document.getElementById('proposal-error')!.classList.remove('hidden');
       document.getElementById('proposal-error-text')!.textContent = err.message;
     }
-
-    btn.disabled = false;
-    btn.textContent = 'Generate Proposal';
+    btn.disabled = false; btn.textContent = 'Generate Proposal';
   });
 
-  // ── Sold toggle ─────────────────────────────────────────────
-  document.getElementById('sold-toggle')!.addEventListener('change', (e) => {
-    const checked = (e.target as HTMLInputElement).checked;
-    document.getElementById('build-locked')!.classList.toggle('hidden', checked);
-    document.getElementById('build-form')!.classList.toggle('hidden', !checked);
-  });
-
-  // ── Slug preview ────────────────────────────────────────────
+  // ── 2. Initiate Build ───────────────────────────────────────
   document.getElementById('build-slug')!.addEventListener('input', (e) => {
-    document.getElementById('slug-preview')!.textContent = (e.target as HTMLInputElement).value || 'site-slug';
+    document.getElementById('slug-preview')!.textContent = (e.target as HTMLInputElement).value || '…';
   });
 
-  // ── Bootstrap ───────────────────────────────────────────────
   document.getElementById('bootstrap-btn')!.addEventListener('click', async () => {
     const title = (document.getElementById('build-title') as HTMLInputElement).value.trim();
     const slug  = (document.getElementById('build-slug') as HTMLInputElement).value.trim();
@@ -289,8 +303,7 @@ if (!(window as any).__portalInitialized) {
     if (!confirm(`Launch Phase 1 build for "${title}" (${slug})?\n\nCreates:\n• GitHub: Spirit-Media-US/${slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
 
     const btn = document.getElementById('bootstrap-btn') as HTMLButtonElement;
-    btn.disabled = true;
-    btn.textContent = 'Building…';
+    btn.disabled = true; btn.textContent = 'Building…';
     document.getElementById('bootstrap-status')!.classList.remove('hidden');
     document.getElementById('bootstrap-spinner')!.classList.remove('hidden');
     document.getElementById('bootstrap-result')!.classList.add('hidden');
@@ -298,22 +311,21 @@ if (!(window as any).__portalInitialized) {
 
     try {
       const resp = await fetch('/api/tools-bootstrap', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug, title }),
       });
       const data = await resp.json();
       document.getElementById('bootstrap-spinner')!.classList.add('hidden');
-
       if (data.error) {
         document.getElementById('bootstrap-error')!.classList.remove('hidden');
         document.getElementById('bootstrap-error-text')!.textContent = data.error + (data.log ? '\n\n' + data.log : '');
       } else {
         document.getElementById('bootstrap-result')!.classList.remove('hidden');
+        (document.getElementById('bootstrap-slug-echo') as HTMLElement).textContent = slug;
         document.getElementById('bootstrap-links')!.innerHTML = [
-          { label: 'GitHub Repository', url: data.github },
-          { label: 'Netlify Preview',   url: data.netlify_url },
-          { label: 'Sanity Studio',     url: data.sanity_studio },
+          { label: 'GitHub', url: data.github },
+          { label: 'Netlify Preview', url: data.netlify_url },
+          { label: 'Sanity Studio', url: data.sanity_studio },
         ].filter((l: any) => l.url)
          .map((l: any) => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`)
          .join('');
@@ -323,9 +335,73 @@ if (!(window as any).__portalInitialized) {
       document.getElementById('bootstrap-error')!.classList.remove('hidden');
       document.getElementById('bootstrap-error-text')!.textContent = err.message;
     }
+    btn.disabled = false; btn.textContent = 'Initiate Build — Phase 1';
+  });
 
-    btn.disabled = false;
-    btn.textContent = 'Initiate Build — Phase 1';
+  // ── 3. Pre-Launch QA ────────────────────────────────────────
+  document.getElementById('qa-btn')!.addEventListener('click', async () => {
+    const slug = (document.getElementById('qa-slug') as HTMLSelectElement).value;
+    if (!slug) { alert('Select a site first.'); return; }
+
+    const btn = document.getElementById('qa-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Scanning…';
+    document.getElementById('qa-status')!.classList.remove('hidden');
+    document.getElementById('qa-spinner')!.classList.remove('hidden');
+    document.getElementById('qa-result')!.classList.add('hidden');
+    document.getElementById('qa-error')!.classList.add('hidden');
+
+    try {
+      const resp = await fetch('/api/tools-prelaunch', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug }),
+      });
+      const data = await resp.json();
+      document.getElementById('qa-spinner')!.classList.add('hidden');
+
+      if (data.error) {
+        document.getElementById('qa-error')!.classList.remove('hidden');
+        document.getElementById('qa-error-text')!.textContent = data.error;
+      } else {
+        document.getElementById('qa-result')!.classList.remove('hidden');
+        const allPass = data.passed === data.total;
+        const summary = document.getElementById('qa-summary')!;
+        summary.className = `mb-4 p-4 rounded-lg text-sm font-semibold ${allPass ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-amber-50 border border-amber-200 text-amber-800'}`;
+        summary.textContent = allPass
+          ? `✅ All ${data.total} scans passed — ready for human review.`
+          : `⚠️ ${data.passed} of ${data.total} scans passed — fix findings before delivery.`;
+
+        document.getElementById('qa-scans')!.innerHTML = data.scans.map((s: any) => `
+          <div class="border border-stone-200 rounded-xl overflow-hidden">
+            <div class="flex items-center justify-between px-4 py-3 ${s.pass ? 'bg-green-50' : 'bg-red-50'} cursor-pointer scan-header" data-id="${s.id}">
+              <span class="text-sm font-semibold ${s.pass ? 'text-green-800' : 'text-red-800'}">
+                ${s.pass ? '✅' : '❌'} ${s.name}
+              </span>
+              ${!s.pass ? `<span class="text-xs text-red-600 font-mono">${s.findings.length} finding${s.findings.length !== 1 ? 's' : ''}</span>` : ''}
+            </div>
+            ${!s.pass && s.findings.length ? `
+              <div class="px-4 py-3 bg-white scan-findings hidden" data-for="${s.id}">
+                <ul class="space-y-1">
+                  ${s.findings.map((f: string) => `<li class="text-xs font-mono text-stone-700 break-all">${f}</li>`).join('')}
+                </ul>
+              </div>` : ''}
+          </div>
+        `).join('');
+
+        // Toggle findings on click
+        document.querySelectorAll('.scan-header').forEach(h => {
+          h.addEventListener('click', () => {
+            const id = (h as HTMLElement).dataset.id;
+            const findings = document.querySelector(`.scan-findings[data-for="${id}"]`);
+            if (findings) findings.classList.toggle('hidden');
+          });
+        });
+      }
+    } catch (err: any) {
+      document.getElementById('qa-spinner')!.classList.add('hidden');
+      document.getElementById('qa-error')!.classList.remove('hidden');
+      document.getElementById('qa-error-text')!.textContent = err.message;
+    }
+    btn.disabled = false; btn.textContent = 'Run Pre-Launch QA';
   });
 
   // ── Document Generator ───────────────────────────────────────
@@ -337,9 +413,7 @@ if (!(window as any).__portalInitialized) {
       select.innerHTML = templates.map((t: any) =>
         `<option value="${t.id}">${t.name}${t.description ? ` — ${t.description}` : ''}</option>`
       ).join('');
-    } catch {
-      select.innerHTML = '<option value="">Could not load templates</option>';
-    }
+    } catch { select.innerHTML = '<option value="">Could not load templates</option>'; }
   }
 
   async function loadHistory() {
@@ -347,10 +421,7 @@ if (!(window as any).__portalInitialized) {
     try {
       const resp = await fetch('/api/tools-history');
       const docs = await resp.json();
-      if (!docs.length) {
-        list.innerHTML = '<p class="text-stone-500 text-sm">No documents yet.</p>';
-        return;
-      }
+      if (!docs.length) { list.innerHTML = '<p class="text-stone-500 text-sm">No documents yet.</p>'; return; }
       list.innerHTML = docs.map((d: any) => `
         <div class="flex items-center justify-between py-3 border-b border-stone-100 last:border-0">
           <div>
@@ -362,9 +433,7 @@ if (!(window as any).__portalInitialized) {
             class="text-xs text-stone-500 hover:text-stone-700 ml-4 shrink-0">Open →</a>
         </div>
       `).join('');
-    } catch {
-      list.innerHTML = '<p class="text-stone-500 text-sm">Could not load history.</p>';
-    }
+    } catch { list.innerHTML = '<p class="text-stone-500 text-sm">Could not load history.</p>'; }
   }
 
   document.getElementById('generate-form')!.addEventListener('submit', async (e) => {
@@ -375,46 +444,30 @@ if (!(window as any).__portalInitialized) {
     const statusText = document.getElementById('status-text')!;
     const resultDiv = document.getElementById('status-result')!;
     const errorDiv = document.getElementById('status-error')!;
-    const resultLink = document.getElementById('result-link') as HTMLAnchorElement;
-    const errorText = document.getElementById('error-text')!;
-
     btn.disabled = true;
     document.getElementById('status')!.classList.remove('hidden');
     spinner.classList.remove('hidden');
-    resultDiv.classList.add('hidden');
-    errorDiv.classList.add('hidden');
-
+    resultDiv.classList.add('hidden'); errorDiv.classList.add('hidden');
     const messages = ['Reading manuscript…', 'Generating review…', 'Creating Google Doc…'];
-    let msgIdx = 0;
-    statusText.textContent = messages[msgIdx];
-    const msgInterval = setInterval(() => {
-      msgIdx = Math.min(msgIdx + 1, messages.length - 1);
-      statusText.textContent = messages[msgIdx];
-    }, 15000);
-
+    let msgIdx = 0; statusText.textContent = messages[0];
+    const interval = setInterval(() => { msgIdx = Math.min(msgIdx + 1, messages.length - 1); statusText.textContent = messages[msgIdx]; }, 15000);
     try {
-      const data = new FormData(form);
+      const fd = new FormData(form);
       const resp = await fetch('/api/tools-generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ template_id: data.get('template_id'), file_url: data.get('file_url') }),
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ template_id: fd.get('template_id'), file_url: fd.get('file_url') }),
       });
-      clearInterval(msgInterval);
+      clearInterval(interval);
       const result = await resp.json();
       if (result.doc_url) {
-        spinner.classList.add('hidden');
-        resultDiv.classList.remove('hidden');
-        resultLink.href = result.doc_url;
-        resultLink.textContent = result.doc_name || result.doc_url;
+        spinner.classList.add('hidden'); resultDiv.classList.remove('hidden');
+        const rl = document.getElementById('result-link') as HTMLAnchorElement;
+        rl.href = result.doc_url; rl.textContent = result.doc_name || result.doc_url;
         loadHistory();
-      } else {
-        throw new Error(result.error || 'Unknown error');
-      }
+      } else { throw new Error(result.error || 'Unknown error'); }
     } catch (err: any) {
-      clearInterval(msgInterval);
-      spinner.classList.add('hidden');
-      errorDiv.classList.remove('hidden');
-      errorText.textContent = err.message;
+      clearInterval(interval); spinner.classList.add('hidden'); errorDiv.classList.remove('hidden');
+      document.getElementById('error-text')!.textContent = err.message;
     }
     btn.disabled = false;
   });
@@ -431,49 +484,32 @@ if (!(window as any).__portalInitialized) {
     const statusText = document.getElementById('blog-status-text')!;
     const resultDiv = document.getElementById('blog-result')!;
     const errorDiv = document.getElementById('blog-error')!;
-    const liveUrl = document.getElementById('blog-live-url') as HTMLAnchorElement;
-    const studioUrl = document.getElementById('blog-studio-url') as HTMLAnchorElement;
-    const errorText = document.getElementById('blog-error-text')!;
-
     btn.disabled = true;
     document.getElementById('blog-status')!.classList.remove('hidden');
     spinner.classList.remove('hidden');
-    resultDiv.classList.add('hidden');
-    errorDiv.classList.add('hidden');
-
+    resultDiv.classList.add('hidden'); errorDiv.classList.add('hidden');
     const messages = ['Parsing content…', 'Extracting fields…', 'Publishing to Sanity…'];
-    let msgIdx = 0;
-    statusText.textContent = messages[msgIdx];
-    const msgInterval = setInterval(() => {
-      msgIdx = Math.min(msgIdx + 1, messages.length - 1);
-      statusText.textContent = messages[msgIdx];
-    }, 8000);
-
+    let msgIdx = 0; statusText.textContent = messages[0];
+    const interval = setInterval(() => { msgIdx = Math.min(msgIdx + 1, messages.length - 1); statusText.textContent = messages[msgIdx]; }, 8000);
     try {
-      const data = new FormData(form);
+      const fd = new FormData(form);
       const resp = await fetch('/api/blog-post', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: data.get('content'), hero_image_url: data.get('hero_image_url') || '' }),
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: fd.get('content'), hero_image_url: fd.get('hero_image_url') || '' }),
       });
-      clearInterval(msgInterval);
+      clearInterval(interval);
       const result = await resp.json();
       if (result.url) {
-        spinner.classList.add('hidden');
-        resultDiv.classList.remove('hidden');
-        liveUrl.href = result.url;
-        liveUrl.textContent = result.url;
-        studioUrl.href = result.sanity_studio;
-        studioUrl.textContent = 'Open in Sanity Studio →';
+        spinner.classList.add('hidden'); resultDiv.classList.remove('hidden');
+        const lu = document.getElementById('blog-live-url') as HTMLAnchorElement;
+        const su = document.getElementById('blog-studio-url') as HTMLAnchorElement;
+        lu.href = result.url; lu.textContent = result.url;
+        su.href = result.sanity_studio; su.textContent = 'Open in Sanity Studio →';
         (form as HTMLFormElement).reset();
-      } else {
-        throw new Error(result.error || 'Unknown error');
-      }
+      } else { throw new Error(result.error || 'Unknown error'); }
     } catch (err: any) {
-      clearInterval(msgInterval);
-      spinner.classList.add('hidden');
-      errorDiv.classList.remove('hidden');
-      errorText.textContent = err.message;
+      clearInterval(interval); spinner.classList.add('hidden'); errorDiv.classList.remove('hidden');
+      document.getElementById('blog-error-text')!.textContent = err.message;
     }
     btn.disabled = false;
   });
