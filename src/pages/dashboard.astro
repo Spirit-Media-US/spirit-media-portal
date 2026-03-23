@@ -7,7 +7,7 @@ interface Site {
   netlifyName: string;
   netlifyPreview: string;
   sanity: string;
-  liveUrl: string; // empty = not yet live (red)
+  liveUrl: string; // empty string = not yet live → red dot
 }
 
 const sites: Site[] = [
@@ -36,6 +36,14 @@ const sites: Site[] = [
     liveUrl: 'fathersheartbible.com',
   },
   {
+    name: 'Scripture Alive',
+    repo: 'scripture-alive',
+    netlifyName: 'scripture-alive',
+    netlifyPreview: 'scripture-alive.netlify.app',
+    sanity: 'scripture-alive.sanity.studio',
+    liveUrl: '',
+  },
+  {
     name: 'Spirit Media Publishing',
     repo: 'spirit-media-publishing',
     netlifyName: 'spirit-media-publishing',
@@ -59,14 +67,6 @@ const sites: Site[] = [
     sanity: 'workonyourself.sanity.studio',
     liveUrl: 'workonyourself.com',
   },
-  {
-    name: 'Scripture Alive',
-    repo: 'scripture-alive',
-    netlifyName: 'scripture-alive',
-    netlifyPreview: 'scripture-alive.netlify.app',
-    sanity: 'scripture-alive.sanity.studio',
-    liveUrl: '',
-  },
 ];
 ---
 
@@ -78,33 +78,27 @@ const sites: Site[] = [
 
   <div class="sites-grid">
     {sites.map((site) => (
-      <div class={`site-card${!site.liveUrl ? ' not-live' : ''}`}>
+      <div class="site-card">
         <div class="site-card-header">
           <h2>{site.name}</h2>
-          {!site.liveUrl
-            ? <span class="badge-not-live">● Not Live</span>
-            : <span class="status-lights" data-url={site.liveUrl}><span class="light green"></span><span class="light red"></span></span>
-          }
         </div>
         <div class="btn-grid">
-          {site.liveUrl
-            ? <a href={`https://${site.liveUrl}`} target="_blank" rel="noopener noreferrer" class="btn btn-live">🌐 Live</a>
-            : <span class="btn btn-disabled">🔴 Not Live</span>
-          }
+          <a href={site.liveUrl ? `https://${site.liveUrl}` : `https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn">
+            <span class={`status-lights${!site.liveUrl ? ' down' : ''}`} data-url={site.liveUrl || null}>
+              <span class="light green"></span><span class="light red"></span>
+            </span> Live
+          </a>
           <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn" title="First load may take 1–3s (cold start)">👁 Preview</a>
           <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>
           <a href={`https://${site.sanity}`} target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>
           <a href={`https://github.com/Spirit-Media-US/${site.repo}`} target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>
-          {site.liveUrl
-            ? <a href={`https://search.google.com/search-console?resource_id=sc-domain:${site.liveUrl}`} target="_blank" rel="noopener noreferrer" class="btn">📊 Search</a>
-            : <span class="btn btn-disabled">📊 Search</span>
-          }
+          <a href={site.liveUrl ? `https://search.google.com/search-console?resource_id=sc-domain:${site.liveUrl}` : '#'} target="_blank" rel="noopener noreferrer" class="btn">📊 Search</a>
         </div>
       </div>
     ))}
   </div>
 
-  <!-- Pipeline sites from project registry (auto-populated) -->
+  <!-- Pipeline projects from registry (new builds not yet in the list above) -->
   <div id="pipeline-section" class="hidden">
     <h2 class="pipeline-heading">In Pipeline</h2>
     <div id="pipeline-grid" class="sites-grid"></div>
@@ -139,43 +133,32 @@ const sites: Site[] = [
     padding: 1.5rem;
     box-shadow: 0 1px 4px rgba(26,23,20,0.06);
   }
-  .site-card.not-live {
-    border-color: #fca5a5;
-    background: #fff8f8;
-  }
 
   .site-card-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0.5rem;
     margin-bottom: 1rem;
     padding-bottom: 0.875rem;
     border-bottom: 1px solid #ede7df;
   }
-  .site-card.not-live .site-card-header { border-bottom-color: #fecaca; }
 
   .site-card-header h2 {
     font-family: "Playfair Display", Georgia, serif;
-    font-size: 1.0625rem; font-weight: 700;
+    font-size: 0.9375rem; font-weight: 700;
     color: #1a1714; margin: 0;
-  }
-
-  .badge-not-live {
-    font-size: 0.6875rem; font-weight: 700;
-    color: #ef4444; white-space: nowrap;
-    padding-top: 0.15rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
 
   .status-lights {
     display: inline-flex; gap: 0.2rem; align-items: center;
-    padding-top: 0.25rem;
   }
-  .light { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: #d6d3d1; }
-  .status-lights.up .light.green { background: #22c55e; }
-  .status-lights.up .light.red { background: #d6d3d1; }
-  .status-lights.down .light.green { background: #d6d3d1; }
-  .status-lights.down .light.red { background: #ef4444; }
+  .light {
+    width: 0.45rem; height: 0.45rem;
+    border-radius: 50%;
+    background: #e7e5e4;
+  }
+  .light.green { background: #d6d3d1; }
+  .light.red   { background: #d6d3d1; }
+  .status-lights.up   .light.green { background: #22c55e; }
+  .status-lights.down .light.red   { background: #ef4444; }
 
   .btn-grid {
     display: grid;
@@ -196,24 +179,11 @@ const sites: Site[] = [
     border: 1px solid #ddd7cf;
   }
   .btn:hover { background: #fff; border-color: #c0392b; }
-  .btn-live { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
-  .btn-live:hover { background: #dcfce7; border-color: #86efac; }
-  .btn-disabled {
-    display: flex; align-items: center; justify-content: center;
-    gap: 0.375rem;
-    padding: 0.4rem 0.5rem;
-    border-radius: 0.375rem;
-    font-size: 0.8125rem; font-weight: 600;
-    text-align: center;
-    background: #f3f4f6; color: #9ca3af;
-    border: 1px solid #e5e7eb;
-    cursor: default;
-  }
 </style>
 
 <script>
-  // Ping live sites
-  document.querySelectorAll('.status-lights').forEach((el) => {
+  // Ping live sites — skip if no data-url
+  document.querySelectorAll('.status-lights[data-url]').forEach((el) => {
     const url = el.getAttribute('data-url');
     if (!url) return;
     fetch(`https://${url}`, { mode: 'no-cors', cache: 'no-store' })
@@ -221,19 +191,18 @@ const sites: Site[] = [
       .catch(() => el.classList.add('down'));
   });
 
-  // Load pipeline projects from registry
+  // Load pipeline projects from registry (new clients not yet in hardcoded list)
   const KNOWN_SLUGS = new Set([
-    'artsbyjustin','clowning-from-the-heart','FHB',
-    'spirit-media-publishing','the-kohler-group','WOY','scripture-alive',
+    'artsbyjustin', 'clowning-from-the-heart', 'FHB',
+    'scripture-alive', 'spirit-media-publishing', 'the-kohler-group', 'WOY',
   ]);
 
   const STATUS_LABEL: Record<string, string> = {
     proposal_pending: 'Proposal Running',
     proposal_failed:  'Proposal Failed',
     proposal_ready:   'Proposal Ready',
-    building:         'Building…',
-    build_failed:     'Build Failed',
     built:            'In Development',
+    build_failed:     'Build Failed',
     qa_failed:        'QA — Fixes Needed',
     qa_passed:        'QA Passed',
     launched:         'Live',
@@ -243,59 +212,56 @@ const sites: Site[] = [
     try {
       const resp = await fetch('/api/tools-projects');
       const projects = await resp.json();
-      // Only show projects NOT already in the hardcoded list
-      const pipeline = projects.filter((p: any) => !KNOWN_SLUGS.has(p.slug));
+      const pipeline = (projects as any[])
+        .filter(p => !KNOWN_SLUGS.has(p.slug))
+        .sort((a, b) => a.title.localeCompare(b.title));
       if (!pipeline.length) return;
 
       document.getElementById('pipeline-section')!.classList.remove('hidden');
-      const grid = document.getElementById('pipeline-grid')!;
-
-      grid.innerHTML = pipeline.map((p: any) => {
-        const isLive   = p.status === 'launched' && p.live_url;
-        const label    = STATUS_LABEL[p.status] ?? p.status;
-        const hasGH    = !!p.github;
-        const hasNL    = !!p.netlify_url;
-        const hasSA    = !!p.sanity_studio;
-        const hasProposal = !!p.proposal_url;
-
-        const liveBtn = isLive
-          ? `<a href="https://${p.live_url}" target="_blank" rel="noopener noreferrer" class="btn btn-live">🌐 Live</a>`
-          : `<span class="btn btn-disabled">🔴 Not Live</span>`;
-
-        const previewBtn = hasNL
-          ? `<a href="${p.netlify_url}" target="_blank" rel="noopener noreferrer" class="btn">👁 Preview</a>`
-          : `<span class="btn btn-disabled">👁 Preview</span>`;
-
-        const netlifyBtn = hasNL
-          ? `<a href="https://app.netlify.com/projects/${p.slug}" target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>`
-          : `<span class="btn btn-disabled">⚙️ Netlify</span>`;
-
-        const sanityBtn = hasSA
-          ? `<a href="${p.sanity_studio}" target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>`
-          : `<span class="btn btn-disabled">✏️ Sanity</span>`;
-
-        const githubBtn = hasGH
-          ? `<a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>`
-          : `<span class="btn btn-disabled">🗂 GitHub</span>`;
-
-        const proposalBtn = hasProposal
-          ? `<a href="${p.proposal_url}" target="_blank" rel="noopener noreferrer" class="btn">📄 Proposal</a>`
-          : `<span class="btn btn-disabled">📄 Proposal</span>`;
-
+      document.getElementById('pipeline-grid')!.innerHTML = pipeline.map((p: any) => {
+        const isLive = p.status === 'launched' && p.live_url;
+        const liveHref = isLive ? `https://${p.live_url}` : (p.netlify_url || '#');
+        const liveClass = isLive ? '' : ' down';
+        const liveDataUrl = isLive ? p.live_url : null;
         return `
-          <div class="site-card${!isLive ? ' not-live' : ''}">
+          <div class="site-card">
             <div class="site-card-header">
-              <h2>${p.title}</h2>
-              <span class="${isLive ? '' : 'badge-not-live'}" style="font-size:0.6875rem;font-weight:700;white-space:nowrap;padding-top:0.15rem;">
-                ${isLive ? '' : '● '}${label}
-              </span>
+              <h2 title="${p.title}">${p.title}</h2>
             </div>
             <div class="btn-grid">
-              ${liveBtn}${previewBtn}${netlifyBtn}${sanityBtn}${githubBtn}${proposalBtn}
+              <a href="${liveHref}" target="_blank" rel="noopener noreferrer" class="btn">
+                <span class="status-lights${liveClass}"${liveDataUrl ? ` data-url="${liveDataUrl}"` : ''}>
+                  <span class="light green"></span><span class="light red"></span>
+                </span> Live
+              </a>
+              ${p.netlify_url
+                ? `<a href="${p.netlify_url}" target="_blank" rel="noopener noreferrer" class="btn" title="First load may take 1–3s">👁 Preview</a>`
+                : `<span class="btn" style="opacity:.4;cursor:default">👁 Preview</span>`}
+              ${p.netlify_url
+                ? `<a href="https://app.netlify.com/projects/${p.slug}" target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>`
+                : `<span class="btn" style="opacity:.4;cursor:default">⚙️ Netlify</span>`}
+              ${p.sanity_studio
+                ? `<a href="${p.sanity_studio}" target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>`
+                : `<span class="btn" style="opacity:.4;cursor:default">✏️ Sanity</span>`}
+              ${p.github
+                ? `<a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>`
+                : `<span class="btn" style="opacity:.4;cursor:default">🗂 GitHub</span>`}
+              ${p.proposal_url
+                ? `<a href="${p.proposal_url}" target="_blank" rel="noopener noreferrer" class="btn">📄 Proposal</a>`
+                : `<span class="btn" style="opacity:.4;cursor:default">📄 Proposal</span>`}
             </div>
           </div>`;
       }).join('');
-    } catch { /* registry unavailable — skip pipeline section */ }
+
+      // Ping any live pipeline sites
+      document.querySelectorAll('#pipeline-grid .status-lights[data-url]').forEach((el) => {
+        const url = el.getAttribute('data-url');
+        if (!url) return;
+        fetch(`https://${url}`, { mode: 'no-cors', cache: 'no-store' })
+          .then(() => el.classList.add('up'))
+          .catch(() => el.classList.add('down'));
+      });
+    } catch { /* registry unavailable */ }
   }
 
   loadPipeline();
