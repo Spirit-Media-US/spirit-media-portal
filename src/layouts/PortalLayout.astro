@@ -21,6 +21,7 @@ const { title, mainBg } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+    <slot name="head" />
   </head>
 
   <body>
@@ -36,6 +37,7 @@ const { title, mainBg } = Astro.props;
           <a href="/task-log" class="portal-nav-link">Task Log</a>
           <a href="/clients" class="portal-nav-link">Clients</a>
           <a href="/templates" class="portal-nav-link">Templates</a>
+          <a href="/design-library" class="portal-nav-link">Design Library</a>
         </div>
 
         <div class="portal-sidebar-footer">
