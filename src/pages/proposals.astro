@@ -1,0 +1,328 @@
+---
+import PortalLayout from '../layouts/PortalLayout.astro';
+---
+
+<PortalLayout title="New Project">
+  <div class="max-w-3xl">
+    <h1 class="text-4xl font-bold mb-2">New Project</h1>
+    <p class="text-stone-600 mb-10">Generate a proposal or kick off the full SMP Build Protocol.</p>
+
+    <!-- Project Form -->
+    <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-8 shadow-sm">
+      <h2 class="text-xl font-bold mb-6">Project Details</h2>
+      <form id="project-form" class="space-y-5">
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="client" class="block text-sm font-semibold text-stone-700 mb-1">Client Name <span class="text-red-500">*</span></label>
+            <input type="text" id="client" name="client" required placeholder="Scripture Alive"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
+          </div>
+          <div>
+            <label for="contact" class="block text-sm font-semibold text-stone-700 mb-1">Contact Name</label>
+            <input type="text" id="contact" name="contact" placeholder="Jeremy Kluth"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
+          </div>
+        </div>
+
+        <div>
+          <label for="site-url" class="block text-sm font-semibold text-stone-700 mb-1">Current Site URL <span class="text-stone-400 font-normal">(for proposal research)</span></label>
+          <input type="url" id="site-url" name="site_url" placeholder="https://scripturealive.com"
+            class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="price" class="block text-sm font-semibold text-stone-700 mb-1">Project Price ($) <span class="text-red-500">*</span></label>
+            <input type="number" id="price" name="price" required placeholder="6000" min="0"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
+          </div>
+          <div>
+            <label for="discount" class="block text-sm font-semibold text-stone-700 mb-1">Discount ($)</label>
+            <input type="number" id="discount" name="discount" placeholder="0" min="0" value="0"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
+          </div>
+        </div>
+
+        <div>
+          <label for="notes" class="block text-sm font-semibold text-stone-700 mb-1">Notes <span class="text-stone-400 font-normal">(WordPress + Elementor, current client, etc.)</span></label>
+          <textarea id="notes" name="notes" rows="2" placeholder="Current client, migrating from WordPress + Elementor..."
+            class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 resize-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-stone-700 mb-2">Content Types Needed</label>
+          <div class="grid grid-cols-3 gap-2">
+            {['Blog', 'Events', 'Testimonials', 'Team', 'Products / Books', 'Podcast / Audio', 'Video Gallery', 'FAQ', 'Portfolio'].map(ct => (
+              <label class="flex items-center gap-2 text-sm text-stone-700 cursor-pointer">
+                <input type="checkbox" name="content_types" value={ct} class="rounded border-stone-300 text-stone-800 focus:ring-stone-400" />
+                {ct}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <button type="submit" id="proposal-btn"
+          class="w-full bg-stone-800 hover:bg-stone-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          Generate Proposal
+        </button>
+      </form>
+
+      <!-- Proposal Status -->
+      <div id="proposal-status" class="hidden mt-6">
+        <div id="proposal-spinner" class="hidden flex items-center gap-3 text-stone-600">
+          <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+          <span id="proposal-status-text">Auditing site and generating proposal — this takes 2–4 minutes…</span>
+        </div>
+        <div id="proposal-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-2">
+          <p class="text-sm font-bold text-green-800">Proposal ready!</p>
+          <a id="proposal-link" href="#" target="_blank" rel="noopener noreferrer"
+            class="block text-green-700 underline font-medium text-sm break-all">Open Proposal →</a>
+          <a id="report-link" href="#" target="_blank" rel="noopener noreferrer"
+            class="block text-green-700 underline text-sm break-all hidden">Open Complexity Report →</a>
+        </div>
+        <div id="proposal-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+          <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+          <p id="proposal-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Build Bootstrap (unlocks after proposal) -->
+    <div id="build-section" class="hidden bg-white rounded-2xl border border-stone-200 p-8 shadow-sm">
+      <div class="flex items-start justify-between mb-6">
+        <div>
+          <h2 class="text-xl font-bold">Initiate Build</h2>
+          <p class="text-stone-500 text-sm mt-1">Phase 1 — Infrastructure. Creates GitHub repo, Sanity project, Netlify site, and wires everything together automatically.</p>
+        </div>
+        <label class="flex items-center gap-2 cursor-pointer select-none mt-1">
+          <span class="text-sm font-semibold text-stone-600">Mark as Sold</span>
+          <div class="relative">
+            <input type="checkbox" id="sold-toggle" class="sr-only peer" />
+            <div class="w-11 h-6 bg-stone-300 peer-checked:bg-green-500 rounded-full transition-colors"></div>
+            <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform peer-checked:translate-x-5"></div>
+          </div>
+        </label>
+      </div>
+
+      <div id="build-locked" class="text-center py-6 text-stone-400 text-sm">
+        Toggle "Mark as Sold" to unlock the build.
+      </div>
+
+      <div id="build-form" class="hidden space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Title <span class="text-red-500">*</span></label>
+            <input type="text" id="build-title" placeholder="Scripture Alive"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400" />
+          </div>
+          <div>
+            <label for="build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Site Slug <span class="text-red-500">*</span></label>
+            <input type="text" id="build-slug" placeholder="scripture-alive"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 font-mono" />
+            <p class="text-xs text-stone-400 mt-1">Becomes: github.com/Spirit-Media-US/<span id="slug-preview" class="font-mono">scripture-alive</span></p>
+          </div>
+        </div>
+
+        <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
+          <strong>What this does:</strong> Creates the GitHub repo from the Spirit Media template, sets up Sanity, connects Netlify with auto-deploy, and wires the Sanity → Netlify webhook. Takes ~2 minutes.
+        </div>
+
+        <button id="bootstrap-btn"
+          class="w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          Initiate Build — Phase 1
+        </button>
+      </div>
+
+      <!-- Bootstrap Status -->
+      <div id="bootstrap-status" class="hidden mt-6">
+        <div id="bootstrap-spinner" class="hidden flex items-center gap-3 text-stone-600">
+          <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+          <span>Creating infrastructure — GitHub, Sanity, Netlify… (~2 min)</span>
+        </div>
+        <div id="bootstrap-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-3">
+          <p class="text-sm font-bold text-green-800">Phase 1 complete! Infrastructure is live.</p>
+          <div id="bootstrap-links" class="space-y-1.5"></div>
+          <p class="text-xs text-stone-500 mt-2">Next: open the GitHub repo in a new Claude Code session and begin Phase 2 (Structure).</p>
+        </div>
+        <div id="bootstrap-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+          <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+          <p id="bootstrap-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</PortalLayout>
+
+<script>
+// ── Proposal Form ─────────────────────────────────────────────
+const form        = document.getElementById('project-form') as HTMLFormElement;
+const proposalBtn = document.getElementById('proposal-btn') as HTMLButtonElement;
+const pStatus     = document.getElementById('proposal-status')!;
+const pSpinner    = document.getElementById('proposal-spinner')!;
+const pResult     = document.getElementById('proposal-result')!;
+const pError      = document.getElementById('proposal-error')!;
+const pErrorText  = document.getElementById('proposal-error-text')!;
+const pLink       = document.getElementById('proposal-link') as HTMLAnchorElement;
+const rLink       = document.getElementById('report-link') as HTMLAnchorElement;
+const buildSection = document.getElementById('build-section')!;
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const fd = new FormData(form);
+  const url = (fd.get('site_url') as string || '').trim();
+  if (!url) {
+    alert('A current site URL is required to generate the proposal.');
+    return;
+  }
+
+  const contentTypes = fd.getAll('content_types').join(', ');
+  const notes = [fd.get('notes') as string, contentTypes ? `Content types: ${contentTypes}` : '']
+    .filter(Boolean).join(' | ');
+
+  proposalBtn.disabled = true;
+  proposalBtn.textContent = 'Generating…';
+  pStatus.classList.remove('hidden');
+  pSpinner.classList.remove('hidden');
+  pResult.classList.add('hidden');
+  pError.classList.add('hidden');
+
+  try {
+    const resp = await fetch('/api/tools-proposal', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        url,
+        client:   fd.get('client'),
+        contact:  fd.get('contact'),
+        price:    fd.get('price'),
+        discount: fd.get('discount') || '0',
+        notes,
+      }),
+    });
+    const data = await resp.json();
+    pSpinner.classList.add('hidden');
+
+    if (data.error) {
+      pError.classList.remove('hidden');
+      pErrorText.textContent = data.error + (data.log ? '\n\n' + data.log : '');
+    } else {
+      pResult.classList.remove('hidden');
+      pLink.href = data.proposal_url;
+      pLink.textContent = data.proposal_url;
+      if (data.report_url) {
+        rLink.href = data.report_url;
+        rLink.textContent = data.report_url;
+        rLink.classList.remove('hidden');
+      }
+      buildSection.classList.remove('hidden');
+      // Pre-fill build form from proposal form
+      const clientVal = (fd.get('client') as string || '').trim();
+      const slugVal   = clientVal.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      (document.getElementById('build-title') as HTMLInputElement).value = clientVal;
+      (document.getElementById('build-slug') as HTMLInputElement).value = slugVal;
+      (document.getElementById('slug-preview') as HTMLElement).textContent = slugVal;
+    }
+  } catch (err: any) {
+    pSpinner.classList.add('hidden');
+    pError.classList.remove('hidden');
+    pErrorText.textContent = err.message;
+  }
+
+  proposalBtn.disabled = false;
+  proposalBtn.textContent = 'Generate Proposal';
+});
+
+// ── Sold Toggle ───────────────────────────────────────────────
+const soldToggle  = document.getElementById('sold-toggle') as HTMLInputElement;
+const buildLocked = document.getElementById('build-locked')!;
+const buildForm   = document.getElementById('build-form')!;
+
+soldToggle.addEventListener('change', () => {
+  if (soldToggle.checked) {
+    buildLocked.classList.add('hidden');
+    buildForm.classList.remove('hidden');
+  } else {
+    buildLocked.classList.remove('hidden');
+    buildForm.classList.add('hidden');
+  }
+});
+
+// ── Slug Preview ──────────────────────────────────────────────
+const buildSlug   = document.getElementById('build-slug') as HTMLInputElement;
+const slugPreview = document.getElementById('slug-preview')!;
+
+buildSlug.addEventListener('input', () => {
+  const cleaned = buildSlug.value.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  slugPreview.textContent = cleaned || 'site-slug';
+});
+
+// ── Bootstrap ─────────────────────────────────────────────────
+const bootstrapBtn    = document.getElementById('bootstrap-btn') as HTMLButtonElement;
+const bStatus         = document.getElementById('bootstrap-status')!;
+const bSpinner        = document.getElementById('bootstrap-spinner')!;
+const bResult         = document.getElementById('bootstrap-result')!;
+const bError          = document.getElementById('bootstrap-error')!;
+const bErrorText      = document.getElementById('bootstrap-error-text')!;
+const bLinks          = document.getElementById('bootstrap-links')!;
+const buildTitle      = document.getElementById('build-title') as HTMLInputElement;
+
+bootstrapBtn.addEventListener('click', async () => {
+  const title = buildTitle.value.trim();
+  const slug  = buildSlug.value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  if (!title || !slug) {
+    alert('Site title and slug are required.');
+    return;
+  }
+
+  if (!confirm(`Launch Phase 1 build for "${title}" (${slug})?\n\nThis will create:\n• GitHub repo: Spirit-Media-US/${slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
+
+  bootstrapBtn.disabled = true;
+  bootstrapBtn.textContent = 'Building…';
+  bStatus.classList.remove('hidden');
+  bSpinner.classList.remove('hidden');
+  bResult.classList.add('hidden');
+  bError.classList.add('hidden');
+
+  try {
+    const resp = await fetch('/api/tools-bootstrap', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, title }),
+    });
+    const data = await resp.json();
+    bSpinner.classList.add('hidden');
+
+    if (data.error) {
+      bError.classList.remove('hidden');
+      bErrorText.textContent = data.error + (data.log ? '\n\n' + data.log : '');
+    } else {
+      bResult.classList.remove('hidden');
+      const linkDefs = [
+        { label: 'GitHub Repository', url: data.github },
+        { label: 'Netlify Preview',   url: data.netlify_url },
+        { label: 'Sanity Studio',     url: data.sanity_studio },
+      ];
+      bLinks.innerHTML = linkDefs
+        .filter(l => l.url)
+        .map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer"
+          class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`)
+        .join('');
+    }
+  } catch (err: any) {
+    bSpinner.classList.add('hidden');
+    bError.classList.remove('hidden');
+    bErrorText.textContent = err.message;
+  }
+
+  bootstrapBtn.disabled = false;
+  bootstrapBtn.textContent = 'Initiate Build — Phase 1';
+});
+</script>
