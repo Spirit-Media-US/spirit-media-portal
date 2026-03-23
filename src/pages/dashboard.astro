@@ -208,59 +208,93 @@ const sites: Site[] = [
     launched:         'Live',
   };
 
+  // Projects with infrastructure (built+) join the main grid.
+  // Only pre-build proposals stay in the "In Pipeline" section.
+  const BUILD_STATUSES = new Set(['built', 'build_failed', 'qa_failed', 'qa_passed', 'launched']);
+
+  function makeCard(p: any) {
+    const isLive    = p.status === 'launched' && p.live_url;
+    const liveHref  = isLive ? `https://${p.live_url}` : (p.netlify_url || '#');
+    const liveClass = isLive ? '' : ' down';
+    const liveDataUrl = isLive ? p.live_url : null;
+    const netlifySlug = p.netlify_url ? p.netlify_url.replace('https://','').replace('.netlify.app','') : p.slug;
+    return `
+      <div class="site-card">
+        <div class="site-card-header">
+          <h2 title="${p.title}">${p.title}</h2>
+        </div>
+        <div class="btn-grid">
+          <a href="${liveHref}" target="_blank" rel="noopener noreferrer" class="btn">
+            <span class="status-lights${liveClass}"${liveDataUrl ? ` data-url="${liveDataUrl}"` : ''}>
+              <span class="light green"></span><span class="light red"></span>
+            </span> Live
+          </a>
+          ${p.netlify_url
+            ? `<a href="${p.netlify_url}" target="_blank" rel="noopener noreferrer" class="btn" title="First load may take 1–3s">👁 Preview</a>`
+            : `<span class="btn" style="opacity:.4;cursor:default">👁 Preview</span>`}
+          ${p.netlify_url
+            ? `<a href="https://app.netlify.com/projects/${netlifySlug}" target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>`
+            : `<span class="btn" style="opacity:.4;cursor:default">⚙️ Netlify</span>`}
+          ${p.sanity_studio
+            ? `<a href="${p.sanity_studio}" target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>`
+            : `<span class="btn" style="opacity:.4;cursor:default">✏️ Sanity</span>`}
+          ${p.github
+            ? `<a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>`
+            : `<span class="btn" style="opacity:.4;cursor:default">🗂 GitHub</span>`}
+          ${isLive && p.live_url
+            ? `<a href="https://search.google.com/search-console?resource_id=sc-domain:${p.live_url}" target="_blank" rel="noopener noreferrer" class="btn">📊 Search</a>`
+            : p.proposal_url
+              ? `<a href="${p.proposal_url}" target="_blank" rel="noopener noreferrer" class="btn">📄 Proposal</a>`
+              : `<span class="btn" style="opacity:.4;cursor:default">📄 Proposal</span>`}
+        </div>
+      </div>`;
+  }
+
   async function loadPipeline() {
     try {
-      const resp = await fetch('/api/tools-projects');
+      const resp     = await fetch('/api/tools-projects');
       const projects = await resp.json();
-      const pipeline = (projects as any[])
-        .filter(p => !KNOWN_SLUGS.has(p.slug))
+      const unknown  = (projects as any[]).filter(p => !KNOWN_SLUGS.has(p.slug));
+
+      // Built+ → inject into main grid in alpha order
+      const active = unknown
+        .filter(p => BUILD_STATUSES.has(p.status))
         .sort((a, b) => a.title.localeCompare(b.title));
-      if (!pipeline.length) return;
 
-      document.getElementById('pipeline-section')!.classList.remove('hidden');
-      document.getElementById('pipeline-grid')!.innerHTML = pipeline.map((p: any) => {
-        const isLive = p.status === 'launched' && p.live_url;
-        const liveHref = isLive ? `https://${p.live_url}` : (p.netlify_url || '#');
-        const liveClass = isLive ? '' : ' down';
-        const liveDataUrl = isLive ? p.live_url : null;
-        return `
-          <div class="site-card">
-            <div class="site-card-header">
-              <h2 title="${p.title}">${p.title}</h2>
-            </div>
-            <div class="btn-grid">
-              <a href="${liveHref}" target="_blank" rel="noopener noreferrer" class="btn">
-                <span class="status-lights${liveClass}"${liveDataUrl ? ` data-url="${liveDataUrl}"` : ''}>
-                  <span class="light green"></span><span class="light red"></span>
-                </span> Live
-              </a>
-              ${p.netlify_url
-                ? `<a href="${p.netlify_url}" target="_blank" rel="noopener noreferrer" class="btn" title="First load may take 1–3s">👁 Preview</a>`
-                : `<span class="btn" style="opacity:.4;cursor:default">👁 Preview</span>`}
-              ${p.netlify_url
-                ? `<a href="https://app.netlify.com/projects/${p.slug}" target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>`
-                : `<span class="btn" style="opacity:.4;cursor:default">⚙️ Netlify</span>`}
-              ${p.sanity_studio
-                ? `<a href="${p.sanity_studio}" target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>`
-                : `<span class="btn" style="opacity:.4;cursor:default">✏️ Sanity</span>`}
-              ${p.github
-                ? `<a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>`
-                : `<span class="btn" style="opacity:.4;cursor:default">🗂 GitHub</span>`}
-              ${p.proposal_url
-                ? `<a href="${p.proposal_url}" target="_blank" rel="noopener noreferrer" class="btn">📄 Proposal</a>`
-                : `<span class="btn" style="opacity:.4;cursor:default">📄 Proposal</span>`}
-            </div>
-          </div>`;
-      }).join('');
+      if (active.length) {
+        const grid = document.getElementById('sites-grid')!;
+        // Insert each card in alpha order among existing cards
+        active.forEach(p => {
+          const html = makeCard(p);
+          const tmp  = document.createElement('div');
+          tmp.innerHTML = html.trim();
+          const card = tmp.firstElementChild as HTMLElement;
+          const title = p.title.toLowerCase();
+          const existing = Array.from(grid.children) as HTMLElement[];
+          const after = existing.find(el => {
+            const h2 = el.querySelector('h2');
+            return h2 && h2.textContent!.trim().toLowerCase() > title;
+          });
+          after ? grid.insertBefore(card, after) : grid.appendChild(card);
+        });
+        // Ping any newly added live sites
+        document.querySelectorAll('#sites-grid .status-lights[data-url]').forEach(el => {
+          const url = el.getAttribute('data-url');
+          if (!url) return;
+          fetch(`https://${url}`, { mode: 'no-cors', cache: 'no-store' })
+            .then(() => el.classList.add('up'))
+            .catch(() => el.classList.add('down'));
+        });
+      }
 
-      // Ping any live pipeline sites
-      document.querySelectorAll('#pipeline-grid .status-lights[data-url]').forEach((el) => {
-        const url = el.getAttribute('data-url');
-        if (!url) return;
-        fetch(`https://${url}`, { mode: 'no-cors', cache: 'no-store' })
-          .then(() => el.classList.add('up'))
-          .catch(() => el.classList.add('down'));
-      });
+      // Proposal-stage only → "In Pipeline" section
+      const proposals = unknown.filter(p => !BUILD_STATUSES.has(p.status));
+      if (proposals.length) {
+        document.getElementById('pipeline-section')!.classList.remove('hidden');
+        document.getElementById('pipeline-grid')!.innerHTML = proposals
+          .sort((a, b) => a.title.localeCompare(b.title))
+          .map(makeCard).join('');
+      }
     } catch { /* registry unavailable */ }
   }
 
