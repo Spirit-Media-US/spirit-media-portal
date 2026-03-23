@@ -145,6 +145,134 @@ SMP Team</div>
         </div>
       </section>
 
+      <!-- SMP Build Protocol -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-1">The SMP Build Protocol</h2>
+        <p class="text-stone-500 text-sm mb-1">Internal name: <strong>SMP Build Protocol</strong> &nbsp;·&nbsp; Client-facing name: <strong>The Transformation System</strong></p>
+        <p class="text-stone-600 text-sm mb-5">Eight phases with one mandatory Audit Gate. Every site migration follows this map — no exceptions. The Audit Gate is Phase 4.5 and is non-negotiable.</p>
+
+        <div class="space-y-4">
+
+          <div class="flex gap-3">
+            <div class="shrink-0 w-7 h-7 rounded-full bg-red-700 text-white text-xs font-bold flex items-center justify-center">1</div>
+            <div>
+              <p class="font-semibold text-stone-800 text-sm">Infrastructure</p>
+              <p class="text-stone-500 text-xs">GitHub repo, Netlify site, Sanity project, Cloudflare domain, R2 bucket — all wired together via API. No manual steps.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div class="shrink-0 w-7 h-7 rounded-full bg-red-700 text-white text-xs font-bold flex items-center justify-center">2</div>
+            <div>
+              <p class="font-semibold text-stone-800 text-sm">Structure</p>
+              <p class="text-stone-500 text-xs">Initialize Astro + Tailwind. Create all pages, nav, and footer. Set typography foundation before writing any CSS.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div class="shrink-0 w-7 h-7 rounded-full bg-red-700 text-white text-xs font-bold flex items-center justify-center">3</div>
+            <div>
+              <p class="font-semibold text-stone-800 text-sm">Design &amp; Content</p>
+              <p class="text-stone-500 text-xs">Add all copy. Upload media to R2 or Sanity. Add SEO meta per page. Refine design and UX.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div class="shrink-0 w-7 h-7 rounded-full bg-red-700 text-white text-xs font-bold flex items-center justify-center">4</div>
+            <div>
+              <p class="font-semibold text-stone-800 text-sm">Sanity CMS Wiring</p>
+              <p class="text-stone-500 text-xs">Define schemas. Migrate content into Sanity documents. Wire Astro pages to Sanity. Deploy schema to cloud. Set up Sanity → Netlify deploy webhook.</p>
+            </div>
+          </div>
+
+          <!-- Audit Gate -->
+          <div class="border border-red-200 bg-red-50 rounded-lg p-4 my-2">
+            <p class="font-bold text-red-700 text-sm mb-3">⛔ Phase 4.5 — Audit Gate (mandatory)</p>
+            <p class="text-stone-600 text-xs mb-3">Run all three scans before proceeding to Phase 5. Fix every finding before moving on. The Audit Gate is what separates a disciplined migration from a broken one.</p>
+            <div class="space-y-3">
+              <div>
+                <p class="font-semibold text-stone-700 text-xs mb-1">Scan A — Migration Fidelity</p>
+                <p class="text-stone-500 text-xs">Fetch the original live site and compare nav structure, page count, CTAs, and key content against the new build. Document what was already delivered and what is missing.</p>
+              </div>
+              <div>
+                <p class="font-semibold text-stone-700 text-xs mb-1">Scan B — Typography Match</p>
+                <p class="text-stone-500 text-xs">Extract the live site's exact fonts and colors from its CSS. Wire them directly into <code class="bg-white px-1 rounded">global.css</code> before writing any Astro styles. Never design from scratch — match the client's existing brand first.</p>
+              </div>
+              <div>
+                <p class="font-semibold text-stone-700 text-xs mb-1">Scan C — Design Integrity</p>
+                <p class="text-stone-500 text-xs">Grep all pages for hardcoded hex values, inline styles, and font overrides that violate the design system. Every hit is a violation — fix before proceeding.</p>
+              </div>
+              <div class="pt-2 border-t border-red-200">
+                <p class="font-semibold text-stone-700 text-xs mb-1">Output of Audit Gate</p>
+                <p class="text-stone-500 text-xs">Google Doc: "[Site Name] — Transformation Layer Report" — Part One (Already Delivered) and Part Two (Recommended Improvements). Delivered to Kevin for client review before Phase 5.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div class="shrink-0 w-7 h-7 rounded-full bg-red-700 text-white text-xs font-bold flex items-center justify-center">5</div>
+            <div>
+              <p class="font-semibold text-stone-800 text-sm">CAR / Transformation Layer</p>
+              <p class="text-stone-500 text-xs">Deliver Transformation Layer Report to Kevin for client review. Kevin and client decide which Recommended Improvements to implement before launch. Implement approved improvements.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div class="shrink-0 w-7 h-7 rounded-full bg-red-700 text-white text-xs font-bold flex items-center justify-center">6</div>
+            <div>
+              <p class="font-semibold text-stone-800 text-sm">Design Polish &amp; QA</p>
+              <p class="text-stone-500 text-xs">Run all 8 automated QA scans (build check, hardcoded colors, alt text, SEO meta, broken links, dev URLs, placeholder content, sitemap). Fix every finding. Then human review on mobile and desktop.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div class="shrink-0 w-7 h-7 rounded-full bg-red-700 text-white text-xs font-bold flex items-center justify-center">7</div>
+            <div>
+              <p class="font-semibold text-stone-800 text-sm">Launch</p>
+              <p class="text-stone-500 text-xs">Connect custom domain. Confirm SSL. Submit sitemap to Google Search Console. Set up UptimeRobot. Enable analytics. Invite client to Sanity Studio. Send Client Guide.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div class="shrink-0 w-7 h-7 rounded-full bg-red-700 text-white text-xs font-bold flex items-center justify-center">8</div>
+            <div>
+              <p class="font-semibold text-stone-800 text-sm">Client Delivery</p>
+              <p class="text-stone-500 text-xs">Send client email with: live URL, Sanity Studio link, Client Guide link, and support contact.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tools integration -->
+        <div class="mt-6 pt-5 border-t border-stone-200">
+          <h3 class="font-bold text-stone-800 mb-3">How the Tools Page Automates This</h3>
+          <p class="text-stone-500 text-xs mb-3">Three tools on the <a href="/templates" class="text-red-700 hover:underline">Templates page</a> cover the first three decision points in the protocol:</p>
+          <div class="space-y-2">
+            <div class="flex gap-3 bg-stone-50 border border-stone-200 rounded p-3">
+              <div class="shrink-0 text-red-700 font-bold text-sm">Step 1</div>
+              <div>
+                <p class="font-semibold text-stone-700 text-xs">Website Migration Proposal</p>
+                <p class="text-stone-500 text-xs">Enter the client's URL. Auto-generates a Google Doc proposal and complexity report with bottom/mid/top pricing. No manual inputs — the tool reads the site and builds the deliverable.</p>
+              </div>
+            </div>
+            <div class="flex gap-3 bg-stone-50 border border-stone-200 rounded p-3">
+              <div class="shrink-0 text-red-700 font-bold text-sm">Step 2</div>
+              <div>
+                <p class="font-semibold text-stone-700 text-xs">Initiate Build (Phase 1)</p>
+                <p class="text-stone-500 text-xs">After the proposal is accepted, select the project from the dropdown. One click scaffolds all infrastructure: GitHub repo, Sanity project, Netlify site, deploy key, and webhook — entirely via API.</p>
+              </div>
+            </div>
+            <div class="flex gap-3 bg-stone-50 border border-stone-200 rounded p-3">
+              <div class="shrink-0 text-red-700 font-bold text-sm">Step 3</div>
+              <div>
+                <p class="font-semibold text-stone-700 text-xs">Pre-Launch QA (Phase 6)</p>
+                <p class="text-stone-500 text-xs">After the build is complete, run the automated QA suite. Scans the site repo for hardcoded colors, missing alt text, broken links, placeholder content, and more. Returns findings by category before human review begins.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Media -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Media</h2>
