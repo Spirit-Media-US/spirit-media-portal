@@ -5,13 +5,129 @@ type Role = 'Admin' | 'Web Developer' | 'GHL Developer';
 type Status = 'pending' | 'inprogress' | 'done';
 
 interface Task {
+  site?: string;
   title: string;
   notes?: string;
+  owner?: string;
   status: Status;
 }
 
 const admin: Task[] = [
   {
+    site: 'FHB + WOY',
+    title: 'Activate Cloudflare proxy',
+    notes: 'SMP already proxied. FHB and WOY still need proxy toggled on in Cloudflare DNS.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'All Sites',
+    title: 'Set up UptimeRobot monitoring',
+    notes: 'Monitor SMP, FHB, WOY, artsbyjustin. Alert Kevin on downtime.',
+    owner: 'Kevin',
+    status: 'pending',
+  },
+  {
+    site: 'All Sites',
+    title: 'R2 custom domain: assets.spiritmediapublishing.com',
+    notes: 'Set up custom domain in Cloudflare R2 for cleaner media URLs across all sites.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'Portal',
+    title: 'Preview environment for dev branch',
+    notes: 'Option 2 (Hetzner): Run npm run dev on server, expose via preview.spiritmediapublishing.com on port 4001. nginx config already exists with SSL.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'Portal',
+    title: 'Add .gitignore to portal repo',
+    notes: 'Portal is committing .netlify/ and dist/ build folders to git — noisy and wasteful.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'SMP',
+    title: 'DMARC upgrade to p=quarantine',
+    notes: 'Wait 1 week clean after current p=none, then upgrade. Kevin to confirm timing.',
+    owner: 'Kevin + Claude',
+    status: 'pending',
+  },
+
+  // ── ARTS BY JUSTIN ──────────────────────────────────────────────
+  {
+    site: 'Arts By Justin',
+    title: 'Connect artsbyjustin.com custom domain in Netlify',
+    notes: 'Then activate Cloudflare proxy.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+  {
+    site: 'Arts By Justin',
+    title: 'Replace R2 image placeholders with real artwork',
+    notes: 'Justin shares Google Drive folder → Kevin downloads → drag to R2 bucket → update URLs in code.',
+    owner: 'Kevin',
+    status: 'pending',
+  },
+  {
+    site: 'Arts By Justin',
+    title: 'Replace placeholder divs with GHL form embed codes',
+    notes: 'Kevin to provide GHL embed codes for each form location.',
+    owner: 'Kevin + Claude',
+    status: 'pending',
+  },
+
+  // ── SPIRIT MEDIA PUBLISHING ─────────────────────────────────────
+  {
+    site: "SMP",
+    title: "Verify OG tags at opengraph.xyz",
+    notes: "Check homepage and a blog post at opengraph.xyz to confirm title, description, and image render correctly for social sharing.",
+    owner: "Kevin",
+    status: "pending",
+  },
+  {
+    site: "SMP",
+    title: "Switch to cookie-free analytics (Fathom or Plausible)",
+    notes: "GA4 via GTM causes Lighthouse Best Practices score of 77. Fathom or Plausible raises it to ~95 and removes cookie consent requirement.",
+    owner: "Kevin",
+    status: "pending",
+  },
+  {
+    site: "SMP",
+    title: "Populate teamMember, testimonial, pressRelease in Sanity",
+    notes: "All three have 0 documents. Add team bios (Kevin + Shelly at minimum), author testimonials, and press mentions at spiritmediapublishing.sanity.studio.",
+    owner: "Kevin",
+    status: "pending",
+  },
+  {
+    site: 'SMP',
+    title: 'Bookstore: research missing ASINs and fill in format badges',
+    notes: 'Format badges and stats counter are working. Many titles still missing format data. Kevin noted 300+ titles total.',
+    owner: 'Kevin + Claude',
+    status: 'pending',
+  },
+
+  // ── THE KOHLER GROUP ────────────────────────────────────────────
+  {
+    site: 'The Kohler Group',
+    title: 'Individual and marriage intensive video pages',
+    notes: 'Kevin waiting on YouTube URLs from client. Will update individual.astro and marriage.astro once received.',
+    owner: 'Kevin',
+    status: 'pending',
+  },
+  {
+    site: 'The Kohler Group',
+    title: 'Connect custom domain (thekohlergroup.net)',
+    notes: 'Currently live at the-kohler-group.netlify.app only.',
+    owner: 'Claude',
+    status: 'pending',
+  },
+
+  // ── PORTAL ──────────────────────────────────────────────────────
+  {
+    site: 'Portal',
     title: 'Make Task Log editable without a code push',
     notes: 'Options: Netlify Blobs or Sanity. Netlify Blobs recommended for now.',
     status: 'pending',

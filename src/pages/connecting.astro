@@ -4,8 +4,8 @@ import PortalLayout from '../layouts/PortalLayout.astro';
 
 <PortalLayout title="Connecting" mainBg="#fdf2f8">
   <div class="max-w-4xl">
-    <h1 class="text-4xl font-bold mb-2">Connecting to Bethel</h1>
-    <p class="text-stone-600 mb-8">Three ways to work with Claude depending on your role</p>
+    <h1 class="text-4xl font-bold mb-2">Connecting to Claude</h1>
+    <p class="text-stone-600 mb-8">Three ways to work with Claude depending on what you&rsquo;re doing</p>
 
     <div class="space-y-8">
 
@@ -36,10 +36,41 @@ import PortalLayout from '../layouts/PortalLayout.astro';
               <p class="text-xs text-stone-500 mt-1">Enter your password when prompted. You should see <em>&ldquo;Spirit Media &mdash; Bethel Server&rdquo;</em>.</p>
             </div>
           </div>
-        </div>
-
-        <div class="p-4 bg-green-50 border border-green-200 rounded-lg mb-6">
-          <p class="text-sm text-stone-700"><strong>Claude is pre-configured.</strong> You do not need a Claude account or API key. When you run <code class="bg-white px-1 rounded text-xs">claude</code>, it uses the shared team credentials automatically.</p>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">4.</span>
+            <div>Run Claude Code for the first time:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">claude</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">5.</span>
+            <div>
+              <p>When asked to choose a login method, select <strong>option 1 — Claude account with subscription</strong> (Pro, Max, Team, or Enterprise).</p>
+              <div class="mt-2 p-3 bg-amber-50 border border-amber-200 rounded text-sm text-amber-800">
+                ⚠️ Do <strong>not</strong> select option 2 (Anthropic Console / API key) or option 3 (third-party platform).
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">6.</span>
+            <div>
+              <p>A URL will appear in the terminal. <strong>Copy it and open it in a browser on your local machine.</strong></p>
+              <p class="text-xs text-stone-500 mt-1">The browser won&rsquo;t open automatically — you must copy and paste the URL yourself.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">7.</span>
+            <div>
+              <p>Sign in at <strong>claude.ai</strong> using your <strong>Spirit Media team email</strong> — the one Kevin invited you with (e.g. <code class="bg-stone-100 px-1 rounded text-xs">yourname@spiritmedia.us</code>).</p>
+              <div class="mt-2 p-3 bg-stone-50 border border-stone-200 rounded text-sm text-stone-600">
+                💡 If your browser is already logged into a personal Claude account, log out first, then sign in with your Spirit Media email.
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">8.</span>
+            <div><strong>This is a one-time setup.</strong> Claude Code saves your session — future sessions just run <code class="bg-stone-100 px-1 rounded text-xs">claude</code> with no login prompt.</div>
+          </div>
         </div>
 
         <h3 class="font-bold text-stone-800 mb-3">Every Session</h3>
@@ -74,10 +105,6 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">5.</span>
-            <div>When done: <span class="italic">&ldquo;Update CLAUDE.md with what we did today&rdquo;</span></div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">6.</span>
             <div>To exit: <code class="bg-stone-100 px-2 py-0.5 rounded text-sm">/exit</code></div>
           </div>
         </div>
@@ -87,27 +114,39 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         </div>
       </section>
 
-      <!-- 2. Claude Code on Desktop -->
+      <!-- 2. Claude AI for Developers (Planning) -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <div class="flex items-center gap-3 mb-4">
-          <span class="text-2xl">&#x1F4BB;</span>
-          <h2 class="text-2xl font-bold text-red-700">2. Claude Code on Desktop <span class="text-sm font-normal text-stone-500">(Developers &mdash; Mac or Windows)</span></h2>
+          <span class="text-2xl">&#x1F4AC;</span>
+          <h2 class="text-2xl font-bold text-red-700">2. Claude AI for Developers <span class="text-sm font-normal text-stone-500">(Planning &amp; Strategy)</span></h2>
         </div>
-        <p class="text-stone-600 mb-4">For planning, strategy, reviewing screenshots, and multi-site coordination. Runs on your computer.</p>
+        <p class="text-stone-600 mb-4">For planning, strategy, reviewing screenshots, and multi-site coordination. No SSH or Terminal needed — runs in your browser.</p>
 
         <div class="space-y-4">
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>Open <strong>Claude Code</strong> on <strong>Claude Desktop</strong></div>
+            <div>Go to <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-bold">claude.ai</a> and sign in with your Spirit Media team email.</div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Talk to it in <strong>plain English</strong> &mdash; same as Bethel.</div>
+            <div><strong>Start every new conversation</strong> by pasting the team prompt below — this gives Claude full project context so you don&rsquo;t have to explain the stack every time.
+              <div class="bg-stone-100 rounded px-3 py-2 mt-2 text-sm leading-relaxed">
+                You are helping Spirit Media Publishing build and maintain websites. Stack: Astro + Tailwind CSS. GitHub org: Spirit-Media-US (all repos public). Hosting: Netlify, Spirit Media team, build = npm run build, publish = dist. DNS/SSL/CDN: Cloudflare, proxy active. Media: Sanity for images on media-heavy sites — auto-optimizes and serves via CDN. Cloudflare R2 for audio. Video goes on YouTube and is embedded on site. R2 is backup for video when YouTube isn&rsquo;t appropriate. Never put media in GitHub, all repos block this via .gitignore. Forms: GoHighLevel, all contacts tagged by site.<br/><br/>
+                This site: [site name] | Repo: github.com/Spirit-Media-US/[repo-name] | Domain: [domain] | R2 bucket: [bucket-name or n/a]<br/><br/>
+                Rules: Never push without local preview first (npm run dev). All work goes to the dev branch — never push directly to main. Only merge dev to main when Kevin says &ldquo;push to main.&rdquo; Pricing off all public pages. All contacts to GHL. Media always to R2 or Sanity.<br/><br/>
+                Today&rsquo;s task: [describe what you need]
+              </div>
+              <button class="copy-btn mt-2 px-3 py-1 bg-red-700 text-white rounded text-sm hover:bg-red-800 transition-colors" data-copy="You are helping Spirit Media Publishing build and maintain websites. Stack: Astro + Tailwind CSS. GitHub org: Spirit-Media-US (all repos public). Hosting: Netlify, Spirit Media team, build = npm run build, publish = dist. DNS/SSL/CDN: Cloudflare, proxy active. Media: Sanity for images on media-heavy sites — auto-optimizes and serves via CDN. Cloudflare R2 for audio. Video goes on YouTube and is embedded on site. R2 is backup for video when YouTube is not appropriate. Never put media in GitHub, all repos block this via .gitignore. Forms: GoHighLevel, all contacts tagged by site.&#10;&#10;This site: [site name] | Repo: github.com/Spirit-Media-US/[repo-name] | Domain: [domain] | R2 bucket: [bucket-name or n/a]&#10;&#10;Rules: Never push without local preview first (npm run dev). All work goes to the dev branch — never push directly to main. Only merge dev to main when Kevin says push to main. Pricing off all public pages. All contacts to GHL. Media always to R2 or Sanity.&#10;&#10;Today's task: [describe what you need]">Copy Prompt</button>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">3.</span>
+            <div>Fill in the bracketed fields, then describe what you need in plain English.</div>
           </div>
         </div>
 
         <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
-          <p class="text-sm text-stone-700"><strong>Best practice:</strong> Use Desktop for planning and reviewing. Use Bethel for building and deploying. Both read the same CLAUDE.md so they share the same context.</p>
+          <p class="text-sm text-stone-700"><strong>When to use this vs Bethel:</strong> Use claude.ai for planning, reviewing, and strategy. Use Bethel (Section 1) for actually building, editing files, running builds, and deploying.</p>
         </div>
       </section>
 
@@ -190,8 +229,8 @@ import PortalLayout from '../layouts/PortalLayout.astro';
             <p class="text-stone-600 mt-1">Double-check your username and password. Contact Kevin or Nathan to reset.</p>
           </div>
           <div class="p-3 bg-stone-50 rounded-lg">
-            <p class="font-semibold text-stone-800">Claude shows &ldquo;API Usage Billing&rdquo; or asks you to log in</p>
-            <p class="text-stone-600 mt-1">Exit with <code class="bg-white px-1 rounded">/exit</code>, run <code class="bg-white px-1 rounded">unset ANTHROPIC_API_KEY</code>, then start <code class="bg-white px-1 rounded">claude</code> again. If it persists, contact Kevin.</p>
+            <p class="font-semibold text-stone-800">Claude says &ldquo;Max or Pro is required&rdquo; during login</p>
+            <p class="text-stone-600 mt-1">You signed in with a personal Claude account that doesn&rsquo;t have a subscription. Log out of claude.ai in your browser, then sign back in with your Spirit Media team email (e.g. <code class="bg-white px-1 rounded text-xs">yourname@spiritmedia.us</code>).</p>
           </div>
         </div>
       </section>
