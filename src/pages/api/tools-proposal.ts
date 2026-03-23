@@ -7,7 +7,7 @@ export const POST: APIRoute = async ({ request }) => {
   const body = await request.json();
 
   try {
-    const resp = await fetch(`${apiUrl}/api/proposal`, {
+    const resp = await fetch(`${apiUrl}/api/proposal/start`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${secret}`,
@@ -15,7 +15,7 @@ export const POST: APIRoute = async ({ request }) => {
       },
       body: JSON.stringify(body),
       // @ts-ignore
-      signal: AbortSignal.timeout(660_000),
+      signal: AbortSignal.timeout(10_000),
     });
 
     const data = await resp.json();

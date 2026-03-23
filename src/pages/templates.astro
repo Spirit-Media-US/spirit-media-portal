@@ -290,31 +290,45 @@ if (!(window as any).__portalInitialized) {
     document.getElementById('proposal-error')!.classList.add('hidden');
 
     try {
+      // Start the job (returns immediately with project_id)
       const resp = await fetch('/api/tools-proposal', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url }),
       });
-      const data = await resp.json();
-      document.getElementById('proposal-spinner')!.classList.add('hidden');
-      if (data.error) {
-        document.getElementById('proposal-error')!.classList.remove('hidden');
-        document.getElementById('proposal-error-text')!.textContent = data.error + (data.log ? '\n\n' + data.log : '');
-      } else {
-        document.getElementById('proposal-result')!.classList.remove('hidden');
-        (document.getElementById('proposal-link') as HTMLAnchorElement).href = data.proposal_url;
-        if (data.report_url) {
-          const r = document.getElementById('report-link') as HTMLAnchorElement;
-          r.href = data.report_url; r.classList.remove('hidden');
+      const start = await resp.json();
+      if (start.error) throw new Error(start.error);
+
+      const projectId = start.project_id;
+
+      // Poll every 4s until proposal_ready or proposal_failed
+      const poll = async (): Promise<void> => {
+        await new Promise(r => setTimeout(r, 4000));
+        const pr = await fetch('/api/tools-projects');
+        const projects = await pr.json();
+        const project = (projects as any[]).find((p: any) => p.id === projectId);
+        if (!project || project.status === 'proposal_pending') return poll();
+        document.getElementById('proposal-spinner')!.classList.add('hidden');
+        if (project.status === 'proposal_failed') {
+          document.getElementById('proposal-error')!.classList.remove('hidden');
+          document.getElementById('proposal-error-text')!.textContent = 'Proposal generation failed. Check the tools API log.';
+        } else {
+          document.getElementById('proposal-result')!.classList.remove('hidden');
+          (document.getElementById('proposal-link') as HTMLAnchorElement).href = project.proposal_url;
+          if (project.report_url) {
+            const r = document.getElementById('report-link') as HTMLAnchorElement;
+            r.href = project.report_url; r.classList.remove('hidden');
+          }
+          await loadProjects();
         }
-        // Refresh dropdowns so Step 2 shows this new project
-        await loadProjects();
-      }
+        btn.disabled = false; btn.textContent = 'Generate Proposal';
+      };
+      poll();
     } catch (err: any) {
       document.getElementById('proposal-spinner')!.classList.add('hidden');
       document.getElementById('proposal-error')!.classList.remove('hidden');
       document.getElementById('proposal-error-text')!.textContent = err.message;
+      btn.disabled = false; btn.textContent = 'Generate Proposal';
     }
-    btn.disabled = false; btn.textContent = 'Generate Proposal';
   });
 
   // ── 2. Initiate Build ───────────────────────────────────────
