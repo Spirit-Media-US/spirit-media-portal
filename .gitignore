@@ -2,3 +2,19 @@
 dist/
 node_modules/
 .env
+
+# Build cache
+.astro/
+
+# Media files — never commit to git
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.svg
+*.mp4
+*.mp3
+*.mov
+*.pdf
+*.bak
