@@ -6,7 +6,7 @@ This site: Spirit Media Portal | Repo: github.com/Spirit-Media-US/spirit-media-p
 
 ## Dev Commands
 
-- `npm run dev` — local preview at localhost:4321
+- `npm run dev` — local preview at localhost:4326
 - `npm run build` — runs `astro check && astro build`
 
 ## Architecture
