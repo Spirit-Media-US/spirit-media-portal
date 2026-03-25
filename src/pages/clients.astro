@@ -1,5 +1,5 @@
 ---
-// PUBLIC PAGE - NO AUTH REQUIRED
+// PIN-PROTECTED — see middleware.ts (PIN: 060622)
 import "../styles/globals.css";
 ---
 
@@ -8,246 +8,180 @@ import "../styles/globals.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spirit Media Publishing - Client Guide</title>
+    <title>My Website — Spirit Media Publishing</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
   </head>
 
-  <body class="bg-navy text-ink">
-    <div class="min-h-screen">
-      <!-- Header -->
-      <header class="border-b border-stone-200 bg-navy bg-opacity-50 backdrop-blur">
-        <div class="max-w-4xl mx-auto px-6 py-8">
-          <img src="https://cdn.sanity.io/images/pmowd8uo/production/dc16e3c604bd5d52de7647af46836ff418c22898-6575x656.png?w=440&h=88&fit=max&auto=format" alt="Spirit Media Publishing" class="h-12 mb-2" />
-          <p class="text-stone-600 mt-2">Your Website Management Guide</p>
+  <body class="bg-stone-50 text-stone-800">
+    <div class="min-h-screen flex flex-col">
+
+      <header class="border-b border-stone-200 bg-white">
+        <div class="max-w-2xl mx-auto px-6 py-6">
+          <img src="https://cdn.sanity.io/images/pmowd8uo/production/dc16e3c604bd5d52de7647af46836ff418c22898-6575x656.png?w=440&h=88&fit=max&auto=format" alt="Spirit Media Publishing" class="h-10" />
         </div>
       </header>
 
-      <!-- Main Content -->
-      <main class="max-w-4xl mx-auto px-6 py-12">
-        <section class="space-y-8">
-          <!-- Welcome -->
-          <div class="bg-white bg-opacity-5 border border-stone-200 rounded-lg p-8">
-            <h2 class="text-3xl font-bold text-red-700 mb-4">Welcome!</h2>
-            <p class="text-stone-700 text-lg mb-6">
-              Your website is live and managed by SMP. You have the tools to keep your content fresh on your own — and our team is here when you need bigger changes.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-                <p class="font-bold text-emerald-800 mb-1">You via Sanity Studio</p>
-                <p class="text-emerald-700 text-sm">Edit content directly — bios, FAQs, images, settings. Changes go live in minutes.</p>
-              </div>
-              <div class="bg-violet-50 border border-violet-200 rounded-lg p-4">
-                <p class="font-bold text-violet-800 mb-1">You via Site Updates</p>
-                <p class="text-violet-700 text-sm">Submit a specific change in plain English. Our AI makes the edit — SMP reviews before it goes live.</p>
-              </div>
-              <div class="bg-rose-50 border border-rose-200 rounded-lg p-4">
-                <p class="font-bold text-rose-800 mb-1">SMP Team</p>
-                <p class="text-rose-700 text-sm">New pages, layout changes, forms, and anything technical. We build it for you.</p>
-              </div>
-            </div>
+      <main class="flex-1 max-w-2xl mx-auto px-6 py-12 w-full space-y-10">
+
+        <!-- Update Your Site -->
+        <section>
+          <h1 class="text-3xl font-bold mb-1">Update Your Site</h1>
+          <p id="site-label" class="text-stone-500 text-sm mb-6"></p>
+
+          <!-- No-slug fallback -->
+          <div id="no-site" class="hidden p-6 bg-stone-100 rounded-lg text-center text-stone-500 text-sm">
+            Contact <a href="mailto:hello@spiritmediapublishing.com" class="text-red-700 font-semibold hover:underline">hello@spiritmediapublishing.com</a> to get your personalized link.
           </div>
 
-          <!-- Sanity Studio -->
-          <section class="space-y-4">
-            <h2 class="text-3xl font-bold text-emerald-800">Sanity Studio — Your Content Dashboard</h2>
+          <!-- Update form -->
+          <div id="update-section" class="hidden">
+            <form id="update-form" class="space-y-4">
+              <div>
+                <label for="request-text" class="block text-sm font-semibold text-stone-700 mb-2">What would you like to change?</label>
+                <textarea id="request-text" required rows="5"
+                  placeholder="e.g. Change the hero headline to "Walking in Freedom" and update the button to say "Start Your Journey""
+                  class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 resize-y text-sm"></textarea>
+                <p class="text-xs text-stone-400 mt-1">Be specific. The more detail you give, the better the result.</p>
+              </div>
+              <button type="submit" id="submit-btn"
+                class="w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                Submit Request
+              </button>
+            </form>
 
-            <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-6">
-              <p class="text-stone-700 mb-4">
-                Sanity Studio is where you manage your website's content directly. Your studio URL was provided by SMP during onboarding — if you need it again, just ask.
-              </p>
-              <div class="bg-white border border-emerald-200 rounded-lg p-4">
-                <p class="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-2">Practical tasks you can do in Sanity</p>
-                <ul class="space-y-2 text-stone-700 text-sm">
-                  <li>• Fix a typo in a team member's bio</li>
-                  <li>• Add a new staff member with their headshot and credentials</li>
-                  <li>• Post a new client testimonial</li>
-                  <li>• Add, edit, or remove an FAQ</li>
-                  <li>• Update your office phone number, email, or address</li>
-                  <li>• Change your booking URL or social media links</li>
-                  <li>• Swap out a hero image or team photo</li>
-                  <li>• Mark a staff member as inactive (hides them from the site)</li>
-                  <li>• Reorder how team members or FAQs appear on the page</li>
-                </ul>
+            <div id="status-area" class="hidden mt-5">
+              <div id="spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
+                <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                </svg>
+                <span id="status-text">Sending to Claude…</span>
+              </div>
+              <div id="result" class="hidden p-5 bg-green-50 border border-green-200 rounded-lg">
+                <p class="font-semibold text-green-800 text-sm">Request received!</p>
+                <p class="text-green-700 text-sm mt-1">The SMP team has been notified and will review before anything goes live.</p>
+              </div>
+              <div id="ambiguous" class="hidden p-5 bg-amber-50 border border-amber-200 rounded-lg">
+                <p class="font-semibold text-amber-800 text-sm mb-1">We need more detail</p>
+                <p id="ambiguous-text" class="text-amber-700 text-sm"></p>
+              </div>
+              <div id="error-box" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p class="font-semibold text-red-800 text-sm mb-1">Something went wrong</p>
+                <p id="error-text" class="text-red-700 text-sm"></p>
               </div>
             </div>
 
-            <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-6">
-              <h3 class="text-xl font-bold text-emerald-800 mb-3">How to Make Changes</h3>
-              <ol class="list-decimal list-inside space-y-3 text-stone-700 ml-2">
-                <li><strong>Open your Sanity Studio</strong> and sign in</li>
-                <li><strong>Find the content</strong> — use the sidebar to browse content types (Team, Testimonials, FAQs, Settings)</li>
-                <li><strong>Edit or create</strong> — click an existing item to edit, or click the <strong>+ Create</strong> button to add something new</li>
-                <li><strong>Click "Publish"</strong> — your site automatically rebuilds and changes are live in about 2 minutes</li>
-              </ol>
-            </div>
-
-            <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-              <p class="font-semibold text-emerald-800 mb-1">Tips</p>
-              <ul class="space-y-1 text-emerald-700 text-sm">
-                <li>• Preview your changes in the editor before publishing</li>
-                <li>• Use high-quality photos — Sanity automatically optimizes them for fast loading</li>
-                <li>• Add alt text to images for accessibility</li>
-                <li>• Changes are live in ~2 minutes after you click Publish</li>
-              </ul>
-            </div>
-          </section>
-
-          <!-- Claude AI -->
-          <section class="space-y-4">
-            <h2 class="text-3xl font-bold text-sky-800">Need Bigger Changes? Use Claude AI</h2>
-
-            <div class="bg-sky-50 border border-sky-200 rounded-lg p-6">
-              <p class="text-stone-700 mb-4">
-                For changes that go beyond what's in Sanity — like rewriting page copy, planning new sections, or describing design ideas — you can use Claude AI to draft your vision. Then send the result to SMP and we'll implement it.
-              </p>
-              <div class="bg-white border border-sky-200 rounded-lg p-4 mb-4">
-                <p class="text-xs font-bold uppercase tracking-widest text-sky-600 mb-2">Practical tasks you can do with Claude AI</p>
-                <ul class="space-y-2 text-stone-700 text-sm">
-                  <li>• Rewrite the headline or description on your homepage</li>
-                  <li>• Draft copy for a new service or program you're offering</li>
-                  <li>• Describe a design change you'd like ("move the contact form above the testimonials")</li>
-                  <li>• Plan the structure for a new page (what sections, what content)</li>
-                  <li>• Write a better "About Us" section or mission statement</li>
-                  <li>• Get help wording a call-to-action or button text</li>
-                </ul>
-                <p class="text-stone-500 text-xs mt-3">After drafting with Claude, send the result to SMP — we'll implement it on your site.</p>
-              </div>
-              <div class="space-y-4">
-                <div>
-                  <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Step 1 — Set up your prompt</p>
-                  <p class="text-stone-600 text-sm mb-2">Open <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-semibold">claude.ai</a> and paste this prompt at the start of your conversation. Replace the bracketed items with your info:</p>
-                  <div class="relative">
-                    <div class="bg-stone-100 px-4 py-3 rounded font-mono text-xs text-stone-600 whitespace-pre-wrap leading-relaxed" id="client-prompt">You are helping me update and maintain my website. My site is [site name] at [domain]. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity — I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel where applicable. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments — do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.
-
-Content tone is pastoral and community-focused, not corporate — unless I indicate otherwise.
-
-What I can help with: rewrite copy, plan new pages, describe design changes, draft content.
-What I cannot do: push code, deploy, edit HTML/CSS directly, or upload media to GitHub.
-My live site: [URL]
-
-Today I need: [describe what you want]</div>
-                    <button class="copy-btn absolute top-2 right-2 px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold font-sans" data-copy-target="client-prompt">Copy</button>
-                  </div>
-                </div>
-                <div>
-                  <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Step 2 — Describe what you need</p>
-                  <p class="text-stone-600 text-sm">After pasting your prompt, tell Claude what you'd like to change. Be as specific as you can — "rewrite the About section to emphasize our new services" works better than "update the site."</p>
-                </div>
-                <div>
-                  <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Step 3 — Send the result to SMP</p>
-                  <p class="text-stone-600 text-sm">Copy Claude's suggestions and email them to <a href="mailto:hello@spiritmediapublishing.com" class="text-red-700 hover:underline font-semibold">hello@spiritmediapublishing.com</a>. We'll review, implement, and deploy the changes for you. Expect a response within the next business day.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-sky-50 border border-sky-200 rounded-lg p-4">
-              <p class="font-semibold text-sky-800 text-sm">Claude helps you draft — SMP makes it live.</p>
-            </div>
-          </section>
-
-          <!-- AI Site Updates -->
-          <section class="space-y-4">
-            <h2 class="text-3xl font-bold text-violet-800">Request a Site Update with AI</h2>
-
-            <div class="bg-violet-50 border border-violet-200 rounded-lg p-6">
-              <p class="text-stone-700 mb-4">
-                Have a specific change in mind — a new headline, updated copy, a button text tweak? Use your personalized update link to submit it directly. Our AI makes the edit and the SMP team reviews it before it goes live.
-              </p>
-              <div class="bg-white border border-violet-200 rounded-lg p-4 mb-4">
-                <p class="text-xs font-bold uppercase tracking-widest text-violet-600 mb-2">Good requests to submit this way</p>
-                <ul class="space-y-2 text-stone-700 text-sm">
-                  <li>• Change the hero headline to something specific</li>
-                  <li>• Update a phone number, email, or address on the page</li>
-                  <li>• Rewrite a paragraph or section with new copy</li>
-                  <li>• Update a button label or call-to-action text</li>
-                  <li>• Add or remove a sentence from an existing section</li>
-                </ul>
-              </div>
-              <div class="bg-violet-100 border border-violet-200 rounded-lg p-4">
-                <p class="text-xs font-bold uppercase tracking-widest text-violet-600 mb-1">Your update link</p>
-                <p class="text-stone-700 text-sm">SMP provided you a personalized link when your site launched. It looks like:</p>
-                <div class="bg-white rounded px-3 py-2 mt-2 font-mono text-xs text-stone-500">portal.spiritmediapublishing.com/site-update?site=<span class="text-violet-700 font-bold">your-site-slug</span></div>
-                <p class="text-stone-500 text-xs mt-2">If you don&rsquo;t have your link, email <a href="mailto:hello@spiritmediapublishing.com" class="text-violet-700 hover:underline font-semibold">hello@spiritmediapublishing.com</a> and we&rsquo;ll send it to you.</p>
-              </div>
-            </div>
-
-            <div class="bg-violet-50 border border-violet-200 rounded-lg p-4">
-              <p class="font-semibold text-violet-800 text-sm">Every update is reviewed by SMP before it goes live — nothing publishes without our approval.</p>
-            </div>
-          </section>
-
-          <!-- When to Contact Spirit Media -->
-          <section class="space-y-4">
-            <h2 class="text-3xl font-bold text-rose-800">When to Contact SMP</h2>
-
-            <div class="bg-rose-50 border border-rose-200 rounded-lg p-6">
-              <p class="text-stone-700 mb-4">Reach out to the SMP team when you need:</p>
-              <div class="bg-white border border-rose-200 rounded-lg p-4">
-                <p class="text-xs font-bold uppercase tracking-widest text-rose-600 mb-2">Practical tasks that require SMP</p>
-                <ul class="space-y-2 text-stone-700 text-sm">
-                  <li>• Add a brand new page to your site (e.g., a new service page, event page)</li>
-                  <li>• Change the layout or structure of an existing page</li>
-                  <li>• Add or update a contact form</li>
-                  <li>• Change your site's navigation menu</li>
-                  <li>• Update colors, fonts, or overall design</li>
-                  <li>• Set up a new domain or subdomain</li>
-                  <li>• Fix something that looks broken or isn't working</li>
-                  <li>• Add a new feature (video embeds, maps, booking widgets)</li>
-                  <li>• Anything technical or code-related</li>
-                </ul>
-              </div>
-              <p class="text-stone-500 text-sm mt-4">
-                Email your SMP contact or reach us at <a href="mailto:hello@spiritmediapublishing.com" class="text-rose-700 hover:underline font-semibold">hello@spiritmediapublishing.com</a>
-              </p>
-            </div>
-          </section>
-
-          <!-- Quick Reference -->
-          <div class="bg-stone-50 border border-stone-200 rounded-lg p-8">
-            <h2 class="text-2xl font-bold text-stone-800 mb-4">Quick Reference</h2>
-            <div class="space-y-3 text-stone-700">
-              <div class="flex justify-between items-center border-b border-emerald-100 pb-2">
-                <span class="font-semibold text-emerald-800">Sanity Studio</span>
-                <span class="text-stone-500 text-sm">URL provided during onboarding</span>
-              </div>
-              <div class="flex justify-between items-center border-b border-violet-100 pb-2">
-                <span class="font-semibold text-violet-800">Site Updates</span>
-                <span class="text-stone-500 text-sm">Link provided by SMP</span>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="font-semibold text-rose-800">SMP Team</span>
-                <a href="mailto:hello@spiritmediapublishing.com" class="text-rose-700 hover:underline text-sm">hello@spiritmediapublishing.com</a>
-              </div>
-            </div>
+            <p class="text-xs text-stone-400 mt-4">Every change is reviewed by SMP before it goes live.</p>
           </div>
         </section>
+
+        <hr class="border-stone-200" />
+
+        <!-- Sanity Studio -->
+        <section>
+          <h2 class="text-2xl font-bold mb-1">Edit Content Directly</h2>
+          <p class="text-stone-500 text-sm mb-4">For bios, FAQs, team members, images, and settings — use your Sanity Studio. Changes go live in ~2 minutes after you click Publish.</p>
+          <div class="bg-stone-100 rounded-lg p-4 text-sm text-stone-600 space-y-1">
+            <p>1. Open your Sanity Studio (link provided at launch)</p>
+            <p>2. Find and edit the content</p>
+            <p>3. Click <strong>Publish</strong></p>
+          </div>
+        </section>
+
+        <hr class="border-stone-200" />
+
+        <!-- Contact SMP -->
+        <section>
+          <h2 class="text-2xl font-bold mb-1">Need Something Bigger?</h2>
+          <p class="text-stone-500 text-sm mb-4">New pages, layout changes, forms, or anything structural — contact us and we'll handle it.</p>
+          <a href="mailto:hello@spiritmediapublishing.com" class="inline-block px-5 py-2.5 bg-stone-800 hover:bg-stone-700 text-white font-semibold rounded-lg text-sm transition-colors">
+            hello@spiritmediapublishing.com
+          </a>
+        </section>
+
       </main>
 
-      <!-- Footer -->
-      <footer class="border-t border-stone-200 bg-navy bg-opacity-50 mt-12">
-        <div class="max-w-4xl mx-auto px-6 py-8 text-center text-stone-500 text-sm">
-          <p>Spirit Media Publishing © 2026 | Powered by <a href="https://spiritmediapublishing.com" target="_blank" rel="noopener noreferrer" class="text-stone-400 hover:underline">Spirit Media Publishing</a></p>
+      <footer class="border-t border-stone-200 mt-12">
+        <div class="max-w-2xl mx-auto px-6 py-6 text-center text-stone-400 text-xs">
+          Spirit Media Publishing &copy; 2026
         </div>
       </footer>
     </div>
 
     <script>
-      document.querySelectorAll('.copy-btn').forEach((btn) => {
-        btn.addEventListener('click', function () {
-          const targetId = this.getAttribute('data-copy-target');
-          const text = targetId
-            ? document.getElementById(targetId)?.textContent || ''
-            : this.getAttribute('data-copy') || '';
-          navigator.clipboard.writeText(text).then(() => {
-            const originalText = this.textContent;
-            this.textContent = 'Copied!';
-            setTimeout(() => {
-              this.textContent = originalText;
-            }, 2000);
+      const params   = new URLSearchParams(window.location.search);
+      const siteSlug = params.get('site') || '';
+
+      async function init() {
+        if (!siteSlug) {
+          document.getElementById('no-site')!.classList.remove('hidden');
+          return;
+        }
+        try {
+          const resp  = await fetch('/api/tools-site-update');
+          const sites: { slug: string; title: string }[] = await resp.json();
+          const match = sites.find(s => s.slug === siteSlug);
+          if (!match) { document.getElementById('no-site')!.classList.remove('hidden'); return; }
+          document.getElementById('site-label')!.textContent = match.title;
+          document.getElementById('update-section')!.classList.remove('hidden');
+        } catch {
+          document.getElementById('no-site')!.classList.remove('hidden');
+        }
+      }
+
+      init();
+
+      document.getElementById('update-form')!.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn         = document.getElementById('submit-btn') as HTMLButtonElement;
+        const requestText = (document.getElementById('request-text') as HTMLTextAreaElement).value.trim();
+        btn.disabled = true; btn.textContent = 'Submitting…';
+        document.getElementById('status-area')!.classList.remove('hidden');
+        document.getElementById('spinner')!.classList.remove('hidden');
+        ['result', 'ambiguous', 'error-box'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+
+        const messages = ['Sending to Claude…', 'Reviewing your site…', 'Making edits…', 'Almost done…'];
+        let i = 0;
+        const statusText = document.getElementById('status-text')!;
+        statusText.textContent = messages[0];
+        const interval = setInterval(() => { i = Math.min(i + 1, messages.length - 1); statusText.textContent = messages[i]; }, 20000);
+
+        try {
+          const resp  = await fetch('/api/tools-site-update', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ site_slug: siteSlug, request_text: requestText }),
           });
-        });
+          const start = await resp.json();
+          if (start.error) throw new Error(start.error);
+
+          const poll = async (): Promise<void> => {
+            await new Promise(r => setTimeout(r, 5000));
+            const job = await (await fetch(`/api/tools-site-update-status?job_id=${start.job_id}`)).json();
+            if (job.status === 'pending') return poll();
+            clearInterval(interval);
+            document.getElementById('spinner')!.classList.add('hidden');
+            if (job.status === 'ambiguous') {
+              document.getElementById('ambiguous')!.classList.remove('hidden');
+              document.getElementById('ambiguous-text')!.textContent = job.message || 'Please add more detail and try again.';
+            } else if (job.status === 'failed') {
+              document.getElementById('error-box')!.classList.remove('hidden');
+              document.getElementById('error-text')!.textContent = job.error || 'Something went wrong. Please try again or contact SMP.';
+            } else {
+              document.getElementById('result')!.classList.remove('hidden');
+              (document.getElementById('update-form') as HTMLFormElement).reset();
+            }
+            btn.disabled = false; btn.textContent = 'Submit Request';
+          };
+          poll();
+        } catch (err: any) {
+          clearInterval(interval);
+          document.getElementById('spinner')!.classList.add('hidden');
+          document.getElementById('error-box')!.classList.remove('hidden');
+          document.getElementById('error-text')!.textContent = err.message;
+          btn.disabled = false; btn.textContent = 'Submit Request';
+        }
       });
     </script>
   </body>
