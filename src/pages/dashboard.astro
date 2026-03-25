@@ -1,72 +1,80 @@
 ---
-import PortalLayout from '../layouts/PortalLayout.astro';
+import PortalLayout from "../layouts/PortalLayout.astro";
 
 interface Site {
-  name: string;
-  repo: string;
-  netlifyName: string;
-  netlifyPreview: string;
-  sanity: string;
-  liveUrl: string; // empty string = not yet live → red dot
+	name: string;
+	repo: string;
+	netlifyName: string;
+	netlifyPreview: string;
+	sanity: string;
+	liveUrl: string; // empty string = not yet live → red dot
 }
 
 const sites: Site[] = [
-  {
-    name: 'Arts By Justin',
-    repo: 'artsbyjustin',
-    netlifyName: 'artsbyjustin',
-    netlifyPreview: 'artsbyjustin.netlify.app',
-    sanity: 'artsbyjustin.sanity.studio',
-    liveUrl: 'artsbyjustin.com',
-  },
-  {
-    name: 'Clowning from the Heart',
-    repo: 'clowning-from-the-heart',
-    netlifyName: 'clowning-from-the-heart',
-    netlifyPreview: 'clowning-from-the-heart.netlify.app',
-    sanity: 'clowningfromtheheart.sanity.studio',
-    liveUrl: 'clowningfromtheheart.com',
-  },
-  {
-    name: "Father's Heart Bible",
-    repo: 'FHB',
-    netlifyName: 'fhbible',
-    netlifyPreview: 'fhbible.netlify.app',
-    sanity: 'fathersheartbible.sanity.studio',
-    liveUrl: 'fathersheartbible.com',
-  },
-  {
-    name: 'Scripture Alive',
-    repo: 'scripture-alive',
-    netlifyName: 'scripture-alive',
-    netlifyPreview: 'scripture-alive.netlify.app',
-    sanity: 'scripture-alive.sanity.studio',
-    liveUrl: '',
-  },
-  {
-    name: 'Spirit Media Publishing',
-    repo: 'spirit-media-publishing',
-    netlifyName: 'spirit-media-publishing',
-    netlifyPreview: 'spirit-media-publishing.netlify.app',
-    sanity: 'spiritmediapublishing.sanity.studio',
-    liveUrl: 'spiritmediapublishing.com',
-  },
-  {
-    name: 'The Kohler Group',
-    repo: 'the-kohler-group',
-    netlifyName: 'the-kohler-group',
-    netlifyPreview: 'the-kohler-group.netlify.app',
-    sanity: 'thekohlergroup.sanity.studio',
-    liveUrl: 'thekohlergroup.net',
-  },
-  {
-    name: 'Work On Yourself',
-    repo: 'WOY',
-    netlifyName: 'woyourself',
-    netlifyPreview: 'woyourself.netlify.app',
-    sanity: 'workonyourself.sanity.studio',
-    liveUrl: 'workonyourself.com',
-  },
+	{
+		name: "10 Billion Travelers",
+		repo: "10-billion-travelers",
+		netlifyName: "10-billion-travelers",
+		netlifyPreview: "10-billion-travelers.netlify.app",
+		sanity: "",
+		liveUrl: "",
+	},
+	{
+		name: "Arts By Justin",
+		repo: "artsbyjustin",
+		netlifyName: "artsbyjustin",
+		netlifyPreview: "artsbyjustin.netlify.app",
+		sanity: "artsbyjustin.sanity.studio",
+		liveUrl: "artsbyjustin.com",
+	},
+	{
+		name: "Clowning from the Heart",
+		repo: "clowning-from-the-heart",
+		netlifyName: "clowning-from-the-heart",
+		netlifyPreview: "clowning-from-the-heart.netlify.app",
+		sanity: "clowningfromtheheart.sanity.studio",
+		liveUrl: "clowningfromtheheart.com",
+	},
+	{
+		name: "Father's Heart Bible",
+		repo: "FHB",
+		netlifyName: "fhbible",
+		netlifyPreview: "fhbible.netlify.app",
+		sanity: "fathersheartbible.sanity.studio",
+		liveUrl: "fathersheartbible.com",
+	},
+	{
+		name: "Scripture Alive",
+		repo: "scripture-alive",
+		netlifyName: "scripture-alive",
+		netlifyPreview: "scripture-alive.netlify.app",
+		sanity: "scripture-alive.sanity.studio",
+		liveUrl: "",
+	},
+	{
+		name: "Spirit Media Publishing",
+		repo: "spirit-media-publishing",
+		netlifyName: "spirit-media-publishing",
+		netlifyPreview: "spirit-media-publishing.netlify.app",
+		sanity: "spiritmediapublishing.sanity.studio",
+		liveUrl: "spiritmediapublishing.com",
+	},
+	{
+		name: "The Kohler Group",
+		repo: "the-kohler-group",
+		netlifyName: "the-kohler-group",
+		netlifyPreview: "the-kohler-group.netlify.app",
+		sanity: "thekohlergroup.sanity.studio",
+		liveUrl: "thekohlergroup.net",
+	},
+	{
+		name: "Work On Yourself",
+		repo: "WOY",
+		netlifyName: "woyourself",
+		netlifyPreview: "woyourself.netlify.app",
+		sanity: "workonyourself.sanity.studio",
+		liveUrl: "workonyourself.com",
+	},
 ];
 ---
 
@@ -193,7 +201,7 @@ const sites: Site[] = [
 
   // Load pipeline projects from registry (new clients not yet in hardcoded list)
   const KNOWN_SLUGS = new Set([
-    'artsbyjustin', 'clowning-from-the-heart', 'FHB',
+    '10-billion-travelers', 'artsbyjustin', 'clowning-from-the-heart', 'FHB',
     'scripture-alive', 'spirit-media-publishing', 'the-kohler-group', 'WOY',
   ]);
 
@@ -210,7 +218,8 @@ const sites: Site[] = [
 
   // Projects with infrastructure (built+) join the main grid.
   // Only pre-build proposals stay in the "In Pipeline" section.
-  const BUILD_STATUSES = new Set(['built', 'build_failed', 'qa_failed', 'qa_passed', 'launched']);
+  // Show on main grid as soon as bootstrap starts (proposal_pending = registry entry just created)
+  const BUILD_STATUSES = new Set(['proposal_pending', 'built', 'build_failed', 'qa_failed', 'qa_passed', 'launched']);
 
   function makeCard(p: any) {
     const isLive    = p.status === 'launched' && p.live_url;

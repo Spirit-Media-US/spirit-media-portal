@@ -8,7 +8,8 @@ const portalRoutes = [
 	"/task-log",
 	"/templates",
 ];
-const publicRoutes = ["/login", "/client-login", "/site-update", "/clients"];
+const clientRoutes = ["/clients"];
+const publicRoutes = ["/login", "/client-login", "/site-update"];
 
 export const onRequest = defineMiddleware((context, next) => {
 	const { pathname } = context.url;
@@ -23,6 +24,16 @@ export const onRequest = defineMiddleware((context, next) => {
 	if (portalRoutes.some((r) => pathname.startsWith(r))) {
 		const auth = context.cookies.get("portal_auth");
 		if (!auth || auth.value !== "pin_030126") return context.redirect("/login");
+	}
+
+	if (clientRoutes.some((r) => pathname.startsWith(r))) {
+		const auth = context.cookies.get("client_auth");
+		if (!auth || auth.value !== "pin_060622") {
+			const next = encodeURIComponent(
+				context.url.pathname + context.url.search,
+			);
+			return context.redirect(`/client-login?next=${next}`);
+		}
 	}
 
 	return next();

@@ -35,8 +35,9 @@ const { title, mainBg } = Astro.props;
           <a href="/playbook" class="portal-nav-link">Playbook</a>
           <a href="/developers" class="portal-nav-link">Developers</a>
           <a href="/task-log" class="portal-nav-link">Task Log</a>
+          <a href="/pipelines" class="portal-nav-link">Pipelines</a>
+          <hr class="portal-nav-divider" />
           <a href="/clients" class="portal-nav-link">Clients</a>
-          <a href="/templates" class="portal-nav-link">Pipelines</a>
           <a href="/design-library" class="portal-nav-link">Design Library</a>
         </div>
 
@@ -116,6 +117,12 @@ const { title, mainBg } = Astro.props;
     border-radius: 0.375rem;
     transition: background 150ms, color 150ms;
     text-decoration: none;
+  }
+
+  .portal-nav-divider {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    margin: 8px 0;
   }
 
   .portal-nav-link:hover {
