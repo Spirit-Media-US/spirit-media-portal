@@ -181,59 +181,40 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           <span class="text-2xl">&#x1F3A8;</span>
           <h2 class="text-2xl font-bold text-red-700">3. Claude AI for Clients</h2>
         </div>
-        <p class="text-stone-600 mb-4">For content writing, design mockups, and planning site changes. Runs in your browser &mdash; no Terminal needed.</p>
+        <p class="text-stone-600 mb-4">For drafting copy, planning pages, and describing design ideas. Clients run this in their own browser at <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-semibold">claude.ai</a> — no Terminal or Tailscale needed.</p>
 
         <div class="space-y-4">
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>Go to <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-bold">claude.ai</a> in your browser</div>
+            <div>Open <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-semibold">claude.ai</a> and sign in.</div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Sign in to your Claude account</div>
+            <div><strong>Paste this prompt</strong> at the start of every new conversation. Replace the bracketed fields:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-2 font-mono text-xs text-stone-600 whitespace-pre-wrap leading-relaxed" id="client-prompt-connecting">You are helping me update and maintain my website. My site is [site name] at [domain]. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity — I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel where applicable. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments — do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.
+
+Content tone is pastoral and community-focused, not corporate — unless I indicate otherwise.
+
+What I can help with: rewrite copy, plan new pages, describe design changes, draft content.
+What I cannot do: push code, deploy, edit HTML/CSS directly, or upload media to GitHub.
+My live site: [URL]
+
+Today I need: [describe what you want]</div>
+              <button class="copy-btn mt-2 px-3 py-1 bg-red-700 text-white rounded text-sm hover:bg-red-800 transition-colors" data-copy-target="client-prompt-connecting">Copy Prompt</button>
+            </div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">3.</span>
-            <div><strong>Start every new conversation</strong> by pasting this prompt:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm relative leading-relaxed" id="client-prompt">
-                You are helping me update and maintain my website. My site is <strong>[SITE NAME]</strong> at <strong>[DOMAIN]</strong>. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity &mdash; I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments &mdash; do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.<br/><br/>
-                <strong>What I can help with:</strong> rewrite copy, plan new pages, describe design changes, draft content.<br/>
-                <strong>What I cannot do:</strong> push code, deploy, edit HTML/CSS directly, or upload media to GitHub.<br/><br/>
-                My live site: <strong>[URL]</strong><br/>
-                Today I need: <strong>[describe what you want]</strong>
-              </div>
-              <button onclick="navigator.clipboard.writeText('You are helping me update and maintain my website. My site is [SITE NAME] at [DOMAIN]. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity — I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments — do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.\n\nWhat I can help with: rewrite copy, plan new pages, describe design changes, draft content.\nWhat I cannot do: push code, deploy, edit HTML/CSS directly, or upload media to GitHub.\n\nMy live site: [URL]\nToday I need: [describe what you want]')" class="mt-2 px-3 py-1 bg-red-700 text-white rounded text-sm hover:bg-red-800 transition-colors">Copy Prompt</button>
-            </div>
+            <div>Describe what you need. Be specific — <em>&ldquo;rewrite the About section to emphasize our new services&rdquo;</em> works better than <em>&ldquo;update the site.&rdquo;</em></div>
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">4.</span>
-            <div>Then describe what you want in plain English:
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm space-y-1">
-                <p class="italic">&ldquo;I want to add a new page for my press features&rdquo;</p>
-                <p class="italic">&ldquo;Help me write copy for my about page&rdquo;</p>
-                <p class="italic">&ldquo;Design a timeline showing my career milestones&rdquo;</p>
-              </div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">5.</span>
-            <div>When Claude creates a design (called an <strong>artifact</strong>):
-              <div class="bg-stone-100 rounded px-3 py-2 mt-1 text-sm space-y-1">
-                <p>&bull; Click the <code class="bg-white px-1 rounded">&lt;/&gt;</code> icon to see the code</p>
-                <p>&bull; Click <strong>Copy</strong></p>
-                <p>&bull; Save it as a <code class="bg-white px-1 rounded">.html</code> file</p>
-                <p>&bull; Send it to Kevin</p>
-              </div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">6.</span>
-            <div>The Spirit Media team will convert your design into the actual website pages.</div>
+            <div>Copy Claude&rsquo;s suggestions and email them to <a href="mailto:hello@spiritmediapublishing.com" class="text-red-700 hover:underline font-semibold">hello@spiritmediapublishing.com</a>. SMP will review, implement, and deploy. Expect a response within the next business day.</div>
           </div>
         </div>
 
         <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
-          <p class="text-sm text-stone-700"><strong>Important:</strong> Claude AI creates previews only &mdash; they are NOT your live website. Spirit Media must build and deploy all changes.</p>
+          <p class="text-sm text-stone-700"><strong>Claude helps clients draft — SMP makes it live.</strong> The full client guide lives at <a href="/clients" class="text-red-700 hover:underline font-semibold">portal.spiritmediapublishing.com/clients</a>.</p>
         </div>
       </section>
 
@@ -263,3 +244,17 @@ import PortalLayout from "../layouts/PortalLayout.astro";
     </div>
   </div>
 </PortalLayout>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', function (this: HTMLButtonElement) {
+      const targetId = this.getAttribute('data-copy-target');
+      const text = targetId ? document.getElementById(targetId)?.textContent || '' : '';
+      navigator.clipboard.writeText(text).then(() => {
+        const original = this.textContent;
+        this.textContent = 'Copied!';
+        setTimeout(() => { this.textContent = original; }, 2000);
+      });
+    });
+  });
+</script>
