@@ -173,69 +173,16 @@ import "../styles/globals.css";
             </div>
           </section>
 
-          <!-- Claude AI for drafting -->
-          <section class="space-y-4">
-            <h2 class="text-3xl font-bold text-sky-800">Need Bigger Changes? Use Claude AI</h2>
-
-            <div class="bg-sky-50 border border-sky-200 rounded-lg p-6">
-              <p class="text-stone-700 mb-4">
-                For changes that go beyond what's in Sanity — like rewriting page copy, planning new sections, or describing design ideas — you can use Claude AI to draft your vision. Then send the result to SMP and we'll implement it.
-              </p>
-              <div class="bg-white border border-sky-200 rounded-lg p-4 mb-4">
-                <p class="text-xs font-bold uppercase tracking-widest text-sky-600 mb-2">Practical tasks you can do with Claude AI</p>
-                <ul class="space-y-2 text-stone-700 text-sm">
-                  <li>• Rewrite the headline or description on your homepage</li>
-                  <li>• Draft copy for a new service or program you're offering</li>
-                  <li>• Describe a design change you'd like ("move the contact form above the testimonials")</li>
-                  <li>• Plan the structure for a new page (what sections, what content)</li>
-                  <li>• Write a better "About Us" section or mission statement</li>
-                  <li>• Get help wording a call-to-action or button text</li>
-                </ul>
-                <p class="text-stone-500 text-xs mt-3">After drafting with Claude, send the result to SMP — we'll implement it on your site.</p>
-              </div>
-              <div class="space-y-4">
-                <div>
-                  <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Step 1 — Set up your prompt</p>
-                  <p class="text-stone-600 text-sm mb-2">Open <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-semibold">claude.ai</a> and paste this prompt at the start of your conversation. Replace the bracketed items with your info:</p>
-                  <div class="relative">
-                    <div class="bg-stone-100 px-4 py-3 rounded font-mono text-xs text-stone-600 whitespace-pre-wrap leading-relaxed" id="client-prompt">You are helping me update and maintain my website. My site is [site name] at [domain]. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity — I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel where applicable. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments — do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.
-
-Content tone is pastoral and community-focused, not corporate — unless I indicate otherwise.
-
-What I can help with: rewrite copy, plan new pages, describe design changes, draft content.
-What I cannot do: push code, deploy, edit HTML/CSS directly, or upload media to GitHub.
-My live site: [URL]
-
-Today I need: [describe what you want]</div>
-                    <button class="copy-btn absolute top-2 right-2 px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold font-sans" data-copy-target="client-prompt">Copy</button>
-                  </div>
-                </div>
-                <div>
-                  <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Step 2 — Describe what you need</p>
-                  <p class="text-stone-600 text-sm">After pasting your prompt, tell Claude what you'd like to change. Be as specific as you can — "rewrite the About section to emphasize our new services" works better than "update the site."</p>
-                </div>
-                <div>
-                  <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Step 3 — Send the result to SMP</p>
-                  <p class="text-stone-600 text-sm">Copy Claude's suggestions and email them to <a href="mailto:hello@spiritmediapublishing.com" class="text-red-700 hover:underline font-semibold">hello@spiritmediapublishing.com</a>. We'll review, implement, and deploy the changes for you. Expect a response within the next business day.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-sky-50 border border-sky-200 rounded-lg p-4">
-              <p class="font-semibold text-sky-800 text-sm">Claude helps you draft — SMP makes it live.</p>
-            </div>
-          </section>
-
           <!-- When to Contact SMP -->
           <section class="space-y-4">
-            <h2 class="text-3xl font-bold text-rose-800">When to Contact SMP</h2>
+            <h2 class="text-3xl font-bold text-rose-800">Need Something Bigger? Contact SMP</h2>
 
             <div class="bg-rose-50 border border-rose-200 rounded-lg p-6">
-              <p class="text-stone-700 mb-4">Reach out to the SMP team when you need:</p>
+              <p class="text-stone-700 mb-4">The Site Update tool above handles small copy and content changes. For anything larger, reach out to the SMP team directly — we'll build it for you.</p>
               <div class="bg-white border border-rose-200 rounded-lg p-4">
-                <p class="text-xs font-bold uppercase tracking-widest text-rose-600 mb-2">Practical tasks that require SMP</p>
+                <p class="text-xs font-bold uppercase tracking-widest text-rose-600 mb-2">When to contact SMP</p>
                 <ul class="space-y-2 text-stone-700 text-sm">
-                  <li>• Add a brand new page to your site (e.g., a new service page, event page)</li>
+                  <li>• Add a brand new page (service page, event page, landing page)</li>
                   <li>• Change the layout or structure of an existing page</li>
                   <li>• Add or update a contact form</li>
                   <li>• Change your site's navigation menu</li>
@@ -244,6 +191,7 @@ Today I need: [describe what you want]</div>
                   <li>• Fix something that looks broken or isn't working</li>
                   <li>• Add a new feature (video embeds, maps, booking widgets)</li>
                   <li>• Anything technical or code-related</li>
+                  <li>• Large rewrites — new copy for a full page or section</li>
                 </ul>
               </div>
               <p class="text-stone-500 text-sm mt-4">
