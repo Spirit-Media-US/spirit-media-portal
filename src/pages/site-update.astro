@@ -1,0 +1,179 @@
+---
+// PUBLIC PAGE - NO AUTH REQUIRED
+import "../styles/globals.css";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request a Site Update — Spirit Media Publishing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body class="bg-stone-50 text-stone-800">
+    <div class="min-h-screen flex flex-col">
+      <header class="border-b border-stone-200 bg-white">
+        <div class="max-w-2xl mx-auto px-6 py-6">
+          <img src="https://cdn.sanity.io/images/pmowd8uo/production/dc16e3c604bd5d52de7647af46836ff418c22898-6575x656.png?w=440&h=88&fit=max&auto=format" alt="Spirit Media Publishing" class="h-10" />
+        </div>
+      </header>
+
+      <main class="flex-1 max-w-2xl mx-auto px-6 py-12 w-full">
+
+        <!-- Invalid / missing slug state -->
+        <div id="invalid-state" class="hidden text-center py-16">
+          <p class="text-4xl mb-4">🔒</p>
+          <h1 class="text-2xl font-bold text-stone-800 mb-2">No site found</h1>
+          <p class="text-stone-500">This link doesn&rsquo;t match any site we have on file.<br/>Contact SMP to get your personalized update link.</p>
+          <a href="mailto:hello@spiritmediapublishing.com" class="inline-block mt-6 px-5 py-2 bg-red-700 text-white rounded-lg font-semibold text-sm hover:bg-red-800 transition-colors">Contact SMP</a>
+        </div>
+
+        <!-- Loading state -->
+        <div id="loading-state" class="text-center py-16 text-stone-400">
+          <p>Loading…</p>
+        </div>
+
+        <!-- Form state -->
+        <div id="form-state" class="hidden">
+          <h1 class="text-3xl font-bold mb-1">Request a Site Update</h1>
+          <p id="site-label" class="text-stone-500 text-sm mb-8"></p>
+
+          <form id="update-form" class="space-y-5">
+            <div>
+              <label for="request-text" class="block text-sm font-semibold text-stone-700 mb-2">What would you like to change?</label>
+              <textarea id="request-text" name="request_text" required rows="6"
+                placeholder="Describe the change in plain English — e.g. &quot;Change the hero headline to Welcome to Father&rsquo;s Heart Bible and update the button text to Start Reading&quot;"
+                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 resize-y"></textarea>
+            </div>
+            <button type="submit" id="submit-btn"
+              class="w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+              Submit Update Request
+            </button>
+          </form>
+
+          <div id="status-area" class="hidden mt-6">
+            <div id="spinner" class="hidden flex items-center gap-3 text-stone-600">
+              <svg class="animate-spin h-5 w-5 text-stone-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+              </svg>
+              <span id="status-text">Sending your request…</span>
+            </div>
+            <div id="result" class="hidden p-5 bg-green-50 border border-green-200 rounded-lg space-y-3">
+              <p class="text-sm font-semibold text-green-800">Your request is in — we&rsquo;ll review and publish it shortly.</p>
+              <p class="text-xs text-green-700">The SMP team has been notified. Changes go live once we approve them.</p>
+            </div>
+            <div id="ambiguous" class="hidden p-5 bg-amber-50 border border-amber-200 rounded-lg">
+              <p class="text-sm font-semibold text-amber-800 mb-1">We need a little more detail</p>
+              <p id="ambiguous-text" class="text-sm text-amber-700"></p>
+              <p class="text-xs text-amber-600 mt-2">Try rephrasing your request with more specifics, or email us at <a href="mailto:hello@spiritmediapublishing.com" class="underline font-semibold">hello@spiritmediapublishing.com</a>.</p>
+            </div>
+            <div id="error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p class="text-sm font-semibold text-red-800 mb-1">Something went wrong</p>
+              <p id="error-text" class="text-sm text-red-700"></p>
+            </div>
+          </div>
+
+          <div class="mt-10 p-4 bg-stone-100 rounded-lg text-xs text-stone-500">
+            Your request goes to a draft — the SMP team reviews every change before it goes live on your site.
+          </div>
+        </div>
+
+      </main>
+
+      <footer class="border-t border-stone-200 mt-12">
+        <div class="max-w-2xl mx-auto px-6 py-6 text-center text-stone-400 text-xs">
+          Spirit Media Publishing &copy; 2026 &mdash; <a href="mailto:hello@spiritmediapublishing.com" class="hover:underline">hello@spiritmediapublishing.com</a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const siteSlug = params.get('site') || '';
+
+      const loadingEl  = document.getElementById('loading-state')!;
+      const invalidEl  = document.getElementById('invalid-state')!;
+      const formEl     = document.getElementById('form-state')!;
+
+      async function init() {
+        if (!siteSlug) { loadingEl.classList.add('hidden'); invalidEl.classList.remove('hidden'); return; }
+
+        try {
+          const resp = await fetch('/api/tools-site-update');
+          const sites: { slug: string; title: string }[] = await resp.json();
+          const match = sites.find(s => s.slug === siteSlug);
+          if (!match) { loadingEl.classList.add('hidden'); invalidEl.classList.remove('hidden'); return; }
+
+          document.getElementById('site-label')!.textContent = match.title;
+          loadingEl.classList.add('hidden');
+          formEl.classList.remove('hidden');
+        } catch {
+          loadingEl.classList.add('hidden');
+          invalidEl.classList.remove('hidden');
+        }
+      }
+
+      init();
+
+      document.getElementById('update-form')!.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+        const requestText = (document.getElementById('request-text') as HTMLTextAreaElement).value.trim();
+        btn.disabled = true; btn.textContent = 'Submitting…';
+        document.getElementById('status-area')!.classList.remove('hidden');
+        document.getElementById('spinner')!.classList.remove('hidden');
+        document.getElementById('result')!.classList.add('hidden');
+        document.getElementById('ambiguous')!.classList.add('hidden');
+        document.getElementById('error')!.classList.add('hidden');
+
+        const messages = ['Sending your request…', 'Claude is reviewing your site…', 'Making edits…', 'Almost done…'];
+        let msgIdx = 0;
+        const statusText = document.getElementById('status-text')!;
+        statusText.textContent = messages[0];
+        const interval = setInterval(() => { msgIdx = Math.min(msgIdx + 1, messages.length - 1); statusText.textContent = messages[msgIdx]; }, 20000);
+
+        try {
+          const resp = await fetch('/api/tools-site-update', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ site_slug: siteSlug, request_text: requestText }),
+          });
+          const start = await resp.json();
+          if (start.error) throw new Error(start.error);
+
+          const jobId = start.job_id;
+          const poll = async (): Promise<void> => {
+            await new Promise(r => setTimeout(r, 5000));
+            const pr = await fetch(`/api/tools-site-update-status?job_id=${jobId}`);
+            const job = await pr.json();
+            if (job.status === 'pending') return poll();
+            clearInterval(interval);
+            document.getElementById('spinner')!.classList.add('hidden');
+            if (job.status === 'ambiguous') {
+              document.getElementById('ambiguous')!.classList.remove('hidden');
+              document.getElementById('ambiguous-text')!.textContent = job.message || 'Please add more detail to your request.';
+            } else if (job.status === 'failed') {
+              document.getElementById('error')!.classList.remove('hidden');
+              document.getElementById('error-text')!.textContent = job.error || 'Update failed. Please try again or contact SMP.';
+            } else {
+              document.getElementById('result')!.classList.remove('hidden');
+              (document.getElementById('update-form') as HTMLFormElement).reset();
+            }
+            btn.disabled = false; btn.textContent = 'Submit Update Request';
+          };
+          poll();
+        } catch (err: any) {
+          clearInterval(interval);
+          document.getElementById('spinner')!.classList.add('hidden');
+          document.getElementById('error')!.classList.remove('hidden');
+          document.getElementById('error-text')!.textContent = err.message;
+          btn.disabled = false; btn.textContent = 'Submit Update Request';
+        }
+      });
+    </script>
+  </body>
+</html>
