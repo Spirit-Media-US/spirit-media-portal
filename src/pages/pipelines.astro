@@ -176,6 +176,112 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
         </div>
       </div>
+      <!-- Step 4: Post-Launch QA -->
+      <div class="bg-white rounded-2xl border border-pink-200 p-8 mb-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="w-7 h-7 rounded-full bg-pink-600 text-white text-xs font-bold flex items-center justify-center shrink-0">4</span>
+          <h2 class="text-2xl font-bold">Post-Launch QA</h2>
+        </div>
+        <p class="text-stone-500 text-sm mb-4 ml-10">Audits the site for SEO, accessibility, mobile, analytics, and performance. Auto-fixes missing meta tags, alt text, Open Graph, JSON-LD, and canonical URLs — commits to dev. Run repeatedly until all checks pass.</p>
+        <div class="bg-pink-50 border border-pink-200 rounded-lg px-4 py-3 mb-6 text-xs text-pink-700 ml-10">
+          <strong>URL:</strong> Pre-domain → Netlify preview (e.g. <code class="font-mono">https://scripture-alive.netlify.app</code>) &nbsp;|&nbsp; Post-launch → live domain (e.g. <code class="font-mono">https://thekohlergroup.net</code>). No trailing slash.
+        </div>
+        <form id="plqa-form" class="space-y-4">
+          <div>
+            <label for="plqa-url" class="block text-sm font-semibold text-stone-700 mb-2">Site URL</label>
+            <input type="url" id="plqa-url" required placeholder="https://scripture-alive.netlify.app"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+          </div>
+          <div>
+            <label for="plqa-slug" class="block text-sm font-semibold text-stone-700 mb-2">Repo Slug</label>
+            <input type="text" id="plqa-slug" required placeholder="scripture-alive"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+            <p class="text-xs text-stone-400 mt-1">Directory name under /home/deploy/Sites/ — same as the GitHub repo name.</p>
+          </div>
+          <button type="submit" id="plqa-btn"
+            class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Run Post-Launch QA
+          </button>
+        </form>
+        <div id="plqa-status" class="hidden mt-6 space-y-4">
+          <div id="plqa-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
+            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span id="plqa-status-text">Starting audit…</span>
+          </div>
+          <div id="plqa-result" class="hidden space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-stone-50 rounded-xl p-4 text-center border border-stone-200">
+                <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Mobile</p>
+                <p id="plqa-mobile-score" class="text-3xl font-bold"></p>
+                <p class="text-xs text-stone-400 mt-1">Performance</p>
+              </div>
+              <div class="bg-stone-50 rounded-xl p-4 text-center border border-stone-200">
+                <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Desktop</p>
+                <p id="plqa-desktop-score" class="text-3xl font-bold"></p>
+                <p class="text-xs text-stone-400 mt-1">Performance</p>
+              </div>
+            </div>
+            <div id="plqa-checks" class="space-y-1.5"></div>
+            <div id="plqa-fixes-box" class="hidden bg-green-50 border border-green-200 rounded-lg p-4">
+              <p class="text-sm font-bold text-green-800 mb-2">Auto-fixes committed to dev</p>
+              <ul id="plqa-fix-list" class="space-y-1 text-sm text-green-700 list-disc list-inside"></ul>
+              <p id="plqa-commit" class="text-xs text-green-600 font-mono mt-2"></p>
+            </div>
+          </div>
+          <div id="plqa-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p class="font-semibold text-red-800 text-sm">Audit failed</p>
+            <p id="plqa-error-text" class="text-red-700 text-sm font-mono mt-1"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Site Audit & Optimization Report -->
+      <div class="bg-white rounded-2xl border border-pink-200 p-8 mb-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="w-7 h-7 rounded-full bg-pink-600 text-white text-xs font-bold flex items-center justify-center shrink-0">5</span>
+          <h2 class="text-2xl font-bold">Site Audit &amp; Optimization Report</h2>
+        </div>
+        <p class="text-stone-500 text-sm mb-6 ml-10">Run <em>once</em> when Post-Launch QA is fully passing. Generates a comprehensive, client-ready Google Doc — performance scores, SEO analysis, Search Console setup, and recommendations. Saved to the SMP Reports Drive folder.</p>
+        <form id="saudit-form" class="space-y-4">
+          <div>
+            <label for="saudit-url" class="block text-sm font-semibold text-stone-700 mb-2">Site URL</label>
+            <input type="url" id="saudit-url" required placeholder="https://thekohlergroup.net"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+          </div>
+          <div>
+            <label for="saudit-title" class="block text-sm font-semibold text-stone-700 mb-2">Client / Site Name</label>
+            <input type="text" id="saudit-title" required placeholder="The Kohler Group PLLC"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+          </div>
+          <div>
+            <label for="saudit-slug" class="block text-sm font-semibold text-stone-700 mb-2">Repo Slug</label>
+            <input type="text" id="saudit-slug" required placeholder="the-kohler-group"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+            <p class="text-xs text-stone-400 mt-1">Directory name under /home/deploy/Sites/</p>
+          </div>
+          <button type="submit" id="saudit-btn"
+            class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Generate Site Audit Report
+          </button>
+        </form>
+        <div id="saudit-status" class="hidden mt-6">
+          <div id="saudit-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
+            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span id="saudit-status-text">Auditing site…</span>
+          </div>
+          <div id="saudit-result" class="hidden bg-green-50 border border-green-200 rounded-lg p-5">
+            <p class="font-semibold text-green-800 mb-2">Report ready — saved to SMP Reports folder</p>
+            <a id="saudit-doc-url" href="#" target="_blank" rel="noopener noreferrer"
+              class="block text-green-700 underline font-medium break-all text-sm mb-1">Open Report →</a>
+            <p id="saudit-doc-title" class="text-xs text-green-600"></p>
+          </div>
+          <div id="saudit-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p class="font-semibold text-red-800 text-sm">Report generation failed</p>
+            <p id="saudit-error-text" class="text-red-700 text-sm font-mono mt-1"></p>
+          </div>
+        </div>
+      </div>
+
     </div><!-- end Web Dev -->
 
     <!-- ══════════════════════════════════════════════════════════
@@ -713,6 +819,155 @@ if (!(window as any).__portalInitialized) {
         </div>`).join('');
     } catch { list.innerHTML = '<p class="text-stone-500 text-sm">Could not load history.</p>'; }
   }
+
+  // ── 4. Post-Launch QA ─────────────────────────────────────────
+  function scoreColor(n: number): string {
+    if (n >= 90) return 'text-green-600';
+    if (n >= 50) return 'text-amber-500';
+    return 'text-red-600';
+  }
+
+  function renderChecks(pages: any[]): void {
+    const container = document.getElementById('plqa-checks')!;
+    const allIssues: any[] = [];
+    const allPasses: string[] = [];
+    for (const p of pages) {
+      for (const i of (p.issues || [])) allIssues.push({ ...i, page: p.url });
+      for (const pass of (p.passes || [])) allPasses.push(pass.item || pass);
+    }
+    const uniquePasses = [...new Set(allPasses)];
+    const html = [
+      ...allIssues.map(i => {
+        const color = i.severity === 'critical' ? 'text-red-700 bg-red-50 border-red-200'
+          : i.severity === 'high' ? 'text-amber-700 bg-amber-50 border-amber-200'
+          : 'text-yellow-700 bg-yellow-50 border-yellow-200';
+        const badge = i.fix === 'flag_only' ? '⚑ flag' : '⚙ auto-fix';
+        return `<div class="flex items-start gap-2 px-3 py-2 rounded-lg border text-xs ${color}">
+          <span class="shrink-0">✗</span>
+          <span class="flex-1"><strong>${i.category}</strong> — ${i.item}${i.detail ? ': ' + i.detail : ''}</span>
+          <span class="shrink-0 opacity-70">${badge}</span>
+        </div>`;
+      }),
+      ...uniquePasses.map(p => `<div class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-green-700 bg-green-50 border border-green-200">
+        <span>✓</span><span>${p}</span></div>`),
+    ].join('');
+    container.innerHTML = html || '<p class="text-sm text-stone-500">No checks returned.</p>';
+  }
+
+  document.getElementById('plqa-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const url = (document.getElementById('plqa-url') as HTMLInputElement).value.trim();
+    const repoSlug = (document.getElementById('plqa-slug') as HTMLInputElement).value.trim();
+    const btn = document.getElementById('plqa-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Running…';
+
+    const statusEl = document.getElementById('plqa-status')!;
+    const spinner = document.getElementById('plqa-spinner')!;
+    const statusText = document.getElementById('plqa-status-text')!;
+    statusEl.classList.remove('hidden');
+    spinner.classList.remove('hidden');
+    ['plqa-result', 'plqa-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+
+    try {
+      const start = await (await fetch('/api/tools-post-launch-qa', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, repo_slug: repoSlug }),
+      })).json();
+      if (start.error) throw new Error(start.error);
+
+      const poll = async (): Promise<void> => {
+        await new Promise(r => setTimeout(r, 5000));
+        const job = await (await fetch(`/api/tools-post-launch-qa?job_id=${start.job_id}`)).json();
+        if (job.status === 'pending' || job.status === 'auditing' || job.status === 'fixing') {
+          statusText.textContent = job.message || `${job.status}…`;
+          return poll();
+        }
+        spinner.classList.add('hidden');
+        if (job.status === 'failed') {
+          document.getElementById('plqa-error')!.classList.remove('hidden');
+          document.getElementById('plqa-error-text')!.textContent = job.error || 'Unknown error';
+        } else {
+          document.getElementById('plqa-result')!.classList.remove('hidden');
+          const mob = job.audit?.psi_mobile?.performance ?? '—';
+          const desk = job.audit?.psi_desktop?.performance ?? '—';
+          const mobEl = document.getElementById('plqa-mobile-score')!;
+          const deskEl = document.getElementById('plqa-desktop-score')!;
+          mobEl.textContent = String(mob);
+          mobEl.className = `text-3xl font-bold ${typeof mob === 'number' ? scoreColor(mob) : 'text-stone-400'}`;
+          deskEl.textContent = String(desk);
+          deskEl.className = `text-3xl font-bold ${typeof desk === 'number' ? scoreColor(desk) : 'text-stone-400'}`;
+          renderChecks(job.audit?.pages || []);
+          const fixes = job.fixes;
+          if (fixes?.fixes_applied > 0) {
+            document.getElementById('plqa-fixes-box')!.classList.remove('hidden');
+            document.getElementById('plqa-fix-list')!.innerHTML =
+              (fixes.fix_list || []).map((f: string) => `<li>${f}</li>`).join('');
+            if (fixes.commit) document.getElementById('plqa-commit')!.textContent = `Committed: ${fixes.commit}`;
+          }
+        }
+        btn.disabled = false; btn.textContent = 'Run Post-Launch QA';
+      };
+      poll();
+    } catch (err: unknown) {
+      spinner.classList.add('hidden');
+      document.getElementById('plqa-error')!.classList.remove('hidden');
+      document.getElementById('plqa-error-text')!.textContent = err instanceof Error ? err.message : 'Unknown error';
+      btn.disabled = false; btn.textContent = 'Run Post-Launch QA';
+    }
+  });
+
+  // ── 5. Site Audit Report ──────────────────────────────────────
+  document.getElementById('saudit-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const url = (document.getElementById('saudit-url') as HTMLInputElement).value.trim();
+    const title = (document.getElementById('saudit-title') as HTMLInputElement).value.trim();
+    const repoSlug = (document.getElementById('saudit-slug') as HTMLInputElement).value.trim();
+    const btn = document.getElementById('saudit-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Generating…';
+
+    const statusEl = document.getElementById('saudit-status')!;
+    const spinner = document.getElementById('saudit-spinner')!;
+    const statusText = document.getElementById('saudit-status-text')!;
+    statusEl.classList.remove('hidden');
+    spinner.classList.remove('hidden');
+    ['saudit-result', 'saudit-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+
+    try {
+      const start = await (await fetch('/api/tools-site-audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, repo_slug: repoSlug, site_title: title }),
+      })).json();
+      if (start.error) throw new Error(start.error);
+
+      const poll = async (): Promise<void> => {
+        await new Promise(r => setTimeout(r, 6000));
+        const job = await (await fetch(`/api/tools-site-audit?job_id=${start.job_id}`)).json();
+        if (['pending', 'auditing', 'generating'].includes(job.status)) {
+          statusText.textContent = job.message || `${job.status}…`;
+          return poll();
+        }
+        spinner.classList.add('hidden');
+        if (job.status === 'failed') {
+          document.getElementById('saudit-error')!.classList.remove('hidden');
+          document.getElementById('saudit-error-text')!.textContent = job.error || 'Unknown error';
+        } else {
+          document.getElementById('saudit-result')!.classList.remove('hidden');
+          const link = document.getElementById('saudit-doc-url') as HTMLAnchorElement;
+          link.href = job.doc_url;
+          document.getElementById('saudit-doc-title')!.textContent = job.doc_title || '';
+        }
+        btn.disabled = false; btn.textContent = 'Generate Site Audit Report';
+      };
+      poll();
+    } catch (err: unknown) {
+      spinner.classList.add('hidden');
+      document.getElementById('saudit-error')!.classList.remove('hidden');
+      document.getElementById('saudit-error-text')!.textContent = err instanceof Error ? err.message : 'Unknown error';
+      btn.disabled = false; btn.textContent = 'Generate Site Audit Report';
+    }
+  });
 
   // Init
   loadProjects();
