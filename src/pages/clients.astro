@@ -1,6 +1,6 @@
 ---
 // PUBLIC PAGE - NO AUTH REQUIRED
-import '../styles/globals.css';
+import "../styles/globals.css";
 ---
 
 <!DOCTYPE html>
@@ -119,7 +119,9 @@ import '../styles/globals.css';
                   <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Step 1 — Set up your prompt</p>
                   <p class="text-stone-600 text-sm mb-2">Open <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-semibold">claude.ai</a> and paste this prompt at the start of your conversation. Replace the bracketed items with your info:</p>
                   <div class="relative">
-                    <div class="bg-stone-100 px-4 py-3 rounded font-mono text-xs text-stone-600 whitespace-pre-wrap leading-relaxed" id="client-prompt">You are helping me update and maintain my website. My site is [site name] at [domain]. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity — I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments — do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.
+                    <div class="bg-stone-100 px-4 py-3 rounded font-mono text-xs text-stone-600 whitespace-pre-wrap leading-relaxed" id="client-prompt">You are helping me update and maintain my website. My site is [site name] at [domain]. Built with Astro and Tailwind CSS, hosted on Netlify. Images are managed through Sanity — I upload directly through the Sanity dashboard. Audio and video are stored in Cloudflare R2. Never tell me to upload media files to GitHub. Forms go through GoHighLevel where applicable. The SMP team at Spirit Media Publishing handles all GitHub pushes and deployments — do not suggest I push code or run terminal commands. I work with you on copy, content, and design direction only.
+
+Content tone is pastoral and community-focused, not corporate — unless I indicate otherwise.
 
 What I can help with: rewrite copy, plan new pages, describe design changes, draft content.
 What I cannot do: push code, deploy, edit HTML/CSS directly, or upload media to GitHub.
@@ -135,7 +137,7 @@ Today I need: [describe what you want]</div>
                 </div>
                 <div>
                   <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Step 3 — Send the result to SMP</p>
-                  <p class="text-stone-600 text-sm">Copy Claude's suggestions and email them to SMP. We'll review, implement, and deploy the changes for you.</p>
+                  <p class="text-stone-600 text-sm">Copy Claude's suggestions and email them to <a href="mailto:hello@spiritmediapublishing.com" class="text-red-700 hover:underline font-semibold">hello@spiritmediapublishing.com</a>. We'll review, implement, and deploy the changes for you. Expect a response within the next business day.</p>
                 </div>
               </div>
             </div>
