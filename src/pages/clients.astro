@@ -277,28 +277,20 @@ Today I need: [describe what you want]</div>
     </div>
 
     <script>
-      // Slug-gated site update form
+      // Slug-gated site update form — slug in URL is the key, no API validation needed
       const params   = new URLSearchParams(window.location.search);
       const siteSlug = params.get('site') || '';
 
-      async function init() {
-        if (!siteSlug) {
-          document.getElementById('no-site')!.classList.remove('hidden');
-          return;
-        }
-        try {
-          const resp  = await fetch('/api/tools-site-update');
-          const sites: { slug: string; title: string }[] = await resp.json();
-          const match = sites.find(s => s.slug === siteSlug);
-          if (!match) { document.getElementById('no-site')!.classList.remove('hidden'); return; }
-          document.getElementById('site-label')!.textContent = `Updating: ${match.title}`;
-          document.getElementById('update-section')!.classList.remove('hidden');
-        } catch {
-          document.getElementById('no-site')!.classList.remove('hidden');
-        }
+      function slugToTitle(slug: string): string {
+        return slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
       }
 
-      init();
+      if (!siteSlug) {
+        document.getElementById('no-site')!.classList.remove('hidden');
+      } else {
+        document.getElementById('site-label')!.textContent = `Updating: ${slugToTitle(siteSlug)}`;
+        document.getElementById('update-section')!.classList.remove('hidden');
+      }
 
       document.getElementById('update-form')!.addEventListener('submit', async (e) => {
         e.preventDefault();
