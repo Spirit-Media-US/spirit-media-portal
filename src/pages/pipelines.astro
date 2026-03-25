@@ -1,0 +1,723 @@
+---
+import PortalLayout from "../layouts/PortalLayout.astro";
+---
+
+<PortalLayout title="Pipelines">
+  <div class="max-w-3xl">
+    <h1 class="text-4xl font-bold mb-2">Pipelines</h1>
+    <p class="text-stone-600 mb-10">Automated tools organized by department.</p>
+
+    <!-- ══════════════════════════════════════════════════════════
+         WEB DEV — pink
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-block px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-bold uppercase tracking-widest">Web Dev</span>
+        <div class="flex-1 border-t border-pink-200"></div>
+      </div>
+
+      <!-- Step 1: Website Migration Proposal -->
+      <div class="bg-white rounded-2xl border border-pink-200 p-8 mb-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="w-7 h-7 rounded-full bg-pink-600 text-white text-xs font-bold flex items-center justify-center shrink-0">1</span>
+          <h2 class="text-2xl font-bold">Website Migration Proposal</h2>
+        </div>
+        <p class="text-stone-500 text-sm mb-6 ml-10">Enter the client's current site URL. Generates the full proposal and complexity report with bottom / mid / top pricing. Creates a project record for Steps 2 and 3.</p>
+        <form id="proposal-form" class="space-y-4">
+          <input type="url" id="site-url" required placeholder="https://clientsite.com"
+            class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-pink-400 text-base" />
+          <button type="submit" id="proposal-btn"
+            class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Generate Proposal
+          </button>
+        </form>
+        <div id="proposal-status" class="hidden mt-5">
+          <div id="proposal-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
+            <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span>Auditing site and building proposal — 2–4 minutes…</span>
+          </div>
+          <div id="proposal-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-2">
+            <p class="text-sm font-bold text-green-800">Proposal ready! Project added to pipeline.</p>
+            <a id="proposal-link" href="#" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline font-medium text-sm">Open Proposal →</a>
+            <a id="report-link" href="#" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm hidden">Open Complexity Report →</a>
+            <p class="text-xs text-stone-500 pt-1">When the sale closes, use Step 2 below to initiate the build.</p>
+          </div>
+          <div id="proposal-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+            <p id="proposal-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Initiate Build -->
+      <div class="bg-white rounded-2xl border border-pink-200 p-8 mb-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="w-7 h-7 rounded-full bg-pink-600 text-white text-xs font-bold flex items-center justify-center shrink-0">2</span>
+          <h2 class="text-2xl font-bold">Initiate Build</h2>
+        </div>
+        <p class="text-stone-500 text-sm mb-6 ml-10">Sale closed? Enter the project details below. Creates the GitHub repo, Sanity project, and Netlify site — fully automated.</p>
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
+              <input id="build-title" type="text" placeholder="Global Hope India"
+                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+            </div>
+            <div>
+              <label for="build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Slug</label>
+              <input id="build-slug" type="text" placeholder="global-hope-india"
+                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 font-mono focus:outline-none focus:ring-2 focus:ring-pink-400" />
+            </div>
+          </div>
+          <div>
+            <label for="build-client-url" class="block text-sm font-semibold text-stone-700 mb-1">Client's Existing URL</label>
+            <input id="build-client-url" type="url" placeholder="https://globalhopeindia.org"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+          </div>
+          <button id="bootstrap-btn"
+            class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Initiate Build — Phase 1
+          </button>
+        </div>
+        <div id="bootstrap-status" class="hidden mt-5">
+          <div id="bootstrap-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
+            <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span>Creating infrastructure — GitHub, Sanity, Netlify… (~2 min)</span>
+          </div>
+          <div id="bootstrap-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-3">
+            <p class="text-sm font-bold text-green-800">Phase 1 complete! Project updated in pipeline.</p>
+            <div id="bootstrap-links" class="space-y-1.5"></div>
+            <p class="text-xs text-stone-500">Next: SSH into Bethel, <code class="bg-stone-100 px-1 rounded">cd ~/Sites/<span id="bootstrap-slug-echo"></span></code>, run <code class="bg-stone-100 px-1 rounded">claude</code>, work through Phases 2–4.</p>
+          </div>
+          <div id="bootstrap-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+            <p id="bootstrap-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Pre-Launch QA -->
+      <div class="bg-white rounded-2xl border border-pink-200 p-8 mb-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="w-7 h-7 rounded-full bg-pink-600 text-white text-xs font-bold flex items-center justify-center shrink-0">3</span>
+          <h2 class="text-2xl font-bold">Pre-Launch QA</h2>
+        </div>
+        <p class="text-stone-500 text-sm mb-6 ml-10">Run after the Audit Gate. Scans for hardcoded colors, missing alt text, missing SEO meta, leftover WordPress URLs, broken links, and TODO comments. Returns pass/fail for human review before delivery.</p>
+        <div class="space-y-4">
+          <div>
+            <label for="qa-project" class="block text-sm font-semibold text-stone-700 mb-1">Project</label>
+            <select id="qa-project"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-pink-400 bg-white">
+              <option value="">Loading pipeline…</option>
+            </select>
+          </div>
+          <button id="qa-btn"
+            class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Run Pre-Launch QA
+          </button>
+        </div>
+        <div id="qa-status" class="hidden mt-5">
+          <div id="qa-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
+            <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span>Running scans…</span>
+          </div>
+          <div id="qa-result" class="hidden">
+            <div id="qa-summary" class="mb-4 p-4 rounded-lg text-sm font-semibold"></div>
+            <div id="qa-scans" class="space-y-3"></div>
+          </div>
+          <div id="qa-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+            <p id="qa-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Site Updates -->
+      <div class="bg-white rounded-2xl border border-pink-200 p-8 mb-6 shadow-sm">
+        <h2 class="text-2xl font-bold mb-1">Request a Site Update</h2>
+        <p class="text-stone-500 text-sm mb-6">Select a site, describe the change — Claude makes the edit, pushes to dev, and opens a PR for review.</p>
+        <form id="site-update-form" class="space-y-4">
+          <div>
+            <label for="site-update-site" class="block text-sm font-semibold text-stone-700 mb-2">Site</label>
+            <select id="site-update-site" name="site_slug" required
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 focus:outline-none focus:ring-2 focus:ring-pink-400 bg-white">
+              <option value="">Loading sites…</option>
+            </select>
+          </div>
+          <div>
+            <label for="site-update-request" class="block text-sm font-semibold text-stone-700 mb-2">What would you like to change?</label>
+            <textarea id="site-update-request" name="request_text" required rows="5"
+              placeholder='e.g. Change the hero headline to "Walking in Freedom" and update the button to say "Start Your Journey"'
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-pink-400 resize-y text-sm"></textarea>
+            <p class="text-xs text-stone-400 mt-1">Be specific. The more detail you give, the better the result.</p>
+          </div>
+          <button type="submit" id="site-update-btn"
+            class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Submit Update Request
+          </button>
+        </form>
+        <div id="site-update-status" class="hidden mt-5">
+          <div id="site-update-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
+            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span id="site-update-status-text">Sending to Claude…</span>
+          </div>
+          <div id="site-update-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-lg space-y-2">
+            <p class="font-semibold text-green-800 text-sm">Update complete — PR ready for review.</p>
+            <a id="site-update-pr-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-sm text-green-700 underline font-medium break-all"></a>
+            <a id="site-update-preview-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-xs text-green-600 underline break-all"></a>
+          </div>
+          <div id="site-update-ambiguous" class="hidden p-5 bg-amber-50 border border-amber-200 rounded-lg">
+            <p class="font-semibold text-amber-800 text-sm mb-1">We need more detail</p>
+            <p id="site-update-ambiguous-text" class="text-amber-700 text-sm"></p>
+          </div>
+          <div id="site-update-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p class="font-semibold text-red-800 text-sm mb-1">Something went wrong</p>
+            <p id="site-update-error-text" class="text-red-700 text-sm"></p>
+          </div>
+        </div>
+      </div>
+    </div><!-- end Web Dev -->
+
+    <!-- ══════════════════════════════════════════════════════════
+         PUBLISHING — blue
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-widest">Publishing</span>
+        <div class="flex-1 border-t border-blue-200"></div>
+      </div>
+
+      <!-- Manuscript Review -->
+      <div class="bg-white rounded-2xl border border-blue-200 p-8 mb-6 shadow-sm">
+        <h2 class="text-2xl font-bold mb-1">Manuscript Review Generator</h2>
+        <p class="text-stone-500 text-sm mb-6">Generate a review document from a template. Paste a Google Drive link — Google Doc, Word, or PDF all work.</p>
+        <form id="generate-form" class="space-y-6">
+          <div>
+            <label for="template-select" class="block text-sm font-semibold text-stone-700 mb-2">Template</label>
+            <select id="template-select" name="template_id" required
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white">
+              <option value="">Loading templates…</option>
+            </select>
+          </div>
+          <div>
+            <label for="file-url" class="block text-sm font-semibold text-stone-700 mb-2">Manuscript Link</label>
+            <input type="url" id="file-url" name="file_url" required placeholder="https://docs.google.com/document/d/…"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <p class="text-xs text-stone-500 mt-1">Supports Google Docs, Word (.docx), and PDF files from Google Drive.</p>
+          </div>
+          <button type="submit" id="generate-btn"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Generate Review
+          </button>
+        </form>
+        <div id="generate-status" class="hidden mt-6">
+          <div id="generate-spinner" class="hidden flex items-center gap-3 text-stone-600">
+            <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span id="generate-status-text">Reading manuscript…</span>
+          </div>
+          <div id="generate-result" class="hidden p-4 bg-green-50 border border-green-200 rounded-lg">
+            <p class="text-sm font-semibold text-green-800 mb-2">Done!</p>
+            <a id="generate-result-link" href="#" target="_blank" rel="noopener noreferrer" class="text-green-700 underline font-medium break-all"></a>
+          </div>
+          <div id="generate-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p class="text-sm font-semibold text-red-800 mb-1">Error</p>
+            <p id="generate-error-text" class="text-sm text-red-700"></p>
+          </div>
+        </div>
+      </div>
+    </div><!-- end Publishing -->
+
+    <!-- ══════════════════════════════════════════════════════════
+         MARKETING — green
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-widest">Marketing</span>
+        <div class="flex-1 border-t border-emerald-200"></div>
+      </div>
+
+      <!-- Blog Post Publisher -->
+      <div class="bg-white rounded-2xl border border-emerald-200 p-8 mb-6 shadow-sm">
+        <h2 class="text-2xl font-bold mb-1">Publish Blog Post</h2>
+        <p class="text-stone-500 text-sm mb-6">Paste your content — Claude extracts all fields and publishes directly to Sanity.</p>
+        <form id="blog-form" class="space-y-5">
+          <div>
+            <label for="blog-content" class="block text-sm font-semibold text-stone-700 mb-2">Blog Content</label>
+            <textarea id="blog-content" name="content" required rows="14" placeholder="Paste everything here — title, body, SEO title, meta description, whatever you have. Claude will sort it out."
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 font-mono text-sm resize-y"></textarea>
+          </div>
+          <div>
+            <label for="hero-image-url" class="block text-sm font-semibold text-stone-700 mb-2">Feature Image URL <span class="text-stone-400 font-normal">(optional)</span></label>
+            <input type="url" id="hero-image-url" name="hero_image_url" placeholder="https://cdn.sanity.io/images/pmowd8uo/production/…"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+            <p class="text-xs text-stone-400 mt-1">Upload in Sanity Studio → copy the CDN URL → paste here.</p>
+          </div>
+          <button type="submit" id="blog-submit-btn"
+            class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Publish to Sanity
+          </button>
+        </form>
+        <div id="blog-status" class="hidden mt-6">
+          <div id="blog-spinner" class="hidden flex items-center gap-3 text-stone-600">
+            <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span id="blog-status-text">Parsing content…</span>
+          </div>
+          <div id="blog-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-lg space-y-2">
+            <p class="text-sm font-semibold text-green-800">Published!</p>
+            <a id="blog-live-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-sm text-green-700 underline font-medium break-all"></a>
+            <a id="blog-studio-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-xs text-green-600 underline break-all"></a>
+          </div>
+          <div id="blog-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p class="text-sm font-semibold text-red-800 mb-1">Error</p>
+            <p id="blog-error-text" class="text-sm text-red-700"></p>
+          </div>
+        </div>
+      </div>
+    </div><!-- end Marketing -->
+
+    <!-- ══════════════════════════════════════════════════════════
+         GENERAL — purple
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-block px-3 py-1 rounded-full bg-violet-100 text-violet-700 text-xs font-bold uppercase tracking-widest">General</span>
+        <div class="flex-1 border-t border-violet-200"></div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
+        <h2 class="text-2xl font-bold mb-1">Claude Task Agent</h2>
+        <p class="text-stone-500 text-sm mb-4">Describe any task in plain English — no site slug needed. Claude handles it and returns a response you can copy or act on.</p>
+
+        <div class="bg-violet-50 border border-violet-200 rounded-lg p-4 mb-6">
+          <p class="text-xs font-bold uppercase tracking-widest text-violet-600 mb-2">What this agent can help with</p>
+          <ul class="grid grid-cols-2 gap-x-4 gap-y-1 text-stone-700 text-sm">
+            <li>• Draft an email or letter</li>
+            <li>• Write marketing or ad copy</li>
+            <li>• Summarize a document or URL</li>
+            <li>• Create social media posts</li>
+            <li>• Outline a sermon or Bible study</li>
+            <li>• Write a proposal or pitch</li>
+            <li>• Brainstorm names or taglines</li>
+            <li>• Draft meeting agendas or notes</li>
+            <li>• Rewrite or edit any copy</li>
+            <li>• Answer a research question</li>
+          </ul>
+        </div>
+
+        <form id="general-form" class="space-y-4">
+          <div>
+            <label for="general-task" class="block text-sm font-semibold text-stone-700 mb-2">What do you need?</label>
+            <textarea id="general-task" required rows="5"
+              placeholder="e.g. Write a 3-sentence email to a potential client introducing Spirit Media Publishing and our website services. Keep it warm and pastoral."
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-400 resize-y text-sm"></textarea>
+            <p class="text-xs text-stone-400 mt-1">The more context you give, the better the result.</p>
+          </div>
+          <button type="submit" id="general-btn"
+            class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Run Task
+          </button>
+        </form>
+
+        <div id="general-status" class="hidden mt-5">
+          <div id="general-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
+            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span id="general-status-text">Working on it…</span>
+          </div>
+          <div id="general-result" class="hidden mt-4">
+            <div class="flex items-center justify-between mb-2">
+              <p class="text-sm font-semibold text-stone-700">Result</p>
+              <button id="general-copy-btn" class="px-3 py-1 bg-violet-50 hover:bg-violet-100 text-violet-700 rounded text-xs font-semibold">Copy</button>
+            </div>
+            <div id="general-response" class="bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-sm text-stone-800 whitespace-pre-wrap leading-relaxed"></div>
+          </div>
+          <div id="general-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p class="font-semibold text-red-800 text-sm mb-1">Something went wrong</p>
+            <p id="general-error-text" class="text-red-700 text-sm"></p>
+          </div>
+        </div>
+      </div>
+    </div><!-- end General -->
+
+    <!-- Recent Documents -->
+    <div>
+      <h2 class="text-2xl font-bold mb-4">Recent Documents</h2>
+      <div id="history-list" class="space-y-2">
+        <p class="text-stone-500 text-sm">Loading…</p>
+      </div>
+    </div>
+  </div>
+</PortalLayout>
+
+<script>
+if (!(window as any).__portalInitialized) {
+  (window as any).__portalInitialized = true;
+
+  // ── Project registry ─────────────────────────────────────────
+  let allProjects: any[] = [];
+
+  async function loadProjects() {
+    try {
+      const resp = await fetch('/api/tools-projects');
+      allProjects = await resp.json();
+    } catch { allProjects = []; }
+    populateQADropdown();
+  }
+
+  function statusLabel(s: string) {
+    const map: Record<string, string> = {
+      proposal_pending: 'proposal running…', proposal_failed: 'proposal failed',
+      proposal_ready: 'proposal ready', building: 'building…',
+      build_failed: 'build failed', built: 'built — dev in progress',
+      qa_failed: 'QA failed', qa_passed: 'QA passed', launched: 'launched',
+    };
+    return map[s] ?? s;
+  }
+
+  function populateQADropdown() {
+    const sel = document.getElementById('qa-project') as HTMLSelectElement;
+    const eligible = allProjects.filter(p => ['built', 'qa_failed', 'qa_passed'].includes(p.status));
+    if (!eligible.length) { sel.innerHTML = '<option value="">No projects with completed builds yet</option>'; return; }
+    sel.innerHTML = '<option value="">Select a project…</option>' +
+      eligible.map(p => `<option value="${p.id}">${p.title} (${statusLabel(p.status)})</option>`).join('');
+  }
+
+  // ── 1. Proposal ──────────────────────────────────────────────
+  document.getElementById('proposal-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const url = (document.getElementById('site-url') as HTMLInputElement).value.trim();
+    const btn = document.getElementById('proposal-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Generating…';
+    document.getElementById('proposal-status')!.classList.remove('hidden');
+    document.getElementById('proposal-spinner')!.classList.remove('hidden');
+    ['proposal-result','proposal-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+    try {
+      const resp = await fetch('/api/tools-proposal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url }) });
+      const start = await resp.json();
+      if (start.error) throw new Error(start.error);
+      const poll = async (): Promise<void> => {
+        await new Promise(r => setTimeout(r, 4000));
+        const job = await (await fetch(`/api/tools-proposal-status?job_id=${start.job_id}`)).json();
+        if (job.status === 'pending') return poll();
+        document.getElementById('proposal-spinner')!.classList.add('hidden');
+        if (job.status === 'failed') {
+          document.getElementById('proposal-error')!.classList.remove('hidden');
+          document.getElementById('proposal-error-text')!.textContent = job.log || 'Proposal generation failed.';
+        } else {
+          document.getElementById('proposal-result')!.classList.remove('hidden');
+          (document.getElementById('proposal-link') as HTMLAnchorElement).href = job.proposal_url;
+          if (job.report_url) { const r = document.getElementById('report-link') as HTMLAnchorElement; r.href = job.report_url; r.classList.remove('hidden'); }
+        }
+        btn.disabled = false; btn.textContent = 'Generate Proposal';
+      };
+      poll();
+    } catch (err: any) {
+      document.getElementById('proposal-spinner')!.classList.add('hidden');
+      document.getElementById('proposal-error')!.classList.remove('hidden');
+      document.getElementById('proposal-error-text')!.textContent = err.message;
+      btn.disabled = false; btn.textContent = 'Generate Proposal';
+    }
+  });
+
+  // ── 2. Bootstrap ─────────────────────────────────────────────
+  document.getElementById('build-title')!.addEventListener('input', (e) => {
+    const slugEl = document.getElementById('build-slug') as HTMLInputElement;
+    if (!slugEl.dataset.manualEdit)
+      slugEl.value = (e.target as HTMLInputElement).value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  });
+  document.getElementById('build-slug')!.addEventListener('input', (e) => { (e.target as HTMLInputElement).dataset.manualEdit = '1'; });
+
+  document.getElementById('bootstrap-btn')!.addEventListener('click', async () => {
+    const title = (document.getElementById('build-title') as HTMLInputElement).value.trim();
+    const slug  = (document.getElementById('build-slug') as HTMLInputElement).value.trim();
+    const clientUrl = (document.getElementById('build-client-url') as HTMLInputElement).value.trim();
+    if (!title || !slug) { alert('Site Name and Slug are required.'); return; }
+    if (!confirm(`Launch Phase 1 build for "${title}" (${slug})?\n\nCreates:\n• GitHub: Spirit-Media-US/${slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
+    const btn = document.getElementById('bootstrap-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Building…';
+    document.getElementById('bootstrap-status')!.classList.remove('hidden');
+    document.getElementById('bootstrap-spinner')!.classList.remove('hidden');
+    ['bootstrap-result','bootstrap-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+    try {
+      const resp = await fetch('/api/tools-bootstrap', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug, title, client_url: clientUrl }) });
+      const data = await resp.json();
+      document.getElementById('bootstrap-spinner')!.classList.add('hidden');
+      if (data.error) {
+        document.getElementById('bootstrap-error')!.classList.remove('hidden');
+        document.getElementById('bootstrap-error-text')!.textContent = data.error + (data.log ? '\n\n' + data.log : '');
+      } else {
+        document.getElementById('bootstrap-result')!.classList.remove('hidden');
+        (document.getElementById('bootstrap-slug-echo') as HTMLElement).textContent = slug;
+        document.getElementById('bootstrap-links')!.innerHTML = [
+          { label: 'GitHub', url: data.github }, { label: 'Netlify Preview', url: data.netlify_url }, { label: 'Sanity Studio', url: data.sanity_studio },
+        ].filter((l: any) => l.url).map((l: any) => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`).join('');
+        await loadProjects();
+      }
+    } catch (err: any) {
+      document.getElementById('bootstrap-spinner')!.classList.add('hidden');
+      document.getElementById('bootstrap-error')!.classList.remove('hidden');
+      document.getElementById('bootstrap-error-text')!.textContent = err.message;
+    }
+    btn.disabled = false; btn.textContent = 'Initiate Build — Phase 1';
+  });
+
+  // ── 3. Pre-Launch QA ─────────────────────────────────────────
+  document.getElementById('qa-btn')!.addEventListener('click', async () => {
+    const projectId = (document.getElementById('qa-project') as HTMLSelectElement).value;
+    if (!projectId) { alert('Select a project first.'); return; }
+    const btn = document.getElementById('qa-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Scanning…';
+    document.getElementById('qa-status')!.classList.remove('hidden');
+    document.getElementById('qa-spinner')!.classList.remove('hidden');
+    ['qa-result','qa-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+    try {
+      const resp = await fetch('/api/tools-prelaunch', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ project_id: projectId }) });
+      const data = await resp.json();
+      document.getElementById('qa-spinner')!.classList.add('hidden');
+      if (data.error) {
+        document.getElementById('qa-error')!.classList.remove('hidden');
+        document.getElementById('qa-error-text')!.textContent = data.error;
+      } else {
+        document.getElementById('qa-result')!.classList.remove('hidden');
+        const allPass = data.passed === data.total;
+        const summary = document.getElementById('qa-summary')!;
+        summary.className = `mb-4 p-4 rounded-lg text-sm font-semibold ${allPass ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-amber-50 border border-amber-200 text-amber-800'}`;
+        summary.textContent = allPass ? `✅ All ${data.total} scans passed.` : `⚠️ ${data.passed} of ${data.total} scans passed — fix all findings before delivery.`;
+        document.getElementById('qa-scans')!.innerHTML = data.scans.map((s: any) => `
+          <div class="border border-stone-200 rounded-xl overflow-hidden">
+            <div class="flex items-center justify-between px-4 py-3 ${s.pass ? 'bg-green-50' : 'bg-red-50'} cursor-pointer scan-toggle">
+              <span class="text-sm font-semibold ${s.pass ? 'text-green-800' : 'text-red-800'}">${s.pass ? '✅' : '❌'} ${s.name}</span>
+              ${!s.pass ? `<span class="text-xs text-red-600 font-mono">${s.findings.length} finding${s.findings.length !== 1 ? 's' : ''} ▾</span>` : ''}
+            </div>
+            ${!s.pass && s.findings.length ? `<div class="px-4 py-3 bg-white hidden scan-body"><ul class="space-y-1">${s.findings.map((f: string) => `<li class="text-xs font-mono text-stone-700 break-all">${f}</li>`).join('')}</ul></div>` : ''}
+          </div>`).join('');
+        document.querySelectorAll('.scan-toggle').forEach(h => { h.addEventListener('click', () => { h.nextElementSibling?.classList.toggle('hidden'); }); });
+        await loadProjects();
+      }
+    } catch (err: any) {
+      document.getElementById('qa-spinner')!.classList.add('hidden');
+      document.getElementById('qa-error')!.classList.remove('hidden');
+      document.getElementById('qa-error-text')!.textContent = err.message;
+    }
+    btn.disabled = false; btn.textContent = 'Run Pre-Launch QA';
+  });
+
+  // ── Site Updates ─────────────────────────────────────────────
+  async function loadSiteUpdateSites() {
+    const sel = document.getElementById('site-update-site') as HTMLSelectElement;
+    try {
+      const resp = await fetch('/api/tools-site-update');
+      const sites = await resp.json();
+      sel.innerHTML = '<option value="">Select a site…</option>' + sites.map((s: any) => `<option value="${s.slug}">${s.title}</option>`).join('');
+    } catch { sel.innerHTML = '<option value="">Could not load sites</option>'; }
+  }
+
+  document.getElementById('site-update-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const fd = new FormData(form);
+    const btn = document.getElementById('site-update-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Submitting…';
+    document.getElementById('site-update-status')!.classList.remove('hidden');
+    document.getElementById('site-update-spinner')!.classList.remove('hidden');
+    ['site-update-result','site-update-ambiguous','site-update-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+    const messages = ['Sending to Claude…', 'Reviewing your site…', 'Making edits…', 'Almost done…'];
+    let i = 0;
+    const statusText = document.getElementById('site-update-status-text')!;
+    statusText.textContent = messages[0];
+    const interval = setInterval(() => { i = Math.min(i + 1, messages.length - 1); statusText.textContent = messages[i]; }, 20000);
+    try {
+      const resp = await fetch('/api/tools-site-update', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ site_slug: fd.get('site_slug'), request_text: fd.get('request_text') }) });
+      const start = await resp.json();
+      if (start.error) throw new Error(start.error);
+      const poll = async (): Promise<void> => {
+        await new Promise(r => setTimeout(r, 5000));
+        const job = await (await fetch(`/api/tools-site-update-status?job_id=${start.job_id}`)).json();
+        if (job.status === 'pending') return poll();
+        clearInterval(interval);
+        document.getElementById('site-update-spinner')!.classList.add('hidden');
+        if (job.status === 'ambiguous') {
+          document.getElementById('site-update-ambiguous')!.classList.remove('hidden');
+          document.getElementById('site-update-ambiguous-text')!.textContent = job.message || 'Please clarify your request.';
+        } else if (job.status === 'failed') {
+          document.getElementById('site-update-error')!.classList.remove('hidden');
+          document.getElementById('site-update-error-text')!.textContent = job.error || 'Update failed.';
+        } else {
+          document.getElementById('site-update-result')!.classList.remove('hidden');
+          const prLink = document.getElementById('site-update-pr-url') as HTMLAnchorElement;
+          const previewLink = document.getElementById('site-update-preview-url') as HTMLAnchorElement;
+          if (job.pr_url) { prLink.href = job.pr_url; prLink.textContent = 'Review PR on GitHub →'; }
+          if (job.preview_url) { previewLink.href = job.preview_url; previewLink.textContent = 'Preview site →'; }
+          form.reset();
+          await loadSiteUpdateSites();
+        }
+        btn.disabled = false; btn.textContent = 'Submit Update Request';
+      };
+      poll();
+    } catch (err: any) {
+      clearInterval(interval);
+      document.getElementById('site-update-spinner')!.classList.add('hidden');
+      document.getElementById('site-update-error')!.classList.remove('hidden');
+      document.getElementById('site-update-error-text')!.textContent = err.message;
+      btn.disabled = false; btn.textContent = 'Submit Update Request';
+    }
+  });
+
+  // ── Manuscript Review ─────────────────────────────────────────
+  async function loadTemplates() {
+    const select = document.getElementById('template-select') as HTMLSelectElement;
+    try {
+      const resp = await fetch('/api/tools-templates');
+      const templates = await resp.json();
+      select.innerHTML = templates.map((t: any) => `<option value="${t.id}">${t.name}${t.description ? ` — ${t.description}` : ''}</option>`).join('');
+    } catch { select.innerHTML = '<option value="">Could not load templates</option>'; }
+  }
+
+  document.getElementById('generate-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const btn = document.getElementById('generate-btn') as HTMLButtonElement;
+    btn.disabled = true;
+    document.getElementById('generate-status')!.classList.remove('hidden');
+    document.getElementById('generate-spinner')!.classList.remove('hidden');
+    ['generate-result','generate-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+    const messages = ['Reading manuscript…', 'Generating review…', 'Creating Google Doc…'];
+    let msgIdx = 0;
+    const statusText = document.getElementById('generate-status-text')!;
+    statusText.textContent = messages[0];
+    const interval = setInterval(() => { msgIdx = Math.min(msgIdx + 1, messages.length - 1); statusText.textContent = messages[msgIdx]; }, 15000);
+    try {
+      const fd = new FormData(form);
+      const resp = await fetch('/api/tools-generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ template_id: fd.get('template_id'), file_url: fd.get('file_url') }) });
+      clearInterval(interval);
+      const result = await resp.json();
+      if (result.doc_url) {
+        document.getElementById('generate-spinner')!.classList.add('hidden');
+        document.getElementById('generate-result')!.classList.remove('hidden');
+        const rl = document.getElementById('generate-result-link') as HTMLAnchorElement;
+        rl.href = result.doc_url; rl.textContent = result.doc_name || result.doc_url;
+        loadHistory();
+      } else { throw new Error(result.error || 'Unknown error'); }
+    } catch (err: any) {
+      clearInterval(interval);
+      document.getElementById('generate-spinner')!.classList.add('hidden');
+      document.getElementById('generate-error')!.classList.remove('hidden');
+      document.getElementById('generate-error-text')!.textContent = err.message;
+    }
+    btn.disabled = false;
+  });
+
+  // ── Blog Post Publisher ───────────────────────────────────────
+  document.getElementById('blog-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const btn = document.getElementById('blog-submit-btn') as HTMLButtonElement;
+    btn.disabled = true;
+    document.getElementById('blog-status')!.classList.remove('hidden');
+    document.getElementById('blog-spinner')!.classList.remove('hidden');
+    ['blog-result','blog-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+    const messages = ['Parsing content…', 'Extracting fields…', 'Publishing to Sanity…'];
+    let msgIdx = 0;
+    const statusText = document.getElementById('blog-status-text')!;
+    statusText.textContent = messages[0];
+    const interval = setInterval(() => { msgIdx = Math.min(msgIdx + 1, messages.length - 1); statusText.textContent = messages[msgIdx]; }, 8000);
+    try {
+      const fd = new FormData(form);
+      const resp = await fetch('/api/blog-post', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: fd.get('content'), hero_image_url: fd.get('hero_image_url') || '' }) });
+      clearInterval(interval);
+      const result = await resp.json();
+      if (result.url) {
+        document.getElementById('blog-spinner')!.classList.add('hidden');
+        document.getElementById('blog-result')!.classList.remove('hidden');
+        const lu = document.getElementById('blog-live-url') as HTMLAnchorElement;
+        const su = document.getElementById('blog-studio-url') as HTMLAnchorElement;
+        lu.href = result.url; lu.textContent = result.url;
+        su.href = result.sanity_studio; su.textContent = 'Open in Sanity Studio →';
+        (form as HTMLFormElement).reset();
+      } else { throw new Error(result.error || 'Unknown error'); }
+    } catch (err: any) {
+      clearInterval(interval);
+      document.getElementById('blog-spinner')!.classList.add('hidden');
+      document.getElementById('blog-error')!.classList.remove('hidden');
+      document.getElementById('blog-error-text')!.textContent = err.message;
+    }
+    btn.disabled = false;
+  });
+
+  // ── General Agent ─────────────────────────────────────────────
+  document.getElementById('general-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const taskText = (document.getElementById('general-task') as HTMLTextAreaElement).value.trim();
+    const btn = document.getElementById('general-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Working…';
+    document.getElementById('general-status')!.classList.remove('hidden');
+    document.getElementById('general-spinner')!.classList.remove('hidden');
+    ['general-result','general-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+    const messages = ['Working on it…', 'Almost there…'];
+    let i = 0;
+    const statusText = document.getElementById('general-status-text')!;
+    statusText.textContent = messages[0];
+    const interval = setInterval(() => { i = Math.min(i + 1, messages.length - 1); statusText.textContent = messages[i]; }, 20000);
+    try {
+      const resp = await fetch('/api/tools-general', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ task_text: taskText }) });
+      const start = await resp.json();
+      if (start.error) throw new Error(start.error);
+      const poll = async (): Promise<void> => {
+        await new Promise(r => setTimeout(r, 4000));
+        const job = await (await fetch(`/api/tools-general?job_id=${start.job_id}`)).json();
+        if (job.status === 'pending') return poll();
+        clearInterval(interval);
+        document.getElementById('general-spinner')!.classList.add('hidden');
+        if (job.status === 'failed') {
+          document.getElementById('general-error')!.classList.remove('hidden');
+          document.getElementById('general-error-text')!.textContent = job.error || 'Something went wrong.';
+        } else {
+          document.getElementById('general-result')!.classList.remove('hidden');
+          document.getElementById('general-response')!.textContent = job.response;
+        }
+        btn.disabled = false; btn.textContent = 'Run Task';
+      };
+      poll();
+    } catch (err: any) {
+      clearInterval(interval);
+      document.getElementById('general-spinner')!.classList.add('hidden');
+      document.getElementById('general-error')!.classList.remove('hidden');
+      document.getElementById('general-error-text')!.textContent = err.message;
+      btn.disabled = false; btn.textContent = 'Run Task';
+    }
+  });
+
+  document.getElementById('general-copy-btn')!.addEventListener('click', () => {
+    const text = document.getElementById('general-response')!.textContent || '';
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('general-copy-btn')!;
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = orig; }, 2000);
+    });
+  });
+
+  // ── History ───────────────────────────────────────────────────
+  async function loadHistory() {
+    const list = document.getElementById('history-list')!;
+    try {
+      const resp = await fetch('/api/tools-history');
+      const docs = await resp.json();
+      if (!docs.length) { list.innerHTML = '<p class="text-stone-500 text-sm">No documents yet.</p>'; return; }
+      list.innerHTML = docs.map((d: any) => `
+        <div class="flex items-center justify-between py-3 border-b border-stone-100 last:border-0">
+          <div>
+            <a href="${d.url}" target="_blank" rel="noopener noreferrer" class="font-medium text-stone-800 hover:text-stone-600 underline">${d.name}</a>
+            <span class="text-xs text-stone-400 ml-2">${d.created}</span>
+          </div>
+          <a href="${d.url}" target="_blank" rel="noopener noreferrer" class="text-xs text-stone-500 hover:text-stone-700 ml-4 shrink-0">Open →</a>
+        </div>`).join('');
+    } catch { list.innerHTML = '<p class="text-stone-500 text-sm">Could not load history.</p>'; }
+  }
+
+  // Init
+  loadProjects();
+  loadTemplates();
+  loadHistory();
+  loadSiteUpdateSites();
+}
+</script>

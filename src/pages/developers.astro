@@ -1,11 +1,11 @@
 ---
-import PortalLayout from '../layouts/PortalLayout.astro';
+import PortalLayout from "../layouts/PortalLayout.astro";
 ---
 
 <PortalLayout title="Developers" mainBg="#ecfdf5">
   <div class="max-w-4xl">
     <h1 class="text-4xl font-bold mb-2">Developers</h1>
-    <p class="text-stone-600 mb-8">Everything you need — otherwise request improvements in Slack.</p>
+    <p class="text-stone-600 mb-8">Technical reference for the SMP dev team.</p>
 
     <div class="space-y-8">
       <!-- Naming Conventions -->
@@ -25,9 +25,9 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         <h2 class="text-2xl font-bold text-red-700 mb-4">SSH Access to Bethel</h2>
         <p class="text-stone-600 mb-4">Connect to the development server via Tailscale:</p>
         <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
-          <span>ssh <span class="text-red-700">yourusername</span>@bethel.spiritmediapublishing.com</span>
+          <span>ssh bethel</span>
         </div>
-        <p class="text-stone-500 text-sm mt-3">Requires Tailscale VPN. See <a href="/connecting" class="text-red-700 hover:underline">Connecting</a> for Tailscale setup and credentials.</p>
+        <p class="text-stone-500 text-sm mt-3">Requires Tailscale VPN. SSH config alias is set up in <code class="bg-stone-100 px-1 rounded text-xs">~/.ssh/config</code> pointing to <code class="bg-stone-100 px-1 rounded text-xs">100.114.220.65</code>. See <a href="/connecting" class="text-red-700 hover:underline">Connecting</a> for Tailscale setup.</p>
       </section>
 
       <!-- Bethel User Accounts -->
@@ -50,7 +50,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
               <tr class="border-b border-stone-100"><td class="py-2 pr-4">Jufrey</td><td class="py-2 pr-4 font-mono text-xs">jufrey</td><td class="py-2 pr-4">Web Developer</td><td class="py-2 font-mono text-xs">4361&ndash;4380</td></tr>
               <tr class="border-b border-stone-100"><td class="py-2 pr-4">Justin Keishing</td><td class="py-2 pr-4 font-mono text-xs">justin</td><td class="py-2 pr-4">Team Member</td><td class="py-2 font-mono text-xs">4381&ndash;4400</td></tr>
               <tr class="border-b border-stone-100"><td class="py-2 pr-4">GHL Support</td><td class="py-2 pr-4 font-mono text-xs">support</td><td class="py-2 pr-4">GHL / CRM</td><td class="py-2 font-mono text-xs">&mdash;</td></tr>
-              <tr><td class="py-2 pr-4">Deploy</td><td class="py-2 pr-4 font-mono text-xs">deploy</td><td class="py-2 pr-4">Deployments only</td><td class="py-2 font-mono text-xs">&mdash;</td></tr>
+              <tr><td class="py-2 pr-4">Deploy</td><td class="py-2 pr-4 font-mono text-xs">deploy</td><td class="py-2 pr-4">Shared service account — secrets, config, all repos</td><td class="py-2 font-mono text-xs">&mdash;</td></tr>
             </tbody>
           </table>
         </div>
@@ -74,12 +74,7 @@ import PortalLayout from '../layouts/PortalLayout.astro';
             <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Reset a password</p>
             <p class="text-sm text-stone-700 italic">"Reset the password for [username]."</p>
           </div>
-          <div class="p-3 bg-stone-50 rounded-lg">
-            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Rotate the API key</p>
-            <p class="text-sm text-stone-700">1. Go to <a href="https://console.anthropic.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">console.anthropic.com</a> &rarr; API Keys<br/>2. Create a new key named "Bethel Server"<br/>3. Tell Claude: <span class="italic">"Update the Bethel API key to [new key]"</span><br/>4. Delete the old key in console.anthropic.com</p>
-          </div>
         </div>
-        <p class="text-stone-500 text-xs mt-3">Claude generates credentials and updates the Bethel Admin Guide automatically.</p>
       </section>
 
       <!-- Security -->
@@ -88,9 +83,8 @@ import PortalLayout from '../layouts/PortalLayout.astro';
         <ul class="space-y-2 text-stone-700 text-sm">
           <li>&bull; Never commit passwords or API keys to Git</li>
           <li>&bull; All secrets are stored in <code class="bg-stone-100 px-1 rounded text-xs">~/.secrets</code> on each account (chmod 600)</li>
-          <li>&bull; The <code class="bg-stone-100 px-1 rounded text-xs">deploy</code> account is for automated deployments only &mdash; not daily work</li>
-          <li>&bull; Each user's Claude session history is private to their account</li>
-          <li>&bull; API key should be rotated every 90 days</li>
+          <li>&bull; The <code class="bg-stone-100 px-1 rounded text-xs">deploy</code> account holds all shared secrets — work happens here but personal Claude sessions stay in your own account</li>
+          <li>&bull; Claude Team uses OAuth (no API key) — authenticated via Kevin's Claude Team subscription</li>
         </ul>
       </section>
 
@@ -167,10 +161,14 @@ import PortalLayout from '../layouts/PortalLayout.astro';
           <h3 class="font-semibold text-stone-700">Repositories:</h3>
           <ul class="space-y-1 text-stone-600">
             <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">spirit-media-publishing</code></li>
-            <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">FHB</code> (Fathers Heart Bible)</li>
+            <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">FHB</code> (Father's Heart Bible)</li>
             <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">WOY</code> (Work On Yourself)</li>
             <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">the-kohler-group</code></li>
             <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">artsbyjustin</code></li>
+            <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">clowning-from-the-heart</code></li>
+            <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">scripture-alive</code></li>
+            <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">10-billion-travelers</code></li>
+            <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">tools-api</code> (Flask pipeline server — private)</li>
             <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">spirit-media-portal</code> (this site)</li>
           </ul>
         </div>
@@ -224,9 +222,9 @@ import PortalLayout from '../layouts/PortalLayout.astro';
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Quick Start Checklist</h2>
         <ul class="space-y-2 text-stone-700">
-          <li>✓ Get your username and password from Jay or Kevin</li>
+          <li>✓ Get your Bethel username from Kevin</li>
           <li>✓ Set up <a href="/connecting" class="text-red-700 hover:underline">Tailscale VPN</a> (see Connecting page)</li>
-          <li>✓ SSH into Bethel: <code class="bg-stone-100 px-2 py-1 rounded text-xs">ssh yourusername@bethel.spiritmediapublishing.com</code></li>
+          <li>✓ SSH into Bethel: <code class="bg-stone-100 px-2 py-1 rounded text-xs">ssh bethel</code></li>
           <li>✓ Set up your <a href="https://github.com/settings/keys" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">GitHub SSH key</a> (see setup above)</li>
           <li>✓ Clone repos from Spirit-Media-US org</li>
           <li>✓ Install dependencies: <code class="bg-stone-100 px-2 py-1 rounded text-xs">npm install</code></li>
@@ -256,26 +254,6 @@ import PortalLayout from '../layouts/PortalLayout.astro';
                 <td class="py-2 pr-4 font-medium">Post-Launch Checklist</td>
                 <td class="py-2 pr-4 font-mono text-xs">post-launch-checklist.md</td>
                 <td class="py-2">58-item QA, SEO, accessibility, performance, and deployment checklist</td>
-              </tr>
-              <tr class="border-b border-stone-100 text-stone-400">
-                <td class="py-2 pr-4 font-medium">New Website Setup</td>
-                <td class="py-2 pr-4 font-mono text-xs">website-setup.md</td>
-                <td class="py-2">Coming soon</td>
-              </tr>
-              <tr class="border-b border-stone-100 text-stone-400">
-                <td class="py-2 pr-4 font-medium">Website Evaluation</td>
-                <td class="py-2 pr-4 font-mono text-xs">website-evaluation.md</td>
-                <td class="py-2">Coming soon</td>
-              </tr>
-              <tr class="border-b border-stone-100 text-stone-400">
-                <td class="py-2 pr-4 font-medium">Website Extraction</td>
-                <td class="py-2 pr-4 font-mono text-xs">website-extraction.md</td>
-                <td class="py-2">Coming soon</td>
-              </tr>
-              <tr class="border-b border-stone-100 text-stone-400">
-                <td class="py-2 pr-4 font-medium">Website Migration</td>
-                <td class="py-2 pr-4 font-mono text-xs">website-migration.md</td>
-                <td class="py-2">Coming soon</td>
               </tr>
             </tbody>
           </table>
