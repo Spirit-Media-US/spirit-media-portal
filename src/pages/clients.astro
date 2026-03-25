@@ -114,12 +114,18 @@ import "../styles/globals.css";
                 </ul>
               </div>
 
-              <!-- Slug-gated update form -->
-              <div id="no-site" class="hidden bg-violet-100 border border-violet-200 rounded-lg p-4 text-center">
-                <p class="text-violet-800 text-sm font-semibold mb-1">Your personalized update link</p>
-                <p class="text-stone-600 text-sm">SMP provided you a link when your site launched. It looks like:</p>
-                <div class="bg-white rounded px-3 py-2 mt-2 font-mono text-xs text-stone-500">portal.spiritmediapublishing.com/clients?site=<span class="text-violet-700 font-bold">your-site-slug</span></div>
-                <p class="text-stone-500 text-xs mt-2">Don't have it? Email <a href="mailto:hello@spiritmediapublishing.com" class="text-violet-700 hover:underline font-semibold">hello@spiritmediapublishing.com</a> and we'll send it.</p>
+              <!-- Slug entry -->
+              <div id="slug-entry" class="space-y-3 mb-6">
+                <label for="site-slug-input" class="block text-sm font-semibold text-stone-700">Enter your site slug</label>
+                <div class="flex gap-3">
+                  <input id="site-slug-input" type="text" placeholder="e.g. FHB or the-kohler-group"
+                    class="flex-1 border border-stone-300 rounded-lg px-4 py-2 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-400 text-sm" />
+                  <button id="find-btn" type="button"
+                    class="bg-violet-700 hover:bg-violet-800 text-white font-semibold px-5 py-2 rounded-lg text-sm transition-colors">
+                    Find My Site
+                  </button>
+                </div>
+                <div id="slug-error" class="hidden text-red-600 text-xs">Slug not found. Check your spelling or email <a href="mailto:hello@spiritmediapublishing.com" class="underline">hello@spiritmediapublishing.com</a> for your slug.</div>
               </div>
 
               <div id="update-section" class="hidden">
@@ -277,20 +283,30 @@ Today I need: [describe what you want]</div>
     </div>
 
     <script>
-      // Slug-gated site update form — slug in URL is the key, no API validation needed
-      const params   = new URLSearchParams(window.location.search);
-      const siteSlug = params.get('site') || '';
+      let siteSlug = '';
 
-      function slugToTitle(slug: string): string {
-        return slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-      }
+      // "Find My Site" — fetch site list, validate slug, show form
+      document.getElementById('find-btn')!.addEventListener('click', async () => {
+        const input = (document.getElementById('site-slug-input') as HTMLInputElement).value.trim();
+        if (!input) return;
+        document.getElementById('slug-error')!.classList.add('hidden');
 
-      if (!siteSlug) {
-        document.getElementById('no-site')!.classList.remove('hidden');
-      } else {
-        document.getElementById('site-label')!.textContent = `Updating: ${slugToTitle(siteSlug)}`;
-        document.getElementById('update-section')!.classList.remove('hidden');
-      }
+        try {
+          const resp  = await fetch('/api/tools-site-update');
+          const sites: { slug: string; title: string }[] = await resp.json();
+          const match = sites.find(s => s.slug === input);
+          if (!match) {
+            document.getElementById('slug-error')!.classList.remove('hidden');
+            return;
+          }
+          siteSlug = match.slug;
+          document.getElementById('site-label')!.textContent = `Updating: ${match.title}`;
+          document.getElementById('slug-entry')!.classList.add('hidden');
+          document.getElementById('update-section')!.classList.remove('hidden');
+        } catch {
+          document.getElementById('slug-error')!.classList.remove('hidden');
+        }
+      });
 
       document.getElementById('update-form')!.addEventListener('submit', async (e) => {
         e.preventDefault();
