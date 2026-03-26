@@ -198,6 +198,12 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-pink-400" />
             <p class="text-xs text-stone-400 mt-1">Directory name under /home/deploy/Sites/ — same as the GitHub repo name.</p>
           </div>
+          <div>
+            <label for="plqa-title" class="block text-sm font-semibold text-stone-700 mb-2">Client / Site Name</label>
+            <input type="text" id="plqa-title" required placeholder="Scripture Alive"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+            <p class="text-xs text-stone-400 mt-1">Used as the title on the developer action report Google Doc.</p>
+          </div>
           <button type="submit" id="plqa-btn"
             class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Run Post-Launch QA
@@ -226,6 +232,13 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               <p class="text-sm font-bold text-green-800 mb-2">Auto-fixes committed to dev</p>
               <ul id="plqa-fix-list" class="space-y-1 text-sm text-green-700 list-disc list-inside"></ul>
               <p id="plqa-commit" class="text-xs text-green-600 font-mono mt-2"></p>
+            </div>
+            <div id="plqa-doc-box" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <p class="text-sm font-bold text-blue-800 mb-2">Developer Action Report</p>
+              <a id="plqa-doc-link" href="#" target="_blank" rel="noopener"
+                class="inline-flex items-center gap-2 text-sm text-blue-700 underline font-medium">
+                Open in Google Docs →
+              </a>
             </div>
           </div>
           <div id="plqa-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -858,6 +871,7 @@ if (!(window as any).__portalInitialized) {
     e.preventDefault();
     const url = (document.getElementById('plqa-url') as HTMLInputElement).value.trim();
     const repoSlug = (document.getElementById('plqa-slug') as HTMLInputElement).value.trim();
+    const siteTitle = (document.getElementById('plqa-title') as HTMLInputElement).value.trim();
     const btn = document.getElementById('plqa-btn') as HTMLButtonElement;
     btn.disabled = true; btn.textContent = 'Running…';
 
@@ -872,14 +886,14 @@ if (!(window as any).__portalInitialized) {
       const start = await (await fetch('/api/tools-post-launch-qa', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url, repo_slug: repoSlug }),
+        body: JSON.stringify({ url, repo_slug: repoSlug, site_title: siteTitle }),
       })).json();
       if (start.error) throw new Error(start.error);
 
       const poll = async (): Promise<void> => {
         await new Promise(r => setTimeout(r, 5000));
         const job = await (await fetch(`/api/tools-post-launch-qa?job_id=${start.job_id}`)).json();
-        if (job.status === 'pending' || job.status === 'auditing' || job.status === 'fixing') {
+        if (['pending', 'auditing', 'fixing', 'generating_report'].includes(job.status)) {
           statusText.textContent = job.message || `${job.status}…`;
           return poll();
         }
@@ -889,21 +903,23 @@ if (!(window as any).__portalInitialized) {
           document.getElementById('plqa-error-text')!.textContent = job.error || 'Unknown error';
         } else {
           document.getElementById('plqa-result')!.classList.remove('hidden');
-          const mob = job.audit?.psi_mobile?.performance ?? '—';
-          const desk = job.audit?.psi_desktop?.performance ?? '—';
+          const mob = job.psi_mobile?.performance ?? '—';
+          const desk = job.psi_desktop?.performance ?? '—';
           const mobEl = document.getElementById('plqa-mobile-score')!;
           const deskEl = document.getElementById('plqa-desktop-score')!;
           mobEl.textContent = String(mob);
           mobEl.className = `text-3xl font-bold ${typeof mob === 'number' ? scoreColor(mob) : 'text-stone-400'}`;
           deskEl.textContent = String(desk);
           deskEl.className = `text-3xl font-bold ${typeof desk === 'number' ? scoreColor(desk) : 'text-stone-400'}`;
-          renderChecks(job.audit?.pages || []);
-          const fixes = job.fixes;
-          if (fixes?.fixes_applied > 0) {
+          if (job.fixes_applied > 0) {
             document.getElementById('plqa-fixes-box')!.classList.remove('hidden');
-            document.getElementById('plqa-fix-list')!.innerHTML =
-              (fixes.fix_list || []).map((f: string) => `<li>${f}</li>`).join('');
-            if (fixes.commit) document.getElementById('plqa-commit')!.textContent = `Committed: ${fixes.commit}`;
+            if (job.fix_commit) document.getElementById('plqa-commit')!.textContent = `Committed: ${job.fix_commit}`;
+          }
+          if (job.doc_url) {
+            document.getElementById('plqa-doc-box')!.classList.remove('hidden');
+            const link = document.getElementById('plqa-doc-link') as HTMLAnchorElement;
+            link.href = job.doc_url;
+            link.textContent = job.doc_title || 'Open Developer Action Report →';
           }
         }
         btn.disabled = false; btn.textContent = 'Run Post-Launch QA';
