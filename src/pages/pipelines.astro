@@ -558,25 +558,33 @@ if (!(window as any).__portalInitialized) {
     ['bootstrap-result','bootstrap-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
     try {
       const resp = await fetch('/api/tools-bootstrap', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug, title, client_url: clientUrl }) });
-      const data = await resp.json();
-      document.getElementById('bootstrap-spinner')!.classList.add('hidden');
-      if (data.error) {
-        document.getElementById('bootstrap-error')!.classList.remove('hidden');
-        document.getElementById('bootstrap-error-text')!.textContent = data.error + (data.log ? '\n\n' + data.log : '');
-      } else {
-        document.getElementById('bootstrap-result')!.classList.remove('hidden');
-        (document.getElementById('bootstrap-slug-echo') as HTMLElement).textContent = slug;
-        document.getElementById('bootstrap-links')!.innerHTML = [
-          { label: 'GitHub', url: data.github }, { label: 'Netlify Preview', url: data.netlify_url }, { label: 'Sanity Studio', url: data.sanity_studio },
-        ].filter((l: any) => l.url).map((l: any) => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`).join('');
-        await loadProjects();
-      }
+      const start = await resp.json();
+      if (start.error) throw new Error(start.error);
+      const poll = async (): Promise<void> => {
+        await new Promise(r => setTimeout(r, 4000));
+        const job = await (await fetch(`/api/tools-bootstrap-status?job_id=${start.job_id}`)).json();
+        if (job.status === 'pending') return poll();
+        document.getElementById('bootstrap-spinner')!.classList.add('hidden');
+        if (job.status === 'failed') {
+          document.getElementById('bootstrap-error')!.classList.remove('hidden');
+          document.getElementById('bootstrap-error-text')!.textContent = job.log || 'Bootstrap failed.';
+        } else {
+          document.getElementById('bootstrap-result')!.classList.remove('hidden');
+          (document.getElementById('bootstrap-slug-echo') as HTMLElement).textContent = slug;
+          document.getElementById('bootstrap-links')!.innerHTML = [
+            { label: 'GitHub', url: job.github }, { label: 'Netlify Preview', url: job.netlify_url }, { label: 'Sanity Studio', url: job.sanity_studio },
+          ].filter((l: any) => l.url).map((l: any) => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`).join('');
+          await loadProjects();
+        }
+        btn.disabled = false; btn.textContent = 'Initiate Build — Phase 1';
+      };
+      poll();
     } catch (err: any) {
       document.getElementById('bootstrap-spinner')!.classList.add('hidden');
       document.getElementById('bootstrap-error')!.classList.remove('hidden');
       document.getElementById('bootstrap-error-text')!.textContent = err.message;
+      btn.disabled = false; btn.textContent = 'Initiate Build — Phase 1';
     }
-    btn.disabled = false; btn.textContent = 'Initiate Build — Phase 1';
   });
 
   // ── 3. Pre-Launch QA ─────────────────────────────────────────
