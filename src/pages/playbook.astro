@@ -204,6 +204,45 @@ SMP Team</div>
         </div>
       </section>
 
+      <!-- Stitch — AI Design Tool -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-2">Stitch — AI Design Tool</h2>
+        <p class="text-stone-600 text-sm mb-4"><strong>Google Stitch 2.0</strong> is an AI-powered design tool available as an MCP server on Bethel. It is the standard SMP workflow for all new site builds, major redesigns, and new page layouts.</p>
+
+        <h3 class="font-bold text-stone-800 mb-2">When to Use Stitch</h3>
+        <ul class="space-y-1 text-stone-600 text-sm mb-4">
+          <li>&bull; New site builds (Phase 3 — Design &amp; Content)</li>
+          <li>&bull; Major redesigns of existing sites</li>
+          <li>&bull; New page layouts or landing pages</li>
+        </ul>
+
+        <h3 class="font-bold text-stone-800 mb-2">4-Step Design Workflow</h3>
+        <div class="space-y-3 mb-4">
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">1. Capture a style reference</p>
+            <p class="text-stone-500 text-xs">Screenshot or paste a URL into Stitch as the visual starting point.</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">2. Stitch generates a full page design</p>
+            <p class="text-stone-500 text-xs">Stitch creates the design and auto-generates a design system (colors, typography, component rules).</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">3. Export design.md</p>
+            <p class="text-stone-500 text-xs">Stitch outputs a <code class="bg-stone-100 px-1 rounded">design.md</code> file — keep it in the project root for reference.</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">4. Claude Code implements in Astro/Tailwind</p>
+            <p class="text-stone-500 text-xs">Hand the design.md to Claude Code. It builds the pages in Astro + Tailwind CSS to match the Stitch design.</p>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">Setup</h3>
+        <p class="text-stone-600 text-sm mb-2">Stitch is available in <strong>every site directory</strong> automatically via a <code class="bg-stone-100 px-1 rounded text-xs">.mcp.json</code> symlink. No setup needed — just start using the <code class="bg-stone-100 px-1 rounded text-xs">mcp__stitch__</code> tools in Claude Code.</p>
+        <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800">
+          Use <strong>Gemini 3.1 Pro</strong> in Stitch — not 3.0 Flash. This is set in the MCP config.
+        </div>
+      </section>
+
       <!-- Media -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Media</h2>
@@ -426,6 +465,112 @@ SMP Team</div>
             <p class="font-semibold text-stone-700 text-sm mb-1">New site auto-detection</p>
             <p class="text-stone-500 text-xs">A cron job runs at 4 AM UTC, scans <code class="bg-stone-100 px-1 rounded">~/Sites/</code>, and auto-adds new repos to the global CLAUDE.md.</p>
           </div>
+        </div>
+      </section>
+
+      <!-- MCP Tools Reference -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">MCP Tools Reference</h2>
+        <p class="text-stone-600 text-sm mb-4">All MCP servers and their tools are available to every developer on Bethel via <code class="bg-stone-100 px-2 py-1 rounded text-xs">.mcp.json</code> symlinked into every site directory. Config is gitignored (contains API keys). Setup is automatic — no developer action needed.</p>
+
+        <!-- Stitch -->
+        <div class="mb-6">
+          <h3 class="font-bold text-stone-800 mb-2">Stitch (AI Design) — Google Stitch 2.0</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left border border-stone-200 rounded">
+              <thead class="bg-stone-100">
+                <tr>
+                  <th class="px-3 py-2 text-stone-700 font-semibold">Tool</th>
+                  <th class="px-3 py-2 text-stone-700 font-semibold">Description</th>
+                </tr>
+              </thead>
+              <tbody class="text-stone-600">
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__create_project</td><td class="px-3 py-2">Create a new design project</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__generate_screen_from_text</td><td class="px-3 py-2">Generate a screen design from text description</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__create_design_system</td><td class="px-3 py-2">Create a design system (colors, typography, component rules)</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__apply_design_system</td><td class="px-3 py-2">Apply a design system to screens</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__edit_screens</td><td class="px-3 py-2">Edit existing screen designs</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__generate_variants</td><td class="px-3 py-2">Generate design variants</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__list_projects</td><td class="px-3 py-2">List all Stitch projects</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__list_screens</td><td class="px-3 py-2">List screens in a project</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__get_screen</td><td class="px-3 py-2">Get a specific screen</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__get_project</td><td class="px-3 py-2">Get project details</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__list_design_systems</td><td class="px-3 py-2">List available design systems</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__update_design_system</td><td class="px-3 py-2">Update a design system</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Sanity -->
+        <div class="mb-6">
+          <h3 class="font-bold text-stone-800 mb-2">Sanity (CMS) — Content Management</h3>
+          <p class="text-stone-500 text-sm mb-2">Remote MCP at <code class="bg-stone-100 px-1 rounded text-xs">mcp.sanity.io</code></p>
+          <p class="text-stone-600 text-sm">Content queries, document management, image assets, schema operations.</p>
+        </div>
+
+        <!-- Netlify -->
+        <div class="mb-6">
+          <h3 class="font-bold text-stone-800 mb-2">Netlify (Hosting) — Deploys &amp; Build Status</h3>
+          <p class="text-stone-600 text-sm">Site management, deploy triggers, build logs, environment variables.</p>
+        </div>
+
+        <!-- Cloudflare -->
+        <div class="mb-6">
+          <h3 class="font-bold text-stone-800 mb-2">Cloudflare (CDN/DNS) — DNS, SSL, R2 Storage</h3>
+          <p class="text-stone-600 text-sm">DNS records, SSL certificates, CDN rules, R2 bucket operations.</p>
+        </div>
+
+        <!-- Playwright -->
+        <div class="mb-6">
+          <h3 class="font-bold text-stone-800 mb-2">Playwright (Browser Testing) — Screenshots &amp; Testing</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left border border-stone-200 rounded">
+              <thead class="bg-stone-100">
+                <tr>
+                  <th class="px-3 py-2 text-stone-700 font-semibold">Tool</th>
+                  <th class="px-3 py-2 text-stone-700 font-semibold">Description</th>
+                </tr>
+              </thead>
+              <tbody class="text-stone-600">
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_navigate</td><td class="px-3 py-2">Navigate to URL</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_snapshot</td><td class="px-3 py-2">Capture accessibility snapshot</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_take_screenshot</td><td class="px-3 py-2">Take screenshot</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_click</td><td class="px-3 py-2">Click elements</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_fill_form</td><td class="px-3 py-2">Fill form fields</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_type</td><td class="px-3 py-2">Type text</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_press_key</td><td class="px-3 py-2">Press keyboard key</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_hover</td><td class="px-3 py-2">Hover over element</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_select_option</td><td class="px-3 py-2">Select dropdown option</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_evaluate</td><td class="px-3 py-2">Run JavaScript</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_console_messages</td><td class="px-3 py-2">Get console messages</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_network_requests</td><td class="px-3 py-2">Monitor network</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_tabs</td><td class="px-3 py-2">Manage tabs</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_close</td><td class="px-3 py-2">Close browser</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_navigate_back</td><td class="px-3 py-2">Go back</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_drag</td><td class="px-3 py-2">Drag elements</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_file_upload</td><td class="px-3 py-2">Upload files</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_handle_dialog</td><td class="px-3 py-2">Handle browser dialogs</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_resize</td><td class="px-3 py-2">Resize viewport</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_wait_for</td><td class="px-3 py-2">Wait for element/condition</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_run_code</td><td class="px-3 py-2">Run Playwright code</td></tr>
+                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_install</td><td class="px-3 py-2">Install browser</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- GoHighLevel -->
+        <div class="mb-6">
+          <h3 class="font-bold text-stone-800 mb-2">GoHighLevel (CRM) — Forms, Contacts, Marketing</h3>
+          <p class="text-stone-500 text-sm mb-2">Remote MCP at <code class="bg-stone-100 px-1 rounded text-xs">services.leadconnectorhq.com</code></p>
+          <p class="text-stone-600 text-sm">Contact management, form submissions, marketing automation, pipeline management.</p>
+        </div>
+
+        <!-- Google Docs -->
+        <div>
+          <h3 class="font-bold text-stone-800 mb-2">Google Docs — Documents &amp; Drafts</h3>
+          <p class="text-stone-600 text-sm">Document creation, reading, editing, formatting.</p>
         </div>
       </section>
 
