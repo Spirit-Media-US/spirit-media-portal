@@ -5,13 +5,13 @@ interface Props {
 	label?: string;
 }
 
-const { email, class: className, label } = Astro.props;
+const { email, label } = Astro.props;
 const [user, domain] = email.split("@");
 ---
 
 <a
   href="#"
-  class={className}
+  class={Astro.props.class}
   data-u={user}
   data-d={domain}
   role="link"
