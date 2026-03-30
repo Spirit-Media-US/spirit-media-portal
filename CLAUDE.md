@@ -9,6 +9,15 @@ This site: Spirit Media Portal | Repo: github.com/Spirit-Media-US/spirit-media-p
 - `npm run dev` — local preview at localhost:4326
 - `npm run build` — runs `astro check && astro build`
 
+## Mandatory — Before Starting Work
+Always start Claude sessions from inside this directory:
+```
+cd ~/Sites/spirit-media-portal && claude
+```
+Running Claude from ~/ or ~/Sites/ bypasses this project's CLAUDE.md. A pre-edit hook enforces this, but following the workflow prevents warnings and ensures all project rules are loaded.
+
+Then run: `git checkout dev && git pull origin dev`
+
 ## Architecture
 
 - PIN-protected internal tool (PIN: 060622) — not a public site

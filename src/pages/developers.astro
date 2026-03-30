@@ -48,13 +48,40 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               <tr class="border-b border-stone-100"><td class="py-2 pr-4">Kevin White</td><td class="py-2 pr-4 font-mono text-xs">kevin</td><td class="py-2 pr-4">Owner</td><td class="py-2 font-mono text-xs">4321&ndash;4340</td></tr>
               <tr class="border-b border-stone-100"><td class="py-2 pr-4">Nathan Bost</td><td class="py-2 pr-4 font-mono text-xs">nathan</td><td class="py-2 pr-4">Technical / Git</td><td class="py-2 font-mono text-xs">4341&ndash;4360</td></tr>
               <tr class="border-b border-stone-100"><td class="py-2 pr-4">Jufrey</td><td class="py-2 pr-4 font-mono text-xs">jufrey</td><td class="py-2 pr-4">Web Developer</td><td class="py-2 font-mono text-xs">4361&ndash;4380</td></tr>
-              <tr class="border-b border-stone-100"><td class="py-2 pr-4">Justin Keishing</td><td class="py-2 pr-4 font-mono text-xs">justin</td><td class="py-2 pr-4">Team Member</td><td class="py-2 font-mono text-xs">4381&ndash;4400</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">Justin Keishing</td><td class="py-2 pr-4 font-mono text-xs">justin</td><td class="py-2 pr-4">Artist (Arts by Justin)</td><td class="py-2 font-mono text-xs">4381&ndash;4400</td></tr>
               <tr class="border-b border-stone-100"><td class="py-2 pr-4">GHL Support</td><td class="py-2 pr-4 font-mono text-xs">support</td><td class="py-2 pr-4">GHL / CRM</td><td class="py-2 font-mono text-xs">&mdash;</td></tr>
               <tr><td class="py-2 pr-4">Deploy</td><td class="py-2 pr-4 font-mono text-xs">deploy</td><td class="py-2 pr-4">Shared service account — secrets, config, all repos</td><td class="py-2 font-mono text-xs">&mdash;</td></tr>
             </tbody>
           </table>
         </div>
         <p class="text-stone-500 text-xs mt-3">Preview ports prevent conflicts when multiple developers run dev servers simultaneously.</p>
+        <p class="text-stone-500 text-xs mt-1"><strong>Request routing:</strong> All requests (content, design, builds, deploys, client work) route through Kevin White.</p>
+
+        <h3 class="font-bold text-stone-800 mt-6 mb-3">Per-Site Port Allocation</h3>
+        <p class="text-stone-600 text-sm mb-3">Each site has a dedicated dev server port on Bethel:</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-stone-200">
+                <th class="text-left py-2 pr-4 text-stone-500 font-semibold">Site</th>
+                <th class="text-left py-2 text-stone-500 font-semibold">Port</th>
+              </tr>
+            </thead>
+            <tbody class="text-stone-700">
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">SMP</td><td class="py-2 font-mono text-xs">4321</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">artsbyjustin</td><td class="py-2 font-mono text-xs">4322</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">FHB</td><td class="py-2 font-mono text-xs">4323</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">WOY</td><td class="py-2 font-mono text-xs">4324</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">The Kohler Group</td><td class="py-2 font-mono text-xs">4325</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">Portal</td><td class="py-2 font-mono text-xs">4326</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">Tools API</td><td class="py-2 font-mono text-xs">4327 <span class="text-stone-400">(reserved)</span></td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">clowning-from-the-heart</td><td class="py-2 font-mono text-xs">4328</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">scripture-alive</td><td class="py-2 font-mono text-xs">4329</td></tr>
+              <tr class="border-b border-stone-100"><td class="py-2 pr-4">10-billion-travelers</td><td class="py-2 font-mono text-xs">4330</td></tr>
+              <tr><td class="py-2 pr-4">john-watts-agency</td><td class="py-2 font-mono text-xs">4331</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- Managing Users -->
@@ -168,7 +195,8 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">clowning-from-the-heart</code></li>
             <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">scripture-alive</code></li>
             <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">10-billion-travelers</code></li>
-            <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">tools-api</code> (Flask pipeline server — private)</li>
+            <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">john-watts-agency</code></li>
+            <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">tools-api</code> (pipeline server — private)</li>
             <li>• <code class="bg-stone-100 px-2 py-1 rounded text-xs">spirit-media-portal</code> (this site)</li>
           </ul>
         </div>
@@ -276,6 +304,42 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           <li>Add a header: who created it, last updated, what it's for</li>
           <li>Requires deploy group membership (ask Kevin)</li>
         </ul>
+      </section>
+
+      <!-- New Rules (March 2026) -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">New Rules <span class="text-sm font-normal text-stone-500">(March 2026)</span></h2>
+        <p class="text-stone-600 mb-4">Mandatory rules established 2026-03-30. These apply to all sessions and all developers.</p>
+        <div class="space-y-4">
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Mandatory startup</p>
+            <p class="text-stone-600 text-sm">Always <code class="bg-stone-100 px-2 py-1 rounded text-xs">cd ~/Sites/(slug) && claude</code> before working on any site. Running Claude from <code class="bg-stone-100 px-1 rounded text-xs">~/</code> or <code class="bg-stone-100 px-1 rounded text-xs">~/Sites/</code> is blocked.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Pre-edit hook</p>
+            <p class="text-stone-600 text-sm">A hook in <code class="bg-stone-100 px-1 rounded text-xs">settings.json</code> blocks edits to site files when CWD is <code class="bg-stone-100 px-1 rounded text-xs">~/</code> or <code class="bg-stone-100 px-1 rounded text-xs">~/Sites/</code>. This prevents bypassing per-project CLAUDE.md rules.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Session hook</p>
+            <p class="text-stone-600 text-sm">Warns when a site directory is not listed in the global CLAUDE.md.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">New site auto-detection</p>
+            <p class="text-stone-600 text-sm">A cron job runs at 4 AM UTC, scans <code class="bg-stone-100 px-1 rounded text-xs">~/Sites/</code>, and auto-adds new repos to the global CLAUDE.md.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">MailtoLink required</p>
+            <p class="text-stone-600 text-sm">Every site must have a <code class="bg-stone-100 px-1 rounded text-xs">MailtoLink</code> component. Bare <code class="bg-stone-100 px-1 rounded text-xs">mailto:</code> links are banned.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">CSP required</p>
+            <p class="text-stone-600 text-sm">Every site must have a <code class="bg-stone-100 px-1 rounded text-xs">netlify.toml</code> with <code class="bg-stone-100 px-1 rounded text-xs">[[headers]]</code> including <code class="bg-stone-100 px-1 rounded text-xs">Content-Security-Policy</code>.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Sanity tokens are project-scoped</p>
+            <p class="text-stone-600 text-sm">Each Sanity project needs its own write token in <code class="bg-stone-100 px-1 rounded text-xs">.secrets</code>. Do not share tokens across projects.</p>
+          </div>
+        </div>
       </section>
 
       <!-- Support -->
