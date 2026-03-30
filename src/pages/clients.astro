@@ -1,6 +1,7 @@
 ---
 // PIN-PROTECTED — see middleware.ts (PIN: 060622)
 import "../styles/globals.css";
+import MailtoLink from "../components/MailtoLink.astro";
 ---
 
 <!DOCTYPE html>
@@ -8,6 +9,7 @@ import "../styles/globals.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
     <title>Spirit Media Publishing - Client Guide</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -126,7 +128,7 @@ import "../styles/globals.css";
                     Find My Site
                   </button>
                 </div>
-                <div id="slug-error" class="hidden text-red-600 text-xs">Slug not found. Check your spelling or email <a href="mailto:hello@spiritmediapublishing.com" class="underline">hello@spiritmediapublishing.com</a> for your slug.</div>
+                <div id="slug-error" class="hidden text-red-600 text-xs">Slug not found. Check your spelling or email <MailtoLink email="hello@spiritmediapublishing.com" class="underline" /> for your slug.</div>
               </div>
 
               <div id="update-section" class="hidden">
@@ -196,7 +198,7 @@ import "../styles/globals.css";
                 </ul>
               </div>
               <p class="text-stone-500 text-sm mt-4">
-                Email your SMP contact or reach us at <a href="mailto:hello@spiritmediapublishing.com" class="text-rose-700 hover:underline font-semibold">hello@spiritmediapublishing.com</a>
+                Email your SMP contact or reach us at <MailtoLink email="hello@spiritmediapublishing.com" class="text-rose-700 hover:underline font-semibold" />
               </p>
             </div>
           </section>
@@ -215,7 +217,7 @@ import "../styles/globals.css";
               </div>
               <div class="flex justify-between items-center">
                 <span class="font-semibold text-rose-800">SMP Team</span>
-                <a href="mailto:hello@spiritmediapublishing.com" class="text-rose-700 hover:underline text-sm">hello@spiritmediapublishing.com</a>
+                <MailtoLink email="hello@spiritmediapublishing.com" class="text-rose-700 hover:underline text-sm" />
               </div>
             </div>
           </div>
