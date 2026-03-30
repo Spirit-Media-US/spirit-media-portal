@@ -177,7 +177,7 @@ SMP Team</div>
         <!-- Tools integration -->
         <div class="mt-4 pt-4 border-t border-stone-200">
           <h3 class="font-bold text-stone-800 mb-3">How the Tools Page Automates This</h3>
-          <p class="text-stone-500 text-xs mb-3">Three tools on the <a href="/templates" class="text-red-700 hover:underline">Templates page</a> cover the first three decision points in the protocol:</p>
+          <p class="text-stone-500 text-xs mb-3">Three tools on the <a href="/pipelines" class="text-red-700 hover:underline">Pipelines page</a> cover the first three decision points in the protocol:</p>
           <div class="space-y-2">
             <div class="flex gap-3 bg-stone-50 border border-stone-200 rounded p-3">
               <div class="shrink-0 text-red-700 font-bold text-sm">Step 1</div>
@@ -394,6 +394,38 @@ SMP Team</div>
         <h3 class="font-bold text-stone-800 mb-2">Downtime Response</h3>
         <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800">
           <strong>If you receive a downtime alert:</strong> Do not push a new build. First check if the issue resolves on its own within 2 minutes (Netlify occasionally has brief hiccups). If the site is still down after 5 minutes, contact Kevin immediately.
+        </div>
+      </section>
+
+      <!-- New Rules (March 2026) -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">New Rules <span class="text-sm font-normal text-stone-500">(March 2026)</span></h2>
+        <p class="text-stone-600 text-sm mb-4">Mandatory rules established 2026-03-30. These apply to all sessions, all developers, and all sites.</p>
+        <div class="space-y-3">
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Mandatory cd-then-claude startup</p>
+            <p class="text-stone-500 text-xs">Always <code class="bg-stone-100 px-1 rounded">cd ~/Sites/(slug) && claude</code> before working on any site. Running Claude from <code class="bg-stone-100 px-1 rounded">~/</code> or <code class="bg-stone-100 px-1 rounded">~/Sites/</code> is blocked.</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Pre-edit hook enforcement</p>
+            <p class="text-stone-500 text-xs">A hook in <code class="bg-stone-100 px-1 rounded">settings.json</code> blocks edits to site files when CWD is <code class="bg-stone-100 px-1 rounded">~/</code> or <code class="bg-stone-100 px-1 rounded">~/Sites/</code>. This prevents bypassing per-project CLAUDE.md rules.</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">MailtoLink component standard</p>
+            <p class="text-stone-500 text-xs">Every site must have a <code class="bg-stone-100 px-1 rounded">MailtoLink</code> component. Bare <code class="bg-stone-100 px-1 rounded">mailto:</code> links are banned.</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">CSP headers required</p>
+            <p class="text-stone-500 text-xs">Every site must have a <code class="bg-stone-100 px-1 rounded">netlify.toml</code> with <code class="bg-stone-100 px-1 rounded">[[headers]]</code> including <code class="bg-stone-100 px-1 rounded">Content-Security-Policy</code>.</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Project-scoped Sanity tokens</p>
+            <p class="text-stone-500 text-xs">Each Sanity project needs its own write token in <code class="bg-stone-100 px-1 rounded">.secrets</code>. Do not share tokens across projects.</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">New site auto-detection</p>
+            <p class="text-stone-500 text-xs">A cron job runs at 4 AM UTC, scans <code class="bg-stone-100 px-1 rounded">~/Sites/</code>, and auto-adds new repos to the global CLAUDE.md.</p>
+          </div>
         </div>
       </section>
 
