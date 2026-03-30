@@ -1,0 +1,31 @@
+---
+interface Props {
+	email: string;
+	class?: string;
+	label?: string;
+}
+
+const { email, class: className, label } = Astro.props;
+const [user, domain] = email.split("@");
+---
+
+<a
+  href="#"
+  class={className}
+  data-u={user}
+  data-d={domain}
+  role="link"
+>{label || email}</a>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>("a[data-u][data-d]").forEach((el) => {
+    const u = el.getAttribute("data-u");
+    const d = el.getAttribute("data-d");
+    if (u && d) {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = `mailto:${u}@${d}`;
+      });
+    }
+  });
+</script>

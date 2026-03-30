@@ -1,6 +1,7 @@
 ---
 // PUBLIC PAGE - NO AUTH REQUIRED
 import "../styles/globals.css";
+import MailtoLink from "../components/MailtoLink.astro";
 ---
 
 <!DOCTYPE html>
@@ -8,6 +9,7 @@ import "../styles/globals.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
     <title>Request a Site Update — Spirit Media Publishing</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,7 +31,7 @@ import "../styles/globals.css";
           <p class="text-4xl mb-4">🔒</p>
           <h1 class="text-2xl font-bold text-stone-800 mb-2">No site found</h1>
           <p class="text-stone-500">This link doesn&rsquo;t match any site we have on file.<br/>Contact SMP to get your personalized update link.</p>
-          <a href="mailto:hello@spiritmediapublishing.com" class="inline-block mt-6 px-5 py-2 bg-red-700 text-white rounded-lg font-semibold text-sm hover:bg-red-800 transition-colors">Contact SMP</a>
+          <MailtoLink email="hello@spiritmediapublishing.com" label="Contact SMP" class="inline-block mt-6 px-5 py-2 bg-red-700 text-white rounded-lg font-semibold text-sm hover:bg-red-800 transition-colors" />
         </div>
 
         <!-- Loading state -->
@@ -70,7 +72,7 @@ import "../styles/globals.css";
             <div id="ambiguous" class="hidden p-5 bg-amber-50 border border-amber-200 rounded-lg">
               <p class="text-sm font-semibold text-amber-800 mb-1">We need a little more detail</p>
               <p id="ambiguous-text" class="text-sm text-amber-700"></p>
-              <p class="text-xs text-amber-600 mt-2">Try rephrasing your request with more specifics, or email us at <a href="mailto:hello@spiritmediapublishing.com" class="underline font-semibold">hello@spiritmediapublishing.com</a>.</p>
+              <p class="text-xs text-amber-600 mt-2">Try rephrasing your request with more specifics, or email us at <MailtoLink email="hello@spiritmediapublishing.com" class="underline font-semibold" />.</p>
             </div>
             <div id="error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
               <p class="text-sm font-semibold text-red-800 mb-1">Something went wrong</p>
@@ -87,7 +89,7 @@ import "../styles/globals.css";
 
       <footer class="border-t border-stone-200 mt-12">
         <div class="max-w-2xl mx-auto px-6 py-6 text-center text-stone-400 text-xs">
-          Spirit Media Publishing &copy; 2026 &mdash; <a href="mailto:hello@spiritmediapublishing.com" class="hover:underline">hello@spiritmediapublishing.com</a>
+          Spirit Media Publishing &copy; 2026 &mdash; <MailtoLink email="hello@spiritmediapublishing.com" class="hover:underline" />
         </div>
       </footer>
     </div>

@@ -1,5 +1,7 @@
 ---
 import "../styles/globals.css";
+import MailtoLink from "../components/MailtoLink.astro";
+
 const error = Astro.url.searchParams.get("error");
 const next = Astro.url.searchParams.get("next") || "/clients";
 ---
@@ -8,6 +10,7 @@ const next = Astro.url.searchParams.get("next") || "/clients";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
     <title>Client Login | Spirit Media Publishing</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,7 +29,7 @@ const next = Astro.url.searchParams.get("next") || "/clients";
           <button type="submit">Continue</button>
         </form>
 
-        <p class="foot">Need help? <a href="mailto:hello@spiritmediapublishing.com">hello@spiritmediapublishing.com</a></p>
+        <p class="foot">Need help? <MailtoLink email="hello@spiritmediapublishing.com" /></p>
       </div>
     </div>
   </body>
