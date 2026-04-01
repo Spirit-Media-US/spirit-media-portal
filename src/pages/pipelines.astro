@@ -8,13 +8,14 @@ import PortalLayout from "../layouts/PortalLayout.astro";
     <p class="text-stone-600 mb-10">Automated tools organized by department.</p>
 
     <!-- ══════════════════════════════════════════════════════════
-         WEB DEV — pink
+         WEBSITE MIGRATION — rose
     ═══════════════════════════════════════════════════════════ -->
     <div class="mb-12">
       <div class="flex items-center gap-3 mb-6">
-        <span class="inline-block px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-bold uppercase tracking-widest">Web Dev</span>
+        <span class="inline-block px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-bold uppercase tracking-widest">Website Migration</span>
         <div class="flex-1 border-t border-rose-200"></div>
       </div>
+      <p class="text-stone-500 text-sm mb-6 -mt-2">Migrate an existing client website to the SMP stack. 9 AI-powered phases — see <a href="/playbook" class="text-rose-700 hover:underline">Playbook</a> for full protocol.</p>
 
       <!-- Step 1: Website Migration Proposal -->
       <div class="bg-rose-50 rounded-2xl border border-rose-200 p-8 mb-6 shadow-sm">
@@ -131,6 +132,108 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
         </div>
       </div>
+
+    </div><!-- end Website Migration -->
+
+    <!-- ══════════════════════════════════════════════════════════
+         NEW SITE BUILD — teal
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-xs font-bold uppercase tracking-widest">New Site Build</span>
+        <div class="flex-1 border-t border-teal-200"></div>
+      </div>
+      <p class="text-stone-500 text-sm mb-6 -mt-2">Build a brand new website from scratch on the SMP stack. 9 AI-powered phases — see <a href="/playbook" class="text-teal-700 hover:underline">Playbook</a> for full protocol.</p>
+
+      <!-- New Site Step 1: Bootstrap -->
+      <div class="bg-teal-50 rounded-2xl border border-teal-200 p-8 mb-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-700 text-xs font-bold flex items-center justify-center shrink-0">1</span>
+          <h2 class="text-2xl font-bold">Initiate New Site Build</h2>
+        </div>
+        <p class="text-stone-500 text-sm mb-6 ml-10">Start a brand new site. Creates the GitHub repo, Sanity project, and Netlify site — fully automated. No existing site URL needed.</p>
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="ns-build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
+              <input id="ns-build-title" type="text" placeholder="Global Hope India"
+                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-teal-300" />
+            </div>
+            <div>
+              <label for="ns-build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Slug</label>
+              <input id="ns-build-slug" type="text" placeholder="global-hope-india"
+                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 font-mono focus:outline-none focus:ring-2 focus:ring-teal-300" />
+            </div>
+          </div>
+          <button id="ns-bootstrap-btn"
+            class="w-full bg-teal-200 hover:bg-teal-300 text-teal-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Initiate Build — Phase 2
+          </button>
+        </div>
+        <div id="ns-bootstrap-status" class="hidden mt-5">
+          <div id="ns-bootstrap-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
+            <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span>Creating infrastructure — GitHub, Sanity, Netlify... (~2 min)</span>
+          </div>
+          <div id="ns-bootstrap-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-3">
+            <p class="text-sm font-bold text-green-800">Phase 2 complete! Project added to dashboard.</p>
+            <div id="ns-bootstrap-links" class="space-y-1.5"></div>
+            <p class="text-xs text-stone-500">Next: SSH into Bethel, <code class="bg-stone-100 px-1 rounded">cd ~/Sites/<span id="ns-bootstrap-slug-echo"></span></code>, run <code class="bg-stone-100 px-1 rounded">claude</code>, begin Phase 3 (Design System via Stitch).</p>
+          </div>
+          <div id="ns-bootstrap-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+            <p id="ns-bootstrap-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Site Step 2: Pre-Launch QA -->
+      <div class="bg-teal-50 rounded-2xl border border-teal-200 p-8 mb-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-700 text-xs font-bold flex items-center justify-center shrink-0">2</span>
+          <h2 class="text-2xl font-bold">Pre-Launch QA</h2>
+        </div>
+        <p class="text-stone-500 text-sm mb-6 ml-10">Run after the CAR gate (Phase 5). Scans for hardcoded colors, missing alt text, missing SEO meta, dev URLs, broken links, and placeholder content.</p>
+        <div class="space-y-4">
+          <div>
+            <label for="ns-qa-project" class="block text-sm font-semibold text-stone-700 mb-1">Project</label>
+            <select id="ns-qa-project"
+              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-teal-300 bg-white">
+              <option value="">Loading projects...</option>
+            </select>
+          </div>
+          <button id="ns-qa-btn"
+            class="w-full bg-teal-200 hover:bg-teal-300 text-teal-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Run Pre-Launch QA
+          </button>
+        </div>
+        <div id="ns-qa-status" class="hidden mt-5">
+          <div id="ns-qa-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
+            <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span>Running scans...</span>
+          </div>
+          <div id="ns-qa-result" class="hidden">
+            <div id="ns-qa-summary" class="mb-4 p-4 rounded-lg text-sm font-semibold"></div>
+            <div id="ns-qa-scans" class="space-y-3"></div>
+          </div>
+          <div id="ns-qa-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+            <p id="ns-qa-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end New Site Build -->
+
+    <!-- ══════════════════════════════════════════════════════════
+         SHARED WEB DEV TOOLS — stone
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-block px-3 py-1 rounded-full bg-stone-200 text-stone-700 text-xs font-bold uppercase tracking-widest">Shared Tools</span>
+        <div class="flex-1 border-t border-stone-300"></div>
+      </div>
+      <p class="text-stone-500 text-sm mb-6 -mt-2">Tools that work for both migration and new site projects.</p>
 
       <!-- Site Updates -->
       <div class="bg-rose-50 rounded-2xl border border-rose-200 p-8 mb-6 shadow-sm">
@@ -295,7 +398,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         </div>
       </div>
 
-    </div><!-- end Web Dev -->
+    </div><!-- end Shared Tools -->
 
     <!-- ══════════════════════════════════════════════════════════
          PUBLISHING — blue
@@ -493,11 +596,19 @@ if (!(window as any).__portalInitialized) {
   }
 
   function populateQADropdown() {
+    // Migration QA dropdown — only migration projects
     const sel = document.getElementById('qa-project') as HTMLSelectElement;
-    const eligible = allProjects.filter(p => ['built', 'qa_failed', 'qa_passed'].includes(p.status));
-    if (!eligible.length) { sel.innerHTML = '<option value="">No projects with completed builds yet</option>'; return; }
+    const migrationEligible = allProjects.filter(p => ['built', 'qa_failed', 'qa_passed'].includes(p.status) && (p.pipeline === 'migration' || !p.pipeline));
+    if (!migrationEligible.length) { sel.innerHTML = '<option value="">No migration projects with completed builds yet</option>'; return; }
     sel.innerHTML = '<option value="">Select a project…</option>' +
-      eligible.map(p => `<option value="${p.id}">${p.title} (${statusLabel(p.status)})</option>`).join('');
+      migrationEligible.map(p => `<option value="${p.id}">${p.title} (${statusLabel(p.status)})</option>`).join('');
+
+    // New Site QA dropdown — only newsite projects
+    const nsSel = document.getElementById('ns-qa-project') as HTMLSelectElement;
+    const newsiteEligible = allProjects.filter(p => ['built', 'qa_failed', 'qa_passed'].includes(p.status) && p.pipeline === 'newsite');
+    if (!newsiteEligible.length) { nsSel.innerHTML = '<option value="">No new site projects with completed builds yet</option>'; return; }
+    nsSel.innerHTML = '<option value="">Select a project…</option>' +
+      newsiteEligible.map(p => `<option value="${p.id}">${p.title} (${statusLabel(p.status)})</option>`).join('');
   }
 
   // ── 1. Proposal ──────────────────────────────────────────────
@@ -624,6 +735,96 @@ if (!(window as any).__portalInitialized) {
       document.getElementById('qa-spinner')!.classList.add('hidden');
       document.getElementById('qa-error')!.classList.remove('hidden');
       document.getElementById('qa-error-text')!.textContent = err.message;
+    }
+    btn.disabled = false; btn.textContent = 'Run Pre-Launch QA';
+  });
+
+  // ── New Site Bootstrap ───────────────────────────────────────
+  document.getElementById('ns-build-title')!.addEventListener('input', (e) => {
+    const slugEl = document.getElementById('ns-build-slug') as HTMLInputElement;
+    if (!slugEl.dataset.manualEdit)
+      slugEl.value = (e.target as HTMLInputElement).value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  });
+  document.getElementById('ns-build-slug')!.addEventListener('input', (e) => { (e.target as HTMLInputElement).dataset.manualEdit = '1'; });
+
+  document.getElementById('ns-bootstrap-btn')!.addEventListener('click', async () => {
+    const title = (document.getElementById('ns-build-title') as HTMLInputElement).value.trim();
+    const slug  = (document.getElementById('ns-build-slug') as HTMLInputElement).value.trim();
+    if (!title || !slug) { alert('Site Name and Slug are required.'); return; }
+    if (!confirm(`Launch new site build for "${title}" (${slug})?\n\nCreates:\n• GitHub: Spirit-Media-US/${slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
+    const btn = document.getElementById('ns-bootstrap-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Building…';
+    document.getElementById('ns-bootstrap-status')!.classList.remove('hidden');
+    document.getElementById('ns-bootstrap-spinner')!.classList.remove('hidden');
+    ['ns-bootstrap-result','ns-bootstrap-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+    try {
+      const resp = await fetch('/api/tools-newsite-bootstrap', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug, title }) });
+      const start = await resp.json();
+      if (start.error) throw new Error(start.error);
+      const poll = async (): Promise<void> => {
+        await new Promise(r => setTimeout(r, 4000));
+        const job = await (await fetch(`/api/tools-newsite-bootstrap-status?job_id=${start.job_id}`)).json();
+        if (job.status === 'pending') return poll();
+        document.getElementById('ns-bootstrap-spinner')!.classList.add('hidden');
+        if (job.status === 'failed') {
+          document.getElementById('ns-bootstrap-error')!.classList.remove('hidden');
+          document.getElementById('ns-bootstrap-error-text')!.textContent = job.log || 'Bootstrap failed.';
+        } else {
+          document.getElementById('ns-bootstrap-result')!.classList.remove('hidden');
+          (document.getElementById('ns-bootstrap-slug-echo') as HTMLElement).textContent = slug;
+          document.getElementById('ns-bootstrap-links')!.innerHTML = [
+            { label: 'GitHub', url: job.github }, { label: 'Netlify Preview', url: job.netlify_url }, { label: 'Sanity Studio', url: job.sanity_studio },
+          ].filter((l: any) => l.url).map((l: any) => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`).join('');
+          await loadProjects();
+        }
+        btn.disabled = false; btn.textContent = 'Initiate Build — Phase 2';
+      };
+      poll();
+    } catch (err: any) {
+      document.getElementById('ns-bootstrap-spinner')!.classList.add('hidden');
+      document.getElementById('ns-bootstrap-error')!.classList.remove('hidden');
+      document.getElementById('ns-bootstrap-error-text')!.textContent = err.message;
+      btn.disabled = false; btn.textContent = 'Initiate Build — Phase 2';
+    }
+  });
+
+  // ── New Site Pre-Launch QA ──────────────────────────────────
+  document.getElementById('ns-qa-btn')!.addEventListener('click', async () => {
+    const projectId = (document.getElementById('ns-qa-project') as HTMLSelectElement).value;
+    if (!projectId) { alert('Select a project first.'); return; }
+    const btn = document.getElementById('ns-qa-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Scanning…';
+    document.getElementById('ns-qa-status')!.classList.remove('hidden');
+    document.getElementById('ns-qa-spinner')!.classList.remove('hidden');
+    ['ns-qa-result','ns-qa-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+    try {
+      const resp = await fetch('/api/tools-newsite-prelaunch', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ project_id: projectId }) });
+      const data = await resp.json();
+      document.getElementById('ns-qa-spinner')!.classList.add('hidden');
+      if (data.error) {
+        document.getElementById('ns-qa-error')!.classList.remove('hidden');
+        document.getElementById('ns-qa-error-text')!.textContent = data.error;
+      } else {
+        document.getElementById('ns-qa-result')!.classList.remove('hidden');
+        const allPass = data.passed === data.total;
+        const summary = document.getElementById('ns-qa-summary')!;
+        summary.className = `mb-4 p-4 rounded-lg text-sm font-semibold ${allPass ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-amber-50 border border-amber-200 text-amber-800'}`;
+        summary.textContent = allPass ? `All ${data.total} scans passed.` : `${data.passed} of ${data.total} scans passed — fix all findings before delivery.`;
+        document.getElementById('ns-qa-scans')!.innerHTML = data.scans.map((s: any) => `
+          <div class="border border-stone-200 rounded-xl overflow-hidden">
+            <div class="flex items-center justify-between px-4 py-3 ${s.pass ? 'bg-green-50' : 'bg-red-50'} cursor-pointer ns-scan-toggle">
+              <span class="text-sm font-semibold ${s.pass ? 'text-green-800' : 'text-red-800'}">${s.pass ? '✅' : '❌'} ${s.name}</span>
+              ${!s.pass ? `<span class="text-xs text-red-600 font-mono">${s.findings.length} finding${s.findings.length !== 1 ? 's' : ''}</span>` : ''}
+            </div>
+            ${!s.pass && s.findings.length ? `<div class="px-4 py-3 bg-white hidden ns-scan-body"><ul class="space-y-1">${s.findings.map((f: string) => `<li class="text-xs font-mono text-stone-700 break-all">${f}</li>`).join('')}</ul></div>` : ''}
+          </div>`).join('');
+        document.querySelectorAll('.ns-scan-toggle').forEach(h => { h.addEventListener('click', () => { h.nextElementSibling?.classList.toggle('hidden'); }); });
+        await loadProjects();
+      }
+    } catch (err: any) {
+      document.getElementById('ns-qa-spinner')!.classList.add('hidden');
+      document.getElementById('ns-qa-error')!.classList.remove('hidden');
+      document.getElementById('ns-qa-error-text')!.textContent = err.message;
     }
     btn.disabled = false; btn.textContent = 'Run Pre-Launch QA';
   });
