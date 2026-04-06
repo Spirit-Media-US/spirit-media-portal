@@ -46,6 +46,18 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <p class="text-sm font-bold text-red-800 mb-1">Error</p>
             <p id="proposal-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
           </div>
+          <div id="proposal-challenge" class="hidden p-6 bg-amber-50 border border-amber-300 rounded-xl">
+            <p class="text-sm font-bold text-amber-800 mb-2">Cloudflare Verification Required</p>
+            <p class="text-xs text-stone-600 mb-3">This site requires human verification. Click the CAPTCHA checkbox in the image below to proceed.</p>
+            <div class="relative inline-block cursor-pointer border border-stone-300 rounded-lg overflow-hidden">
+              <img id="challenge-img" src="" alt="Cloudflare challenge" class="max-w-full" style="max-height: 500px;" />
+            </div>
+            <div class="mt-3 flex gap-3">
+              <button id="challenge-refresh" class="text-xs text-amber-700 underline hover:text-amber-900">Refresh Screenshot</button>
+              <button id="challenge-dismiss" class="text-xs text-red-600 underline hover:text-red-800">Skip (abort proposal)</button>
+            </div>
+            <p id="challenge-status-text" class="text-xs text-stone-500 mt-2">Click on the checkbox in the image above.</p>
+          </div>
         </div>
       </div>
 
@@ -645,11 +657,65 @@ if (!(window as any).__portalInitialized) {
       const resp = await fetch('/api/tools-proposal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url }) });
       const start = await resp.json();
       if (start.error) throw new Error(start.error);
+      let challengeSetup = false;
       const poll = async (): Promise<void> => {
         await new Promise(r => setTimeout(r, 4000));
         const job = await (await fetch(`/api/tools-proposal-status?job_id=${start.job_id}`)).json();
-        if (job.status === 'pending') return poll();
+        if (job.status === 'pending') {
+          // Hide challenge UI if it was showing (challenge solved, proposal resumed)
+          document.getElementById('proposal-challenge')!.classList.add('hidden');
+          document.getElementById('proposal-spinner')!.classList.remove('hidden');
+          return poll();
+        }
+        if (job.status === 'challenge_required') {
+          // Show challenge UI
+          document.getElementById('proposal-spinner')!.classList.add('hidden');
+          document.getElementById('proposal-challenge')!.classList.remove('hidden');
+          // Fetch initial screenshot
+          try {
+            const ss = await (await fetch(`/api/tools-proposal-challenge?job_id=${start.job_id}`)).json();
+            if (ss.image) (document.getElementById('challenge-img') as HTMLImageElement).src = ss.image;
+          } catch {}
+          // Set up click handlers (once)
+          if (!challengeSetup) {
+            challengeSetup = true;
+            const img = document.getElementById('challenge-img') as HTMLImageElement;
+            img.addEventListener('click', async (ev) => {
+              const rect = img.getBoundingClientRect();
+              const scaleX = img.naturalWidth / rect.width;
+              const scaleY = img.naturalHeight / rect.height;
+              const x = Math.round((ev.clientX - rect.left) * scaleX);
+              const y = Math.round((ev.clientY - rect.top) * scaleY);
+              document.getElementById('challenge-status-text')!.textContent = 'Sending click...';
+              try {
+                const resp = await fetch('/api/tools-proposal-challenge', {
+                  method: 'POST', headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ job_id: start.job_id, x, y }),
+                });
+                const result = await resp.json();
+                if (result.image) img.src = result.image;
+                document.getElementById('challenge-status-text')!.textContent =
+                  result.status === 'solved' ? 'Challenge solved! Resuming proposal...' : 'Click sent. Waiting...';
+              } catch { document.getElementById('challenge-status-text')!.textContent = 'Click failed — try again.'; }
+            });
+            document.getElementById('challenge-dismiss')!.addEventListener('click', async () => {
+              await fetch('/api/tools-proposal-challenge-dismiss', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ job_id: start.job_id }),
+              });
+              document.getElementById('challenge-status-text')!.textContent = 'Dismissed — waiting for abort...';
+            });
+            document.getElementById('challenge-refresh')!.addEventListener('click', async () => {
+              try {
+                const ss = await (await fetch(`/api/tools-proposal-challenge?job_id=${start.job_id}`)).json();
+                if (ss.image) img.src = ss.image;
+              } catch {}
+            });
+          }
+          return poll();
+        }
         document.getElementById('proposal-spinner')!.classList.add('hidden');
+        document.getElementById('proposal-challenge')!.classList.add('hidden');
         if (job.status === 'failed') {
           document.getElementById('proposal-error')!.classList.remove('hidden');
           document.getElementById('proposal-error-text')!.textContent = job.log || 'Proposal generation failed.';
