@@ -154,6 +154,9 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
               <p><strong>Claude does:</strong> Uploads all images to Sanity. Defines schemas (blog posts, team, testimonials, events, FAQs &rarr; Sanity; legal pages, nav, footer &rarr; static). Migrates content into Sanity documents. Wires Astro pages to fetch from Sanity. Deploys schema. Sets up Sanity &rarr; Netlify webhook.</p>
+              <div class="bg-rose-50 border border-rose-200 rounded p-2 mt-2">
+                <p class="text-xs"><strong>Pipeline tool:</strong> If the site needs a blog, use the <a href="/pipelines#shared-tools" class="text-rose-700 hover:underline font-semibold">Blog Protocol</a> from the Pipelines page — Claude builds the full blog (search, categories, pagination, share bar, SEO) from a single command.</p>
+              </div>
               <p><strong>You check:</strong> Preview the site — are all images loading from Sanity CDN? Open Sanity Studio — do all schemas and documents look right? Edit a document in Sanity — does the change appear on the site?</p>
               <p><strong>Say "continue"</strong> when CMS is wired and working.</p>
             </div>
@@ -168,13 +171,16 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             </div>
             <p class="text-rose-700 text-xs font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Runs 8 automated code scans (hardcoded colors, alt text, SEO meta, WP URLs, TODOs, sitemap, broken links, <code class="bg-white px-1 rounded">npm run build</code>). Runs Migration Fidelity checklist (page count, nav, CTAs, footer, images, forms, side-by-side spot check). Generates Transformation Layer Report as a Google Doc with three parts:</p>
+              <p><strong>Claude does:</strong> Runs Migration Fidelity checklist (page count, nav, CTAs, footer, images, forms, side-by-side spot check). Generates Transformation Layer Report as a Google Doc with three parts:</p>
               <ul class="ml-4 space-y-1 text-stone-500">
                 <li>&bull; <strong>Part One:</strong> Already Delivered — what's built and working</li>
                 <li>&bull; <strong>Part Two:</strong> Critical Fixes — must fix before launch</li>
                 <li>&bull; <strong>Part Three:</strong> Recommended Improvements — optional enhancements for Phase 6</li>
               </ul>
               <p>Claude then implements ALL critical fixes from Part Two.</p>
+              <div class="bg-rose-50 border border-rose-200 rounded p-2 mt-2">
+                <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-rose-700 hover:underline font-semibold">Pre-Launch QA</a> from the Pipelines page to generate the 8-scan report (Google Doc).</p>
+              </div>
               <p><strong>You check:</strong> Claude shows the report link and lists what was fixed. Review the report. Preview the site — are the critical fixes resolved?</p>
               <p><strong>Say "continue"</strong> when all criticals are fixed.</p>
             </div>
@@ -202,9 +208,12 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               <span class="text-xs font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full">AUTOMATED + MANUAL</span>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Runs 8 automated Pre-Launch scans (all must pass). Then runs manual QA: Lighthouse audit, cross-browser testing (Playwright on Safari/Chrome/Firefox), form testing end-to-end, console error check, mobile responsiveness. Fixes everything found and re-runs until clean.</p>
-              <p><strong>You check:</strong> Claude shows scan results and Lighthouse scores. If anything failed, Claude fixes and re-runs. You don't need to do anything unless Claude asks.</p>
-              <p><strong>Advances automatically</strong> when all 8 scans pass.</p>
+              <p><strong>Claude does:</strong> Runs manual QA: Lighthouse audit, cross-browser testing (Playwright on Safari/Chrome/Firefox), form testing end-to-end, console error check, mobile responsiveness. Fixes everything found.</p>
+              <div class="bg-rose-50 border border-rose-200 rounded p-2 mt-2">
+                <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-rose-700 hover:underline font-semibold">Pre-Launch QA</a> from the Pipelines page. All 8 scans must pass. Re-run after fixes until clean.</p>
+              </div>
+              <p><strong>You check:</strong> Claude shows Lighthouse scores. Pre-Launch QA report is clean.</p>
+              <p><strong>Say "continue"</strong> when all checks pass.</p>
             </div>
           </div>
 
@@ -225,7 +234,11 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               </div>
               <div>
                 <p class="font-semibold text-stone-700 mb-1">Post-launch verification (after domain is live)</p>
-                <p>Claude runs Post-Launch QA on the live URL (Lighthouse, SEO, accessibility). Verifies: all pages load, forms work, GA4 fires, sitemap is in Search Console, UptimeRobot is active, Open Graph preview is correct, redirects work.</p>
+                <p>Verifies: all pages load, forms work, GA4 fires, sitemap is in Search Console, UptimeRobot is active, Open Graph preview is correct, redirects work.</p>
+                <div class="bg-rose-50 border border-rose-200 rounded p-2 mt-2 space-y-1">
+                  <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-rose-700 hover:underline font-semibold">Post-Launch QA</a> on the live URL — generates a Google Doc report with Lighthouse scores and auto-fixes.</p>
+                  <p class="text-xs"><strong>Pipeline tool:</strong> When Post-Launch QA passes, run <a href="/pipelines#shared-tools" class="text-rose-700 hover:underline font-semibold">Site Audit &amp; Optimization Report</a> — generates the client-ready Google Doc.</p>
+                </div>
               </div>
               <p><strong>You check:</strong> Visit the live site. Does everything work? Check GA4 real-time view. Share the URL on social media — does the preview card look right?</p>
               <p><strong>Say "continue"</strong> when everything is live and verified.</p>
@@ -345,6 +358,9 @@ SMP Team</div>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
               <p><strong>Claude does:</strong> Loads real fonts (Google Fonts, not Stitch substitutes). Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens FIRST. Builds every page matching the Stitch designs — no hardcoded hex, all CSS variables. Wires Sanity CMS: defines schemas, uploads images, migrates content, sets up webhook.</p>
+              <div class="bg-blue-50 border border-blue-200 rounded p-2 mt-2">
+                <p class="text-xs"><strong>Pipeline tool:</strong> If the site needs a blog, use the <a href="/pipelines#shared-tools" class="text-blue-700 hover:underline font-semibold">Blog Protocol</a> from the Pipelines page — Claude builds the full blog from a single command.</p>
+              </div>
               <p><strong>You check:</strong> Claude starts the dev server. Preview the site — do pages look right? Edit a doc in Sanity Studio — does the change appear? <code class="bg-stone-100 px-1 rounded">npm run build</code> succeeds?</p>
               <p><strong>Say "continue"</strong> when the site works.</p>
             </div>
@@ -359,7 +375,10 @@ SMP Team</div>
             </div>
             <p class="text-blue-700 text-xs font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Runs Pre-Launch QA (8 scans — generates Google Doc report). Generates Transformation Layer Report (Google Doc) with Part One (delivered), Part Two (critical fixes), Part Three (improvements). Implements all critical fixes. Re-runs scans to confirm.</p>
+              <p><strong>Claude does:</strong> Generates Transformation Layer Report (Google Doc) with Part One (delivered), Part Two (critical fixes), Part Three (improvements). Implements all critical fixes.</p>
+              <div class="bg-blue-50 border border-blue-200 rounded p-2 mt-2">
+                <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-blue-700 hover:underline font-semibold">Pre-Launch QA</a> from the Pipelines page to generate the 8-scan report (Google Doc). Re-run after fixes to confirm.</p>
+              </div>
               <p><strong>You check:</strong> Claude shows report links. All 8 scans pass after fixes.</p>
               <p><strong>Say "continue"</strong> when all criticals are fixed.</p>
             </div>
@@ -386,8 +405,11 @@ SMP Team</div>
               <p class="font-bold text-stone-800">QA</p>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Runs Pre-Launch QA (all 8 scans must pass). Runs manual QA: Lighthouse, cross-browser (Playwright), form testing, console errors, mobile responsiveness. Fixes everything found, iterates until clean.</p>
-              <p><strong>You check:</strong> Claude shows scan results and Lighthouse scores.</p>
+              <p><strong>Claude does:</strong> Runs manual QA: Lighthouse, cross-browser (Playwright), form testing, console errors, mobile responsiveness. Fixes everything found.</p>
+              <div class="bg-blue-50 border border-blue-200 rounded p-2 mt-2">
+                <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-blue-700 hover:underline font-semibold">Pre-Launch QA</a> from the Pipelines page. All 8 scans must pass. Re-run after fixes until clean.</p>
+              </div>
+              <p><strong>You check:</strong> Claude shows Lighthouse scores. Pre-Launch QA report is clean.</p>
               <p><strong>Say "continue"</strong> when all checks pass.</p>
             </div>
           </div>
@@ -399,7 +421,11 @@ SMP Team</div>
               <p class="font-bold text-stone-800">Launch</p>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Merges to main, verifies Netlify preview. Connects custom domain, Cloudflare DNS, SSL. Then runs Post-Launch QA on the live URL: Lighthouse, GA4, Search Console, UptimeRobot, Open Graph preview, form testing on live domain.</p>
+              <p><strong>Claude does:</strong> Merges to main, verifies Netlify preview. Connects custom domain, Cloudflare DNS, SSL. Verifies: all pages load, forms work, GA4 fires, sitemap in Search Console, UptimeRobot active, Open Graph correct.</p>
+              <div class="bg-blue-50 border border-blue-200 rounded p-2 mt-2 space-y-1">
+                <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-blue-700 hover:underline font-semibold">Post-Launch QA</a> on the live URL — generates a Google Doc report with Lighthouse scores and auto-fixes.</p>
+                <p class="text-xs"><strong>Pipeline tool:</strong> When Post-Launch QA passes, run <a href="/pipelines#shared-tools" class="text-blue-700 hover:underline font-semibold">Site Audit &amp; Optimization Report</a> — generates the client-ready Google Doc.</p>
+              </div>
               <p><strong>You check:</strong> Visit the live site. Everything works? GA4 real-time shows traffic? Share URL on social — preview card looks right?</p>
               <p><strong>Say "continue"</strong> when everything is live.</p>
             </div>
