@@ -138,15 +138,25 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         <span class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-xs font-bold uppercase tracking-widest">New Site Build</span>
         <div class="flex-1 border-t border-teal-200"></div>
       </div>
-      <p class="text-stone-500 text-sm mb-6 -mt-2">Build a brand new website from scratch on the SMP stack. 9 AI-powered phases — see <a href="/playbook" class="text-teal-700 hover:underline">Playbook</a> for full protocol.</p>
+      <p class="text-stone-500 text-sm mb-4 -mt-2">The Build System — 9 phases. <a href="/playbook" class="text-teal-700 hover:underline font-semibold">Read the full protocol on the Playbook</a> before your first new site build.</p>
 
-      <!-- New Site Step 1: Bootstrap -->
+      <!-- How It Works -->
+      <div class="bg-stone-50 border border-stone-200 rounded-lg p-5 mb-6">
+        <p class="font-bold text-stone-800 text-sm mb-3">How it works</p>
+        <ol class="list-decimal ml-4 space-y-2 text-sm text-stone-600">
+          <li><strong>Start here</strong> — fill in the form below and click Start New Site Build.</li>
+          <li><strong>Go to Bethel</strong> — when it's done, you'll see the command:<br/>
+            <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites/&lt;slug&gt; && claude</code></li>
+          <li><strong>Say "continue newsite"</strong> — Claude starts Phase 1 (Discovery &amp; Brand), researches the client, and generates a creative brief.</li>
+          <li><strong>Preview when told</strong> — Claude starts the dev server and gives you the URL.</li>
+          <li><strong>Say "continue"</strong> — Claude advances to the next phase. If a session ends, say "continue newsite" again.</li>
+        </ol>
+      </div>
+
+      <!-- Start New Site Build -->
       <div class="bg-teal-50 rounded-2xl border border-teal-200 p-8 mb-6 shadow-sm">
-        <div class="flex items-center gap-3 mb-1">
-          <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-700 text-xs font-bold flex items-center justify-center shrink-0">1</span>
-          <h2 class="text-2xl font-bold">Initiate New Site Build</h2>
-        </div>
-        <p class="text-stone-500 text-sm mb-6 ml-10">Start a brand new site. Creates the GitHub repo, Sanity project, and Netlify site — fully automated. No existing site URL needed.</p>
+        <h2 class="text-2xl font-bold mb-1">Start New Site Build</h2>
+        <p class="text-stone-500 text-sm mb-6">Creates GitHub repo, Sanity project, and Netlify site. No existing site URL needed.</p>
         <div class="space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div>
@@ -161,8 +171,8 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             </div>
           </div>
           <button id="ns-bootstrap-btn"
-            class="w-full bg-teal-200 hover:bg-teal-300 text-teal-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Initiate Build — Phase 2
+            class="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Start New Site Build
           </button>
         </div>
         <div id="ns-bootstrap-status" class="hidden mt-5">
@@ -171,49 +181,17 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <span>Creating infrastructure — GitHub, Sanity, Netlify... (~2 min)</span>
           </div>
           <div id="ns-bootstrap-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-3">
-            <p class="text-sm font-bold text-green-800">Phase 2 complete! Project added to dashboard.</p>
+            <p class="text-sm font-bold text-green-800">Ready! Infrastructure created.</p>
             <div id="ns-bootstrap-links" class="space-y-1.5"></div>
-            <p class="text-xs text-stone-500">Next: SSH into Bethel, <code class="bg-stone-100 px-1 rounded">cd ~/Sites/<span id="ns-bootstrap-slug-echo"></span></code>, run <code class="bg-stone-100 px-1 rounded">claude</code>, begin Phase 3 (Design System via Stitch).</p>
+            <div class="bg-white border border-green-200 rounded-lg p-4 mt-3">
+              <p class="text-sm font-bold text-stone-800 mb-2">Next step:</p>
+              <code class="block bg-stone-100 px-3 py-2 rounded text-sm font-mono text-stone-700">cd ~/Sites/<span id="ns-bootstrap-slug-echo"></span> && claude</code>
+              <p class="text-xs text-stone-500 mt-2">Then say: <strong>"continue newsite"</strong></p>
+            </div>
           </div>
           <div id="ns-bootstrap-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
             <p class="text-sm font-bold text-red-800 mb-1">Error</p>
             <p id="ns-bootstrap-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
-          </div>
-        </div>
-      </div>
-
-      <!-- New Site Step 2: Pre-Launch QA -->
-      <div class="bg-teal-50 rounded-2xl border border-teal-200 p-8 mb-6 shadow-sm">
-        <div class="flex items-center gap-3 mb-1">
-          <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-700 text-xs font-bold flex items-center justify-center shrink-0">2</span>
-          <h2 class="text-2xl font-bold">Pre-Launch QA</h2>
-        </div>
-        <p class="text-stone-500 text-sm mb-6 ml-10">Run after the CAR gate (Phase 5). Scans for hardcoded colors, missing alt text, missing SEO meta, dev URLs, broken links, and placeholder content.</p>
-        <div class="space-y-4">
-          <div>
-            <label for="ns-qa-project" class="block text-sm font-semibold text-stone-700 mb-1">Project</label>
-            <select id="ns-qa-project"
-              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-teal-300 bg-white">
-              <option value="">Loading projects...</option>
-            </select>
-          </div>
-          <button id="ns-qa-btn"
-            class="w-full bg-teal-200 hover:bg-teal-300 text-teal-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Run Pre-Launch QA
-          </button>
-        </div>
-        <div id="ns-qa-status" class="hidden mt-5">
-          <div id="ns-qa-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
-            <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
-            <span>Running scans...</span>
-          </div>
-          <div id="ns-qa-result" class="hidden">
-            <div id="ns-qa-summary" class="mb-4 p-4 rounded-lg text-sm font-semibold"></div>
-            <div id="ns-qa-scans" class="space-y-3"></div>
-          </div>
-          <div id="ns-qa-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
-            <p class="text-sm font-bold text-red-800 mb-1">Error</p>
-            <p id="ns-qa-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
           </div>
         </div>
       </div>
@@ -845,46 +823,7 @@ if (!(window as any).__portalInitialized) {
     }
   });
 
-  // ── New Site Pre-Launch QA ──────────────────────────────────
-  document.getElementById('ns-qa-btn')!.addEventListener('click', async () => {
-    const projectId = (document.getElementById('ns-qa-project') as HTMLSelectElement).value;
-    if (!projectId) { alert('Select a project first.'); return; }
-    const btn = document.getElementById('ns-qa-btn') as HTMLButtonElement;
-    btn.disabled = true; btn.textContent = 'Scanning…';
-    document.getElementById('ns-qa-status')!.classList.remove('hidden');
-    document.getElementById('ns-qa-spinner')!.classList.remove('hidden');
-    ['ns-qa-result','ns-qa-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
-    try {
-      const resp = await fetch('/api/tools-newsite-prelaunch', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ project_id: projectId }) });
-      const data = await resp.json();
-      document.getElementById('ns-qa-spinner')!.classList.add('hidden');
-      if (data.error) {
-        document.getElementById('ns-qa-error')!.classList.remove('hidden');
-        document.getElementById('ns-qa-error-text')!.textContent = data.error;
-      } else {
-        document.getElementById('ns-qa-result')!.classList.remove('hidden');
-        const allPass = data.passed === data.total;
-        const summary = document.getElementById('ns-qa-summary')!;
-        summary.className = `mb-4 p-4 rounded-lg text-sm font-semibold ${allPass ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-amber-50 border border-amber-200 text-amber-800'}`;
-        summary.textContent = allPass ? `All ${data.total} scans passed.` : `${data.passed} of ${data.total} scans passed — fix all findings before delivery.`;
-        document.getElementById('ns-qa-scans')!.innerHTML = data.scans.map((s: any) => `
-          <div class="border border-stone-200 rounded-xl overflow-hidden">
-            <div class="flex items-center justify-between px-4 py-3 ${s.pass ? 'bg-green-50' : 'bg-red-50'} cursor-pointer ns-scan-toggle">
-              <span class="text-sm font-semibold ${s.pass ? 'text-green-800' : 'text-red-800'}">${s.pass ? '✅' : '❌'} ${s.name}</span>
-              ${!s.pass ? `<span class="text-xs text-red-600 font-mono">${s.findings.length} finding${s.findings.length !== 1 ? 's' : ''}</span>` : ''}
-            </div>
-            ${!s.pass && s.findings.length ? `<div class="px-4 py-3 bg-white hidden ns-scan-body"><ul class="space-y-1">${s.findings.map((f: string) => `<li class="text-xs font-mono text-stone-700 break-all">${f}</li>`).join('')}</ul></div>` : ''}
-          </div>`).join('');
-        document.querySelectorAll('.ns-scan-toggle').forEach(h => { h.addEventListener('click', () => { h.nextElementSibling?.classList.toggle('hidden'); }); });
-        await loadProjects();
-      }
-    } catch (err: any) {
-      document.getElementById('ns-qa-spinner')!.classList.add('hidden');
-      document.getElementById('ns-qa-error')!.classList.remove('hidden');
-      document.getElementById('ns-qa-error-text')!.textContent = err.message;
-    }
-    btn.disabled = false; btn.textContent = 'Run Pre-Launch QA';
-  });
+  // ── Old newsite QA removed — now shared Pre-Launch QA tool above ──
 
   // ── Site Updates ─────────────────────────────────────────────
   async function loadSiteUpdateSites() {

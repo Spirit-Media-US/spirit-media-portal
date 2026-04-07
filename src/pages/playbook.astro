@@ -276,100 +276,153 @@ SMP Team</div>
       <!-- New Site Build Protocol -->
       <section class="bg-white border border-teal-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-teal-700 mb-1">SMP Build Protocol (New Sites)</h2>
-        <p class="text-stone-500 text-sm mb-1">Pipeline type: <code class="bg-stone-100 px-1 rounded text-xs">newsite</code></p>
-        <p class="text-stone-600 text-sm mb-5">Nine AI-powered phases for building a brand new website from scratch. Phase 5 (CAR) is the hard gate. No existing site to migrate — content and design are created fresh.</p>
+        <p class="text-stone-500 text-sm mb-1">Client-facing name: <strong>The Build System</strong> &nbsp;·&nbsp; Pipeline type: <code class="bg-stone-100 px-1 rounded text-xs">newsite</code></p>
+        <p class="text-stone-600 text-sm mb-5">Build a brand new website from scratch. 9 phases — Claude does the work, you verify at checkpoints.</p>
 
-        <div class="space-y-4">
+        <!-- How to run -->
+        <div class="bg-teal-50 border border-teal-200 rounded-lg p-5 mb-6">
+          <p class="font-bold text-teal-800 text-sm mb-3">How to run a new site build</p>
+          <ol class="list-decimal ml-4 space-y-2 text-sm text-stone-600">
+            <li>Go to <a href="/pipelines" class="text-teal-700 hover:underline font-semibold">Pipelines</a> and click <strong>Start New Site Build</strong> — enter the site name and slug.</li>
+            <li>When it finishes, SSH into Bethel:<br/>
+              <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites/&lt;slug&gt; && claude</code></li>
+            <li>Say <strong>"continue newsite"</strong> — Claude starts Phase 1 (Discovery &amp; Brand).</li>
+            <li>Claude pauses at checkpoints. It starts the dev server and gives you the preview URL.</li>
+            <li>Say <strong>"continue"</strong> — Claude advances to the next phase.</li>
+            <li>If a session ends, start a new one and say <strong>"continue newsite"</strong>.</li>
+          </ol>
+        </div>
 
-          <div class="flex gap-3">
-            <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">1</div>
-            <div>
-              <p class="font-semibold text-stone-800 text-sm">Discovery &amp; Brand</p>
-              <p class="text-stone-500 text-xs">Claude crawls the client's social media, Google Business profile, and any web presence. Extracts brand voice, colors, fonts, audience signals. Generates creative brief + sitemap recommendation (Google Doc). You review and approve.</p>
+        <!-- The 9 Phases -->
+        <div class="space-y-6">
+
+          <!-- Phase 1 -->
+          <div class="border border-stone-200 rounded-lg p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">1</div>
+              <p class="font-bold text-stone-800">Discovery &amp; Brand</p>
+            </div>
+            <div class="ml-10 space-y-2 text-xs text-stone-600">
+              <p><strong>Claude does:</strong> Researches the client — crawls social media, Google Business, any web presence. Extracts brand voice, colors, fonts, audience signals. Generates a creative brief as a Google Doc with: color palette (hex), font recommendations, sitemap, content outline per page.</p>
+              <p><strong>You check:</strong> Claude shows the brief link. Review it — does the sitemap cover all needed pages? Does the brand direction feel right?</p>
+              <p><strong>Say "continue"</strong> when the brief is good.</p>
             </div>
           </div>
 
-          <div class="flex gap-3">
-            <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">2</div>
-            <div>
-              <p class="font-semibold text-stone-800 text-sm">Infrastructure</p>
-              <p class="text-stone-500 text-xs">GitHub repo, Netlify site, Sanity project, Cloudflare domain, R2 bucket, <code class="bg-white px-1 rounded">CLAUDE.md</code>. Dashboard card created in registry. Same bootstrap tool as migration.</p>
+          <!-- Phase 2 -->
+          <div class="border border-stone-200 rounded-lg p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">2</div>
+              <p class="font-bold text-stone-800">Infrastructure</p>
+              <span class="text-xs font-bold text-teal-700 bg-teal-100 px-2 py-0.5 rounded-full">AUTOMATED</span>
+            </div>
+            <div class="ml-10 space-y-2 text-xs text-stone-600">
+              <p><strong>Claude does:</strong> Bootstrap creates GitHub repo, Netlify site, Sanity project. Claude clones the repo, sets up Astro 5 + Tailwind v4 scaffold, creates CLAUDE.md and dev branch.</p>
+              <p><strong>You check:</strong> GitHub, Netlify, and Sanity links work.</p>
+              <p><strong>Advances automatically.</strong></p>
             </div>
           </div>
 
-          <div class="flex gap-3">
-            <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">3</div>
-            <div>
-              <p class="font-semibold text-stone-800 text-sm">Design System (Stitch)</p>
-              <p class="text-stone-500 text-xs">Claude uses Stitch MCP to generate full page designs from the brand reference. Auto-creates design system (colors, typography, components). Exports <code class="bg-white px-1 rounded">design.md</code>. Wires design tokens into <code class="bg-white px-1 rounded">global.css</code> — palette and typography locked before any page CSS.</p>
+          <!-- Phase 3 -->
+          <div class="border border-stone-200 rounded-lg p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">3</div>
+              <p class="font-bold text-stone-800">Design System</p>
+              <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
+            </div>
+            <div class="ml-10 space-y-2 text-xs text-stone-600">
+              <p><strong>Claude does:</strong> Creates a Stitch project and design system from the creative brief (colors, fonts, roundness). Generates screens for every page (desktop + mobile). Applies the design system across all screens. Verifies designs match the brief.</p>
+              <p><strong>You check:</strong> Claude shows the Stitch project. Do the designs match the brand direction from the brief?</p>
+              <p><strong>Say "continue"</strong> when designs look right.</p>
             </div>
           </div>
 
-          <div class="flex gap-3">
-            <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">4</div>
-            <div>
-              <p class="font-semibold text-stone-800 text-sm">Build Pages + Content + Sanity</p>
-              <p class="text-stone-500 text-xs">Claude builds every page in Astro + Tailwind from the design system. Adds all copy, SEO meta, JSON-LD. Defines Sanity schemas, migrates content into CMS, wires pages to fetch from Sanity, deploys schema, sets up webhook. Full site — rough but complete.</p>
+          <!-- Phase 4 -->
+          <div class="border border-stone-200 rounded-lg p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">4</div>
+              <p class="font-bold text-stone-800">Build Pages + Sanity</p>
+            </div>
+            <div class="ml-10 space-y-2 text-xs text-stone-600">
+              <p><strong>Claude does:</strong> Loads real fonts (Google Fonts, not Stitch substitutes). Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens FIRST. Builds every page matching the Stitch designs — no hardcoded hex, all CSS variables. Wires Sanity CMS: defines schemas, uploads images, migrates content, sets up webhook.</p>
+              <p><strong>You check:</strong> Claude starts the dev server. Preview the site — do pages look right? Edit a doc in Sanity Studio — does the change appear? <code class="bg-stone-100 px-1 rounded">npm run build</code> succeeds?</p>
+              <p><strong>Say "continue"</strong> when the site works.</p>
             </div>
           </div>
 
-          <!-- Phase 5 — CAR Gate -->
-          <div class="border border-teal-300 bg-teal-50 rounded-lg p-4 my-2">
-            <p class="font-bold text-teal-700 text-sm mb-2">Phase 5 — CAR / Review Gate (THE GATE)</p>
-            <p class="text-stone-600 text-xs mb-3">Nothing from Phase 6 forward happens until the CAR is reviewed and critical fixes are approved. This prevents polishing a site that has structural problems.</p>
-            <div class="space-y-2">
-              <p class="text-stone-500 text-xs">Claude runs all automated scans. Generates Transformation Layer Report (Google Doc):</p>
-              <ul class="text-stone-500 text-xs space-y-1 ml-3">
-                <li>&bull; <strong>Part One:</strong> Already Delivered</li>
-                <li>&bull; <strong>Part Two:</strong> Critical Fixes (must fix)</li>
-                <li>&bull; <strong>Part Three:</strong> Recommended Improvements (optional)</li>
-              </ul>
-              <p class="text-stone-600 text-xs font-semibold pt-1">You review &rarr; You approve critical fixes &rarr; Claude implements.</p>
+          <!-- Phase 5 — THE GATE -->
+          <div class="border-2 border-teal-400 bg-teal-50 rounded-lg p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">5</div>
+              <p class="font-bold text-teal-800">CAR / Review Gate</p>
+              <span class="text-xs font-bold text-white bg-teal-700 px-2 py-0.5 rounded-full">THE GATE</span>
+            </div>
+            <p class="text-teal-700 text-xs font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
+            <div class="ml-10 space-y-2 text-xs text-stone-600">
+              <p><strong>Claude does:</strong> Runs Pre-Launch QA (8 scans — generates Google Doc report). Generates Transformation Layer Report (Google Doc) with Part One (delivered), Part Two (critical fixes), Part Three (improvements). Implements all critical fixes. Re-runs scans to confirm.</p>
+              <p><strong>You check:</strong> Claude shows report links. All 8 scans pass after fixes.</p>
+              <p><strong>Say "continue"</strong> when all criticals are fixed.</p>
             </div>
           </div>
 
-          <div class="flex gap-3">
-            <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">6</div>
-            <div>
-              <p class="font-semibold text-stone-800 text-sm">Design Polish (Stitch)</p>
-              <p class="text-stone-500 text-xs">After CAR approval, Claude uses Stitch MCP to generate refined designs based on CAR feedback. Refines spacing, responsiveness, micro-interactions. Playwright screenshots for your review.</p>
+          <!-- Phase 6 -->
+          <div class="border border-stone-200 rounded-lg p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">6</div>
+              <p class="font-bold text-stone-800">Design Polish</p>
+              <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
+            </div>
+            <div class="ml-10 space-y-2 text-xs text-stone-600">
+              <p><strong>Claude does:</strong> Takes the recommended improvements from CAR Part Three. Uses Stitch to generate design variants, picks the best, implements refinements in Astro. Polishes spacing, responsiveness, micro-interactions.</p>
+              <p><strong>You check:</strong> Preview the site. Does it look polished? Desktop + mobile?</p>
+              <p><strong>Say "continue"</strong> when satisfied.</p>
             </div>
           </div>
 
-          <div class="flex gap-3">
-            <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">7</div>
-            <div>
-              <p class="font-semibold text-stone-800 text-sm">QA</p>
-              <p class="text-stone-500 text-xs">Claude runs Pre-Launch QA, Post-Launch QA (Lighthouse, SEO, accessibility, mobile), cross-browser testing via Playwright, form testing end-to-end. Fixes everything found — iterates until all scans pass.</p>
+          <!-- Phase 7 -->
+          <div class="border border-stone-200 rounded-lg p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">7</div>
+              <p class="font-bold text-stone-800">QA</p>
+            </div>
+            <div class="ml-10 space-y-2 text-xs text-stone-600">
+              <p><strong>Claude does:</strong> Runs Pre-Launch QA (all 8 scans must pass). Runs manual QA: Lighthouse, cross-browser (Playwright), form testing, console errors, mobile responsiveness. Fixes everything found, iterates until clean.</p>
+              <p><strong>You check:</strong> Claude shows scan results and Lighthouse scores.</p>
+              <p><strong>Say "continue"</strong> when all checks pass.</p>
             </div>
           </div>
 
-          <div class="flex gap-3">
-            <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">8</div>
-            <div>
-              <p class="font-semibold text-stone-800 text-sm">Launch</p>
-              <p class="text-stone-500 text-xs">Claude connects custom domain, confirms SSL, submits sitemap to GSC, sets up UptimeRobot, enables GA4, wires Sanity &rarr; Netlify webhook. Verifies everything is live.</p>
+          <!-- Phase 8 -->
+          <div class="border border-stone-200 rounded-lg p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">8</div>
+              <p class="font-bold text-stone-800">Launch</p>
+            </div>
+            <div class="ml-10 space-y-2 text-xs text-stone-600">
+              <p><strong>Claude does:</strong> Merges to main, verifies Netlify preview. Connects custom domain, Cloudflare DNS, SSL. Then runs Post-Launch QA on the live URL: Lighthouse, GA4, Search Console, UptimeRobot, Open Graph preview, form testing on live domain.</p>
+              <p><strong>You check:</strong> Visit the live site. Everything works? GA4 real-time shows traffic? Share URL on social — preview card looks right?</p>
+              <p><strong>Say "continue"</strong> when everything is live.</p>
             </div>
           </div>
 
-          <div class="flex gap-3">
-            <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">9</div>
-            <div>
-              <p class="font-semibold text-stone-800 text-sm">Client Delivery &amp; Roadmap</p>
-              <p class="text-stone-500 text-xs">Claude generates delivery email + post-launch roadmap (Google Doc) with recommended improvements not included in initial build. Kevin sends the email.</p>
+          <!-- Phase 9 -->
+          <div class="border border-stone-200 rounded-lg p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">9</div>
+              <p class="font-bold text-stone-800">Client Delivery &amp; Roadmap</p>
+            </div>
+            <div class="ml-10 space-y-2 text-xs text-stone-600">
+              <p><strong>Claude does:</strong> Generates the delivery email and post-launch roadmap (Google Doc). Invites client to Sanity Studio.</p>
+              <p><strong>You do:</strong> Send the delivery email to the client.</p>
             </div>
           </div>
 
         </div>
 
-        <!-- Tools link -->
-        <div class="mt-6 pt-5 border-t border-stone-200">
-          <p class="text-stone-600 text-sm">Automated tools for this pipeline: <a href="/pipelines" class="text-teal-700 hover:underline font-semibold">Pipelines &rarr; New Site Build</a></p>
-        </div>
-
-        <!-- Design Library link -->
-        <div class="mt-4 pt-4 border-t border-stone-200">
-          <p class="text-stone-600 text-sm">Use the <a href="/design-library" class="text-teal-700 hover:underline font-semibold">Design Library &rarr;</a> to browse all 7 style packages and 21 color palettes. When starting a new site, select a package and tell Claude which one to use.</p>
+        <!-- Links -->
+        <div class="mt-6 pt-5 border-t border-stone-200 space-y-2">
+          <p class="text-stone-600 text-sm">Start a new site: <a href="/pipelines" class="text-teal-700 hover:underline font-semibold">Pipelines &rarr; Start New Site Build</a></p>
+          <p class="text-stone-600 text-sm">Browse styles: <a href="/design-library" class="text-teal-700 hover:underline font-semibold">Design Library</a> — 7 style packages, 21 color palettes</p>
         </div>
       </section>
 
