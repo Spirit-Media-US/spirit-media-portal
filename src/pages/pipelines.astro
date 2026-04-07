@@ -12,18 +12,18 @@ import PortalLayout from "../layouts/PortalLayout.astro";
     ═══════════════════════════════════════════════════════════ -->
     <div class="mb-12">
       <div class="flex items-center gap-3 mb-6">
-        <span class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-widest">Pre-Sale</span>
-        <div class="flex-1 border-t border-amber-200"></div>
+        <span class="inline-block px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold uppercase tracking-widest">Pre-Sale</span>
+        <div class="flex-1 border-t border-green-200"></div>
       </div>
 
-      <div class="bg-amber-50 rounded-2xl border border-amber-200 p-8 mb-6 shadow-sm">
+      <div class="bg-green-50 rounded-2xl border border-green-200 p-8 mb-6 shadow-sm">
         <h2 class="text-2xl font-bold mb-1">Website Migration Proposal</h2>
-        <p class="text-stone-500 text-sm mb-6">Enter the client's current site URL. Runs a 5-source audit and generates the full Website Modernization Proposal (Google Doc). This is a sales tool — no registry entry is created. When the sale closes, use the Migration Pipeline below.</p>
+        <p class="text-stone-500 text-sm mb-6">Enter the client's current site URL. Generates the Website Modernization Proposal (Google Doc). Sales tool only — when the sale closes, use Start Migration below.</p>
         <form id="proposal-form" class="space-y-4">
           <input type="url" id="site-url" required placeholder="https://clientsite.com"
-            class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-300 text-base" />
+            class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-green-300 text-base" />
           <button type="submit" id="proposal-btn"
-            class="w-full bg-amber-200 hover:bg-amber-300 text-amber-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Generate Proposal
           </button>
         </form>
@@ -41,7 +41,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <p class="text-sm font-bold text-red-800 mb-1">Error</p>
             <p id="proposal-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
           </div>
-          <div id="proposal-challenge" class="hidden p-6 bg-amber-50 border border-amber-300 rounded-xl">
+          <div id="proposal-challenge" class="hidden p-6 bg-amber-50 border border-amber-200 rounded-xl">
             <p class="text-sm font-bold text-amber-800 mb-2">Cloudflare Verification Required</p>
             <p class="text-xs text-stone-600 mb-3">This site requires human verification. Click the CAPTCHA checkbox in the image below to proceed.</p>
             <div class="relative inline-block cursor-pointer border border-stone-300 rounded-lg overflow-hidden">
@@ -135,10 +135,10 @@ import PortalLayout from "../layouts/PortalLayout.astro";
     ═══════════════════════════════════════════════════════════ -->
     <div class="mb-12">
       <div class="flex items-center gap-3 mb-6">
-        <span class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-700 text-xs font-bold uppercase tracking-widest">New Site Build</span>
-        <div class="flex-1 border-t border-teal-200"></div>
+        <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-widest">New Site Build</span>
+        <div class="flex-1 border-t border-blue-200"></div>
       </div>
-      <p class="text-stone-500 text-sm mb-4 -mt-2">The Build System — 9 phases. <a href="/playbook" class="text-teal-700 hover:underline font-semibold">Read the full protocol on the Playbook</a> before your first new site build.</p>
+      <p class="text-stone-500 text-sm mb-4 -mt-2">The Build System — 9 phases. <a href="/playbook" class="text-blue-700 hover:underline font-semibold">Read the full protocol on the Playbook</a> before your first new site build.</p>
 
       <!-- How It Works -->
       <div class="bg-stone-50 border border-stone-200 rounded-lg p-5 mb-6">
@@ -154,7 +154,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
       </div>
 
       <!-- Start New Site Build -->
-      <div class="bg-teal-50 rounded-2xl border border-teal-200 p-8 mb-6 shadow-sm">
+      <div class="bg-blue-50 rounded-2xl border border-blue-200 p-8 mb-6 shadow-sm">
         <h2 class="text-2xl font-bold mb-1">Start New Site Build</h2>
         <p class="text-stone-500 text-sm mb-6">Creates GitHub repo, Sanity project, and Netlify site. No existing site URL needed.</p>
         <div class="space-y-4">
@@ -162,16 +162,16 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <div>
               <label for="ns-build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
               <input id="ns-build-title" type="text" placeholder="Global Hope India"
-                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-teal-300" />
+                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-blue-300" />
             </div>
             <div>
               <label for="ns-build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Slug</label>
               <input id="ns-build-slug" type="text" placeholder="global-hope-india"
-                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 font-mono focus:outline-none focus:ring-2 focus:ring-teal-300" />
+                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 font-mono focus:outline-none focus:ring-2 focus:ring-blue-300" />
             </div>
           </div>
           <button id="ns-bootstrap-btn"
-            class="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Start New Site Build
           </button>
         </div>
@@ -203,20 +203,20 @@ import PortalLayout from "../layouts/PortalLayout.astro";
     ═══════════════════════════════════════════════════════════ -->
     <div class="mb-12">
       <div class="flex items-center gap-3 mb-6">
-        <span class="inline-block px-3 py-1 rounded-full bg-stone-200 text-stone-700 text-xs font-bold uppercase tracking-widest">Shared Tools</span>
-        <div class="flex-1 border-t border-stone-300"></div>
+        <span class="inline-block px-3 py-1 rounded-full bg-violet-100 text-violet-700 text-xs font-bold uppercase tracking-widest">Shared Tools</span>
+        <div class="flex-1 border-t border-violet-200"></div>
       </div>
-      <p class="text-stone-500 text-sm mb-6 -mt-2">Tools that work for both migration and new site projects.</p>
+      <p class="text-stone-500 text-sm mb-6 -mt-2">Work with any SMP site — migration or new build.</p>
 
       <!-- Site Updates -->
-      <div class="bg-rose-50 rounded-2xl border border-rose-200 p-8 mb-6 shadow-sm">
+      <div class="bg-violet-50 rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
         <h2 class="text-2xl font-bold mb-1">Request a Site Update</h2>
-        <p class="text-stone-500 text-sm mb-6">Select a site, describe the change — Claude makes the edit, pushes to dev, and opens a PR for review.</p>
+        <p class="text-stone-500 text-sm mb-6">Select a site, describe the change — Claude makes the edit and pushes to dev.</p>
         <form id="site-update-form" class="space-y-4">
           <div>
             <label for="site-update-site" class="block text-sm font-semibold text-stone-700 mb-2">Site</label>
             <select id="site-update-site" name="site_slug" required
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 focus:outline-none focus:ring-2 focus:ring-rose-300 bg-white">
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 focus:outline-none focus:ring-2 focus:ring-violet-300 bg-white">
               <option value="">Loading sites…</option>
             </select>
           </div>
@@ -224,11 +224,11 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <label for="site-update-request" class="block text-sm font-semibold text-stone-700 mb-2">What would you like to change?</label>
             <textarea id="site-update-request" name="request_text" required rows="5"
               placeholder='e.g. Change the hero headline to "Walking in Freedom" and update the button to say "Start Your Journey"'
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300 resize-y text-sm"></textarea>
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300 resize-y text-sm"></textarea>
             <p class="text-xs text-stone-400 mt-1">Be specific. The more detail you give, the better the result.</p>
           </div>
           <button type="submit" id="site-update-btn"
-            class="w-full bg-rose-200 hover:bg-rose-300 text-rose-900 font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Submit Update Request
           </button>
         </form>
@@ -253,25 +253,24 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         </div>
       </div>
       <!-- Pre-Launch QA -->
-      <div class="bg-rose-50 rounded-2xl border border-rose-200 p-8 mb-6 shadow-sm">
+      <div class="bg-violet-50 rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
         <h2 class="text-2xl font-bold mb-1">Pre-Launch QA</h2>
-        <p class="text-stone-500 text-sm mb-6">Runs 8 code-level scans on any SMP site. Generates a Google Doc report. Run as many times as needed — fix issues, re-run until clean.</p>
+        <p class="text-stone-500 text-sm mb-6">8 code scans + build gate. Generates a Google Doc report. Run as many times as needed.</p>
         <form id="plqa-pre-form" class="space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label for="plqa-pre-slug" class="block text-sm font-semibold text-stone-700 mb-2">Repo Slug</label>
+              <label for="plqa-pre-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
               <input type="text" id="plqa-pre-slug" required placeholder="scripture-alive"
-                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300" />
-              <p class="text-xs text-stone-400 mt-1">Directory name under ~/Sites/</p>
+                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
             </div>
             <div>
-              <label for="plqa-pre-title" class="block text-sm font-semibold text-stone-700 mb-2">Site Name</label>
+              <label for="plqa-pre-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
               <input type="text" id="plqa-pre-title" required placeholder="Scripture Alive"
-                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300" />
+                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
             </div>
           </div>
           <button type="submit" id="plqa-pre-btn"
-            class="w-full bg-rose-200 hover:bg-rose-300 text-rose-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Run Pre-Launch QA
           </button>
         </form>
@@ -293,35 +292,29 @@ import PortalLayout from "../layouts/PortalLayout.astro";
       </div>
 
       <!-- Post-Launch QA -->
-      <div class="bg-rose-50 rounded-2xl border border-rose-200 p-8 mb-6 shadow-sm">
-        <div class="flex items-center gap-3 mb-1">
-          <span class="w-7 h-7 rounded-full bg-rose-100 text-rose-700 text-xs font-bold flex items-center justify-center shrink-0">4</span>
-          <h2 class="text-2xl font-bold">Post-Launch QA</h2>
-        </div>
-        <p class="text-stone-500 text-sm mb-4 ml-10">Audits the site for SEO, accessibility, mobile, analytics, and performance. Auto-fixes missing meta tags, alt text, Open Graph, JSON-LD, and canonical URLs — commits to dev. Run repeatedly until all checks pass.</p>
-        <div class="bg-rose-50 border border-rose-200 rounded-lg px-4 py-3 mb-6 text-xs text-rose-700 ml-10">
-          <strong>URL:</strong> Pre-domain → Netlify preview (e.g. <code class="font-mono">https://scripture-alive.netlify.app</code>) &nbsp;|&nbsp; Post-launch → live domain (e.g. <code class="font-mono">https://thekohlergroup.net</code>). No trailing slash.
-        </div>
+      <div class="bg-violet-50 rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
+        <h2 class="text-2xl font-bold mb-1">Post-Launch QA</h2>
+        <p class="text-stone-500 text-sm mb-6">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can, generates a Google Doc report.</p>
         <form id="plqa-form" class="space-y-4">
           <div>
-            <label for="plqa-url" class="block text-sm font-semibold text-stone-700 mb-2">Site URL</label>
-            <input type="url" id="plqa-url" required placeholder="https://scripture-alive.netlify.app"
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300" />
+            <label for="plqa-url" class="block text-sm font-semibold text-stone-700 mb-1">Live URL</label>
+            <input type="url" id="plqa-url" required placeholder="https://thekohlergroup.net"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
           </div>
-          <div>
-            <label for="plqa-slug" class="block text-sm font-semibold text-stone-700 mb-2">Repo Slug</label>
-            <input type="text" id="plqa-slug" required placeholder="scripture-alive"
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300" />
-            <p class="text-xs text-stone-400 mt-1">Directory name under /home/deploy/Sites/ — same as the GitHub repo name.</p>
-          </div>
-          <div>
-            <label for="plqa-title" class="block text-sm font-semibold text-stone-700 mb-2">Client / Site Name</label>
-            <input type="text" id="plqa-title" required placeholder="Scripture Alive"
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300" />
-            <p class="text-xs text-stone-400 mt-1">Used as the title on the developer action report Google Doc.</p>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="plqa-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
+              <input type="text" id="plqa-slug" required placeholder="the-kohler-group"
+                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
+            </div>
+            <div>
+              <label for="plqa-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
+              <input type="text" id="plqa-title" required placeholder="The Kohler Group"
+                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
+            </div>
           </div>
           <button type="submit" id="plqa-btn"
-            class="w-full bg-rose-200 hover:bg-rose-300 text-rose-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Run Post-Launch QA
           </button>
         </form>
@@ -364,32 +357,30 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         </div>
       </div>
 
-      <!-- Step 5: Site Audit & Optimization Report -->
-      <div class="bg-rose-50 rounded-2xl border border-rose-200 p-8 mb-6 shadow-sm">
-        <div class="flex items-center gap-3 mb-1">
-          <span class="w-7 h-7 rounded-full bg-rose-100 text-rose-700 text-xs font-bold flex items-center justify-center shrink-0">5</span>
-          <h2 class="text-2xl font-bold">Site Audit &amp; Optimization Report</h2>
-        </div>
-        <p class="text-stone-500 text-sm mb-6 ml-10">Run <em>once</em> when Post-Launch QA is fully passing. Generates a comprehensive, client-ready Google Doc — performance scores, SEO analysis, Search Console setup, and recommendations. Saved to the SMP Reports Drive folder.</p>
+      <!-- Site Audit & Optimization Report -->
+      <div class="bg-violet-50 rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
+        <h2 class="text-2xl font-bold mb-1">Site Audit &amp; Optimization Report</h2>
+        <p class="text-stone-500 text-sm mb-6">Client-ready Google Doc — performance, SEO, accessibility, recommendations. Run once when Post-Launch QA passes.</p>
         <form id="saudit-form" class="space-y-4">
           <div>
-            <label for="saudit-url" class="block text-sm font-semibold text-stone-700 mb-2">Site URL</label>
+            <label for="saudit-url" class="block text-sm font-semibold text-stone-700 mb-1">Live URL</label>
             <input type="url" id="saudit-url" required placeholder="https://thekohlergroup.net"
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300" />
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
           </div>
-          <div>
-            <label for="saudit-title" class="block text-sm font-semibold text-stone-700 mb-2">Client / Site Name</label>
-            <input type="text" id="saudit-title" required placeholder="The Kohler Group PLLC"
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300" />
-          </div>
-          <div>
-            <label for="saudit-slug" class="block text-sm font-semibold text-stone-700 mb-2">Repo Slug</label>
-            <input type="text" id="saudit-slug" required placeholder="the-kohler-group"
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300" />
-            <p class="text-xs text-stone-400 mt-1">Directory name under /home/deploy/Sites/</p>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="saudit-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
+              <input type="text" id="saudit-slug" required placeholder="the-kohler-group"
+                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
+            </div>
+            <div>
+              <label for="saudit-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
+              <input type="text" id="saudit-title" required placeholder="The Kohler Group"
+                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
+            </div>
           </div>
           <button type="submit" id="saudit-btn"
-            class="w-full bg-rose-200 hover:bg-rose-300 text-rose-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Generate Site Audit Report
           </button>
         </form>
@@ -412,7 +403,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
       </div>
 
       <!-- Blog Protocol -->
-      <div class="bg-rose-50 rounded-2xl border border-rose-200 p-8 mb-6 shadow-sm">
+      <div class="bg-violet-50 rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
         <h2 class="text-2xl font-bold mb-1">Blog Protocol</h2>
         <p class="text-stone-500 text-sm mb-6">Add a fully-featured blog to any SMP site — search, categories, pagination, related posts, share bar, and full SEO. Claude builds the entire blog from a single command.</p>
         <div class="space-y-4">
