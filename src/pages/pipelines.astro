@@ -253,17 +253,10 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         <h2 class="text-2xl font-bold mb-1">Pre-Launch QA</h2>
         <p class="text-stone-500 text-sm mb-6">8 code scans + build gate. Generates a Google Doc report. Run as many times as needed.</p>
         <form id="plqa-pre-form" class="space-y-4">
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label for="plqa-pre-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
-              <input type="text" id="plqa-pre-slug" required placeholder="scripture-alive"
-                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
-            </div>
-            <div>
-              <label for="plqa-pre-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
-              <input type="text" id="plqa-pre-title" required placeholder="Scripture Alive"
-                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
-            </div>
+          <div>
+            <label for="plqa-pre-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
+            <input type="text" id="plqa-pre-slug" required placeholder="scripture-alive"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
           </div>
           <button type="submit" id="plqa-pre-btn"
             class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
@@ -292,20 +285,15 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         <h2 class="text-2xl font-bold mb-1">Post-Launch QA</h2>
         <p class="text-stone-500 text-sm mb-6">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can, generates a Google Doc report.</p>
         <form id="plqa-form" class="space-y-4">
-          <div>
-            <label for="plqa-url" class="block text-sm font-semibold text-stone-700 mb-1">Live URL</label>
-            <input type="url" id="plqa-url" required placeholder="https://thekohlergroup.net"
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
-          </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label for="plqa-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
-              <input type="text" id="plqa-slug" required placeholder="the-kohler-group"
+              <label for="plqa-url" class="block text-sm font-semibold text-stone-700 mb-1">Live URL</label>
+              <input type="url" id="plqa-url" required placeholder="https://thekohlergroup.net"
                 class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
             </div>
             <div>
-              <label for="plqa-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
-              <input type="text" id="plqa-title" required placeholder="The Kohler Group"
+              <label for="plqa-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
+              <input type="text" id="plqa-slug" required placeholder="the-kohler-group"
                 class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
             </div>
           </div>
@@ -358,20 +346,15 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         <h2 class="text-2xl font-bold mb-1">Site Audit &amp; Optimization Report</h2>
         <p class="text-stone-500 text-sm mb-6">Client-ready Google Doc — performance, SEO, accessibility, recommendations. Run once when Post-Launch QA passes.</p>
         <form id="saudit-form" class="space-y-4">
-          <div>
-            <label for="saudit-url" class="block text-sm font-semibold text-stone-700 mb-1">Live URL</label>
-            <input type="url" id="saudit-url" required placeholder="https://thekohlergroup.net"
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
-          </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label for="saudit-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
-              <input type="text" id="saudit-slug" required placeholder="the-kohler-group"
+              <label for="saudit-url" class="block text-sm font-semibold text-stone-700 mb-1">Live URL</label>
+              <input type="url" id="saudit-url" required placeholder="https://thekohlergroup.net"
                 class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
             </div>
             <div>
-              <label for="saudit-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
-              <input type="text" id="saudit-title" required placeholder="The Kohler Group"
+              <label for="saudit-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
+              <input type="text" id="saudit-slug" required placeholder="the-kohler-group"
                 class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
             </div>
           </div>
@@ -1027,8 +1010,8 @@ if (!(window as any).__portalInitialized) {
   document.getElementById('plqa-pre-form')!.addEventListener('submit', async (e) => {
     e.preventDefault();
     const slug = (document.getElementById('plqa-pre-slug') as HTMLInputElement).value.trim();
-    const siteTitle = (document.getElementById('plqa-pre-title') as HTMLInputElement).value.trim();
-    if (!slug || !siteTitle) { alert('Slug and Site Name are required.'); return; }
+    const siteTitle = slug;
+    if (!slug) { alert('Repo slug is required.'); return; }
     const btn = document.getElementById('plqa-pre-btn') as HTMLButtonElement;
     btn.disabled = true; btn.textContent = 'Scanning...';
     document.getElementById('plqa-pre-status')!.classList.remove('hidden');
@@ -1108,7 +1091,7 @@ if (!(window as any).__portalInitialized) {
     e.preventDefault();
     const url = (document.getElementById('plqa-url') as HTMLInputElement).value.trim();
     const repoSlug = (document.getElementById('plqa-slug') as HTMLInputElement).value.trim();
-    const siteTitle = (document.getElementById('plqa-title') as HTMLInputElement).value.trim();
+    const siteTitle = repoSlug;
     const btn = document.getElementById('plqa-btn') as HTMLButtonElement;
     btn.disabled = true; btn.textContent = 'Running…';
 
@@ -1174,8 +1157,8 @@ if (!(window as any).__portalInitialized) {
   document.getElementById('saudit-form')!.addEventListener('submit', async (e) => {
     e.preventDefault();
     const url = (document.getElementById('saudit-url') as HTMLInputElement).value.trim();
-    const title = (document.getElementById('saudit-title') as HTMLInputElement).value.trim();
     const repoSlug = (document.getElementById('saudit-slug') as HTMLInputElement).value.trim();
+    const title = repoSlug;
     const btn = document.getElementById('saudit-btn') as HTMLButtonElement;
     btn.disabled = true; btn.textContent = 'Generating…';
 
