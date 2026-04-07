@@ -57,6 +57,79 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
         </div>
       </div>
+      <!-- Prospect Finder card -->
+      <div class="bg-white rounded-2xl border border-green-200 p-8 shadow-sm mt-6">
+        <div class="flex items-center justify-between mb-1">
+          <h2 class="text-2xl font-bold">Prospect Finder</h2>
+        </div>
+        <p class="text-stone-500 text-sm mb-6">Search for prospects by keyword or paste URLs directly. Audits each site, scores SMP fit (0-10), and extracts contact info. Generate proposals for top prospects in one click.</p>
+
+        <!-- Mode tabs -->
+        <div class="flex gap-2 mb-4">
+          <button id="pf-tab-urls" class="px-4 py-1.5 rounded-full text-sm font-semibold bg-green-700 text-white transition-colors">Paste URLs</button>
+          <button id="pf-tab-search" class="px-4 py-1.5 rounded-full text-sm font-semibold border border-stone-300 text-stone-600 hover:border-green-500 hover:text-green-700 transition-colors">Search</button>
+        </div>
+
+        <form id="prospect-form" class="space-y-4">
+          <!-- URL mode (default) -->
+          <div id="pf-urls-input">
+            <textarea id="pf-urls" rows="4" required placeholder="Paste URLs (one per line)&#10;https://example-church.org&#10;https://coachingsite.com&#10;https://smallbiz.net"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-green-300 text-sm font-mono"></textarea>
+          </div>
+          <!-- Search mode (hidden by default) -->
+          <div id="pf-search-input" class="hidden">
+            <input type="text" id="pf-query" placeholder="e.g. churches in raleigh nc, life coaches in charlotte"
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-green-300 text-base" />
+          </div>
+          <button type="submit" id="prospect-btn"
+            class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Scan Prospects
+          </button>
+        </form>
+
+        <!-- Status -->
+        <div id="pf-status" class="hidden mt-5">
+          <div id="pf-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
+            <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span id="pf-spinner-text">Starting scan...</span>
+          </div>
+          <div id="pf-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+            <p id="pf-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+          </div>
+        </div>
+
+        <!-- Results table -->
+        <div id="pf-results" class="hidden mt-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-stone-800">Results</h3>
+            <div id="pf-summary" class="flex gap-3 text-xs font-semibold"></div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-stone-200 text-left text-xs text-stone-500 uppercase tracking-wider">
+                  <th class="py-2 pr-3"><input type="checkbox" id="pf-select-all" class="rounded" /></th>
+                  <th class="py-2 pr-3">Score</th>
+                  <th class="py-2 pr-3">Site</th>
+                  <th class="py-2 pr-3">Platform</th>
+                  <th class="py-2 pr-3">Pages</th>
+                  <th class="py-2 pr-3">Mobile</th>
+                  <th class="py-2 pr-3">Contact</th>
+                  <th class="py-2 pr-3">Flags</th>
+                </tr>
+              </thead>
+              <tbody id="pf-table-body"></tbody>
+            </table>
+          </div>
+          <div class="mt-4 flex gap-3">
+            <button id="pf-propose-btn" class="bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-5 rounded-lg text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+              Generate Proposals for Selected
+            </button>
+          </div>
+          <div id="pf-propose-status" class="hidden mt-3 text-sm text-stone-600"></div>
+        </div>
+      </div>
     </div><!-- end Pre-Sale -->
 
     <!-- ══════════════════════════════════════════════════════════
@@ -1216,6 +1289,161 @@ if (!(window as any).__portalInitialized) {
       document.getElementById('saudit-error-text')!.textContent = err instanceof Error ? err.message : 'Unknown error';
       btn.disabled = false; btn.textContent = 'Generate Site Audit Report';
     }
+  });
+
+  // ── Prospect Finder ─────────────────────────────────────────
+  let pfMode: 'urls' | 'search' = 'urls';
+
+  document.getElementById('pf-tab-urls')!.addEventListener('click', () => {
+    pfMode = 'urls';
+    document.getElementById('pf-urls-input')!.classList.remove('hidden');
+    document.getElementById('pf-search-input')!.classList.add('hidden');
+    document.getElementById('pf-tab-urls')!.className = 'px-4 py-1.5 rounded-full text-sm font-semibold bg-green-700 text-white transition-colors';
+    document.getElementById('pf-tab-search')!.className = 'px-4 py-1.5 rounded-full text-sm font-semibold border border-stone-300 text-stone-600 hover:border-green-500 hover:text-green-700 transition-colors';
+  });
+  document.getElementById('pf-tab-search')!.addEventListener('click', () => {
+    pfMode = 'search';
+    document.getElementById('pf-urls-input')!.classList.add('hidden');
+    document.getElementById('pf-search-input')!.classList.remove('hidden');
+    document.getElementById('pf-tab-search')!.className = 'px-4 py-1.5 rounded-full text-sm font-semibold bg-green-700 text-white transition-colors';
+    document.getElementById('pf-tab-urls')!.className = 'px-4 py-1.5 rounded-full text-sm font-semibold border border-stone-300 text-stone-600 hover:border-green-500 hover:text-green-700 transition-colors';
+  });
+
+  // Select all checkbox
+  document.getElementById('pf-select-all')!.addEventListener('change', (e) => {
+    const checked = (e.target as HTMLInputElement).checked;
+    document.querySelectorAll<HTMLInputElement>('.pf-row-check').forEach(cb => { cb.checked = checked; });
+  });
+
+  document.getElementById('prospect-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('prospect-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Scanning...';
+
+    // Build request body
+    let body: any;
+    if (pfMode === 'urls') {
+      const raw = (document.getElementById('pf-urls') as HTMLTextAreaElement).value.trim();
+      const urls = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      if (!urls.length) { btn.disabled = false; btn.textContent = 'Scan Prospects'; return; }
+      body = { urls };
+    } else {
+      const query = (document.getElementById('pf-query') as HTMLInputElement).value.trim();
+      if (!query) { btn.disabled = false; btn.textContent = 'Scan Prospects'; return; }
+      body = { query };
+    }
+
+    // Show spinner, hide previous results
+    document.getElementById('pf-status')!.classList.remove('hidden');
+    document.getElementById('pf-spinner')!.classList.remove('hidden');
+    document.getElementById('pf-spinner-text')!.textContent = 'Starting scan...';
+    ['pf-error', 'pf-results'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+
+    try {
+      const resp = await fetch('/api/tools-prospect', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const start = await resp.json();
+      if (start.error) throw new Error(start.error);
+
+      // Poll for results
+      const poll = async (): Promise<void> => {
+        await new Promise(r => setTimeout(r, 3000));
+        const job = await (await fetch(`/api/tools-prospect-status?job_id=${start.job_id}`)).json();
+
+        if (job.status === 'pending') {
+          // Update progress text
+          const p = job.progress;
+          if (p) {
+            if (p.phase === 'searching') document.getElementById('pf-spinner-text')!.textContent = `Searching${p.query ? ': ' + p.query : ''}...`;
+            else if (p.phase === 'auditing') document.getElementById('pf-spinner-text')!.textContent = `Auditing sites: ${p.audited || 0}/${p.total || '?'}`;
+            else if (p.phase === 'enriching') document.getElementById('pf-spinner-text')!.textContent = `Running PageSpeed: ${p.enriched || 0}/${p.total || '?'}`;
+          }
+          return poll();
+        }
+
+        document.getElementById('pf-spinner')!.classList.add('hidden');
+
+        if (job.status === 'failed') {
+          document.getElementById('pf-error')!.classList.remove('hidden');
+          document.getElementById('pf-error-text')!.textContent = job.error || 'Scan failed.';
+        } else if (job.status === 'done' && job.results) {
+          renderProspectResults(job.results);
+        }
+        btn.disabled = false; btn.textContent = 'Scan Prospects';
+      };
+      poll();
+    } catch (err: any) {
+      document.getElementById('pf-spinner')!.classList.add('hidden');
+      document.getElementById('pf-error')!.classList.remove('hidden');
+      document.getElementById('pf-error-text')!.textContent = err.message || 'Unknown error';
+      btn.disabled = false; btn.textContent = 'Scan Prospects';
+    }
+  });
+
+  function renderProspectResults(results: any) {
+    document.getElementById('pf-results')!.classList.remove('hidden');
+    const s = results.summary || {};
+    document.getElementById('pf-summary')!.innerHTML = [
+      `<span class="text-red-600">Hot (8-10): ${s.hot || 0}</span>`,
+      `<span class="text-amber-600">Warm (5-7): ${s.warm || 0}</span>`,
+      `<span class="text-stone-400">Cold (0-4): ${s.cold || 0}</span>`,
+      `<span class="text-stone-600">Total: ${s.total || 0}</span>`,
+    ].join('');
+
+    const tbody = document.getElementById('pf-table-body')!;
+    tbody.innerHTML = (results.prospects || []).map((p: any) => {
+      const scoreBg = p.smpScore >= 8 ? 'bg-red-100 text-red-800' : p.smpScore >= 5 ? 'bg-amber-100 text-amber-800' : 'bg-stone-100 text-stone-600';
+      const perf = p.pagespeed ? `${p.pagespeed.performance}` : '—';
+      const emails = (p.contacts?.emails || []).slice(0, 2);
+      const phones = (p.contacts?.phones || []).slice(0, 1);
+      const contactHtml = [...emails.map((e: string) => `<span class="text-green-700">${e}</span>`), ...phones.map((ph: string) => `<span class="text-stone-500">${ph}</span>`)].join('<br/>') || '<span class="text-stone-300">—</span>';
+      const flags = [];
+      if (p.faithSignals) flags.push('<span class="text-amber-600" title="Faith signals detected">&#10013;</span>');
+      if (p.screening) flags.push(`<span class="text-red-500" title="${p.screening[0]?.vendor || p.screening[0]?.type || 'Flag'}">&#9888;</span>`);
+      const domain = (() => { try { return new URL(p.url).hostname.replace(/^www\./,''); } catch { return p.url; } })();
+      return `<tr class="border-b border-stone-100 hover:bg-stone-50">
+        <td class="py-2.5 pr-3"><input type="checkbox" class="pf-row-check rounded" data-url="${p.url}" ${p.smpScore >= 7 ? 'checked' : ''} /></td>
+        <td class="py-2.5 pr-3"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-bold ${scoreBg}">${p.smpScore}</span></td>
+        <td class="py-2.5 pr-3"><div class="font-semibold text-stone-800 text-xs">${p.siteName || domain}</div><a href="${p.url}" target="_blank" class="text-xs text-green-700 hover:underline">${domain}</a></td>
+        <td class="py-2.5 pr-3 text-xs text-stone-600">${p.platform}</td>
+        <td class="py-2.5 pr-3 text-xs text-stone-600">${p.pageCount || '—'}</td>
+        <td class="py-2.5 pr-3 text-xs text-stone-600">${perf}</td>
+        <td class="py-2.5 pr-3 text-xs">${contactHtml}</td>
+        <td class="py-2.5 pr-3 text-xs">${flags.join(' ') || '—'}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Batch proposal generation
+  document.getElementById('pf-propose-btn')!.addEventListener('click', async () => {
+    const checked = document.querySelectorAll<HTMLInputElement>('.pf-row-check:checked');
+    const urls = Array.from(checked).map(cb => cb.dataset.url).filter(Boolean);
+    if (!urls.length) return;
+
+    const btn = document.getElementById('pf-propose-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = `Generating ${urls.length} Proposals...`;
+    const statusEl = document.getElementById('pf-propose-status')!;
+    statusEl.classList.remove('hidden');
+    statusEl.textContent = `Starting ${urls.length} proposal jobs...`;
+
+    try {
+      const resp = await fetch('/api/tools-prospect-propose', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ urls }),
+      });
+      const data = await resp.json();
+      if (data.error) throw new Error(data.error);
+
+      const jobs = data.jobs || [];
+      const started = jobs.filter((j: any) => j.job_id).length;
+      const failed = jobs.filter((j: any) => j.error).length;
+      statusEl.innerHTML = `<span class="text-green-700 font-semibold">${started} proposal(s) started.</span>${failed ? ` <span class="text-red-600">${failed} failed to start.</span>` : ''} Check the Proposal tool above to monitor progress.`;
+    } catch (err: any) {
+      statusEl.innerHTML = `<span class="text-red-600">Error: ${err.message}</span>`;
+    }
+    btn.disabled = false; btn.textContent = 'Generate Proposals for Selected';
   });
 
   // Init
