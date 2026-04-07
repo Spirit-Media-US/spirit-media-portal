@@ -143,6 +143,40 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         </ul>
       </section>
 
+      <!-- Developer Permissions -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Developer Permissions</h2>
+        <p class="text-stone-600 text-sm mb-4">All developers are in the <code class="bg-stone-100 px-1 rounded text-xs">deploy</code> group. Permissions are set so you can work on any client site without needing admin help.</p>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+            <p class="font-bold text-green-800 text-sm mb-2">You CAN</p>
+            <ul class="text-green-700 text-xs space-y-1">
+              <li>&bull; Read and write any client site in <code class="bg-white px-1 rounded">~/Sites/</code></li>
+              <li>&bull; Run Claude in any site directory</li>
+              <li>&bull; Run <code class="bg-white px-1 rounded">npm run dev</code>, <code class="bg-white px-1 rounded">npm run build</code>, git operations</li>
+              <li>&bull; Use all MCP servers (Sanity, Stitch, Playwright, etc.)</li>
+              <li>&bull; Use all pipeline tools on the portal</li>
+            </ul>
+          </div>
+          <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p class="font-bold text-red-800 text-sm mb-2">You CANNOT</p>
+            <ul class="text-red-700 text-xs space-y-1">
+              <li>&bull; Edit the Tools API (<code class="bg-white px-1 rounded">/home/deploy/bin/tools-api/</code>)</li>
+              <li>&bull; Edit the Portal (<code class="bg-white px-1 rounded">~/Sites/spirit-media-portal/</code>)</li>
+              <li>&bull; Access secrets or .env files</li>
+              <li>&bull; Restart server services (systemctl, nginx)</li>
+              <li>&bull; Modify server config, firewall, or SSH settings</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+          <p class="font-bold text-amber-800 text-sm mb-2">Permission denied?</p>
+          <p class="text-amber-700 text-xs">If you hit a permission error on a site directory, <strong>do not try to fix it yourself</strong>. Do not use sudo, change ownership, or create temp directories. Message Kevin at <a href="mailto:kevin@spiritmediapublishing.com" class="underline">kevin@spiritmediapublishing.com</a> and he'll fix it. If you have ideas for improving the tools, portal, or server setup, reach out the same way — improvements are welcome.</p>
+        </div>
+      </section>
+
       <!-- Session Tips -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Session Best Practices</h2>
