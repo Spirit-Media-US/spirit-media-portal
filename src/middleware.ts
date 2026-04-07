@@ -5,7 +5,6 @@ const portalRoutes = [
 	"/connecting",
 	"/playbook",
 	"/developers",
-	"/task-log",
 	"/templates",
 ];
 const clientRoutes = ["/clients"];
