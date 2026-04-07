@@ -274,7 +274,47 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
         </div>
       </div>
-      <!-- Step 4: Post-Launch QA -->
+      <!-- Pre-Launch QA -->
+      <div class="bg-rose-50 rounded-2xl border border-rose-200 p-8 mb-6 shadow-sm">
+        <h2 class="text-2xl font-bold mb-1">Pre-Launch QA</h2>
+        <p class="text-stone-500 text-sm mb-6">Runs 8 code-level scans on any SMP site. Generates a Google Doc report. Run as many times as needed — fix issues, re-run until clean.</p>
+        <form id="plqa-pre-form" class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="plqa-pre-slug" class="block text-sm font-semibold text-stone-700 mb-2">Repo Slug</label>
+              <input type="text" id="plqa-pre-slug" required placeholder="scripture-alive"
+                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300" />
+              <p class="text-xs text-stone-400 mt-1">Directory name under ~/Sites/</p>
+            </div>
+            <div>
+              <label for="plqa-pre-title" class="block text-sm font-semibold text-stone-700 mb-2">Site Name</label>
+              <input type="text" id="plqa-pre-title" required placeholder="Scripture Alive"
+                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300" />
+            </div>
+          </div>
+          <button type="submit" id="plqa-pre-btn"
+            class="w-full bg-rose-200 hover:bg-rose-300 text-rose-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Run Pre-Launch QA
+          </button>
+        </form>
+        <div id="plqa-pre-status" class="hidden mt-5">
+          <div id="plqa-pre-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
+            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span id="plqa-pre-status-text">Running 8 scans + build gate...</span>
+          </div>
+          <div id="plqa-pre-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-lg space-y-2">
+            <p id="plqa-pre-summary" class="font-semibold text-sm"></p>
+            <a id="plqa-pre-doc-url" href="#" target="_blank" rel="noopener noreferrer"
+              class="block text-green-700 underline font-medium text-sm">Open Report →</a>
+          </div>
+          <div id="plqa-pre-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p class="font-semibold text-red-800 text-sm">Error</p>
+            <p id="plqa-pre-error-text" class="text-red-700 text-sm font-mono mt-1"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post-Launch QA -->
       <div class="bg-rose-50 rounded-2xl border border-rose-200 p-8 mb-6 shadow-sm">
         <div class="flex items-center gap-3 mb-1">
           <span class="w-7 h-7 rounded-full bg-rose-100 text-rose-700 text-xs font-bold flex items-center justify-center shrink-0">4</span>
@@ -1058,6 +1098,53 @@ if (!(window as any).__portalInitialized) {
         </div>`).join('');
     } catch { list.innerHTML = '<p class="text-stone-500 text-sm">Could not load history.</p>'; }
   }
+
+  // ── Pre-Launch QA (standalone tool) ──────────────────────────
+  document.getElementById('plqa-pre-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const slug = (document.getElementById('plqa-pre-slug') as HTMLInputElement).value.trim();
+    const siteTitle = (document.getElementById('plqa-pre-title') as HTMLInputElement).value.trim();
+    if (!slug || !siteTitle) { alert('Slug and Site Name are required.'); return; }
+    const btn = document.getElementById('plqa-pre-btn') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Scanning...';
+    document.getElementById('plqa-pre-status')!.classList.remove('hidden');
+    document.getElementById('plqa-pre-spinner')!.classList.remove('hidden');
+    ['plqa-pre-result','plqa-pre-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
+    try {
+      const resp = await fetch('/api/tools-prelaunch-qa', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, site_title: siteTitle }),
+      });
+      const start = await resp.json();
+      if (start.error) throw new Error(start.error);
+      const poll = async (): Promise<void> => {
+        await new Promise(r => setTimeout(r, 4000));
+        const job = await (await fetch(`/api/tools-prelaunch-qa-status?job_id=${start.job_id}`)).json();
+        if (job.status === 'pending' || job.status === 'scanning' || job.status === 'generating_report') {
+          document.getElementById('plqa-pre-status-text')!.textContent = job.message || 'Running scans...';
+          return poll();
+        }
+        document.getElementById('plqa-pre-spinner')!.classList.add('hidden');
+        if (job.status === 'failed') {
+          document.getElementById('plqa-pre-error')!.classList.remove('hidden');
+          document.getElementById('plqa-pre-error-text')!.textContent = job.error || 'Scan failed.';
+        } else {
+          document.getElementById('plqa-pre-result')!.classList.remove('hidden');
+          const summary = document.getElementById('plqa-pre-summary')!;
+          summary.className = `font-semibold text-sm ${job.all_passed ? 'text-green-800' : 'text-amber-800'}`;
+          summary.textContent = job.all_passed ? `All ${job.total} scans passed.` : `${job.passed} of ${job.total} passed — see report for details.`;
+          (document.getElementById('plqa-pre-doc-url') as HTMLAnchorElement).href = job.doc_url;
+        }
+        btn.disabled = false; btn.textContent = 'Run Pre-Launch QA';
+      };
+      poll();
+    } catch (err: any) {
+      document.getElementById('plqa-pre-spinner')!.classList.add('hidden');
+      document.getElementById('plqa-pre-error')!.classList.remove('hidden');
+      document.getElementById('plqa-pre-error-text')!.textContent = err.message;
+      btn.disabled = false; btn.textContent = 'Run Pre-Launch QA';
+    }
+  });
 
   // ── 4. Post-Launch QA ─────────────────────────────────────────
   function scoreColor(n: number): string {
