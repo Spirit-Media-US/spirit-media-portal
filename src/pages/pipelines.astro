@@ -204,50 +204,6 @@ import PortalLayout from "../layouts/PortalLayout.astro";
       </div>
       <p class="text-stone-600 text-sm mb-6">Work with any SMP site — migration or new build.</p>
 
-      <!-- Site Updates -->
-      <div class="bg-white rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
-        <h2 class="text-2xl font-bold mb-1">Request a Site Update</h2>
-        <p class="text-stone-500 text-sm mb-6">Select a site, describe the change — Claude makes the edit and pushes to dev.</p>
-        <form id="site-update-form" class="space-y-4">
-          <div>
-            <label for="site-update-site" class="block text-sm font-semibold text-stone-700 mb-2">Site</label>
-            <select id="site-update-site" name="site_slug" required
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 focus:outline-none focus:ring-2 focus:ring-violet-300 bg-white">
-              <option value="">Loading sites…</option>
-            </select>
-          </div>
-          <div>
-            <label for="site-update-request" class="block text-sm font-semibold text-stone-700 mb-2">What would you like to change?</label>
-            <textarea id="site-update-request" name="request_text" required rows="5"
-              placeholder='e.g. Change the hero headline to "Walking in Freedom" and update the button to say "Start Your Journey"'
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300 resize-y text-sm"></textarea>
-            <p class="text-xs text-stone-400 mt-1">Be specific. The more detail you give, the better the result.</p>
-          </div>
-          <button type="submit" id="site-update-btn"
-            class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Submit Update Request
-          </button>
-        </form>
-        <div id="site-update-status" class="hidden mt-5">
-          <div id="site-update-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
-            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
-            <span id="site-update-status-text">Sending to Claude…</span>
-          </div>
-          <div id="site-update-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-lg space-y-2">
-            <p class="font-semibold text-green-800 text-sm">Update complete — PR ready for review.</p>
-            <a id="site-update-pr-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-sm text-green-700 underline font-medium break-all"></a>
-            <a id="site-update-preview-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-xs text-green-600 underline break-all"></a>
-          </div>
-          <div id="site-update-ambiguous" class="hidden p-5 bg-amber-50 border border-amber-200 rounded-lg">
-            <p class="font-semibold text-amber-800 text-sm mb-1">We need more detail</p>
-            <p id="site-update-ambiguous-text" class="text-amber-700 text-sm"></p>
-          </div>
-          <div id="site-update-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p class="font-semibold text-red-800 text-sm mb-1">Something went wrong</p>
-            <p id="site-update-error-text" class="text-red-700 text-sm"></p>
-          </div>
-        </div>
-      </div>
       <!-- Pre-Launch QA -->
       <div class="bg-white rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
         <h2 class="text-2xl font-bold mb-1">Pre-Launch QA</h2>
@@ -503,18 +459,63 @@ import PortalLayout from "../layouts/PortalLayout.astro";
     <!-- ══════════════════════════════════════════════════════════
          GENERAL — purple
     ═══════════════════════════════════════════════════════════ -->
-    <div class="mb-12">
-      <div class="flex items-center gap-3 mb-6">
-        <span class="inline-block px-3 py-1 rounded-full bg-violet-100 text-violet-700 text-xs font-bold uppercase tracking-widest">General</span>
-        <div class="flex-1 border-t border-violet-200"></div>
+    <div class="mb-12 bg-stone-100 rounded-2xl border border-stone-200 p-8">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="inline-block px-3 py-1 rounded-full bg-stone-300 text-stone-800 text-xs font-bold uppercase tracking-widest">Claude Agents</span>
+      </div>
+      <p class="text-stone-600 text-sm mb-6">Ask Claude to do something — code changes or general tasks.</p>
+
+      <!-- Request a Site Update -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-6 shadow-sm">
+        <h2 class="text-2xl font-bold mb-1">Request a Site Update</h2>
+        <p class="text-stone-500 text-sm mb-6">Select a site, describe the change — Claude edits the code and pushes to dev.</p>
+        <form id="site-update-form" class="space-y-4">
+          <div>
+            <label for="site-update-site" class="block text-sm font-semibold text-stone-700 mb-1">Site</label>
+            <select id="site-update-site" name="site_slug" required
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400 bg-white">
+              <option value="">Loading sites…</option>
+            </select>
+          </div>
+          <div>
+            <label for="site-update-request" class="block text-sm font-semibold text-stone-700 mb-1">What would you like to change?</label>
+            <textarea id="site-update-request" name="request_text" required rows="4"
+              placeholder='e.g. Change the hero headline to "Walking in Freedom" and update the button to say "Start Your Journey"'
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 resize-y text-sm"></textarea>
+          </div>
+          <button type="submit" id="site-update-btn"
+            class="w-full bg-stone-700 hover:bg-stone-800 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Submit Update Request
+          </button>
+        </form>
+        <div id="site-update-status" class="hidden mt-5">
+          <div id="site-update-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
+            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span id="site-update-status-text">Sending to Claude…</span>
+          </div>
+          <div id="site-update-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-lg space-y-2">
+            <p class="font-semibold text-green-800 text-sm">Update complete — pushed to dev.</p>
+            <a id="site-update-pr-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-sm text-green-700 underline font-medium break-all"></a>
+            <a id="site-update-preview-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-xs text-green-600 underline break-all"></a>
+          </div>
+          <div id="site-update-ambiguous" class="hidden p-5 bg-amber-50 border border-amber-200 rounded-lg">
+            <p class="font-semibold text-amber-800 text-sm mb-1">We need more detail</p>
+            <p id="site-update-ambiguous-text" class="text-amber-700 text-sm"></p>
+          </div>
+          <div id="site-update-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p class="font-semibold text-red-800 text-sm mb-1">Something went wrong</p>
+            <p id="site-update-error-text" class="text-red-700 text-sm"></p>
+          </div>
+        </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
+      <!-- Claude Task Agent -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-6 shadow-sm">
         <h2 class="text-2xl font-bold mb-1">Claude Task Agent</h2>
         <p class="text-stone-500 text-sm mb-4">Describe any task in plain English — no site slug needed. Claude handles it and returns a response you can copy or act on.</p>
 
-        <div class="bg-violet-50 border border-violet-200 rounded-lg p-4 mb-6">
-          <p class="text-xs font-bold uppercase tracking-widest text-violet-600 mb-2">What this agent can help with</p>
+        <div class="bg-stone-50 border border-stone-200 rounded-lg p-4 mb-6">
+          <p class="text-xs font-bold uppercase tracking-widest text-stone-500 mb-2">What this agent can help with</p>
           <ul class="grid grid-cols-2 gap-x-4 gap-y-1 text-stone-700 text-sm">
             <li>• Draft an email or letter</li>
             <li>• Write marketing or ad copy</li>
@@ -534,11 +535,11 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <label for="general-task" class="block text-sm font-semibold text-stone-700 mb-2">What do you need?</label>
             <textarea id="general-task" required rows="5"
               placeholder="e.g. Write a 3-sentence email to a potential client introducing Spirit Media Publishing and our website services. Keep it warm and pastoral."
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-400 resize-y text-sm"></textarea>
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 resize-y text-sm"></textarea>
             <p class="text-xs text-stone-400 mt-1">The more context you give, the better the result.</p>
           </div>
           <button type="submit" id="general-btn"
-            class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            class="w-full bg-stone-700 hover:bg-stone-800 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Run Task
           </button>
         </form>
