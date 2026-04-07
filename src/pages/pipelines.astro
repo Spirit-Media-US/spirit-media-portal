@@ -128,12 +128,6 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         </div>
       </div>
 
-      <!-- Active Migrations Dashboard -->
-      <div class="bg-white rounded-2xl border border-rose-200 p-6 shadow-sm">
-        <h3 class="text-lg font-bold text-stone-800 mb-4">Active Migrations</h3>
-        <div id="mig-dashboard" class="text-sm text-stone-500">Loading…</div>
-      </div>
-
     </div><!-- end Website Migration -->
 
     <!-- ══════════════════════════════════════════════════════════
@@ -618,61 +612,6 @@ if (!(window as any).__portalInitialized) {
         : '<option value="">No new site projects yet</option>';
     }
 
-    // Migration dashboard
-    renderMigrationDashboard();
-  }
-
-  // ── Migration Dashboard ─────────────────────────────────────
-  function renderMigrationDashboard() {
-    const dashboard = document.getElementById('mig-dashboard');
-    if (!dashboard) return;
-
-    const migProjects = allProjects.filter(p => p.pipeline === 'migration' || !p.pipeline);
-    if (!migProjects.length) {
-      dashboard.innerHTML = '<p class="text-stone-400 text-sm">No migrations yet. Use the form above to start one.</p>';
-      return;
-    }
-
-    const phaseColors: Record<string, string> = {
-      in_progress: 'text-rose-700 bg-rose-50 border-rose-200',
-      failed: 'text-red-700 bg-red-50 border-red-200',
-      complete: 'text-green-700 bg-green-50 border-green-200',
-    };
-
-    dashboard.innerHTML = migProjects.map(p => {
-      const phase = p.phase || 1;
-      const phaseName = p.phase_name || 'Infrastructure';
-      const status = p.phase_status || 'in_progress';
-      const statusClass = phaseColors[status] || phaseColors.in_progress;
-      const dots = Array.from({length: 9}, (_, i) => {
-        const n = i + 1;
-        if (n < phase) return `<div class="w-5 h-5 rounded-full bg-green-500 text-white text-[10px] font-bold flex items-center justify-center">&#10003;</div>`;
-        if (n === phase) return `<div class="w-5 h-5 rounded-full bg-rose-600 text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-rose-300 ring-offset-1">${n}</div>`;
-        return `<div class="w-5 h-5 rounded-full bg-stone-200 text-stone-400 text-[10px] font-bold flex items-center justify-center">${n}</div>`;
-      }).join('');
-
-      const links = [
-        p.github ? `<a href="${p.github}" target="_blank" rel="noopener" class="text-rose-700 hover:underline">GitHub</a>` : '',
-        p.netlify_url ? `<a href="${p.netlify_url}" target="_blank" rel="noopener" class="text-rose-700 hover:underline">Netlify</a>` : '',
-        p.sanity_studio ? `<a href="${p.sanity_studio}" target="_blank" rel="noopener" class="text-rose-700 hover:underline">Sanity</a>` : '',
-      ].filter(Boolean).join(' &middot; ');
-
-      const nextStep = status === 'complete' && phase === 9
-        ? '<span class="text-green-700 font-semibold">Migration complete</span>'
-        : `<code class="bg-stone-100 px-2 py-0.5 rounded text-xs">cd ~/Sites/${p.slug} && claude</code> &rarr; say <strong>"continue migration"</strong>`;
-
-      return `<div class="border border-stone-200 rounded-xl p-4 mb-3">
-        <div class="flex items-center justify-between mb-2">
-          <p class="font-bold text-stone-800">${p.title}</p>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded-full border ${statusClass}">Phase ${phase}: ${phaseName}</span>
-        </div>
-        <div class="flex items-center gap-1 mb-3">${dots}</div>
-        <div class="flex items-center justify-between text-xs">
-          <div class="text-stone-400">${links}</div>
-          <div class="text-stone-600">${nextStep}</div>
-        </div>
-      </div>`;
-    }).join('');
   }
 
   // ── 1. Proposal ──────────────────────────────────────────────
