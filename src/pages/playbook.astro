@@ -2,7 +2,7 @@
 import PortalLayout from "../layouts/PortalLayout.astro";
 ---
 
-<PortalLayout title="Playbook" mainBg="#f0f9ff">
+<PortalLayout title="Playbook">
   <div class="max-w-4xl">
     <h1 class="text-4xl font-bold mb-2">Playbook</h1>
     <p class="text-stone-600 mb-8">Architecture, workflows, and standards for every site we build</p>
@@ -65,13 +65,13 @@ import PortalLayout from "../layouts/PortalLayout.astro";
       </section>
 
       <!-- Website Migration Protocol -->
-      <section class="bg-white border border-rose-200 rounded-lg p-6">
+      <section class="bg-rose-50 border border-rose-200 rounded-2xl p-6">
         <h2 class="text-2xl font-bold text-rose-700 mb-1">Website Migration Protocol</h2>
         <p class="text-stone-500 text-sm mb-1">Client-facing name: <strong>The Transformation System</strong> &nbsp;·&nbsp; Pipeline type: <code class="bg-stone-100 px-1 rounded text-xs">migration</code></p>
         <p class="text-stone-600 text-sm mb-5">Clone an existing client website to the SMP stack. 9 phases — Claude does the work, you verify at checkpoints.</p>
 
         <!-- How to run a migration -->
-        <div class="bg-rose-50 border border-rose-200 rounded-lg p-5 mb-6">
+        <div class="bg-white border border-rose-200 rounded-lg p-5 mb-6">
           <p class="font-bold text-rose-800 text-sm mb-3">How to run a migration</p>
           <ol class="list-decimal ml-4 space-y-2 text-sm text-stone-600">
             <li>Go to <a href="/pipelines" class="text-rose-700 hover:underline font-semibold">Pipelines</a> and click <strong>Start Migration</strong> — enter the site name, slug, and client URL.</li>
@@ -99,7 +99,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         <div class="space-y-6">
 
           <!-- Phase 1 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">1</div>
               <p class="font-bold text-stone-800">Infrastructure</p>
@@ -113,7 +113,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
 
           <!-- Phase 2 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">2</div>
               <p class="font-bold text-stone-800">Content + CSS Extraction</p>
@@ -133,7 +133,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
 
           <!-- Phase 3 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">3</div>
               <p class="font-bold text-stone-800">Design + Build</p>
@@ -147,7 +147,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
 
           <!-- Phase 4 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">4</div>
               <p class="font-bold text-stone-800">Wire Sanity CMS</p>
@@ -160,7 +160,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
 
           <!-- Phase 5 — THE GATE -->
-          <div class="border-2 border-rose-400 bg-rose-50 rounded-lg p-5">
+          <div class="border-2 border-rose-400 bg-white rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">5</div>
               <p class="font-bold text-rose-800">CAR / Transformation Layer Report</p>
@@ -181,7 +181,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
 
           <!-- Phase 6 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">6</div>
               <p class="font-bold text-stone-800">Design Refinement</p>
@@ -195,7 +195,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
 
           <!-- Phase 7 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">7</div>
               <p class="font-bold text-stone-800">QA</p>
@@ -209,7 +209,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
 
           <!-- Phase 8 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">8</div>
               <p class="font-bold text-stone-800">Launch</p>
@@ -233,7 +233,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
 
           <!-- Phase 9 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">9</div>
               <p class="font-bold text-stone-800">Client Delivery &amp; Roadmap</p>
@@ -274,16 +274,16 @@ SMP Team</div>
       </section>
 
       <!-- New Site Build Protocol -->
-      <section class="bg-white border border-teal-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-teal-700 mb-1">SMP Build Protocol (New Sites)</h2>
+      <section class="bg-blue-50 border border-blue-200 rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-blue-700 mb-1">SMP Build Protocol (New Sites)</h2>
         <p class="text-stone-500 text-sm mb-1">Client-facing name: <strong>The Build System</strong> &nbsp;·&nbsp; Pipeline type: <code class="bg-stone-100 px-1 rounded text-xs">newsite</code></p>
         <p class="text-stone-600 text-sm mb-5">Build a brand new website from scratch. 9 phases — Claude does the work, you verify at checkpoints.</p>
 
         <!-- How to run -->
-        <div class="bg-teal-50 border border-teal-200 rounded-lg p-5 mb-6">
-          <p class="font-bold text-teal-800 text-sm mb-3">How to run a new site build</p>
+        <div class="bg-white border border-blue-200 rounded-lg p-5 mb-6">
+          <p class="font-bold text-blue-800 text-sm mb-3">How to run a new site build</p>
           <ol class="list-decimal ml-4 space-y-2 text-sm text-stone-600">
-            <li>Go to <a href="/pipelines" class="text-teal-700 hover:underline font-semibold">Pipelines</a> and click <strong>Start New Site Build</strong> — enter the site name and slug.</li>
+            <li>Go to <a href="/pipelines" class="text-blue-700 hover:underline font-semibold">Pipelines</a> and click <strong>Start New Site Build</strong> — enter the site name and slug.</li>
             <li>When it finishes, SSH into Bethel:<br/>
               <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites/&lt;slug&gt; && claude</code></li>
             <li>Say <strong>"continue newsite"</strong> — Claude starts Phase 1 (Discovery &amp; Brand).</li>
@@ -297,9 +297,9 @@ SMP Team</div>
         <div class="space-y-6">
 
           <!-- Phase 1 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
-              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">1</div>
+              <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">1</div>
               <p class="font-bold text-stone-800">Discovery &amp; Brand</p>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
@@ -310,11 +310,11 @@ SMP Team</div>
           </div>
 
           <!-- Phase 2 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
-              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">2</div>
+              <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">2</div>
               <p class="font-bold text-stone-800">Infrastructure</p>
-              <span class="text-xs font-bold text-teal-700 bg-teal-100 px-2 py-0.5 rounded-full">AUTOMATED</span>
+              <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">AUTOMATED</span>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
               <p><strong>Claude does:</strong> Bootstrap creates GitHub repo, Netlify site, Sanity project. Claude clones the repo, sets up Astro 5 + Tailwind v4 scaffold, creates CLAUDE.md and dev branch.</p>
@@ -324,11 +324,11 @@ SMP Team</div>
           </div>
 
           <!-- Phase 3 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
-              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">3</div>
+              <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">3</div>
               <p class="font-bold text-stone-800">Design System</p>
-              <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
+              <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
               <p><strong>Claude does:</strong> Creates a Stitch project and design system from the creative brief (colors, fonts, roundness). Generates screens for every page (desktop + mobile). Applies the design system across all screens. Verifies designs match the brief.</p>
@@ -338,9 +338,9 @@ SMP Team</div>
           </div>
 
           <!-- Phase 4 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
-              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">4</div>
+              <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">4</div>
               <p class="font-bold text-stone-800">Build Pages + Sanity</p>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
@@ -351,13 +351,13 @@ SMP Team</div>
           </div>
 
           <!-- Phase 5 — THE GATE -->
-          <div class="border-2 border-teal-400 bg-teal-50 rounded-lg p-5">
+          <div class="border-2 border-blue-400 bg-white rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
-              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">5</div>
-              <p class="font-bold text-teal-800">CAR / Review Gate</p>
-              <span class="text-xs font-bold text-white bg-teal-700 px-2 py-0.5 rounded-full">THE GATE</span>
+              <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">5</div>
+              <p class="font-bold text-blue-800">CAR / Review Gate</p>
+              <span class="text-xs font-bold text-white bg-blue-700 px-2 py-0.5 rounded-full">THE GATE</span>
             </div>
-            <p class="text-teal-700 text-xs font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
+            <p class="text-blue-700 text-xs font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
               <p><strong>Claude does:</strong> Runs Pre-Launch QA (8 scans — generates Google Doc report). Generates Transformation Layer Report (Google Doc) with Part One (delivered), Part Two (critical fixes), Part Three (improvements). Implements all critical fixes. Re-runs scans to confirm.</p>
               <p><strong>You check:</strong> Claude shows report links. All 8 scans pass after fixes.</p>
@@ -366,11 +366,11 @@ SMP Team</div>
           </div>
 
           <!-- Phase 6 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
-              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">6</div>
+              <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">6</div>
               <p class="font-bold text-stone-800">Design Polish</p>
-              <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
+              <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
               <p><strong>Claude does:</strong> Takes the recommended improvements from CAR Part Three. Uses Stitch to generate design variants, picks the best, implements refinements in Astro. Polishes spacing, responsiveness, micro-interactions.</p>
@@ -380,9 +380,9 @@ SMP Team</div>
           </div>
 
           <!-- Phase 7 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
-              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">7</div>
+              <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">7</div>
               <p class="font-bold text-stone-800">QA</p>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
@@ -393,9 +393,9 @@ SMP Team</div>
           </div>
 
           <!-- Phase 8 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
-              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">8</div>
+              <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">8</div>
               <p class="font-bold text-stone-800">Launch</p>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
@@ -406,9 +406,9 @@ SMP Team</div>
           </div>
 
           <!-- Phase 9 -->
-          <div class="border border-stone-200 rounded-lg p-5">
+          <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
-              <div class="shrink-0 w-7 h-7 rounded-full bg-teal-700 text-white text-xs font-bold flex items-center justify-center">9</div>
+              <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">9</div>
               <p class="font-bold text-stone-800">Client Delivery &amp; Roadmap</p>
             </div>
             <div class="ml-10 space-y-2 text-xs text-stone-600">
@@ -421,8 +421,8 @@ SMP Team</div>
 
         <!-- Links -->
         <div class="mt-6 pt-5 border-t border-stone-200 space-y-2">
-          <p class="text-stone-600 text-sm">Start a new site: <a href="/pipelines" class="text-teal-700 hover:underline font-semibold">Pipelines &rarr; Start New Site Build</a></p>
-          <p class="text-stone-600 text-sm">Browse styles: <a href="/design-library" class="text-teal-700 hover:underline font-semibold">Design Library</a> — 7 style packages, 21 color palettes</p>
+          <p class="text-stone-600 text-sm">Start a new site: <a href="/pipelines" class="text-blue-700 hover:underline font-semibold">Pipelines &rarr; Start New Site Build</a></p>
+          <p class="text-stone-600 text-sm">Browse styles: <a href="/design-library" class="text-blue-700 hover:underline font-semibold">Design Library</a> — 7 style packages, 21 color palettes</p>
         </div>
       </section>
 
