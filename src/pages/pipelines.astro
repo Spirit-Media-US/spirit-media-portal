@@ -613,9 +613,9 @@ if (!(window as any).__portalInitialized) {
     const nsSel = document.getElementById('ns-qa-project') as HTMLSelectElement;
     if (nsSel) {
       const newsiteProjects = allProjects.filter(p => p.pipeline === 'newsite');
-      if (!newsiteProjects.length) { nsSel.innerHTML = '<option value="">No new site projects yet</option>'; return; }
-      nsSel.innerHTML = '<option value="">Select a project…</option>' +
-        newsiteProjects.map(p => `<option value="${p.id}">${p.title} — Phase ${p.phase || '?'}</option>`).join('');
+      nsSel.innerHTML = newsiteProjects.length
+        ? '<option value="">Select a project…</option>' + newsiteProjects.map(p => `<option value="${p.id}">${p.title} — Phase ${p.phase || '?'}</option>`).join('')
+        : '<option value="">No new site projects yet</option>';
     }
 
     // Migration dashboard
