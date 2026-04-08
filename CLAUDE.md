@@ -4,6 +4,8 @@
 
 This site: Spirit Media Portal | Repo: github.com/Spirit-Media-US/spirit-media-portal | Domain: portal.spiritmediapublishing.com | PIN: 060622
 
+**Migration protocol:** /home/deploy/bin/tools-api/pipelines/migration/CLAUDE.md
+
 ## Dev Commands
 
 - `npm run dev` — local preview at localhost:4326
@@ -39,7 +41,7 @@ Then run: `git checkout dev && git pull origin dev`
 - **Clients** — client guide (sent to clients at Phase 7)
 - **Design Library** — SMP brand + design system reference
 
-## Status — as of 2026-03-24
+## Status — as of 2026-04-08
 
 ### Completed & Live on Main
 - PIN login with session cookie auth
