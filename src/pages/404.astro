@@ -1,0 +1,19 @@
+---
+import PortalLayout from "../layouts/PortalLayout.astro";
+---
+
+<PortalLayout title="404 — Page Not Found">
+	<main class="min-h-screen flex items-center justify-center pt-20">
+		<div class="text-center px-6">
+			<h1 class="text-5xl md:text-7xl lg:text-9xl font-light opacity-30 mb-4">404</h1>
+			<p class="text-xl mb-8" style="color: var(--color-stone-700, #574e45);">This page doesn't exist.</p>
+			<a
+				href="/"
+				class="inline-block px-8 py-3.5 text-sm font-semibold tracking-[0.1em] uppercase no-underline transition-colors rounded"
+				style="background-color: var(--color-red, #c0392b); color: white;"
+			>
+				Go Home
+			</a>
+		</div>
+	</main>
+</PortalLayout>

@@ -1,8 +1,9 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  integrations: [],
+  integrations: [sitemap()],
   site: "https://spirit-media-portal.netlify.app",
   server: { port: 4326, host: true },
   vite: {
