@@ -283,9 +283,67 @@ SMP Team</div>
 
         </div>
 
-        <!-- Tools link -->
-        <div class="mt-6 pt-5 border-t border-stone-200">
-          <p class="text-stone-600 text-sm">Start a migration: <a href="/pipelines" class="text-rose-700 hover:underline font-semibold">Pipelines &rarr; Commands</a></p>
+        <!-- Tool Reference -->
+        <div class="mt-8 pt-6 border-t border-rose-200">
+          <h3 class="text-xl font-bold text-rose-700 mb-4">Tool Reference</h3>
+          <p class="text-stone-500 text-xs mb-4">Run these from your Claude session inside the site directory: <code class="bg-white border border-stone-200 px-1.5 py-0.5 rounded text-xs font-mono">cd ~/Sites/&lt;slug&gt; && claude</code></p>
+          <div class="space-y-4">
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="font-bold text-stone-800 text-sm">Start Migration</p>
+                  <p class="text-xs text-stone-500 mt-1">Creates GitHub repo, Sanity project, Netlify site, and scaffold. Run from <code class="bg-stone-100 px-1 rounded">~/Sites</code>.</p>
+                </div>
+                <a href="https://drive.google.com/drive/folders/1LiDlC_0SddKGXBpgAqlydUVWeLGdLZ2R?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-rose-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
+              </div>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Start migration for [Site Name] — slug: [slug], client URL: https://...</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <p class="font-bold text-stone-800 text-sm">Continue Migration</p>
+              <p class="text-xs text-stone-500 mt-1">Resumes from the current phase. Claude checks progress and picks up where you left off.</p>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">continue migration</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="font-bold text-stone-800 text-sm">Pre-Launch QA</p>
+                  <p class="text-xs text-stone-500 mt-1">8 code scans + build gate. Generates a Google Doc report. Use at Phase 5 (The Gate) and Phase 7 (QA).</p>
+                </div>
+                <a href="https://drive.google.com/drive/folders/1LiDlC_0SddKGXBpgAqlydUVWeLGdLZ2R?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-rose-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
+              </div>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Pre-Launch QA</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="font-bold text-stone-800 text-sm">Post-Launch QA</p>
+                  <p class="text-xs text-stone-500 mt-1">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can. Use at Phase 8 (Launch).</p>
+                </div>
+                <a href="https://drive.google.com/drive/folders/1igaRd2Ed_Bat--5EnX0TlaSyCLjmcSnL?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-rose-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
+              </div>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Post-Launch QA on https://[domain]</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="font-bold text-stone-800 text-sm">Site Audit &amp; Optimization Report</p>
+                  <p class="text-xs text-stone-500 mt-1">Client-ready Google Doc — performance, SEO, accessibility, recommendations. Run after Post-Launch QA passes.</p>
+                </div>
+                <a href="https://drive.google.com/drive/folders/1ekM2jpMHWFLou0cF7vbZYH2sIKL8kaoV?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-rose-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
+              </div>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Site Audit Report on https://[domain]</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <p class="font-bold text-stone-800 text-sm">Blog Protocol</p>
+              <p class="text-xs text-stone-500 mt-1">Adds a full blog — search, categories, pagination, related posts, share bar, SEO. Kevin customizes later.</p>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Use our blog protocol and add a blog to this site</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <p class="font-bold text-stone-800 text-sm">Request a Site Update</p>
+              <p class="text-xs text-stone-500 mt-1">Make content or code changes. Describe what you want — Claude edits and pushes to dev.</p>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">[Describe the change you want]</code>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -451,9 +509,66 @@ SMP Team</div>
 
         </div>
 
+        <!-- Tool Reference -->
+        <div class="mt-8 pt-6 border-t border-blue-200">
+          <h3 class="text-xl font-bold text-blue-700 mb-4">Tool Reference</h3>
+          <p class="text-stone-500 text-xs mb-4">Run these from your Claude session inside the site directory: <code class="bg-white border border-stone-200 px-1.5 py-0.5 rounded text-xs font-mono">cd ~/Sites/&lt;slug&gt; && claude</code></p>
+          <div class="space-y-4">
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <p class="font-bold text-stone-800 text-sm">Start New Site Build</p>
+              <p class="text-xs text-stone-500 mt-1">Creates GitHub repo, Sanity project, Netlify site, and scaffold. Run from <code class="bg-stone-100 px-1 rounded">~/Sites</code>.</p>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Start new site build for [Site Name] — slug: [slug]</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <p class="font-bold text-stone-800 text-sm">Continue Newsite</p>
+              <p class="text-xs text-stone-500 mt-1">Resumes from the current phase. Claude checks progress and picks up where you left off.</p>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">continue newsite</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="font-bold text-stone-800 text-sm">Pre-Launch QA</p>
+                  <p class="text-xs text-stone-500 mt-1">8 code scans + build gate. Generates a Google Doc report. Use at Phase 5 (The Gate) and Phase 7 (QA).</p>
+                </div>
+                <a href="https://drive.google.com/drive/folders/1LiDlC_0SddKGXBpgAqlydUVWeLGdLZ2R?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
+              </div>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Pre-Launch QA</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="font-bold text-stone-800 text-sm">Post-Launch QA</p>
+                  <p class="text-xs text-stone-500 mt-1">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can. Use at Phase 8 (Launch).</p>
+                </div>
+                <a href="https://drive.google.com/drive/folders/1igaRd2Ed_Bat--5EnX0TlaSyCLjmcSnL?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
+              </div>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Post-Launch QA on https://[domain]</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="font-bold text-stone-800 text-sm">Site Audit &amp; Optimization Report</p>
+                  <p class="text-xs text-stone-500 mt-1">Client-ready Google Doc. Run after Post-Launch QA passes.</p>
+                </div>
+                <a href="https://drive.google.com/drive/folders/1ekM2jpMHWFLou0cF7vbZYH2sIKL8kaoV?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
+              </div>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Site Audit Report on https://[domain]</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <p class="font-bold text-stone-800 text-sm">Blog Protocol</p>
+              <p class="text-xs text-stone-500 mt-1">Adds a full blog — search, categories, pagination, related posts, share bar, SEO.</p>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Use our blog protocol and add a blog to this site</code>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-lg p-4">
+              <p class="font-bold text-stone-800 text-sm">Request a Site Update</p>
+              <p class="text-xs text-stone-500 mt-1">Make content or code changes. Describe what you want — Claude edits and pushes to dev.</p>
+              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">[Describe the change you want]</code>
+            </div>
+          </div>
+        </div>
+
         <!-- Links -->
-        <div class="mt-6 pt-5 border-t border-stone-200 space-y-2">
-          <p class="text-stone-600 text-sm">Start a new site: <a href="/pipelines" class="text-blue-700 hover:underline font-semibold">Pipelines &rarr; Commands</a></p>
+        <div class="mt-6 pt-5 border-t border-stone-200">
           <p class="text-stone-600 text-sm">Browse styles: <a href="/design-library" class="text-blue-700 hover:underline font-semibold">Design Library</a> — 7 style packages, 21 color palettes</p>
         </div>
       </section>
