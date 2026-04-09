@@ -113,6 +113,7 @@ const sites: Site[] = [
       <div class="site-card">
         <div class="site-card-header">
           <h2>{site.name}</h2>
+          <span class="slug">{site.netlifyName}</span>
         </div>
         <div class="btn-grid">
           <a href={site.liveUrl ? `https://${site.liveUrl}` : `https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn">
@@ -122,11 +123,11 @@ const sites: Site[] = [
           </a>
           <a href={`https://dev--${site.netlifyName}.netlify.app`} target="_blank" rel="noopener noreferrer" class="btn" title="Dev branch preview">👁 Dev</a>
           <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn" title="Main branch (production)">🚀 Main</a>
-          <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>
           <a href={`https://${site.sanity}`} target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>
           <a href={`https://dev--${site.netlifyName}.netlify.app/studio/`} target="_blank" rel="noopener noreferrer" class="btn" title="Embedded Sanity Studio">🎨 Studio</a>
           <a href={`https://github.com/Spirit-Media-US/${site.repo}`} target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>
           <a href={`https://app.netlify.com/projects/${site.netlifyName}/deploys`} target="_blank" rel="noopener noreferrer" class="btn" title="Netlify deploy logs">📋 Logs</a>
+          <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>
           <a href={site.liveUrl ? `https://search.google.com/search-console?resource_id=sc-domain:${site.liveUrl}` : '#'} target="_blank" rel="noopener noreferrer" class="btn">📊 Search</a>
         </div>
       </div>
@@ -181,6 +182,13 @@ const sites: Site[] = [
     color: #1a1714; margin: 0;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
+  .site-card-header .slug {
+    display: block;
+    font-size: 0.6875rem;
+    color: #a8a29e;
+    font-family: monospace;
+    margin-top: 0.2rem;
+  }
 
   .status-lights {
     display: inline-flex; gap: 0.2rem; align-items: center;
@@ -197,7 +205,7 @@ const sites: Site[] = [
 
   .btn-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 0.375rem;
   }
 
@@ -258,6 +266,7 @@ const sites: Site[] = [
       <div class="site-card">
         <div class="site-card-header">
           <h2 title="${p.title}">${p.title}</h2>
+          <span class="slug">${netlifySlug}</span>
         </div>
         <div class="btn-grid">
           <a href="${liveHref}" target="_blank" rel="noopener noreferrer" class="btn">
@@ -270,9 +279,6 @@ const sites: Site[] = [
                <a href="${p.netlify_url}" target="_blank" rel="noopener noreferrer" class="btn" title="Main branch (production)">🚀 Main</a>`
             : `<span class="btn" style="opacity:.4;cursor:default">👁 Dev</span>
                <span class="btn" style="opacity:.4;cursor:default">🚀 Main</span>`}
-          ${p.netlify_url
-            ? `<a href="https://app.netlify.com/projects/${netlifySlug}" target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>`
-            : `<span class="btn" style="opacity:.4;cursor:default">⚙️ Netlify</span>`}
           ${p.sanity_studio
             ? `<a href="${p.sanity_studio}" target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>`
             : `<span class="btn" style="opacity:.4;cursor:default">✏️ Sanity</span>`}
@@ -285,6 +291,9 @@ const sites: Site[] = [
           ${p.netlify_url
             ? `<a href="https://app.netlify.com/projects/${netlifySlug}/deploys" target="_blank" rel="noopener noreferrer" class="btn" title="Netlify deploy logs">📋 Logs</a>`
             : `<span class="btn" style="opacity:.4;cursor:default">📋 Logs</span>`}
+          ${p.netlify_url
+            ? `<a href="https://app.netlify.com/projects/${netlifySlug}" target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>`
+            : `<span class="btn" style="opacity:.4;cursor:default">⚙️ Netlify</span>`}
           ${isLive && p.live_url
             ? `<a href="https://search.google.com/search-console?resource_id=sc-domain:${p.live_url}" target="_blank" rel="noopener noreferrer" class="btn">📊 Search</a>`
             : p.proposal_url
