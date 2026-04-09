@@ -145,59 +145,32 @@ import PortalLayout from "../layouts/PortalLayout.astro";
       <div class="bg-white border border-rose-200 rounded-lg p-5 mb-6">
         <p class="font-bold text-stone-800 text-sm mb-3">How it works</p>
         <ol class="list-decimal ml-4 space-y-2 text-sm text-stone-600">
-          <li><strong>Start here</strong> — fill in the form below and click Start Migration. This creates the GitHub repo, Sanity project, and Netlify site.</li>
-          <li><strong>Go to Bethel</strong> — when it's done, you'll see the next command. SSH in and run it:<br/>
+          <li><strong>SSH into Bethel</strong> as yourself (not deploy).</li>
+          <li><strong>Run Claude</strong> from your home directory:<br/>
+            <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites && claude</code></li>
+          <li><strong>Say:</strong> <code class="bg-rose-100 border border-rose-200 px-2 py-1 rounded text-xs font-mono">"Start migration for [Site Name] — slug: [slug], client URL: [url]"</code><br/>
+            <span class="text-xs text-stone-500">Claude creates the GitHub repo, Sanity project, Netlify site, and scaffold.</span></li>
+          <li><strong>When Phase 1 completes</strong>, move into the site directory:<br/>
             <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites/&lt;slug&gt; && claude</code></li>
-          <li><strong>Say "continue migration"</strong> — Claude reads the protocol, checks which phase you're on, and does the work. It tells you when to preview the site and what to check.</li>
-          <li><strong>Preview when told</strong> — Claude starts the dev server and gives you the URL. Compare against the original site.</li>
-          <li><strong>Say "continue"</strong> — Claude advances to the next phase. If a session ends, start a new one and say "continue migration" again. It picks up where it left off.</li>
+          <li><strong>Say "continue migration"</strong> — Claude reads the protocol, checks which phase you're on, and does the work.</li>
+          <li><strong>Preview when told</strong> — Claude gives you the Netlify preview URL. Compare against the original site.</li>
+          <li><strong>Say "continue"</strong> — Claude advances to the next phase. If a session ends, start a new one and say "continue migration" again.</li>
         </ol>
       </div>
 
-      <!-- Start Migration -->
+      <!-- Commands Reference -->
       <div class="bg-white rounded-2xl border border-rose-200 p-8 shadow-sm">
-        <h2 class="text-2xl font-bold mb-1">Start Migration</h2>
-        <p class="text-stone-500 text-sm mb-6">Creates GitHub repo, Sanity project, and Netlify site. Clones the repo to Bethel and sets up the scaffold.</p>
+        <h2 class="text-2xl font-bold mb-4">Commands</h2>
         <div class="space-y-4">
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label for="build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
-              <input id="build-title" type="text" placeholder="Global Hope India"
-                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-rose-300" />
-            </div>
-            <div>
-              <label for="build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Slug</label>
-              <input id="build-slug" type="text" placeholder="global-hope-india"
-                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 font-mono focus:outline-none focus:ring-2 focus:ring-rose-300" />
-            </div>
+          <div class="bg-stone-50 rounded-lg p-4">
+            <p class="text-sm font-semibold text-stone-700 mb-1">Start a new migration</p>
+            <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700">cd ~/Sites && claude</code>
+            <p class="text-xs text-stone-500 mt-1">Then say: <strong>"Start migration for [Site Name] — slug: [slug], client URL: https://..."</strong></p>
           </div>
-          <div>
-            <label for="build-client-url" class="block text-sm font-semibold text-stone-700 mb-1">Client's Current URL</label>
-            <input id="build-client-url" type="url" placeholder="https://globalhopeindia.org"
-              class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-rose-300" />
-          </div>
-          <button id="bootstrap-btn"
-            class="w-full bg-rose-700 hover:bg-rose-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Start Migration
-          </button>
-        </div>
-        <div id="bootstrap-status" class="hidden mt-5">
-          <div id="bootstrap-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
-            <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
-            <span>Creating infrastructure — GitHub, Sanity, Netlify… (~2 min)</span>
-          </div>
-          <div id="bootstrap-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-3">
-            <p class="text-sm font-bold text-green-800">Ready! Infrastructure created.</p>
-            <div id="bootstrap-links" class="space-y-1.5"></div>
-            <div class="bg-white border border-green-200 rounded-lg p-4 mt-3">
-              <p class="text-sm font-bold text-stone-800 mb-2">Next step:</p>
-              <code class="block bg-stone-100 px-3 py-2 rounded text-sm font-mono text-stone-700">cd ~/Sites/<span id="bootstrap-slug-echo"></span> && claude</code>
-              <p class="text-xs text-stone-500 mt-2">Then say: <strong>"continue migration"</strong></p>
-            </div>
-          </div>
-          <div id="bootstrap-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
-            <p class="text-sm font-bold text-red-800 mb-1">Error</p>
-            <p id="bootstrap-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+          <div class="bg-stone-50 rounded-lg p-4">
+            <p class="text-sm font-semibold text-stone-700 mb-1">Continue an in-progress migration</p>
+            <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700">cd ~/Sites/&lt;slug&gt; && claude</code>
+            <p class="text-xs text-stone-500 mt-1">Then say: <strong>"continue migration"</strong></p>
           </div>
         </div>
       </div>
@@ -217,54 +190,32 @@ import PortalLayout from "../layouts/PortalLayout.astro";
       <div class="bg-white border border-blue-200 rounded-lg p-5 mb-6">
         <p class="font-bold text-stone-800 text-sm mb-3">How it works</p>
         <ol class="list-decimal ml-4 space-y-2 text-sm text-stone-600">
-          <li><strong>Start here</strong> — fill in the form below and click Start New Site Build.</li>
-          <li><strong>Go to Bethel</strong> — when it's done, you'll see the command:<br/>
+          <li><strong>SSH into Bethel</strong> as yourself (not deploy).</li>
+          <li><strong>Run Claude</strong> from your home directory:<br/>
+            <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites && claude</code></li>
+          <li><strong>Say:</strong> <code class="bg-blue-100 border border-blue-200 px-2 py-1 rounded text-xs font-mono">"Start new site build for [Site Name] — slug: [slug]"</code><br/>
+            <span class="text-xs text-stone-500">Claude creates the GitHub repo, Sanity project, Netlify site, and scaffold.</span></li>
+          <li><strong>When Phase 1 completes</strong>, move into the site directory:<br/>
             <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites/&lt;slug&gt; && claude</code></li>
           <li><strong>Say "continue newsite"</strong> — Claude starts Phase 1 (Discovery &amp; Brand), researches the client, and generates a creative brief.</li>
-          <li><strong>Preview when told</strong> — Claude starts the dev server and gives you the URL.</li>
+          <li><strong>Preview when told</strong> — Claude gives you the Netlify preview URL.</li>
           <li><strong>Say "continue"</strong> — Claude advances to the next phase. If a session ends, say "continue newsite" again.</li>
         </ol>
       </div>
 
-      <!-- Start New Site Build -->
+      <!-- Commands Reference -->
       <div class="bg-white rounded-2xl border border-blue-200 p-8 shadow-sm">
-        <h2 class="text-2xl font-bold mb-1">Start New Site Build</h2>
-        <p class="text-stone-500 text-sm mb-6">Creates GitHub repo, Sanity project, and Netlify site. No existing site URL needed.</p>
+        <h2 class="text-2xl font-bold mb-4">Commands</h2>
         <div class="space-y-4">
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label for="ns-build-title" class="block text-sm font-semibold text-stone-700 mb-1">Site Name</label>
-              <input id="ns-build-title" type="text" placeholder="Global Hope India"
-                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-blue-300" />
-            </div>
-            <div>
-              <label for="ns-build-slug" class="block text-sm font-semibold text-stone-700 mb-1">Slug</label>
-              <input id="ns-build-slug" type="text" placeholder="global-hope-india"
-                class="w-full border border-stone-300 rounded-lg px-4 py-2.5 text-stone-800 font-mono focus:outline-none focus:ring-2 focus:ring-blue-300" />
-            </div>
+          <div class="bg-stone-50 rounded-lg p-4">
+            <p class="text-sm font-semibold text-stone-700 mb-1">Start a new site build</p>
+            <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700">cd ~/Sites && claude</code>
+            <p class="text-xs text-stone-500 mt-1">Then say: <strong>"Start new site build for [Site Name] — slug: [slug]"</strong></p>
           </div>
-          <button id="ns-bootstrap-btn"
-            class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Start New Site Build
-          </button>
-        </div>
-        <div id="ns-bootstrap-status" class="hidden mt-5">
-          <div id="ns-bootstrap-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
-            <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
-            <span>Creating infrastructure — GitHub, Sanity, Netlify... (~2 min)</span>
-          </div>
-          <div id="ns-bootstrap-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-xl space-y-3">
-            <p class="text-sm font-bold text-green-800">Ready! Infrastructure created.</p>
-            <div id="ns-bootstrap-links" class="space-y-1.5"></div>
-            <div class="bg-white border border-green-200 rounded-lg p-4 mt-3">
-              <p class="text-sm font-bold text-stone-800 mb-2">Next step:</p>
-              <code class="block bg-stone-100 px-3 py-2 rounded text-sm font-mono text-stone-700">cd ~/Sites/<span id="ns-bootstrap-slug-echo"></span> && claude</code>
-              <p class="text-xs text-stone-500 mt-2">Then say: <strong>"continue newsite"</strong></p>
-            </div>
-          </div>
-          <div id="ns-bootstrap-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
-            <p class="text-sm font-bold text-red-800 mb-1">Error</p>
-            <p id="ns-bootstrap-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+          <div class="bg-stone-50 rounded-lg p-4">
+            <p class="text-sm font-semibold text-stone-700 mb-1">Continue an in-progress build</p>
+            <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700">cd ~/Sites/&lt;slug&gt; && claude</code>
+            <p class="text-xs text-stone-500 mt-1">Then say: <strong>"continue newsite"</strong></p>
           </div>
         </div>
       </div>
@@ -272,175 +223,97 @@ import PortalLayout from "../layouts/PortalLayout.astro";
     </div><!-- end New Site Build -->
 
     <!-- ══════════════════════════════════════════════════════════
-         SHARED WEB DEV TOOLS — stone
+         SHARED WEB DEV TOOLS — violet
     ═══════════════════════════════════════════════════════════ -->
     <div class="mb-12 bg-violet-50 rounded-2xl border border-violet-200 p-8">
       <div class="flex items-center gap-3 mb-4">
         <span class="inline-block px-3 py-1 rounded-full bg-violet-200 text-violet-800 text-xs font-bold uppercase tracking-widest">Shared Tools</span>
       </div>
-      <p class="text-stone-600 text-sm mb-6">Work with any SMP site — migration or new build.</p>
+      <p class="text-stone-600 text-sm mb-2">Run these from your own Claude session inside any SMP site directory. All work is attributed to you.</p>
+      <p class="text-stone-500 text-xs mb-6">SSH into Bethel as yourself &rarr; <code class="bg-white border border-stone-200 px-1.5 py-0.5 rounded text-xs font-mono">cd ~/Sites/&lt;slug&gt; && claude</code> &rarr; say the command below.</p>
 
-      <!-- Pre-Launch QA -->
+      <!-- Tool Reference Table -->
       <div class="bg-white rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
-        <div class="flex items-center justify-between mb-1">
-          <h2 class="text-2xl font-bold">Pre-Launch QA</h2>
-          <a href="https://drive.google.com/drive/folders/1LiDlC_0SddKGXBpgAqlydUVWeLGdLZ2R?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline">Google Drive Folder &rarr;</a>
-        </div>
-        <p class="text-stone-500 text-sm mb-6">8 code scans + build gate. Generates a Google Doc report. Run as many times as needed.</p>
-        <form id="plqa-pre-form" class="space-y-4">
-          <div>
-            <label for="plqa-pre-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
-            <input type="text" id="plqa-pre-slug" required placeholder="scripture-alive"
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
-          </div>
-          <button type="submit" id="plqa-pre-btn"
-            class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Run Pre-Launch QA
-          </button>
-        </form>
-        <div id="plqa-pre-status" class="hidden mt-5">
-          <div id="plqa-pre-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
-            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
-            <span id="plqa-pre-status-text">Running 8 scans + build gate...</span>
-          </div>
-          <div id="plqa-pre-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-lg space-y-2">
-            <p id="plqa-pre-summary" class="font-semibold text-sm"></p>
-            <a id="plqa-pre-doc-url" href="#" target="_blank" rel="noopener noreferrer"
-              class="block text-green-700 underline font-medium text-sm">Open Report →</a>
-          </div>
-          <div id="plqa-pre-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p class="font-semibold text-red-800 text-sm">Error</p>
-            <p id="plqa-pre-error-text" class="text-red-700 text-sm font-mono mt-1"></p>
-          </div>
-        </div>
-      </div>
+        <h2 class="text-2xl font-bold mb-6">Tool Reference</h2>
+        <div class="space-y-6">
 
-      <!-- Post-Launch QA -->
-      <div class="bg-white rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
-        <div class="flex items-center justify-between mb-1">
-          <h2 class="text-2xl font-bold">Post-Launch QA</h2>
-          <a href="https://drive.google.com/drive/folders/1igaRd2Ed_Bat--5EnX0TlaSyCLjmcSnL?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline">Google Drive Folder &rarr;</a>
-        </div>
-        <p class="text-stone-500 text-sm mb-6">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can, generates a Google Doc report.</p>
-        <form id="plqa-form" class="space-y-4">
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label for="plqa-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
-              <input type="text" id="plqa-slug" required placeholder="the-kohler-group"
-                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
+          <!-- Pre-Launch QA -->
+          <div class="border-b border-stone-200 pb-5">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-lg font-bold text-stone-800">Pre-Launch QA</h3>
+              <a href="https://drive.google.com/drive/folders/1LiDlC_0SddKGXBpgAqlydUVWeLGdLZ2R?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline">Google Drive Folder &rarr;</a>
             </div>
-            <div>
-              <label for="plqa-url" class="block text-sm font-semibold text-stone-700 mb-1">URL to scan</label>
-              <input type="url" id="plqa-url" required placeholder="https://thekohlergroup.net"
-                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
+            <p class="text-stone-500 text-sm mb-3">8 code scans + build gate. Generates a Google Doc report. Run as many times as needed — typically at Phase 5 (The Gate) and Phase 7 (QA).</p>
+            <div class="bg-stone-50 rounded-lg p-4">
+              <p class="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1">Command</p>
+              <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700">Run Pre-Launch QA</code>
             </div>
           </div>
-          <button type="submit" id="plqa-btn"
-            class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Run Post-Launch QA
-          </button>
-        </form>
-        <div id="plqa-status" class="hidden mt-6 space-y-4">
-          <div id="plqa-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
-            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
-            <span id="plqa-status-text">Starting audit…</span>
-          </div>
-          <div id="plqa-result" class="hidden space-y-4">
-            <div class="grid grid-cols-2 gap-3">
-              <div class="bg-stone-50 rounded-xl p-4 text-center border border-stone-200">
-                <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Mobile</p>
-                <p id="plqa-mobile-score" class="text-3xl font-bold"></p>
-                <p class="text-xs text-stone-400 mt-1">Performance</p>
-              </div>
-              <div class="bg-stone-50 rounded-xl p-4 text-center border border-stone-200">
-                <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Desktop</p>
-                <p id="plqa-desktop-score" class="text-3xl font-bold"></p>
-                <p class="text-xs text-stone-400 mt-1">Performance</p>
-              </div>
-            </div>
-            <div id="plqa-checks" class="space-y-1.5"></div>
-            <div id="plqa-fixes-box" class="hidden bg-green-50 border border-green-200 rounded-lg p-4">
-              <p class="text-sm font-bold text-green-800 mb-2">Auto-fixes committed to dev</p>
-              <ul id="plqa-fix-list" class="space-y-1 text-sm text-green-700 list-disc list-inside"></ul>
-              <p id="plqa-commit" class="text-xs text-green-600 font-mono mt-2"></p>
-            </div>
-            <div id="plqa-doc-box" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <p class="text-sm font-bold text-blue-800 mb-2">Developer Action Report</p>
-              <a id="plqa-doc-link" href="#" target="_blank" rel="noopener"
-                class="inline-flex items-center gap-2 text-sm text-blue-700 underline font-medium">
-                Open in Google Docs →
-              </a>
-            </div>
-          </div>
-          <div id="plqa-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p class="font-semibold text-red-800 text-sm">Audit failed</p>
-            <p id="plqa-error-text" class="text-red-700 text-sm font-mono mt-1"></p>
-          </div>
-        </div>
-      </div>
 
-      <!-- Site Audit & Optimization Report -->
-      <div class="bg-white rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
-        <div class="flex items-center justify-between mb-1">
-          <h2 class="text-2xl font-bold">Site Audit &amp; Optimization Report</h2>
-          <a href="https://drive.google.com/drive/folders/1ekM2jpMHWFLou0cF7vbZYH2sIKL8kaoV?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline">Google Drive Folder &rarr;</a>
-        </div>
-        <p class="text-stone-500 text-sm mb-6">Client-ready Google Doc — performance, SEO, accessibility, recommendations. Run once when Post-Launch QA passes.</p>
-        <form id="saudit-form" class="space-y-4">
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label for="saudit-slug" class="block text-sm font-semibold text-stone-700 mb-1">Repo Slug</label>
-              <input type="text" id="saudit-slug" required placeholder="the-kohler-group"
-                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
+          <!-- Post-Launch QA -->
+          <div class="border-b border-stone-200 pb-5">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-lg font-bold text-stone-800">Post-Launch QA</h3>
+              <a href="https://drive.google.com/drive/folders/1igaRd2Ed_Bat--5EnX0TlaSyCLjmcSnL?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline">Google Drive Folder &rarr;</a>
             </div>
-            <div>
-              <label for="saudit-url" class="block text-sm font-semibold text-stone-700 mb-1">URL to scan</label>
-              <input type="url" id="saudit-url" required placeholder="https://thekohlergroup.net"
-                class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-violet-300" />
+            <p class="text-stone-500 text-sm mb-3">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can, generates a Google Doc report. Run after launch (Phase 8).</p>
+            <div class="bg-stone-50 rounded-lg p-4">
+              <p class="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1">Command</p>
+              <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700">Run Post-Launch QA on https://[domain]</code>
             </div>
           </div>
-          <button type="submit" id="saudit-btn"
-            class="w-full bg-violet-700 hover:bg-violet-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Generate Site Audit Report
-          </button>
-        </form>
-        <div id="saudit-status" class="hidden mt-6">
-          <div id="saudit-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
-            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
-            <span id="saudit-status-text">Auditing site…</span>
-          </div>
-          <div id="saudit-result" class="hidden bg-green-50 border border-green-200 rounded-lg p-5">
-            <p class="font-semibold text-green-800 mb-2">Report ready — saved to SMP Reports folder</p>
-            <a id="saudit-doc-url" href="#" target="_blank" rel="noopener noreferrer"
-              class="block text-green-700 underline font-medium break-all text-sm mb-1">Open Report →</a>
-            <p id="saudit-doc-title" class="text-xs text-green-600"></p>
-          </div>
-          <div id="saudit-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p class="font-semibold text-red-800 text-sm">Report generation failed</p>
-            <p id="saudit-error-text" class="text-red-700 text-sm font-mono mt-1"></p>
-          </div>
-        </div>
-      </div>
 
-      <!-- Blog Protocol -->
-      <div class="bg-white rounded-2xl border border-violet-200 p-8 mb-6 shadow-sm">
-        <h2 class="text-2xl font-bold mb-1">Blog Protocol</h2>
-        <p class="text-stone-500 text-sm mb-6">Add a fully-featured blog to any SMP site — search, categories, pagination, related posts, share bar, and full SEO. Claude builds the entire blog from a single command.</p>
-        <div class="space-y-4">
-          <div>
-            <p class="text-sm font-semibold text-stone-700 mb-2">How to use</p>
-            <ol class="list-decimal list-inside text-sm text-stone-600 space-y-1.5">
-              <li>SSH into Bethel: <code class="bg-stone-200 px-1.5 py-0.5 rounded text-xs font-mono">cd ~/Sites/[site-slug] && claude</code></li>
-              <li>Tell Claude: <code class="bg-stone-200 px-1.5 py-0.5 rounded text-xs font-mono">Use our blog protocol and add a blog to this site.</code></li>
-              <li>Claude builds everything automatically — no questions asked. Kevin customizes later.</li>
-            </ol>
+          <!-- Site Audit & Optimization Report -->
+          <div class="border-b border-stone-200 pb-5">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-lg font-bold text-stone-800">Site Audit &amp; Optimization Report</h3>
+              <a href="https://drive.google.com/drive/folders/1ekM2jpMHWFLou0cF7vbZYH2sIKL8kaoV?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline">Google Drive Folder &rarr;</a>
+            </div>
+            <p class="text-stone-500 text-sm mb-3">Client-ready Google Doc — performance, SEO, accessibility, recommendations. Run once when Post-Launch QA passes.</p>
+            <div class="bg-stone-50 rounded-lg p-4">
+              <p class="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1">Command</p>
+              <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700">Run Site Audit Report on https://[domain]</code>
+            </div>
           </div>
-          <a href="https://docs.google.com/document/d/1MorlxGIl0EfcWqnJv6XsSJGmj-bZSntc6f3zitUC8O8/edit"
-            target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-white border border-stone-300 rounded-lg px-5 py-2.5 text-sm font-semibold text-stone-700 hover:bg-stone-100 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            Full Guide — Features, Checklist & Details
-          </a>
+
+          <!-- Blog Protocol -->
+          <div class="border-b border-stone-200 pb-5">
+            <h3 class="text-lg font-bold text-stone-800 mb-2">Blog Protocol</h3>
+            <p class="text-stone-500 text-sm mb-3">Add a fully-featured blog — search, categories, pagination, related posts, share bar, and full SEO. Claude builds the entire blog from a single command. Kevin customizes later.</p>
+            <div class="bg-stone-50 rounded-lg p-4 mb-3">
+              <p class="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1">Command</p>
+              <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700">Use our blog protocol and add a blog to this site</code>
+            </div>
+            <a href="https://docs.google.com/document/d/1MorlxGIl0EfcWqnJv6XsSJGmj-bZSntc6f3zitUC8O8/edit"
+              target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-white border border-stone-300 rounded-lg px-5 py-2.5 text-sm font-semibold text-stone-700 hover:bg-stone-100 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              Full Guide — Features, Checklist &amp; Details
+            </a>
+          </div>
+
+          <!-- Site Update -->
+          <div class="border-b border-stone-200 pb-5">
+            <h3 class="text-lg font-bold text-stone-800 mb-2">Request a Site Update</h3>
+            <p class="text-stone-500 text-sm mb-3">Make content or code changes to any SMP site. Describe what you want changed — Claude edits the code and pushes to dev.</p>
+            <div class="bg-stone-50 rounded-lg p-4">
+              <p class="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1">Command</p>
+              <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700">[Describe the change you want]</code>
+              <p class="text-xs text-stone-400 mt-1">Example: "Change the hero headline to 'Walking in Freedom' and update the button to say 'Start Your Journey'"</p>
+            </div>
+          </div>
+
+          <!-- Continue Migration -->
+          <div class="pb-1">
+            <h3 class="text-lg font-bold text-stone-800 mb-2">Continue Migration / Continue Newsite</h3>
+            <p class="text-stone-500 text-sm mb-3">Resume a migration or new site build from wherever the last session left off. Claude reads the protocol and picks up at the current phase.</p>
+            <div class="bg-stone-50 rounded-lg p-4">
+              <p class="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1">Command</p>
+              <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700">continue migration</code>
+              <p class="text-xs text-stone-400 mt-1">or: <code class="bg-white border border-stone-200 px-1.5 py-0.5 rounded text-xs font-mono">continue newsite</code></p>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -550,50 +423,6 @@ import PortalLayout from "../layouts/PortalLayout.astro";
       </div>
       <p class="text-stone-600 text-sm mb-6">Ask Claude to do something — code changes or general tasks.</p>
 
-      <!-- Request a Site Update -->
-      <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-6 shadow-sm">
-        <h2 class="text-2xl font-bold mb-1">Request a Site Update</h2>
-        <p class="text-stone-500 text-sm mb-6">Select a site, describe the change — Claude edits the code and pushes to dev.</p>
-        <form id="site-update-form" class="space-y-4">
-          <div>
-            <label for="site-update-site" class="block text-sm font-semibold text-stone-700 mb-1">Site</label>
-            <select id="site-update-site" name="site_slug" required
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400 bg-white">
-              <option value="">Loading sites…</option>
-            </select>
-          </div>
-          <div>
-            <label for="site-update-request" class="block text-sm font-semibold text-stone-700 mb-1">What would you like to change?</label>
-            <textarea id="site-update-request" name="request_text" required rows="4"
-              placeholder='e.g. Change the hero headline to "Walking in Freedom" and update the button to say "Start Your Journey"'
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 resize-y text-sm"></textarea>
-          </div>
-          <button type="submit" id="site-update-btn"
-            class="w-full bg-stone-700 hover:bg-stone-800 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Submit Update Request
-          </button>
-        </form>
-        <div id="site-update-status" class="hidden mt-5">
-          <div id="site-update-spinner" class="hidden flex items-center gap-3 text-stone-500 text-sm">
-            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
-            <span id="site-update-status-text">Sending to Claude…</span>
-          </div>
-          <div id="site-update-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-lg space-y-2">
-            <p class="font-semibold text-green-800 text-sm">Update complete — pushed to dev.</p>
-            <a id="site-update-pr-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-sm text-green-700 underline font-medium break-all"></a>
-            <a id="site-update-preview-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-xs text-green-600 underline break-all"></a>
-          </div>
-          <div id="site-update-ambiguous" class="hidden p-5 bg-amber-50 border border-amber-200 rounded-lg">
-            <p class="font-semibold text-amber-800 text-sm mb-1">We need more detail</p>
-            <p id="site-update-ambiguous-text" class="text-amber-700 text-sm"></p>
-          </div>
-          <div id="site-update-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p class="font-semibold text-red-800 text-sm mb-1">Something went wrong</p>
-            <p id="site-update-error-text" class="text-red-700 text-sm"></p>
-          </div>
-        </div>
-      </div>
-
       <!-- Claude Task Agent -->
       <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-6 shadow-sm">
         <h2 class="text-2xl font-bold mb-1">Claude Task Agent</h2>
@@ -663,28 +492,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
 if (!(window as any).__portalInitialized) {
   (window as any).__portalInitialized = true;
 
-  // ── Project registry ─────────────────────────────────────────
-  let allProjects: any[] = [];
-
-  async function loadProjects() {
-    try {
-      const resp = await fetch('/api/tools-projects');
-      allProjects = await resp.json();
-    } catch { allProjects = []; }
-    populateDropdowns();
-  }
-
-  function populateDropdowns() {
-    // New Site QA dropdown — only newsite projects
-    const nsSel = document.getElementById('ns-qa-project') as HTMLSelectElement;
-    if (nsSel) {
-      const newsiteProjects = allProjects.filter(p => p.pipeline === 'newsite');
-      nsSel.innerHTML = newsiteProjects.length
-        ? '<option value="">Select a project…</option>' + newsiteProjects.map(p => `<option value="${p.id}">${p.title} — Phase ${p.phase || '?'}</option>`).join('')
-        : '<option value="">No new site projects yet</option>';
-    }
-
-  }
+  // ── Project registry removed — bootstrap/QA triggers now run via Claude Code commands ──
 
   // ── 1. Proposal ──────────────────────────────────────────────
   document.getElementById('proposal-form')!.addEventListener('submit', async (e) => {
@@ -776,169 +584,9 @@ if (!(window as any).__portalInitialized) {
     }
   });
 
-  // ── 2. Bootstrap ─────────────────────────────────────────────
-  document.getElementById('build-title')!.addEventListener('input', (e) => {
-    const slugEl = document.getElementById('build-slug') as HTMLInputElement;
-    if (!slugEl.dataset.manualEdit)
-      slugEl.value = (e.target as HTMLInputElement).value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  });
-  document.getElementById('build-slug')!.addEventListener('input', (e) => { (e.target as HTMLInputElement).dataset.manualEdit = '1'; });
-
-  document.getElementById('bootstrap-btn')!.addEventListener('click', async () => {
-    const title = (document.getElementById('build-title') as HTMLInputElement).value.trim();
-    const slug  = (document.getElementById('build-slug') as HTMLInputElement).value.trim();
-    const clientUrl = (document.getElementById('build-client-url') as HTMLInputElement).value.trim();
-    if (!title || !slug) { alert('Site Name and Slug are required.'); return; }
-    if (!confirm(`Launch Phase 1 build for "${title}" (${slug})?\n\nCreates:\n• GitHub: Spirit-Media-US/${slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
-    const btn = document.getElementById('bootstrap-btn') as HTMLButtonElement;
-    btn.disabled = true; btn.textContent = 'Building…';
-    document.getElementById('bootstrap-status')!.classList.remove('hidden');
-    document.getElementById('bootstrap-spinner')!.classList.remove('hidden');
-    ['bootstrap-result','bootstrap-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
-    try {
-      const resp = await fetch('/api/tools-bootstrap', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug, title, client_url: clientUrl }) });
-      const start = await resp.json();
-      if (start.error) throw new Error(start.error);
-      const poll = async (): Promise<void> => {
-        await new Promise(r => setTimeout(r, 4000));
-        const job = await (await fetch(`/api/tools-bootstrap-status?job_id=${start.job_id}`)).json();
-        if (job.status === 'pending') return poll();
-        document.getElementById('bootstrap-spinner')!.classList.add('hidden');
-        if (job.status === 'failed') {
-          document.getElementById('bootstrap-error')!.classList.remove('hidden');
-          document.getElementById('bootstrap-error-text')!.textContent = job.log || 'Bootstrap failed.';
-        } else {
-          document.getElementById('bootstrap-result')!.classList.remove('hidden');
-          (document.getElementById('bootstrap-slug-echo') as HTMLElement).textContent = slug;
-          document.getElementById('bootstrap-links')!.innerHTML = [
-            { label: 'GitHub', url: job.github }, { label: 'Netlify Preview', url: job.netlify_url }, { label: 'Sanity Studio', url: job.sanity_studio },
-          ].filter((l: any) => l.url).map((l: any) => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`).join('');
-          await loadProjects();
-        }
-        btn.disabled = false; btn.textContent = 'Initiate Build — Phase 1';
-      };
-      poll();
-    } catch (err: any) {
-      document.getElementById('bootstrap-spinner')!.classList.add('hidden');
-      document.getElementById('bootstrap-error')!.classList.remove('hidden');
-      document.getElementById('bootstrap-error-text')!.textContent = err.message;
-      btn.disabled = false; btn.textContent = 'Initiate Build — Phase 1';
-    }
-  });
-
-  // ── Old migration QA removed — now handled by Phase Tracker above ──
-
-  // ── New Site Bootstrap ───────────────────────────────────────
-  document.getElementById('ns-build-title')!.addEventListener('input', (e) => {
-    const slugEl = document.getElementById('ns-build-slug') as HTMLInputElement;
-    if (!slugEl.dataset.manualEdit)
-      slugEl.value = (e.target as HTMLInputElement).value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  });
-  document.getElementById('ns-build-slug')!.addEventListener('input', (e) => { (e.target as HTMLInputElement).dataset.manualEdit = '1'; });
-
-  document.getElementById('ns-bootstrap-btn')!.addEventListener('click', async () => {
-    const title = (document.getElementById('ns-build-title') as HTMLInputElement).value.trim();
-    const slug  = (document.getElementById('ns-build-slug') as HTMLInputElement).value.trim();
-    if (!title || !slug) { alert('Site Name and Slug are required.'); return; }
-    if (!confirm(`Launch new site build for "${title}" (${slug})?\n\nCreates:\n• GitHub: Spirit-Media-US/${slug}\n• Sanity project\n• Netlify site\n\nThis cannot be undone.`)) return;
-    const btn = document.getElementById('ns-bootstrap-btn') as HTMLButtonElement;
-    btn.disabled = true; btn.textContent = 'Building…';
-    document.getElementById('ns-bootstrap-status')!.classList.remove('hidden');
-    document.getElementById('ns-bootstrap-spinner')!.classList.remove('hidden');
-    ['ns-bootstrap-result','ns-bootstrap-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
-    try {
-      const resp = await fetch('/api/tools-newsite-bootstrap', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug, title }) });
-      const start = await resp.json();
-      if (start.error) throw new Error(start.error);
-      const poll = async (): Promise<void> => {
-        await new Promise(r => setTimeout(r, 4000));
-        const job = await (await fetch(`/api/tools-newsite-bootstrap-status?job_id=${start.job_id}`)).json();
-        if (job.status === 'pending') return poll();
-        document.getElementById('ns-bootstrap-spinner')!.classList.add('hidden');
-        if (job.status === 'failed') {
-          document.getElementById('ns-bootstrap-error')!.classList.remove('hidden');
-          document.getElementById('ns-bootstrap-error-text')!.textContent = job.log || 'Bootstrap failed.';
-        } else {
-          document.getElementById('ns-bootstrap-result')!.classList.remove('hidden');
-          (document.getElementById('ns-bootstrap-slug-echo') as HTMLElement).textContent = slug;
-          document.getElementById('ns-bootstrap-links')!.innerHTML = [
-            { label: 'GitHub', url: job.github }, { label: 'Netlify Preview', url: job.netlify_url }, { label: 'Sanity Studio', url: job.sanity_studio },
-          ].filter((l: any) => l.url).map((l: any) => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="block text-green-700 underline text-sm font-medium">${l.label}: ${l.url}</a>`).join('');
-          await loadProjects();
-        }
-        btn.disabled = false; btn.textContent = 'Initiate Build — Phase 2';
-      };
-      poll();
-    } catch (err: any) {
-      document.getElementById('ns-bootstrap-spinner')!.classList.add('hidden');
-      document.getElementById('ns-bootstrap-error')!.classList.remove('hidden');
-      document.getElementById('ns-bootstrap-error-text')!.textContent = err.message;
-      btn.disabled = false; btn.textContent = 'Initiate Build — Phase 2';
-    }
-  });
-
-  // ── Old newsite QA removed — now shared Pre-Launch QA tool above ──
-
-  // ── Site Updates ─────────────────────────────────────────────
-  async function loadSiteUpdateSites() {
-    const sel = document.getElementById('site-update-site') as HTMLSelectElement;
-    try {
-      const resp = await fetch('/api/tools-site-update');
-      const sites = await resp.json();
-      sel.innerHTML = '<option value="">Select a site…</option>' + sites.map((s: any) => `<option value="${s.slug}">${s.title}</option>`).join('');
-    } catch { sel.innerHTML = '<option value="">Could not load sites</option>'; }
-  }
-
-  document.getElementById('site-update-form')!.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const fd = new FormData(form);
-    const btn = document.getElementById('site-update-btn') as HTMLButtonElement;
-    btn.disabled = true; btn.textContent = 'Submitting…';
-    document.getElementById('site-update-status')!.classList.remove('hidden');
-    document.getElementById('site-update-spinner')!.classList.remove('hidden');
-    ['site-update-result','site-update-ambiguous','site-update-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
-    const messages = ['Sending to Claude…', 'Reviewing your site…', 'Making edits…', 'Almost done…'];
-    let i = 0;
-    const statusText = document.getElementById('site-update-status-text')!;
-    statusText.textContent = messages[0];
-    const interval = setInterval(() => { i = Math.min(i + 1, messages.length - 1); statusText.textContent = messages[i]; }, 20000);
-    try {
-      const resp = await fetch('/api/tools-site-update', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ site_slug: fd.get('site_slug'), request_text: fd.get('request_text') }) });
-      const start = await resp.json();
-      if (start.error) throw new Error(start.error);
-      const poll = async (): Promise<void> => {
-        await new Promise(r => setTimeout(r, 5000));
-        const job = await (await fetch(`/api/tools-site-update-status?job_id=${start.job_id}`)).json();
-        if (job.status === 'pending') return poll();
-        clearInterval(interval);
-        document.getElementById('site-update-spinner')!.classList.add('hidden');
-        if (job.status === 'ambiguous') {
-          document.getElementById('site-update-ambiguous')!.classList.remove('hidden');
-          document.getElementById('site-update-ambiguous-text')!.textContent = job.message || 'Please clarify your request.';
-        } else if (job.status === 'failed') {
-          document.getElementById('site-update-error')!.classList.remove('hidden');
-          document.getElementById('site-update-error-text')!.textContent = job.error || 'Update failed.';
-        } else {
-          document.getElementById('site-update-result')!.classList.remove('hidden');
-          const prLink = document.getElementById('site-update-pr-url') as HTMLAnchorElement;
-          const previewLink = document.getElementById('site-update-preview-url') as HTMLAnchorElement;
-          if (job.pr_url) { prLink.href = job.pr_url; prLink.textContent = 'Review PR on GitHub →'; }
-          if (job.preview_url) { previewLink.href = job.preview_url; previewLink.textContent = 'Preview site →'; }
-          form.reset();
-          await loadSiteUpdateSites();
-        }
-        btn.disabled = false; btn.textContent = 'Submit Update Request';
-      };
-      poll();
-    } catch (err: any) {
-      clearInterval(interval);
-      document.getElementById('site-update-spinner')!.classList.add('hidden');
-      document.getElementById('site-update-error')!.classList.remove('hidden');
-      document.getElementById('site-update-error-text')!.textContent = err.message;
-      btn.disabled = false; btn.textContent = 'Submit Update Request';
-    }
-  });
+  // ── Bootstrap, New Site, Site Update, Pre-Launch QA, Post-Launch QA, Site Audit ──
+  // Removed — all now run as Claude Code commands in the developer's own session.
+  // See Shared Tools section for command reference.
 
   // ── Manuscript Review ─────────────────────────────────────────
   async function loadTemplates() {
@@ -1092,204 +740,8 @@ if (!(window as any).__portalInitialized) {
     } catch { list.innerHTML = '<p class="text-stone-500 text-sm">Could not load history.</p>'; }
   }
 
-  // ── Pre-Launch QA (standalone tool) ──────────────────────────
-  document.getElementById('plqa-pre-form')!.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const slug = (document.getElementById('plqa-pre-slug') as HTMLInputElement).value.trim();
-    const siteTitle = slug;
-    if (!slug) { alert('Repo slug is required.'); return; }
-    const btn = document.getElementById('plqa-pre-btn') as HTMLButtonElement;
-    btn.disabled = true; btn.textContent = 'Scanning...';
-    document.getElementById('plqa-pre-status')!.classList.remove('hidden');
-    document.getElementById('plqa-pre-spinner')!.classList.remove('hidden');
-    ['plqa-pre-result','plqa-pre-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
-    try {
-      const resp = await fetch('/api/tools-prelaunch-qa', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, site_title: siteTitle }),
-      });
-      const start = await resp.json();
-      if (start.error) throw new Error(start.error);
-      const poll = async (): Promise<void> => {
-        await new Promise(r => setTimeout(r, 4000));
-        const job = await (await fetch(`/api/tools-prelaunch-qa-status?job_id=${start.job_id}`)).json();
-        if (job.status === 'pending' || job.status === 'scanning' || job.status === 'generating_report') {
-          document.getElementById('plqa-pre-status-text')!.textContent = job.message || 'Running scans...';
-          return poll();
-        }
-        document.getElementById('plqa-pre-spinner')!.classList.add('hidden');
-        if (job.status === 'failed') {
-          document.getElementById('plqa-pre-error')!.classList.remove('hidden');
-          document.getElementById('plqa-pre-error-text')!.textContent = job.error || 'Scan failed.';
-        } else {
-          document.getElementById('plqa-pre-result')!.classList.remove('hidden');
-          const summary = document.getElementById('plqa-pre-summary')!;
-          summary.className = `font-semibold text-sm ${job.all_passed ? 'text-green-800' : 'text-amber-800'}`;
-          summary.textContent = job.all_passed ? `All ${job.total} scans passed.` : `${job.passed} of ${job.total} passed — see report for details.`;
-          (document.getElementById('plqa-pre-doc-url') as HTMLAnchorElement).href = job.doc_url;
-        }
-        btn.disabled = false; btn.textContent = 'Run Pre-Launch QA';
-      };
-      poll();
-    } catch (err: any) {
-      document.getElementById('plqa-pre-spinner')!.classList.add('hidden');
-      document.getElementById('plqa-pre-error')!.classList.remove('hidden');
-      document.getElementById('plqa-pre-error-text')!.textContent = err.message;
-      btn.disabled = false; btn.textContent = 'Run Pre-Launch QA';
-    }
-  });
-
-  // ── 4. Post-Launch QA ─────────────────────────────────────────
-  function scoreColor(n: number): string {
-    if (n >= 90) return 'text-green-600';
-    if (n >= 50) return 'text-amber-500';
-    return 'text-red-600';
-  }
-
-  function renderChecks(pages: any[]): void {
-    const container = document.getElementById('plqa-checks')!;
-    const allIssues: any[] = [];
-    const allPasses: string[] = [];
-    for (const p of pages) {
-      for (const i of (p.issues || [])) allIssues.push({ ...i, page: p.url });
-      for (const pass of (p.passes || [])) allPasses.push(pass.item || pass);
-    }
-    const uniquePasses = [...new Set(allPasses)];
-    const html = [
-      ...allIssues.map(i => {
-        const color = i.severity === 'critical' ? 'text-red-700 bg-red-50 border-red-200'
-          : i.severity === 'high' ? 'text-amber-700 bg-amber-50 border-amber-200'
-          : 'text-yellow-700 bg-yellow-50 border-yellow-200';
-        const badge = i.fix === 'flag_only' ? '⚑ flag' : '⚙ auto-fix';
-        return `<div class="flex items-start gap-2 px-3 py-2 rounded-lg border text-xs ${color}">
-          <span class="shrink-0">✗</span>
-          <span class="flex-1"><strong>${i.category}</strong> — ${i.item}${i.detail ? ': ' + i.detail : ''}</span>
-          <span class="shrink-0 opacity-70">${badge}</span>
-        </div>`;
-      }),
-      ...uniquePasses.map(p => `<div class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-green-700 bg-green-50 border border-green-200">
-        <span>✓</span><span>${p}</span></div>`),
-    ].join('');
-    container.innerHTML = html || '<p class="text-sm text-stone-500">No checks returned.</p>';
-  }
-
-  document.getElementById('plqa-form')!.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const url = (document.getElementById('plqa-url') as HTMLInputElement).value.trim();
-    const repoSlug = (document.getElementById('plqa-slug') as HTMLInputElement).value.trim();
-    const siteTitle = repoSlug;
-    const btn = document.getElementById('plqa-btn') as HTMLButtonElement;
-    btn.disabled = true; btn.textContent = 'Running…';
-
-    const statusEl = document.getElementById('plqa-status')!;
-    const spinner = document.getElementById('plqa-spinner')!;
-    const statusText = document.getElementById('plqa-status-text')!;
-    statusEl.classList.remove('hidden');
-    spinner.classList.remove('hidden');
-    ['plqa-result', 'plqa-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
-
-    try {
-      const start = await (await fetch('/api/tools-post-launch-qa', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url, repo_slug: repoSlug, site_title: siteTitle }),
-      })).json();
-      if (start.error) throw new Error(start.error);
-
-      const poll = async (): Promise<void> => {
-        await new Promise(r => setTimeout(r, 5000));
-        const job = await (await fetch(`/api/tools-post-launch-qa?job_id=${start.job_id}`)).json();
-        if (['pending', 'auditing', 'fixing', 'generating_report'].includes(job.status)) {
-          statusText.textContent = job.message || `${job.status}…`;
-          return poll();
-        }
-        spinner.classList.add('hidden');
-        if (job.status === 'failed') {
-          document.getElementById('plqa-error')!.classList.remove('hidden');
-          document.getElementById('plqa-error-text')!.textContent = job.error || 'Unknown error';
-        } else {
-          document.getElementById('plqa-result')!.classList.remove('hidden');
-          const mob = job.psi_mobile?.performance ?? '—';
-          const desk = job.psi_desktop?.performance ?? '—';
-          const mobEl = document.getElementById('plqa-mobile-score')!;
-          const deskEl = document.getElementById('plqa-desktop-score')!;
-          mobEl.textContent = String(mob);
-          mobEl.className = `text-3xl font-bold ${typeof mob === 'number' ? scoreColor(mob) : 'text-stone-400'}`;
-          deskEl.textContent = String(desk);
-          deskEl.className = `text-3xl font-bold ${typeof desk === 'number' ? scoreColor(desk) : 'text-stone-400'}`;
-          if (job.fixes_applied > 0) {
-            document.getElementById('plqa-fixes-box')!.classList.remove('hidden');
-            if (job.fix_commit) document.getElementById('plqa-commit')!.textContent = `Committed: ${job.fix_commit}`;
-          }
-          if (job.doc_url) {
-            document.getElementById('plqa-doc-box')!.classList.remove('hidden');
-            const link = document.getElementById('plqa-doc-link') as HTMLAnchorElement;
-            link.href = job.doc_url;
-            link.textContent = job.doc_title || 'Open Developer Action Report →';
-          }
-        }
-        btn.disabled = false; btn.textContent = 'Run Post-Launch QA';
-      };
-      poll();
-    } catch (err: unknown) {
-      spinner.classList.add('hidden');
-      document.getElementById('plqa-error')!.classList.remove('hidden');
-      document.getElementById('plqa-error-text')!.textContent = err instanceof Error ? err.message : 'Unknown error';
-      btn.disabled = false; btn.textContent = 'Run Post-Launch QA';
-    }
-  });
-
-  // ── 5. Site Audit Report ──────────────────────────────────────
-  document.getElementById('saudit-form')!.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const url = (document.getElementById('saudit-url') as HTMLInputElement).value.trim();
-    const repoSlug = (document.getElementById('saudit-slug') as HTMLInputElement).value.trim();
-    const title = repoSlug;
-    const btn = document.getElementById('saudit-btn') as HTMLButtonElement;
-    btn.disabled = true; btn.textContent = 'Generating…';
-
-    const statusEl = document.getElementById('saudit-status')!;
-    const spinner = document.getElementById('saudit-spinner')!;
-    const statusText = document.getElementById('saudit-status-text')!;
-    statusEl.classList.remove('hidden');
-    spinner.classList.remove('hidden');
-    ['saudit-result', 'saudit-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
-
-    try {
-      const start = await (await fetch('/api/tools-site-audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url, repo_slug: repoSlug, site_title: title }),
-      })).json();
-      if (start.error) throw new Error(start.error);
-
-      const poll = async (): Promise<void> => {
-        await new Promise(r => setTimeout(r, 6000));
-        const job = await (await fetch(`/api/tools-site-audit?job_id=${start.job_id}`)).json();
-        if (['pending', 'auditing', 'generating'].includes(job.status)) {
-          statusText.textContent = job.message || `${job.status}…`;
-          return poll();
-        }
-        spinner.classList.add('hidden');
-        if (job.status === 'failed') {
-          document.getElementById('saudit-error')!.classList.remove('hidden');
-          document.getElementById('saudit-error-text')!.textContent = job.error || 'Unknown error';
-        } else {
-          document.getElementById('saudit-result')!.classList.remove('hidden');
-          const link = document.getElementById('saudit-doc-url') as HTMLAnchorElement;
-          link.href = job.doc_url;
-          document.getElementById('saudit-doc-title')!.textContent = job.doc_title || '';
-        }
-        btn.disabled = false; btn.textContent = 'Generate Site Audit Report';
-      };
-      poll();
-    } catch (err: unknown) {
-      spinner.classList.add('hidden');
-      document.getElementById('saudit-error')!.classList.remove('hidden');
-      document.getElementById('saudit-error-text')!.textContent = err instanceof Error ? err.message : 'Unknown error';
-      btn.disabled = false; btn.textContent = 'Generate Site Audit Report';
-    }
-  });
+  // ── Pre-Launch QA, Post-Launch QA, Site Audit ──
+  // Removed — now run as Claude Code commands in developer's own session.
 
   // ── Prospect Finder ─────────────────────────────────────────
   let pfMode: 'urls' | 'search' = 'urls';
@@ -1447,9 +899,9 @@ if (!(window as any).__portalInitialized) {
   });
 
   // Init
-  loadProjects();
+  // loadProjects removed
   loadTemplates();
   loadHistory();
-  loadSiteUpdateSites();
+  // loadSiteUpdateSites removed — site updates now run via Claude Code commands
 }
 </script>
