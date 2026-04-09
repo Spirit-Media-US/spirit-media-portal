@@ -138,6 +138,8 @@ const sites: Site[] = [
           <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>
           <a href={site.liveUrl ? `https://search.google.com/search-console?resource_id=sc-domain:${site.liveUrl}` : '#'} target="_blank" rel="noopener noreferrer" class="btn">📊 Search</a>
         </div>
+        <button class="btn inspect-btn" data-url={`https://dev--${site.netlifyName}.netlify.app`} data-name={site.name} style="margin-top:0.375rem;width:100%;">🔍 Inspect Dev Preview</button>
+        <div class="inspect-result" style="display:none;margin-top:0.5rem;padding:0.75rem;background:#fef9f0;border:1px solid #e5ddd3;border-radius:0.375rem;font-size:0.8rem;"></div>
       </div>
     ))}
   </div>
@@ -362,4 +364,62 @@ const sites: Site[] = [
   }
 
   loadPipeline();
+
+  // Site Inspect — run inspection on dev preview
+  document.querySelectorAll('.inspect-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const url = btn.getAttribute('data-url');
+      const name = btn.getAttribute('data-name');
+      const resultDiv = btn.nextElementSibling;
+      btn.disabled = true;
+      btn.textContent = '🔍 Starting...';
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = '<em>Starting inspection...</em>';
+
+      try {
+        const resp = await fetch('/api/tools-site-inspect', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url, site_name: name }),
+        });
+        const { job_id, error } = await resp.json();
+        if (error) { resultDiv.innerHTML = `<strong style="color:#c0392b">Error:</strong> ${error}`; btn.disabled = false; btn.textContent = '🔍 Inspect Dev Preview'; return; }
+
+        // Poll for results
+        const poll = async () => {
+          const sr = await fetch(`/api/tools-site-inspect-status?job_id=${job_id}`);
+          const data = await sr.json();
+
+          if (data.status === 'done') {
+            btn.disabled = false;
+            btn.textContent = '🔍 Inspect Dev Preview';
+            if (data.errors === 0 && data.warnings === 0) {
+              resultDiv.innerHTML = `<strong style="color:#22c55e">All clear!</strong> ${data.pages_inspected} pages inspected, no issues found.`;
+            } else {
+              let html = `<strong>${data.summary}</strong><ul style="margin:0.5rem 0 0 1rem;padding:0;">`;
+              for (const issue of data.issues.slice(0, 20)) {
+                const color = issue.severity === 'error' ? '#c0392b' : '#b45309';
+                html += `<li style="margin:0.25rem 0;color:${color}"><code>${issue.page}</code> — ${issue.detail}</li>`;
+              }
+              if (data.issues.length > 20) html += `<li>...and ${data.issues.length - 20} more</li>`;
+              html += '</ul>';
+              resultDiv.innerHTML = html;
+            }
+          } else if (data.status === 'failed') {
+            btn.disabled = false;
+            btn.textContent = '🔍 Inspect Dev Preview';
+            resultDiv.innerHTML = `<strong style="color:#c0392b">Failed:</strong> ${data.error}`;
+          } else {
+            btn.textContent = `🔍 ${data.message || 'Inspecting...'}`;
+            setTimeout(poll, 2000);
+          }
+        };
+        setTimeout(poll, 2000);
+      } catch (e) {
+        resultDiv.innerHTML = `<strong style="color:#c0392b">Error:</strong> ${e.message}`;
+        btn.disabled = false;
+        btn.textContent = '🔍 Inspect Dev Preview';
+      }
+    });
+  });
 </script>
