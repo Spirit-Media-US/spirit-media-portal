@@ -70,30 +70,16 @@ import PortalLayout from "../layouts/PortalLayout.astro";
            2. TOOL REFERENCE (single consolidated section)
       ════════════════════════════════════════════════════ -->
       <section class="bg-violet-50 border border-violet-200 rounded-2xl p-6">
-        <h2 class="text-2xl font-bold text-violet-700 mb-2">Tool Reference</h2>
-        <p class="text-stone-600 text-sm mb-2">Run all tools from your own Claude session. SSH into Bethel as yourself, then:</p>
-        <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mb-6">cd ~/Sites/&lt;slug&gt; && claude</code>
+        <h2 class="text-2xl font-bold text-violet-700 mb-2">Shared Tools</h2>
+        <p class="text-stone-600 text-sm mb-2">Use these tools during any migration or new site build. You must already be in a Claude session inside the site directory:</p>
+        <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mb-2">cd ~/Sites/&lt;slug&gt; && claude</code>
+        <p class="text-sm text-stone-500 mb-6">Then say any of the commands below.</p>
 
         <div class="space-y-4">
           <div class="bg-white border border-stone-200 rounded-lg p-4">
-            <p class="font-bold text-stone-800 text-sm">Start Migration</p>
-            <p class="text-sm text-stone-500 mt-1">Creates GitHub repo, Sanity project, Netlify site, and scaffold. Run from <code class="bg-stone-100 px-1 rounded">~/Sites</code> (not inside a site dir).</p>
-            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">Start migration for [Site Name] — slug: [slug], client URL: https://...</code>
-          </div>
-          <div class="bg-white border border-stone-200 rounded-lg p-4">
-            <p class="font-bold text-stone-800 text-sm">Continue Migration</p>
-            <p class="text-sm text-stone-500 mt-1">Resumes from the current phase. Claude checks progress and picks up where you left off.</p>
-            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">continue migration</code>
-          </div>
-          <div class="bg-white border border-stone-200 rounded-lg p-4">
-            <p class="font-bold text-stone-800 text-sm">Start New Site Build</p>
-            <p class="text-sm text-stone-500 mt-1">Creates GitHub repo, Sanity project, Netlify site, and scaffold. Run from <code class="bg-stone-100 px-1 rounded">~/Sites</code>.</p>
-            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">Start new site build for [Site Name] — slug: [slug]</code>
-          </div>
-          <div class="bg-white border border-stone-200 rounded-lg p-4">
-            <p class="font-bold text-stone-800 text-sm">Continue Newsite</p>
-            <p class="text-sm text-stone-500 mt-1">Resumes from the current phase. Claude checks progress and picks up where you left off.</p>
-            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">continue newsite</code>
+            <p class="font-bold text-stone-800 text-sm">Inspect Dev Preview</p>
+            <p class="text-sm text-stone-500 mt-1">Runs a technical + visual inspection on the dev Netlify preview. Use after every push to dev to catch errors before requesting merge.</p>
+            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">inspect dev preview</code>
           </div>
           <div class="bg-white border border-stone-200 rounded-lg p-4">
             <div class="flex items-start justify-between">
@@ -109,7 +95,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <div class="flex items-start justify-between">
               <div>
                 <p class="font-bold text-stone-800 text-sm">Post-Launch QA</p>
-                <p class="text-sm text-stone-500 mt-1">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can, generates a Google Doc report.</p>
+                <p class="text-sm text-stone-500 mt-1">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can, generates a Google Doc report. Use at Phase 8 (Launch).</p>
               </div>
               <a href="https://drive.google.com/drive/folders/1igaRd2Ed_Bat--5EnX0TlaSyCLjmcSnL?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
             </div>
@@ -127,12 +113,12 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
           <div class="bg-white border border-stone-200 rounded-lg p-4">
             <p class="font-bold text-stone-800 text-sm">Blog Protocol</p>
-            <p class="text-sm text-stone-500 mt-1">Adds a full blog — search, categories, pagination, related posts, share bar, SEO. Kevin customizes later.</p>
+            <p class="text-sm text-stone-500 mt-1">Adds a full blog — search, categories, pagination, related posts, share bar, SEO. Use at Phase 4 when the site needs a blog. Kevin customizes later.</p>
             <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">Use our blog protocol and add a blog to this site</code>
           </div>
           <div class="bg-white border border-stone-200 rounded-lg p-4">
             <p class="font-bold text-stone-800 text-sm">Request a Site Update</p>
-            <p class="text-sm text-stone-500 mt-1">Make content or code changes. Describe what you want — Claude edits and pushes to dev.</p>
+            <p class="text-sm text-stone-500 mt-1">Make content or code changes to an existing site. Describe what you want — Claude edits the code and pushes to dev.</p>
             <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">[Describe the change you want]</code>
             <p class="text-sm text-stone-400 mt-1">Example: "Change the hero headline to 'Walking in Freedom' and update the button to say 'Start Your Journey'"</p>
           </div>
