@@ -9,7 +9,9 @@ import PortalLayout from "../layouts/PortalLayout.astro";
 
     <div class="space-y-8">
 
-      <!-- Full Stack -->
+      <!-- ════════════════════════════════════════════════════
+           1. FULL STACK
+      ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Full Stack</h2>
         <ol class="space-y-3">
@@ -64,34 +66,106 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         </ol>
       </section>
 
-      <!-- Website Migration Protocol -->
+      <!-- ════════════════════════════════════════════════════
+           2. TOOL REFERENCE (single consolidated section)
+      ════════════════════════════════════════════════════ -->
+      <section class="bg-violet-50 border border-violet-200 rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-violet-700 mb-2">Tool Reference</h2>
+        <p class="text-stone-600 text-sm mb-2">Run all tools from your own Claude session. SSH into Bethel as yourself, then:</p>
+        <code class="block bg-white border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mb-6">cd ~/Sites/&lt;slug&gt; && claude</code>
+
+        <div class="space-y-4">
+          <div class="bg-white border border-stone-200 rounded-lg p-4">
+            <p class="font-bold text-stone-800 text-sm">Start Migration</p>
+            <p class="text-sm text-stone-500 mt-1">Creates GitHub repo, Sanity project, Netlify site, and scaffold. Run from <code class="bg-stone-100 px-1 rounded">~/Sites</code> (not inside a site dir).</p>
+            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">Start migration for [Site Name] — slug: [slug], client URL: https://...</code>
+          </div>
+          <div class="bg-white border border-stone-200 rounded-lg p-4">
+            <p class="font-bold text-stone-800 text-sm">Continue Migration</p>
+            <p class="text-sm text-stone-500 mt-1">Resumes from the current phase. Claude checks progress and picks up where you left off.</p>
+            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">continue migration</code>
+          </div>
+          <div class="bg-white border border-stone-200 rounded-lg p-4">
+            <p class="font-bold text-stone-800 text-sm">Start New Site Build</p>
+            <p class="text-sm text-stone-500 mt-1">Creates GitHub repo, Sanity project, Netlify site, and scaffold. Run from <code class="bg-stone-100 px-1 rounded">~/Sites</code>.</p>
+            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">Start new site build for [Site Name] — slug: [slug]</code>
+          </div>
+          <div class="bg-white border border-stone-200 rounded-lg p-4">
+            <p class="font-bold text-stone-800 text-sm">Continue Newsite</p>
+            <p class="text-sm text-stone-500 mt-1">Resumes from the current phase. Claude checks progress and picks up where you left off.</p>
+            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">continue newsite</code>
+          </div>
+          <div class="bg-white border border-stone-200 rounded-lg p-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="font-bold text-stone-800 text-sm">Pre-Launch QA</p>
+                <p class="text-sm text-stone-500 mt-1">8 code scans + build gate. Generates a Google Doc report. Use at Phase 5 (The Gate) and Phase 7 (QA).</p>
+              </div>
+              <a href="https://drive.google.com/drive/folders/1LiDlC_0SddKGXBpgAqlydUVWeLGdLZ2R?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
+            </div>
+            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">Run Pre-Launch QA</code>
+          </div>
+          <div class="bg-white border border-stone-200 rounded-lg p-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="font-bold text-stone-800 text-sm">Post-Launch QA</p>
+                <p class="text-sm text-stone-500 mt-1">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can, generates a Google Doc report.</p>
+              </div>
+              <a href="https://drive.google.com/drive/folders/1igaRd2Ed_Bat--5EnX0TlaSyCLjmcSnL?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
+            </div>
+            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">Run Post-Launch QA on https://[domain]</code>
+          </div>
+          <div class="bg-white border border-stone-200 rounded-lg p-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="font-bold text-stone-800 text-sm">Site Audit &amp; Optimization Report</p>
+                <p class="text-sm text-stone-500 mt-1">Client-ready Google Doc — performance, SEO, accessibility, recommendations. Run after Post-Launch QA passes.</p>
+              </div>
+              <a href="https://drive.google.com/drive/folders/1ekM2jpMHWFLou0cF7vbZYH2sIKL8kaoV?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
+            </div>
+            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">Run Site Audit Report on https://[domain]</code>
+          </div>
+          <div class="bg-white border border-stone-200 rounded-lg p-4">
+            <p class="font-bold text-stone-800 text-sm">Blog Protocol</p>
+            <p class="text-sm text-stone-500 mt-1">Adds a full blog — search, categories, pagination, related posts, share bar, SEO. Kevin customizes later.</p>
+            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">Use our blog protocol and add a blog to this site</code>
+          </div>
+          <div class="bg-white border border-stone-200 rounded-lg p-4">
+            <p class="font-bold text-stone-800 text-sm">Request a Site Update</p>
+            <p class="text-sm text-stone-500 mt-1">Make content or code changes. Describe what you want — Claude edits and pushes to dev.</p>
+            <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">[Describe the change you want]</code>
+            <p class="text-sm text-stone-400 mt-1">Example: "Change the hero headline to 'Walking in Freedom' and update the button to say 'Start Your Journey'"</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════════════
+           3. WEBSITE MIGRATION PROTOCOL
+      ════════════════════════════════════════════════════ -->
       <section class="bg-rose-50 border border-rose-200 rounded-2xl p-6">
         <h2 class="text-2xl font-bold text-rose-700 mb-1">Website Migration Protocol</h2>
         <p class="text-stone-500 text-sm mb-1">Client-facing name: <strong>The Transformation System</strong> &nbsp;·&nbsp; Pipeline type: <code class="bg-stone-100 px-1 rounded text-xs">migration</code></p>
         <p class="text-stone-600 text-sm mb-5">Clone an existing client website to the SMP stack. 9 phases — Claude does the work, you verify at checkpoints.</p>
 
-        <!-- How to run a migration -->
+        <!-- How to run -->
         <div class="bg-white border border-rose-200 rounded-lg p-5 mb-6">
           <p class="font-bold text-rose-800 text-sm mb-3">How to run a migration</p>
           <ol class="list-decimal ml-4 space-y-2 text-sm text-stone-600">
             <li><strong>SSH into Bethel as yourself</strong> (not deploy) and start Claude:<br/>
               <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites && claude</code></li>
-            <li>Say: <code class="bg-rose-100 border border-rose-200 px-2 py-1 rounded text-xs font-mono">"Start migration for [Site Name] — slug: [slug], client URL: https://..."</code><br/>
-              <span class="text-xs text-stone-500">Claude creates GitHub repo, Sanity project, Netlify site, and scaffold.</span></li>
+            <li>Say: <code class="bg-rose-100 border border-rose-200 px-2 py-1 rounded text-xs font-mono">"Start migration for [Site Name] — slug: [slug], client URL: https://..."</code></li>
             <li>When Phase 1 completes, move into the site directory:<br/>
               <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites/&lt;slug&gt; && claude</code></li>
             <li>Say <strong>"continue migration"</strong> — Claude reads the protocol, checks which phase you're on, and starts working.</li>
-            <li>Claude pauses at checkpoints. It pushes to dev and gives you the Netlify preview URL. Open it, compare against the original site.</li>
-            <li>Say <strong>"continue"</strong> — Claude advances to the next phase and keeps working.</li>
-            <li>If a session ends, start a new one and say <strong>"continue migration"</strong> again. It picks up where it left off.</li>
+            <li>Claude pauses at checkpoints. It pushes to dev and gives you the Netlify preview URL.</li>
+            <li>Say <strong>"continue"</strong> — Claude advances to the next phase. If a session ends, say "continue migration" again.</li>
           </ol>
-          <p class="text-stone-500 text-xs mt-3">Phases are enforced in order. All work is attributed to your account. See <a href="/pipelines" class="text-rose-700 hover:underline">Pipelines</a> for the full command reference and shared tools.</p>
         </div>
 
         <!-- Media rules -->
         <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
           <p class="font-bold text-amber-800 text-sm mb-2">Media rules — no exceptions</p>
-          <div class="grid grid-cols-3 gap-3 text-xs">
+          <div class="grid grid-cols-3 gap-3 text-sm">
             <div><strong class="text-stone-700">Images</strong><br/><span class="text-stone-500">Sanity CMS. Auto-optimized CDN. Never in Git.</span></div>
             <div><strong class="text-stone-700">Audio</strong><br/><span class="text-stone-500">Cloudflare R2. Manual upload.</span></div>
             <div><strong class="text-stone-700">Video</strong><br/><span class="text-stone-500">YouTube iframe embed. Never &lt;video&gt; tag.</span></div>
@@ -100,167 +174,120 @@ import PortalLayout from "../layouts/PortalLayout.astro";
 
         <!-- The 9 Phases -->
         <div class="space-y-6">
-
-          <!-- Phase 1 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">1</div>
               <p class="font-bold text-stone-800">Infrastructure</p>
               <span class="text-xs font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full">AUTOMATED</span>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
               <p><strong>Claude does:</strong> Creates GitHub repo, Netlify site, Sanity project. Clones to Bethel. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, .gitignore, dev branch.</p>
-              <p><strong>You check:</strong> The pipeline dashboard shows links to GitHub, Netlify, and Sanity. Verify they exist.</p>
+              <p><strong>You check:</strong> Verify GitHub, Netlify, and Sanity links exist.</p>
               <p><strong>Advances automatically</strong> when infrastructure is created.</p>
             </div>
           </div>
 
-          <!-- Phase 2 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">2</div>
               <p class="font-bold text-stone-800">Content + CSS Extraction</p>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Uses Playwright to crawl the original site at desktop (1280px) and mobile (375px). Extracts all content per page, complete computed CSS (colors, fonts, sizes, spacing, shadows, transitions), navigation structure, and catalogs all images with Sanity/R2 destinations.</p>
-              <p><strong>Output files</strong> (in <code class="bg-stone-100 px-1 rounded">content/</code>):</p>
-              <div class="grid grid-cols-2 gap-2">
-                <span class="bg-stone-50 rounded p-1.5 font-mono">site-inventory.md</span>
-                <span class="bg-stone-50 rounded p-1.5 font-mono">design-tokens.md</span>
-                <span class="bg-stone-50 rounded p-1.5 font-mono">images.md</span>
-                <span class="bg-stone-50 rounded p-1.5 font-mono">pages/*.md</span>
-              </div>
-              <p><strong>You check:</strong> Claude tells you when extraction is done. Open <code class="bg-stone-100 px-1 rounded">content/design-tokens.md</code> — verify it has Colors, Typography (desktop + mobile), Spacing (desktop + mobile), Decorations, and Navigation sections with real values. Check that page count in <code class="bg-stone-100 px-1 rounded">pages/</code> matches <code class="bg-stone-100 px-1 rounded">site-inventory.md</code>.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Uses Playwright to crawl the original site at desktop (1280px) and mobile (375px). Extracts all content, computed CSS (colors, fonts, sizes, spacing), navigation structure, and catalogs all images.</p>
+              <p><strong>You check:</strong> Verify <code class="bg-stone-100 px-1 rounded">content/design-tokens.md</code> has real values. Page count in <code class="bg-stone-100 px-1 rounded">pages/</code> matches <code class="bg-stone-100 px-1 rounded">site-inventory.md</code>.</p>
               <p><strong>Say "continue"</strong> when verified.</p>
             </div>
           </div>
 
-          <!-- Phase 3 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">3</div>
               <p class="font-bold text-stone-800">Design + Build</p>
               <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Creates a Stitch project and design system from the extracted CSS tokens. Generates screens for every page (desktop + mobile) faithful to the original layout. Verifies designs match the original. Loads real fonts via Google Fonts. Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens (with mobile overrides) BEFORE building any pages. Builds all Astro pages using only CSS variables — no hardcoded hex values.</p>
-              <p><strong>You check:</strong> Claude pushes to dev and runs "inspect dev preview". Check the Netlify preview URL and compare against the original site. Check: Do the colors match? Fonts? Spacing? Navigation? Does it look right on mobile?</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Creates a Stitch project and design system from extracted CSS tokens. Generates screens for every page. Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens BEFORE building pages. Builds all Astro pages using CSS variables only.</p>
+              <p><strong>You check:</strong> Compare Netlify preview against the original site. Colors, fonts, spacing, navigation, mobile.</p>
               <p><strong>Say "continue"</strong> when the site matches the original.</p>
             </div>
           </div>
 
-          <!-- Phase 4 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">4</div>
               <p class="font-bold text-stone-800">Wire Sanity CMS</p>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Uploads all images to Sanity. Defines schemas (blog posts, team, testimonials, events, FAQs &rarr; Sanity; legal pages, nav, footer &rarr; static). Migrates content into Sanity documents. Wires Astro pages to fetch from Sanity. Deploys schema. Sets up Sanity &rarr; Netlify webhook.</p>
-              <div class="bg-rose-50 border border-rose-200 rounded p-2 mt-2">
-                <p class="text-xs"><strong>Pipeline tool:</strong> If the site needs a blog, use the <a href="/pipelines#shared-tools" class="text-rose-700 hover:underline font-semibold">Blog Protocol</a> in your Claude session — Claude builds the full blog (search, categories, pagination, share bar, SEO) from a single command.</p>
-              </div>
-              <p><strong>You check:</strong> Preview the site — are all images loading from Sanity CDN? Open Sanity Studio — do all schemas and documents look right? Edit a document in Sanity — does the change appear on the site?</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Uploads images to Sanity. Defines schemas. Migrates content. Wires Astro pages to fetch from Sanity. Deploys schema. Sets up Sanity → Netlify webhook. If the site needs a blog, say <code class="bg-stone-100 px-1 rounded">Use our blog protocol</code>.</p>
+              <p><strong>You check:</strong> Images loading from Sanity CDN? Schemas and docs look right in Studio? Edit a doc — does the change appear?</p>
               <p><strong>Say "continue"</strong> when CMS is wired and working.</p>
             </div>
           </div>
 
-          <!-- Phase 5 — THE GATE -->
           <div class="border-2 border-rose-400 bg-white rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">5</div>
               <p class="font-bold text-rose-800">CAR / Transformation Layer Report</p>
               <span class="text-xs font-bold text-white bg-rose-700 px-2 py-0.5 rounded-full">THE GATE</span>
             </div>
-            <p class="text-rose-700 text-xs font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Runs Migration Fidelity checklist (page count, nav, CTAs, footer, images, forms, side-by-side spot check). Generates Transformation Layer Report as a Google Doc with three parts:</p>
-              <ul class="ml-4 space-y-1 text-stone-500">
-                <li>&bull; <strong>Part One:</strong> Already Delivered — what's built and working</li>
-                <li>&bull; <strong>Part Two:</strong> Critical Fixes — must fix before launch</li>
-                <li>&bull; <strong>Part Three:</strong> Recommended Improvements — optional enhancements for Phase 6</li>
-              </ul>
-              <p>Claude then implements ALL critical fixes from Part Two.</p>
-              <div class="bg-rose-50 border border-rose-200 rounded p-2 mt-2">
-                <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-rose-700 hover:underline font-semibold">Pre-Launch QA</a> in your Claude session to generate the 8-scan report (Google Doc).</p>
-              </div>
-              <p><strong>You check:</strong> Claude shows the report link and lists what was fixed. Review the report. Preview the site — are the critical fixes resolved?</p>
+            <p class="text-rose-700 text-sm font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Runs Migration Fidelity checklist. Generates Transformation Layer Report (Google Doc) with Part One (delivered), Part Two (critical fixes), Part Three (improvements). Implements all critical fixes. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> to generate the 8-scan report.</p>
+              <p><strong>You check:</strong> Review the report. Preview the site — are critical fixes resolved?</p>
               <p><strong>Say "continue"</strong> when all criticals are fixed.</p>
             </div>
           </div>
 
-          <!-- Phase 6 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">6</div>
               <p class="font-bold text-stone-800">Design Refinement</p>
               <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Takes the recommended improvements from CAR Part Three. Uses Stitch to generate design variants and refined screens. Picks the best variant and implements refinements in Astro. This is where the site goes from "faithful clone" to "better than the original."</p>
-              <p><strong>You check:</strong> Preview the site. Does it look better than the original? Are the improvements from Part Three implemented? Check desktop and mobile.</p>
-              <p><strong>Say "continue"</strong> when satisfied with the design.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Takes improvements from CAR Part Three. Uses Stitch to generate design variants. Implements refinements in Astro. Site goes from "faithful clone" to "better than the original."</p>
+              <p><strong>You check:</strong> Preview the site. Does it look better? Desktop + mobile.</p>
+              <p><strong>Say "continue"</strong> when satisfied.</p>
             </div>
           </div>
 
-          <!-- Phase 7 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">7</div>
               <p class="font-bold text-stone-800">QA</p>
               <span class="text-xs font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full">AUTOMATED + MANUAL</span>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Runs manual QA: Lighthouse audit, cross-browser testing (Playwright on Safari/Chrome/Firefox), form testing end-to-end, console error check, mobile responsiveness. Fixes everything found.</p>
-              <div class="bg-rose-50 border border-rose-200 rounded p-2 mt-2">
-                <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-rose-700 hover:underline font-semibold">Pre-Launch QA</a> in your Claude session. All 8 scans must pass. Re-run after fixes until clean.</p>
-              </div>
-              <p><strong>You check:</strong> Claude shows Lighthouse scores. Pre-Launch QA report is clean.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Lighthouse audit, cross-browser testing (Playwright), form testing, console errors, mobile responsiveness. Fixes everything found. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> — all 8 scans must pass.</p>
+              <p><strong>You check:</strong> Lighthouse scores. Pre-Launch QA report is clean.</p>
               <p><strong>Say "continue"</strong> when all checks pass.</p>
             </div>
           </div>
 
-          <!-- Phase 8 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">8</div>
               <p class="font-bold text-stone-800">Launch</p>
             </div>
-            <div class="ml-10 space-y-3 text-xs text-stone-600">
-              <div>
-                <p class="font-semibold text-stone-700 mb-1">Pre-launch (before connecting domain)</p>
-                <p>Claude merges dev to main, verifies Netlify preview loads correctly, confirms Sanity webhook works, prepares redirects.</p>
-              </div>
-              <div>
-                <p class="font-semibold text-stone-700 mb-1">Connect domain</p>
-                <p>Claude configures Netlify custom domain, Cloudflare DNS (CNAME, proxy orange), and verifies SSL on www + apex.</p>
-              </div>
-              <div>
-                <p class="font-semibold text-stone-700 mb-1">Post-launch verification (after domain is live)</p>
-                <p>Verifies: all pages load, forms work, GA4 fires, sitemap is in Search Console, UptimeRobot is active, Open Graph preview is correct, redirects work.</p>
-                <div class="bg-rose-50 border border-rose-200 rounded p-2 mt-2 space-y-1">
-                  <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-rose-700 hover:underline font-semibold">Post-Launch QA</a> on the live URL — generates a Google Doc report with Lighthouse scores and auto-fixes.</p>
-                  <p class="text-xs"><strong>Pipeline tool:</strong> When Post-Launch QA passes, run <a href="/pipelines#shared-tools" class="text-rose-700 hover:underline font-semibold">Site Audit &amp; Optimization Report</a> — generates the client-ready Google Doc.</p>
-                </div>
-              </div>
-              <p><strong>You check:</strong> Visit the live site. Does everything work? Check GA4 real-time view. Share the URL on social media — does the preview card look right?</p>
-              <p><strong>Say "continue"</strong> when everything is live and verified.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Merges dev to main. Connects custom domain, Cloudflare DNS, SSL. Verifies all pages load, forms work, GA4 fires, sitemap in Search Console, UptimeRobot active, Open Graph correct. Say <code class="bg-stone-100 px-1 rounded">Run Post-Launch QA on https://[domain]</code> then <code class="bg-stone-100 px-1 rounded">Run Site Audit Report on https://[domain]</code>.</p>
+              <p><strong>You check:</strong> Visit the live site. GA4 real-time. Share URL on social — preview card looks right?</p>
+              <p><strong>Say "continue"</strong> when everything is live.</p>
             </div>
           </div>
 
-          <!-- Phase 9 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">9</div>
               <p class="font-bold text-stone-800">Client Delivery &amp; Roadmap</p>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Generates the client delivery email and post-launch roadmap (Google Doc) with recommended improvements not included in the initial build. Invites the client as a member in Sanity Studio.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Generates client delivery email and post-launch roadmap (Google Doc). Invites client to Sanity Studio.</p>
               <p><strong>You do:</strong> Send the delivery email to the client.</p>
               <div class="mt-3">
                 <p class="font-semibold text-stone-700 mb-1">Delivery email template:</p>
                 <div class="relative">
-                  <div class="bg-stone-100 px-3 py-2 rounded text-xs text-stone-600 whitespace-pre-wrap leading-relaxed" id="delivery-email">Subject: Your website is live! — [Site Name]
+                  <div class="bg-stone-100 px-3 py-2 rounded text-sm text-stone-600 whitespace-pre-wrap leading-relaxed" id="delivery-email">Subject: Your website is live! — [Site Name]
 
 Hi [Client Name],
 
@@ -280,74 +307,12 @@ SMP Team</div>
               </div>
             </div>
           </div>
-
-        </div>
-
-        <!-- Tool Reference -->
-        <div class="mt-8 pt-6 border-t border-rose-200">
-          <h3 class="text-xl font-bold text-rose-700 mb-4">Tool Reference</h3>
-          <p class="text-stone-500 text-xs mb-4">Run these from your Claude session inside the site directory: <code class="bg-white border border-stone-200 px-1.5 py-0.5 rounded text-xs font-mono">cd ~/Sites/&lt;slug&gt; && claude</code></p>
-          <div class="space-y-4">
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <p class="font-bold text-stone-800 text-sm">Start Migration</p>
-                  <p class="text-xs text-stone-500 mt-1">Creates GitHub repo, Sanity project, Netlify site, and scaffold. Run from <code class="bg-stone-100 px-1 rounded">~/Sites</code>.</p>
-                </div>
-                <a href="https://drive.google.com/drive/folders/1LiDlC_0SddKGXBpgAqlydUVWeLGdLZ2R?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-rose-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
-              </div>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Start migration for [Site Name] — slug: [slug], client URL: https://...</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <p class="font-bold text-stone-800 text-sm">Continue Migration</p>
-              <p class="text-xs text-stone-500 mt-1">Resumes from the current phase. Claude checks progress and picks up where you left off.</p>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">continue migration</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <p class="font-bold text-stone-800 text-sm">Pre-Launch QA</p>
-                  <p class="text-xs text-stone-500 mt-1">8 code scans + build gate. Generates a Google Doc report. Use at Phase 5 (The Gate) and Phase 7 (QA).</p>
-                </div>
-                <a href="https://drive.google.com/drive/folders/1LiDlC_0SddKGXBpgAqlydUVWeLGdLZ2R?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-rose-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
-              </div>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Pre-Launch QA</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <p class="font-bold text-stone-800 text-sm">Post-Launch QA</p>
-                  <p class="text-xs text-stone-500 mt-1">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can. Use at Phase 8 (Launch).</p>
-                </div>
-                <a href="https://drive.google.com/drive/folders/1igaRd2Ed_Bat--5EnX0TlaSyCLjmcSnL?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-rose-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
-              </div>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Post-Launch QA on https://[domain]</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <p class="font-bold text-stone-800 text-sm">Site Audit &amp; Optimization Report</p>
-                  <p class="text-xs text-stone-500 mt-1">Client-ready Google Doc — performance, SEO, accessibility, recommendations. Run after Post-Launch QA passes.</p>
-                </div>
-                <a href="https://drive.google.com/drive/folders/1ekM2jpMHWFLou0cF7vbZYH2sIKL8kaoV?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-rose-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
-              </div>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Site Audit Report on https://[domain]</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <p class="font-bold text-stone-800 text-sm">Blog Protocol</p>
-              <p class="text-xs text-stone-500 mt-1">Adds a full blog — search, categories, pagination, related posts, share bar, SEO. Kevin customizes later.</p>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Use our blog protocol and add a blog to this site</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <p class="font-bold text-stone-800 text-sm">Request a Site Update</p>
-              <p class="text-xs text-stone-500 mt-1">Make content or code changes. Describe what you want — Claude edits and pushes to dev.</p>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">[Describe the change you want]</code>
-            </div>
-          </div>
         </div>
       </section>
 
-      <!-- New Site Build Protocol -->
+      <!-- ════════════════════════════════════════════════════
+           4. NEW SITE BUILD PROTOCOL
+      ════════════════════════════════════════════════════ -->
       <section class="bg-blue-50 border border-blue-200 rounded-2xl p-6">
         <h2 class="text-2xl font-bold text-blue-700 mb-1">SMP Build Protocol (New Sites)</h2>
         <p class="text-stone-500 text-sm mb-1">Client-facing name: <strong>The Build System</strong> &nbsp;·&nbsp; Pipeline type: <code class="bg-stone-100 px-1 rounded text-xs">newsite</code></p>
@@ -359,301 +324,231 @@ SMP Team</div>
           <ol class="list-decimal ml-4 space-y-2 text-sm text-stone-600">
             <li><strong>SSH into Bethel as yourself</strong> (not deploy) and start Claude:<br/>
               <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites && claude</code></li>
-            <li>Say: <code class="bg-blue-100 border border-blue-200 px-2 py-1 rounded text-xs font-mono">"Start new site build for [Site Name] — slug: [slug]"</code><br/>
-              <span class="text-xs text-stone-500">Claude creates GitHub repo, Sanity project, Netlify site, and scaffold.</span></li>
+            <li>Say: <code class="bg-blue-100 border border-blue-200 px-2 py-1 rounded text-xs font-mono">"Start new site build for [Site Name] — slug: [slug]"</code></li>
             <li>When infrastructure is ready, move into the site directory:<br/>
               <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites/&lt;slug&gt; && claude</code></li>
             <li>Say <strong>"continue newsite"</strong> — Claude starts Phase 1 (Discovery &amp; Brand).</li>
             <li>Claude pauses at checkpoints. It gives you the preview URL.</li>
             <li>Say <strong>"continue"</strong> — Claude advances to the next phase.</li>
-            <li>If a session ends, start a new one and say <strong>"continue newsite"</strong>.</li>
           </ol>
         </div>
 
         <!-- The 9 Phases -->
         <div class="space-y-6">
-
-          <!-- Phase 1 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">1</div>
               <p class="font-bold text-stone-800">Discovery &amp; Brand</p>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Researches the client — crawls social media, Google Business, any web presence. Extracts brand voice, colors, fonts, audience signals. Generates a creative brief as a Google Doc with: color palette (hex), font recommendations, sitemap, content outline per page.</p>
-              <p><strong>You check:</strong> Claude shows the brief link. Review it — does the sitemap cover all needed pages? Does the brand direction feel right?</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Researches the client — crawls social media, Google Business, any web presence. Generates a creative brief (Google Doc) with color palette, font recommendations, sitemap, content outline.</p>
+              <p><strong>You check:</strong> Does the sitemap cover all needed pages? Does the brand direction feel right?</p>
               <p><strong>Say "continue"</strong> when the brief is good.</p>
             </div>
           </div>
 
-          <!-- Phase 2 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">2</div>
               <p class="font-bold text-stone-800">Infrastructure</p>
               <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">AUTOMATED</span>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Bootstrap creates GitHub repo, Netlify site, Sanity project. Claude clones the repo, sets up Astro 5 + Tailwind v4 scaffold, creates CLAUDE.md and dev branch.</p>
-              <p><strong>You check:</strong> GitHub, Netlify, and Sanity links work.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Creates GitHub repo, Netlify site, Sanity project. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, dev branch.</p>
               <p><strong>Advances automatically.</strong></p>
             </div>
           </div>
 
-          <!-- Phase 3 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">3</div>
               <p class="font-bold text-stone-800">Design System</p>
               <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Creates a Stitch project and design system from the creative brief (colors, fonts, roundness). Generates screens for every page (desktop + mobile). Applies the design system across all screens. Verifies designs match the brief.</p>
-              <p><strong>You check:</strong> Claude shows the Stitch project. Do the designs match the brand direction from the brief?</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Creates a Stitch project and design system from the creative brief. Generates screens for every page (desktop + mobile). Applies design system across all screens.</p>
+              <p><strong>You check:</strong> Do the designs match the brand direction from the brief?</p>
               <p><strong>Say "continue"</strong> when designs look right.</p>
             </div>
           </div>
 
-          <!-- Phase 4 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">4</div>
               <p class="font-bold text-stone-800">Build Pages + Sanity</p>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Loads real fonts (Google Fonts, not Stitch substitutes). Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens FIRST. Builds every page matching the Stitch designs — no hardcoded hex, all CSS variables. Wires Sanity CMS: defines schemas, uploads images, migrates content, sets up webhook.</p>
-              <div class="bg-blue-50 border border-blue-200 rounded p-2 mt-2">
-                <p class="text-xs"><strong>Pipeline tool:</strong> If the site needs a blog, use the <a href="/pipelines#shared-tools" class="text-blue-700 hover:underline font-semibold">Blog Protocol</a> in your Claude session — Claude builds the full blog from a single command.</p>
-              </div>
-              <p><strong>You check:</strong> Claude pushes to dev and runs "inspect dev preview". Check the Netlify preview — do pages look right? Edit a doc in Sanity Studio — does the change appear? <code class="bg-stone-100 px-1 rounded">npm run build</code> succeeds?</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Loads real fonts. Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens. Builds every page matching Stitch designs. Wires Sanity CMS: schemas, images, content, webhook. If the site needs a blog, say <code class="bg-stone-100 px-1 rounded">Use our blog protocol</code>.</p>
+              <p><strong>You check:</strong> Netlify preview looks right? Edit a doc in Sanity — change appears? Build succeeds?</p>
               <p><strong>Say "continue"</strong> when the site works.</p>
             </div>
           </div>
 
-          <!-- Phase 5 — THE GATE -->
           <div class="border-2 border-blue-400 bg-white rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">5</div>
               <p class="font-bold text-blue-800">CAR / Review Gate</p>
               <span class="text-xs font-bold text-white bg-blue-700 px-2 py-0.5 rounded-full">THE GATE</span>
             </div>
-            <p class="text-blue-700 text-xs font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Generates Transformation Layer Report (Google Doc) with Part One (delivered), Part Two (critical fixes), Part Three (improvements). Implements all critical fixes.</p>
-              <div class="bg-blue-50 border border-blue-200 rounded p-2 mt-2">
-                <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-blue-700 hover:underline font-semibold">Pre-Launch QA</a> in your Claude session to generate the 8-scan report (Google Doc). Re-run after fixes to confirm.</p>
-              </div>
-              <p><strong>You check:</strong> Claude shows report links. All 8 scans pass after fixes.</p>
+            <p class="text-blue-700 text-sm font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Generates Transformation Layer Report (Google Doc). Implements all critical fixes. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> to generate the 8-scan report.</p>
+              <p><strong>You check:</strong> All 8 scans pass after fixes.</p>
               <p><strong>Say "continue"</strong> when all criticals are fixed.</p>
             </div>
           </div>
 
-          <!-- Phase 6 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">6</div>
               <p class="font-bold text-stone-800">Design Polish</p>
               <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Takes the recommended improvements from CAR Part Three. Uses Stitch to generate design variants, picks the best, implements refinements in Astro. Polishes spacing, responsiveness, micro-interactions.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Takes improvements from CAR Part Three. Uses Stitch to generate design variants, implements refinements. Polishes spacing, responsiveness, micro-interactions.</p>
               <p><strong>You check:</strong> Preview the site. Does it look polished? Desktop + mobile?</p>
               <p><strong>Say "continue"</strong> when satisfied.</p>
             </div>
           </div>
 
-          <!-- Phase 7 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">7</div>
               <p class="font-bold text-stone-800">QA</p>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Runs manual QA: Lighthouse, cross-browser (Playwright), form testing, console errors, mobile responsiveness. Fixes everything found.</p>
-              <div class="bg-blue-50 border border-blue-200 rounded p-2 mt-2">
-                <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-blue-700 hover:underline font-semibold">Pre-Launch QA</a> in your Claude session. All 8 scans must pass. Re-run after fixes until clean.</p>
-              </div>
-              <p><strong>You check:</strong> Claude shows Lighthouse scores. Pre-Launch QA report is clean.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Lighthouse, cross-browser (Playwright), form testing, console errors, mobile responsiveness. Fixes everything. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> — all 8 scans must pass.</p>
+              <p><strong>You check:</strong> Lighthouse scores. Pre-Launch QA report is clean.</p>
               <p><strong>Say "continue"</strong> when all checks pass.</p>
             </div>
           </div>
 
-          <!-- Phase 8 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">8</div>
               <p class="font-bold text-stone-800">Launch</p>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Merges to main, verifies Netlify preview. Connects custom domain, Cloudflare DNS, SSL. Verifies: all pages load, forms work, GA4 fires, sitemap in Search Console, UptimeRobot active, Open Graph correct.</p>
-              <div class="bg-blue-50 border border-blue-200 rounded p-2 mt-2 space-y-1">
-                <p class="text-xs"><strong>Pipeline tool:</strong> Run <a href="/pipelines#shared-tools" class="text-blue-700 hover:underline font-semibold">Post-Launch QA</a> on the live URL — generates a Google Doc report with Lighthouse scores and auto-fixes.</p>
-                <p class="text-xs"><strong>Pipeline tool:</strong> When Post-Launch QA passes, run <a href="/pipelines#shared-tools" class="text-blue-700 hover:underline font-semibold">Site Audit &amp; Optimization Report</a> — generates the client-ready Google Doc.</p>
-              </div>
-              <p><strong>You check:</strong> Visit the live site. Everything works? GA4 real-time shows traffic? Share URL on social — preview card looks right?</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Merges to main. Connects domain, DNS, SSL. Verifies everything. Say <code class="bg-stone-100 px-1 rounded">Run Post-Launch QA on https://[domain]</code> then <code class="bg-stone-100 px-1 rounded">Run Site Audit Report on https://[domain]</code>.</p>
+              <p><strong>You check:</strong> Live site works. GA4 real-time. Social preview card.</p>
               <p><strong>Say "continue"</strong> when everything is live.</p>
             </div>
           </div>
 
-          <!-- Phase 9 -->
           <div class="bg-white border border-stone-200 rounded-lg p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="shrink-0 w-7 h-7 rounded-full bg-blue-700 text-white text-xs font-bold flex items-center justify-center">9</div>
               <p class="font-bold text-stone-800">Client Delivery &amp; Roadmap</p>
             </div>
-            <div class="ml-10 space-y-2 text-xs text-stone-600">
-              <p><strong>Claude does:</strong> Generates the delivery email and post-launch roadmap (Google Doc). Invites client to Sanity Studio.</p>
+            <div class="ml-10 space-y-2 text-sm text-stone-600">
+              <p><strong>Claude does:</strong> Generates delivery email and post-launch roadmap (Google Doc). Invites client to Sanity Studio.</p>
               <p><strong>You do:</strong> Send the delivery email to the client.</p>
             </div>
           </div>
-
         </div>
 
-        <!-- Tool Reference -->
-        <div class="mt-8 pt-6 border-t border-blue-200">
-          <h3 class="text-xl font-bold text-blue-700 mb-4">Tool Reference</h3>
-          <p class="text-stone-500 text-xs mb-4">Run these from your Claude session inside the site directory: <code class="bg-white border border-stone-200 px-1.5 py-0.5 rounded text-xs font-mono">cd ~/Sites/&lt;slug&gt; && claude</code></p>
-          <div class="space-y-4">
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <p class="font-bold text-stone-800 text-sm">Start New Site Build</p>
-              <p class="text-xs text-stone-500 mt-1">Creates GitHub repo, Sanity project, Netlify site, and scaffold. Run from <code class="bg-stone-100 px-1 rounded">~/Sites</code>.</p>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Start new site build for [Site Name] — slug: [slug]</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <p class="font-bold text-stone-800 text-sm">Continue Newsite</p>
-              <p class="text-xs text-stone-500 mt-1">Resumes from the current phase. Claude checks progress and picks up where you left off.</p>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">continue newsite</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <p class="font-bold text-stone-800 text-sm">Pre-Launch QA</p>
-                  <p class="text-xs text-stone-500 mt-1">8 code scans + build gate. Generates a Google Doc report. Use at Phase 5 (The Gate) and Phase 7 (QA).</p>
-                </div>
-                <a href="https://drive.google.com/drive/folders/1LiDlC_0SddKGXBpgAqlydUVWeLGdLZ2R?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
-              </div>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Pre-Launch QA</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <p class="font-bold text-stone-800 text-sm">Post-Launch QA</p>
-                  <p class="text-xs text-stone-500 mt-1">Lighthouse + SEO + accessibility on the live URL. Auto-fixes what it can. Use at Phase 8 (Launch).</p>
-                </div>
-                <a href="https://drive.google.com/drive/folders/1igaRd2Ed_Bat--5EnX0TlaSyCLjmcSnL?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
-              </div>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Post-Launch QA on https://[domain]</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <p class="font-bold text-stone-800 text-sm">Site Audit &amp; Optimization Report</p>
-                  <p class="text-xs text-stone-500 mt-1">Client-ready Google Doc. Run after Post-Launch QA passes.</p>
-                </div>
-                <a href="https://drive.google.com/drive/folders/1ekM2jpMHWFLou0cF7vbZYH2sIKL8kaoV?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
-              </div>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Run Site Audit Report on https://[domain]</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <p class="font-bold text-stone-800 text-sm">Blog Protocol</p>
-              <p class="text-xs text-stone-500 mt-1">Adds a full blog — search, categories, pagination, related posts, share bar, SEO.</p>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">Use our blog protocol and add a blog to this site</code>
-            </div>
-            <div class="bg-white border border-stone-200 rounded-lg p-4">
-              <p class="font-bold text-stone-800 text-sm">Request a Site Update</p>
-              <p class="text-xs text-stone-500 mt-1">Make content or code changes. Describe what you want — Claude edits and pushes to dev.</p>
-              <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-xs font-mono text-stone-700 mt-2">[Describe the change you want]</code>
-            </div>
-          </div>
-        </div>
-
-        <!-- Links -->
         <div class="mt-6 pt-5 border-t border-stone-200">
           <p class="text-stone-600 text-sm">Browse styles: <a href="/design-library" class="text-blue-700 hover:underline font-semibold">Design Library</a> — 7 style packages, 21 color palettes</p>
         </div>
       </section>
 
-      <!-- Stitch — AI Design Tool -->
+      <!-- ════════════════════════════════════════════════════
+           5. STITCH — AI DESIGN TOOL
+      ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Stitch — AI Design Tool</h2>
         <p class="text-stone-600 text-sm mb-4"><strong>Google Stitch 2.0</strong> is an AI-powered design tool available as an MCP server on Bethel. It is the standard SMP workflow for all new site builds, major redesigns, and new page layouts.</p>
 
         <h3 class="font-bold text-stone-800 mb-2">When to Use Stitch</h3>
-        <ul class="space-y-1 text-stone-600 text-sm mb-4">
-          <li>&bull; New site builds (Phase 3 — Design &amp; Content)</li>
+        <ul class="space-y-1 text-stone-600 text-sm mb-6">
+          <li>&bull; New site builds (Phase 3 — Design System)</li>
           <li>&bull; Major redesigns of existing sites</li>
           <li>&bull; New page layouts or landing pages</li>
         </ul>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="bg-green-50 border border-green-200 rounded-lg p-5">
+            <h3 class="font-bold text-green-800 mb-3">What Stitch does</h3>
+            <ul class="space-y-2 text-sm text-green-700">
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Generate page designs from text descriptions</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Create design systems (colors, typography, spacing rules)</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Generate design variants of existing screens</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Edit screens within a Stitch project</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Export design references as HTML mockups</li>
+            </ul>
+          </div>
+          <div class="bg-red-50 border border-red-200 rounded-lg p-5">
+            <h3 class="font-bold text-red-800 mb-3">What Stitch cannot do</h3>
+            <ul class="space-y-2 text-sm text-red-700">
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Inspect a live website</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Detect bugs or broken content</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Read or modify your codebase</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Fix rendering issues</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Check if images are loading</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Verify data is wired correctly</li>
+            </ul>
+          </div>
+        </div>
 
         <h3 class="font-bold text-stone-800 mb-2">4-Step Design Workflow</h3>
         <div class="space-y-3 mb-4">
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">1. Capture a style reference</p>
-            <p class="text-stone-500 text-xs">Screenshot or paste a URL into Stitch as the visual starting point.</p>
+            <p class="text-stone-500 text-sm">Screenshot or paste a URL into Stitch as the visual starting point.</p>
           </div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">2. Stitch generates a full page design</p>
-            <p class="text-stone-500 text-xs">Stitch creates the design and auto-generates a design system (colors, typography, component rules).</p>
+            <p class="text-stone-500 text-sm">Stitch creates the design and auto-generates a design system (colors, typography, component rules).</p>
           </div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">3. Export design.md</p>
-            <p class="text-stone-500 text-xs">Stitch outputs a <code class="bg-stone-100 px-1 rounded">design.md</code> file — keep it in the project root for reference.</p>
+            <p class="text-stone-500 text-sm">Stitch outputs a <code class="bg-stone-100 px-1 rounded">design.md</code> file — keep it in the project root for reference.</p>
           </div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">4. Claude Code implements in Astro/Tailwind</p>
-            <p class="text-stone-500 text-xs">Hand the design.md to Claude Code. It builds the pages in Astro + Tailwind CSS to match the Stitch design.</p>
+            <p class="text-stone-500 text-sm">Hand the design.md to Claude Code. It builds the pages in Astro + Tailwind CSS to match the Stitch design.</p>
           </div>
         </div>
 
         <h3 class="font-bold text-stone-800 mb-2">Setup</h3>
-        <p class="text-stone-600 text-sm mb-2">Stitch is available in <strong>every site directory</strong> automatically via a <code class="bg-stone-100 px-1 rounded text-xs">.mcp.json</code> symlink. No setup needed — just start using the <code class="bg-stone-100 px-1 rounded text-xs">mcp__stitch__</code> tools in Claude Code.</p>
+        <p class="text-stone-600 text-sm mb-2">Stitch is available in <strong>every site directory</strong> automatically via <code class="bg-stone-100 px-1 rounded text-xs">.mcp.json</code> symlink. No setup needed.</p>
         <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800">
           Use <strong>Gemini 3.1 Pro</strong> in Stitch — not 3.0 Flash. This is set in the MCP config.
         </div>
       </section>
 
-      <!-- Media -->
+      <!-- ════════════════════════════════════════════════════
+           6. MEDIA
+      ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Media</h2>
         <p class="text-stone-600 text-sm mb-4">Media never goes in GitHub. All repos block this via .gitignore.</p>
         <div class="space-y-2 text-stone-600 text-sm mb-4">
-          <p><strong>Images:</strong> Managed through <strong>Sanity</strong> — clients upload directly in Sanity Studio. Auto-optimized and served via Sanity CDN. No SMP involvement needed.</p>
+          <p><strong>Images:</strong> Managed through <strong>Sanity</strong> — clients upload directly in Sanity Studio. Auto-optimized and served via Sanity CDN.</p>
           <p><strong>Audio:</strong> Stored in <strong>Cloudflare R2</strong> — Kevin uploads manually.</p>
           <p><strong>Video:</strong> Hosted on <strong>YouTube</strong> and embedded on site (adds SEO value). R2 as backup when YouTube isn't appropriate.</p>
         </div>
-
         <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800 mb-4">
-          ⚠️ <strong>Never rename or delete a live R2 file</strong> — it will break every page that references it. (Sanity handles its own references safely.)
+          <strong>Never rename or delete a live R2 file</strong> — it will break every page that references it.
         </div>
-
         <h3 class="font-bold text-stone-800 mb-2">R2 Bucket &amp; Custom Domain</h3>
-        <p class="text-stone-600 text-sm mb-2">One bucket organized by site, served from a clean subdomain:</p>
-        <div class="bg-stone-100 px-4 py-2 rounded font-mono text-xs text-stone-600 mb-2">assets.spiritmediapublishing.com</div>
-        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-xs text-stone-600 mb-4 whitespace-pre leading-relaxed">spirit-media-assets/
+        <p class="text-stone-600 text-sm mb-2">One bucket organized by site, served from:</p>
+        <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-600 mb-2">assets.spiritmediapublishing.com</div>
+        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-600 mb-4 whitespace-pre leading-relaxed">spirit-media-assets/
 ├── spirit-media-publishing/  (videos, audio, pdfs)
 ├── fathers-heart-bible/      (audio, videos)
 ├── work-on-yourself/         (audio)
 └── believers-library/        (videos)</div>
-        <p class="text-stone-500 text-xs mb-4">Shared assets (logos used across sites) go in <code class="bg-stone-100 px-1 rounded">spirit-media-publishing/</code>. Name files lowercase with hyphens: <code class="bg-stone-100 px-1 rounded">genesis-chapter-1-audio.mp3</code></p>
-
-        <h3 class="font-bold text-stone-800 mb-2">How to add media to R2 (audio/video)</h3>
-        <ol class="space-y-1 text-stone-600 text-sm">
-          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">1.</span> Client shares Google Drive folder with Kevin</li>
-          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">2.</span> Kevin downloads and organizes files</li>
-          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">3.</span> Upload to the correct site folder in R2 at <a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">dash.cloudflare.com</a></li>
-          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">4.</span> File is live immediately at <code class="bg-stone-100 px-1 rounded text-xs">assets.spiritmediapublishing.com/[site]/[file]</code></li>
-          <li class="flex gap-2"><span class="text-red-700 font-bold shrink-0">5.</span> Kevin updates site code to point to the new R2 URL</li>
-        </ol>
-        <p class="text-stone-500 text-xs mt-3">For images, clients upload directly in Sanity Studio — no R2 or SMP involvement needed.</p>
+        <p class="text-stone-500 text-sm mb-4">Shared assets go in <code class="bg-stone-100 px-1 rounded">spirit-media-publishing/</code>. Name files lowercase with hyphens: <code class="bg-stone-100 px-1 rounded">genesis-chapter-1-audio.mp3</code></p>
       </section>
 
-      <!-- Forms & GHL -->
+      <!-- ════════════════════════════════════════════════════
+           7. FORMS & GHL
+      ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Forms &amp; GoHighLevel</h2>
-        <p class="text-stone-600 text-sm mb-4">For Spirit Media internal sites, contact forms route to our GoHighLevel CRM, tagged by site. For client sites, forms may use Netlify Forms or another provider depending on the project.</p>
-
+        <p class="text-stone-600 text-sm mb-4">For Spirit Media internal sites, contact forms route to our GoHighLevel CRM, tagged by site.</p>
         <h3 class="font-bold text-stone-800 mb-2">GHL Tagging Strategy (Internal Sites)</h3>
-        <p class="text-stone-500 text-sm mb-2">Every internal form applies a source tag so contacts can be segmented by ministry:</p>
         <div class="overflow-x-auto mb-4">
           <table class="w-full text-sm text-left border border-stone-200 rounded">
             <thead class="bg-stone-100">
@@ -673,16 +568,11 @@ SMP Team</div>
             </tbody>
           </table>
         </div>
-
-        <h3 class="font-bold text-stone-800 mb-2">Embedding a GHL Form in Astro</h3>
-        <div class="bg-stone-100 px-4 py-3 rounded font-mono text-xs text-stone-600 whitespace-pre leading-relaxed">&lt;!-- In your .astro file --&gt;
-&lt;div class="ghl-form-wrapper"&gt;
-  &lt;!-- Paste GHL embed code here --&gt;
-&lt;/div&gt;</div>
-        <p class="text-stone-500 text-xs mt-2">Request embed codes from Kevin. He creates forms in GHL with proper tags and pipelines.</p>
       </section>
 
-      <!-- Development Infrastructure -->
+      <!-- ════════════════════════════════════════════════════
+           8. DEVELOPMENT INFRASTRUCTURE
+      ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Development Infrastructure</h2>
         <div class="space-y-4">
@@ -694,285 +584,88 @@ SMP Team</div>
           <div>
             <h3 class="font-semibold text-stone-700 mb-2">Code Server (VS Code in browser)</h3>
             <a href="https://dev.spiritmediapublishing.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline text-sm font-mono">dev.spiritmediapublishing.com</a>
-            <p class="text-stone-500 text-sm mt-1">Requires Tailscale VPN. Full IDE access to all repos.</p>
-          </div>
-          <div>
-            <h3 class="font-semibold text-stone-700 mb-2">Tailscale VPN</h3>
-            <div class="bg-stone-100 px-4 py-2 rounded font-mono text-sm text-stone-700">100.114.220.65</div>
-            <p class="text-stone-500 text-sm mt-1">Required for SSH and code-server access</p>
+            <p class="text-stone-500 text-sm mt-1">Requires Tailscale VPN.</p>
           </div>
         </div>
       </section>
 
-      <!-- Deployment Workflow -->
+      <!-- ════════════════════════════════════════════════════
+           9. DEPLOYMENT WORKFLOW
+      ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Deployment Workflow</h2>
-        <p class="text-stone-500 text-sm mb-4">All work happens on <code class="bg-stone-100 px-1 rounded">dev</code>. Only merge to <code class="bg-stone-100 px-1 rounded">main</code> when ready to publish. Each push to main = one Netlify build credit. Free plan includes <strong>1,000 build credits/month</strong> (~2–3 min per build = ~300 pushes/month). Batch all changes before merging.</p>
+        <p class="text-stone-500 text-sm mb-4">All work happens on <code class="bg-stone-100 px-1 rounded">dev</code>. Only merge to <code class="bg-stone-100 px-1 rounded">main</code> when ready to publish. Each push to main = one Netlify build credit (1,000/month).</p>
         <div class="space-y-3">
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">1. Switch to dev</p>
-            <code class="text-xs text-stone-600">git checkout dev</code>
+            <code class="text-sm text-stone-600">git checkout dev</code>
           </div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">2. Build and push to dev</p>
-            <code class="text-xs text-stone-600">npm run build && git add . && git commit -m "message" && git push origin dev</code>
+            <code class="text-sm text-stone-600">npm run build && git add . && git commit -m "message" && git push origin dev</code>
           </div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
-            <p class="font-semibold text-stone-700 text-sm mb-1">3. Inspect dev preview</p>
-            <code class="text-xs text-stone-600">Say "inspect dev preview" in Claude session</code>
-            <p class="text-stone-500 text-xs mt-1">Runs technical + visual inspection on dev--SLUG.netlify.app</p>
-          </div>
-          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
-            <p class="font-semibold text-stone-700 text-sm mb-1">4. Deploy to main</p>
-            <p class="text-stone-500 text-xs mt-1 mb-2">Claude uses the GitHub API merge (silent — no PR, no notification email):</p>
-            <code class="text-xs text-stone-600">source /home/deploy/.secrets && gh api /repos/Spirit-Media-US/[repo]/merges -X POST -f base=main -f head=dev -f commit_message="Deploy: [description]"</code>
-            <p class="text-stone-500 text-xs mt-2">Then back-merge: <code class="bg-stone-100 px-1 rounded">git checkout dev && git merge origin/main && git push origin dev</code></p>
+            <p class="font-semibold text-stone-700 text-sm mb-1">3. Deploy to main</p>
+            <p class="text-stone-500 text-sm mt-1">Kevin approves all merges to main. Claude uses the GitHub API merge (no PR, no notification email).</p>
           </div>
         </div>
       </section>
 
-      <!-- Deploy Troubleshooting -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Deploy Troubleshooting</h2>
-        <p class="text-stone-600 text-sm mb-4">When a Netlify build fails, check the deploy log at <code class="bg-stone-100 px-1 rounded text-xs">app.netlify.com → Deploys → failed deploy → Deploy log</code>. Common errors:</p>
-        <div class="overflow-x-auto mb-4">
-          <table class="w-full text-sm text-left border border-stone-200 rounded">
-            <thead class="bg-stone-100">
-              <tr>
-                <th class="px-3 py-2 text-stone-700 font-semibold">Error</th>
-                <th class="px-3 py-2 text-stone-700 font-semibold">Cause</th>
-                <th class="px-3 py-2 text-stone-700 font-semibold">Fix</th>
-              </tr>
-            </thead>
-            <tbody class="text-stone-600">
-              <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">Cannot find module</td><td class="px-3 py-2">Missing dependency</td><td class="px-3 py-2"><code class="bg-stone-100 px-1 rounded text-xs">npm install</code> and commit <code class="bg-stone-100 px-1 rounded text-xs">package-lock.json</code></td></tr>
-              <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">Build exceeded memory</td><td class="px-3 py-2">Too many large images or files in build</td><td class="px-3 py-2">Move media to R2, not <code class="bg-stone-100 px-1 rounded text-xs">public/</code></td></tr>
-              <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">AstroError</td><td class="px-3 py-2">Syntax or component error</td><td class="px-3 py-2">Run <code class="bg-stone-100 px-1 rounded text-xs">npm run build</code> locally first — fix before pushing</td></tr>
-              <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">404 after deploy</td><td class="px-3 py-2">Publish dir wrong or page not generated</td><td class="px-3 py-2">Confirm publish dir is <code class="bg-stone-100 px-1 rounded text-xs">dist</code> in Netlify settings</td></tr>
-              <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">DNS_PROBE_FINISHED</td><td class="px-3 py-2">Cloudflare DNS misconfigured</td><td class="px-3 py-2">Verify CNAME points to Netlify and proxy is orange</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="bg-stone-50 border border-stone-200 rounded p-3 text-sm text-stone-600">
-          💡 <strong>Reading Netlify logs:</strong> Scroll to the bottom of the deploy log first — the final error message is usually the root cause. Everything above it is normal build output.
-        </div>
-      </section>
-
-      <!-- If Something Goes Wrong -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">If Something Goes Wrong</h2>
-        <p class="text-stone-600 text-sm mb-4">Don't panic — but do act quickly and communicate.</p>
-        <div class="space-y-3">
-          <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800">
-            <strong>Site looks broken after your push</strong> — Tell Kevin immediately with a description of what you changed.
-          </div>
-          <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800">
-            <strong>Merge conflict</strong> — Don't force push. Stop and message Kevin immediately.
-          </div>
-          <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800">
-            <strong>Netlify build failed</strong> — Check the Netlify dashboard and share the error log with Kevin.
-          </div>
-        </div>
-      </section>
-
-      <!-- Best Practices -->
+      <!-- ════════════════════════════════════════════════════
+           10. BEST PRACTICES
+      ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Best Practices</h2>
         <ul class="space-y-2 text-stone-700 text-sm">
-          <li>✓ Always build before pushing: <code class="bg-stone-100 px-1 rounded">npm run build</code></li>
-          <li>✓ Run "inspect dev preview" after pushing to dev — fix all errors before requesting merge</li>
-          <li>✓ Never commit media files to Git</li>
-          <li>✓ Never rename or delete a live media file</li>
-          <li>✓ One push to main per session — batch all changes first</li>
-          <li>✓ Pricing off all public pages</li>
-          <li>✓ Internal site forms route to GHL, tagged by site</li>
-          <li>✓ Keep .env files in <code class="bg-stone-100 px-1 rounded">/home/deploy/bin/</code></li>
-          <li>✓ Use meaningful commit messages</li>
-          <li>✓ Kevin approves all merges to main</li>
-          <li>✓ Before pushing any fix, verify it doesn't break something else — check affected pages on mobile and desktop</li>
+          <li>&#10003; Always build before pushing: <code class="bg-stone-100 px-1 rounded">npm run build</code></li>
+          <li>&#10003; Never commit media files to Git</li>
+          <li>&#10003; Never rename or delete a live media file</li>
+          <li>&#10003; One push to main per session — batch all changes first</li>
+          <li>&#10003; Internal site forms route to GHL, tagged by site</li>
+          <li>&#10003; Kevin approves all merges to main</li>
+          <li>&#10003; Before pushing any fix, verify it doesn't break something else</li>
         </ul>
       </section>
 
-      <!-- Uptime Monitoring -->
+      <!-- ════════════════════════════════════════════════════
+           11. RULES
+      ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Uptime Monitoring</h2>
-        <p class="text-stone-600 text-sm mb-4">UptimeRobot checks every site every 5 minutes and sends email alerts if anything goes down. Every SMP site gets added to UptimeRobot as part of the launch checklist.</p>
-        <a href="https://uptimerobot.com/dashboard" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-red-50 border border-stone-200 hover:bg-white hover:border-red-700 text-red-700 text-sm font-semibold rounded transition-colors mb-4">Open UptimeRobot Dashboard →</a>
-
-        <h3 class="font-bold text-stone-800 mb-2">Downtime Response</h3>
-        <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800">
-          <strong>If you receive a downtime alert:</strong> Do not push a new build. First check if the issue resolves on its own within 2 minutes (Netlify occasionally has brief hiccups). If the site is still down after 5 minutes, contact Kevin immediately.
-        </div>
-      </section>
-
-      <!-- New Rules (March 2026) -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">New Rules <span class="text-sm font-normal text-stone-500">(March 2026)</span></h2>
-        <p class="text-stone-600 text-sm mb-4">Mandatory rules established 2026-03-30. These apply to all sessions, all developers, and all sites.</p>
+        <h2 class="text-2xl font-bold text-red-700 mb-4">Rules</h2>
         <div class="space-y-3">
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">Mandatory cd-then-claude startup</p>
-            <p class="text-stone-500 text-xs">Always <code class="bg-stone-100 px-1 rounded">cd ~/Sites/(slug) && claude</code> before working on any site. Running Claude from <code class="bg-stone-100 px-1 rounded">~/</code> or <code class="bg-stone-100 px-1 rounded">~/Sites/</code> is blocked.</p>
-          </div>
-          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
-            <p class="font-semibold text-stone-700 text-sm mb-1">Pre-edit hook enforcement</p>
-            <p class="text-stone-500 text-xs">A hook in <code class="bg-stone-100 px-1 rounded">settings.json</code> blocks edits to site files when CWD is <code class="bg-stone-100 px-1 rounded">~/</code> or <code class="bg-stone-100 px-1 rounded">~/Sites/</code>. This prevents bypassing per-project CLAUDE.md rules.</p>
+            <p class="text-stone-500 text-sm">Always <code class="bg-stone-100 px-1 rounded">cd ~/Sites/(slug) && claude</code> before working on any site.</p>
           </div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">MailtoLink component standard</p>
-            <p class="text-stone-500 text-xs">Every site must have a <code class="bg-stone-100 px-1 rounded">MailtoLink</code> component. Bare <code class="bg-stone-100 px-1 rounded">mailto:</code> links are banned.</p>
+            <p class="text-stone-500 text-sm">Every site must have a <code class="bg-stone-100 px-1 rounded">MailtoLink</code> component. Bare <code class="bg-stone-100 px-1 rounded">mailto:</code> links are banned.</p>
           </div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">CSP headers required</p>
-            <p class="text-stone-500 text-xs">Every site must have a <code class="bg-stone-100 px-1 rounded">netlify.toml</code> with <code class="bg-stone-100 px-1 rounded">[[headers]]</code> including <code class="bg-stone-100 px-1 rounded">Content-Security-Policy</code>.</p>
+            <p class="text-stone-500 text-sm">Every site must have a <code class="bg-stone-100 px-1 rounded">netlify.toml</code> with <code class="bg-stone-100 px-1 rounded">Content-Security-Policy</code> headers.</p>
           </div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">Project-scoped Sanity tokens</p>
-            <p class="text-stone-500 text-xs">Each Sanity project needs its own write token in <code class="bg-stone-100 px-1 rounded">.secrets</code>. Do not share tokens across projects.</p>
-          </div>
-          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
-            <p class="font-semibold text-stone-700 text-sm mb-1">New site auto-detection</p>
-            <p class="text-stone-500 text-xs">A cron job runs at 4 AM UTC, scans <code class="bg-stone-100 px-1 rounded">~/Sites/</code>, and auto-adds new repos to the global CLAUDE.md.</p>
+            <p class="text-stone-500 text-sm">Each Sanity project needs its own write token in <code class="bg-stone-100 px-1 rounded">.secrets</code>.</p>
           </div>
         </div>
       </section>
 
-      <!-- MCP Tools Reference -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">MCP Tools Reference</h2>
-        <p class="text-stone-600 text-sm mb-4">All MCP servers and their tools are available to every developer on Bethel via <code class="bg-stone-100 px-2 py-1 rounded text-xs">.mcp.json</code> symlinked into every site directory. Config is gitignored (contains API keys). Setup is automatic — no developer action needed.</p>
-
-        <!-- Stitch -->
-        <div class="mb-6">
-          <h3 class="font-bold text-stone-800 mb-2">Stitch (AI Design) — Google Stitch 2.0</h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left border border-stone-200 rounded">
-              <thead class="bg-stone-100">
-                <tr>
-                  <th class="px-3 py-2 text-stone-700 font-semibold">Tool</th>
-                  <th class="px-3 py-2 text-stone-700 font-semibold">Description</th>
-                </tr>
-              </thead>
-              <tbody class="text-stone-600">
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__create_project</td><td class="px-3 py-2">Create a new design project</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__generate_screen_from_text</td><td class="px-3 py-2">Generate a screen design from text description</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__create_design_system</td><td class="px-3 py-2">Create a design system (colors, typography, component rules)</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__apply_design_system</td><td class="px-3 py-2">Apply a design system to screens</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__edit_screens</td><td class="px-3 py-2">Edit existing screen designs</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__generate_variants</td><td class="px-3 py-2">Generate design variants</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__list_projects</td><td class="px-3 py-2">List all Stitch projects</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__list_screens</td><td class="px-3 py-2">List screens in a project</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__get_screen</td><td class="px-3 py-2">Get a specific screen</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__get_project</td><td class="px-3 py-2">Get project details</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__list_design_systems</td><td class="px-3 py-2">List available design systems</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__stitch__update_design_system</td><td class="px-3 py-2">Update a design system</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Sanity -->
-        <div class="mb-6">
-          <h3 class="font-bold text-stone-800 mb-2">Sanity (CMS) — Content Management</h3>
-          <p class="text-stone-500 text-sm mb-2">Remote MCP at <code class="bg-stone-100 px-1 rounded text-xs">mcp.sanity.io</code></p>
-          <p class="text-stone-600 text-sm">Content queries, document management, image assets, schema operations.</p>
-        </div>
-
-        <!-- Netlify -->
-        <div class="mb-6">
-          <h3 class="font-bold text-stone-800 mb-2">Netlify (Hosting) — Deploys &amp; Build Status</h3>
-          <p class="text-stone-600 text-sm">Site management, deploy triggers, build logs, environment variables.</p>
-        </div>
-
-        <!-- Cloudflare -->
-        <div class="mb-6">
-          <h3 class="font-bold text-stone-800 mb-2">Cloudflare (CDN/DNS) — DNS, SSL, R2 Storage</h3>
-          <p class="text-stone-600 text-sm">DNS records, SSL certificates, CDN rules, R2 bucket operations.</p>
-        </div>
-
-        <!-- Playwright -->
-        <div class="mb-6">
-          <h3 class="font-bold text-stone-800 mb-2">Playwright (Browser Testing) — Screenshots &amp; Testing</h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left border border-stone-200 rounded">
-              <thead class="bg-stone-100">
-                <tr>
-                  <th class="px-3 py-2 text-stone-700 font-semibold">Tool</th>
-                  <th class="px-3 py-2 text-stone-700 font-semibold">Description</th>
-                </tr>
-              </thead>
-              <tbody class="text-stone-600">
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_navigate</td><td class="px-3 py-2">Navigate to URL</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_snapshot</td><td class="px-3 py-2">Capture accessibility snapshot</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_take_screenshot</td><td class="px-3 py-2">Take screenshot</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_click</td><td class="px-3 py-2">Click elements</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_fill_form</td><td class="px-3 py-2">Fill form fields</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_type</td><td class="px-3 py-2">Type text</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_press_key</td><td class="px-3 py-2">Press keyboard key</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_hover</td><td class="px-3 py-2">Hover over element</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_select_option</td><td class="px-3 py-2">Select dropdown option</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_evaluate</td><td class="px-3 py-2">Run JavaScript</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_console_messages</td><td class="px-3 py-2">Get console messages</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_network_requests</td><td class="px-3 py-2">Monitor network</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_tabs</td><td class="px-3 py-2">Manage tabs</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_close</td><td class="px-3 py-2">Close browser</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_navigate_back</td><td class="px-3 py-2">Go back</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_drag</td><td class="px-3 py-2">Drag elements</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_file_upload</td><td class="px-3 py-2">Upload files</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_handle_dialog</td><td class="px-3 py-2">Handle browser dialogs</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_resize</td><td class="px-3 py-2">Resize viewport</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_wait_for</td><td class="px-3 py-2">Wait for element/condition</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_run_code</td><td class="px-3 py-2">Run Playwright code</td></tr>
-                <tr class="border-t border-stone-100"><td class="px-3 py-2 font-mono text-xs">mcp__playwright__browser_install</td><td class="px-3 py-2">Install browser</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- GoHighLevel -->
-        <div class="mb-6">
-          <h3 class="font-bold text-stone-800 mb-2">GoHighLevel (CRM) — Forms, Contacts, Marketing</h3>
-          <p class="text-stone-500 text-sm mb-2">Remote MCP at <code class="bg-stone-100 px-1 rounded text-xs">services.leadconnectorhq.com</code></p>
-          <p class="text-stone-600 text-sm">Contact management, form submissions, marketing automation, pipeline management.</p>
-        </div>
-
-        <!-- Google Docs -->
-        <div>
-          <h3 class="font-bold text-stone-800 mb-2">Google Docs — Documents &amp; Drafts</h3>
-          <p class="text-stone-600 text-sm">Document creation, reading, editing, formatting.</p>
-        </div>
-      </section>
-
-      <!-- Need Help? -->
+      <!-- ════════════════════════════════════════════════════
+           12. NEED HELP?
+      ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Need Help?</h2>
-        <p class="text-stone-600 text-sm mb-4">Route questions to the right person:</p>
-        <div class="overflow-x-auto mb-6">
-          <table class="w-full text-sm text-left border border-stone-200 rounded">
-            <thead class="bg-stone-100">
-              <tr>
-                <th class="px-3 py-2 text-stone-700 font-semibold">Problem</th>
-                <th class="px-3 py-2 text-stone-700 font-semibold">Contact</th>
-              </tr>
-            </thead>
-            <tbody class="text-stone-600">
-              <tr class="border-t border-stone-100"><td class="px-3 py-2">Build failures, Git conflicts, server access</td><td class="px-3 py-2 font-semibold">Kevin</td></tr>
-              <tr class="border-t border-stone-100"><td class="px-3 py-2">Content updates, copy changes</td><td class="px-3 py-2 font-semibold">Kevin</td></tr>
-              <tr class="border-t border-stone-100"><td class="px-3 py-2">Design decisions, domain/DNS, Netlify, merge approvals</td><td class="px-3 py-2 font-semibold">Kevin</td></tr>
-              <tr class="border-t border-stone-100"><td class="px-3 py-2">GHL forms, CRM, marketing automation</td><td class="px-3 py-2 font-semibold">Kevin</td></tr>
-              <tr class="border-t border-stone-100"><td class="px-3 py-2">Client requests</td><td class="px-3 py-2 font-semibold">Kevin</td></tr>
-            </tbody>
-          </table>
-        </div>
-
+        <p class="text-stone-600 text-sm mb-4">All questions go to Kevin: build failures, content updates, design decisions, domain/DNS, merge approvals, GHL, client requests.</p>
         <h3 class="font-bold text-stone-800 mb-2">Resources</h3>
         <ul class="space-y-2 text-stone-600 text-sm">
-          <li><a href="https://docs.astro.build" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Astro Documentation</a></li>
-          <li><a href="https://www.sanity.io/docs" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Sanity Documentation</a></li>
-          <li><a href="https://tailwindcss.com/docs" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Tailwind CSS Documentation</a></li>
-          <li><a href="https://docs.netlify.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Netlify Documentation</a></li>
-          <li><a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Cloudflare Dashboard</a></li>
-          <li><a href="https://github.com/Spirit-Media-US" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">→ Spirit-Media-US GitHub</a></li>
+          <li><a href="https://docs.astro.build" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Astro Documentation</a></li>
+          <li><a href="https://www.sanity.io/docs" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Sanity Documentation</a></li>
+          <li><a href="https://tailwindcss.com/docs" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Tailwind CSS Documentation</a></li>
+          <li><a href="https://docs.netlify.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Netlify Documentation</a></li>
+          <li><a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Cloudflare Dashboard</a></li>
+          <li><a href="https://github.com/Spirit-Media-US" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Spirit-Media-US GitHub</a></li>
         </ul>
       </section>
 
