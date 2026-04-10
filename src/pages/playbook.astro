@@ -78,7 +78,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         <div class="space-y-4">
           <div class="bg-white border border-stone-200 rounded-lg p-4">
             <p class="font-bold text-stone-800 text-sm">Inspect Dev Preview</p>
-            <p class="text-sm text-stone-500 mt-1">Runs a technical + visual inspection on the dev Netlify preview. Use after every push to dev to catch errors before requesting merge.</p>
+            <p class="text-sm text-stone-500 mt-1">Runs a technical + visual inspection on the Bethel dev server. Use after every push to dev to catch errors before requesting merge.</p>
             <code class="block bg-stone-50 border border-stone-200 px-3 py-2 rounded text-sm font-mono text-stone-700 mt-2">inspect dev preview</code>
           </div>
           <div class="bg-white border border-stone-200 rounded-lg p-4">
@@ -143,7 +143,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <li>When Phase 1 completes, move into the site directory:<br/>
               <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites/&lt;slug&gt; && claude</code></li>
             <li>Say <strong>"continue migration"</strong> — Claude reads the protocol, checks which phase you're on, and starts working.</li>
-            <li>Claude pauses at checkpoints. It pushes to dev and gives you the Netlify preview URL.</li>
+            <li>Claude pauses at checkpoints. It pushes to dev — preview your work on the Bethel dev server (click <strong>Dev</strong> on the Dashboard).</li>
             <li>Say <strong>"continue"</strong> — Claude advances to the next phase. If a session ends, say "continue migration" again.</li>
           </ol>
         </div>
@@ -168,7 +168,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
               <p><strong>Claude does:</strong> Creates GitHub repo, Netlify site, Sanity project. Clones to Bethel. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, .gitignore, dev branch. Adds the site card to the <a href="/dashboard" class="text-rose-700 hover:underline font-semibold">Dashboard</a>.</p>
-              <p><strong>You check:</strong> Verify GitHub, Netlify, and Sanity links exist. The site card appears on the Dashboard with <strong>Dev</strong> and <strong>Main</strong> preview buttons — use these throughout the build to preview your work on Netlify without running a local dev server.</p>
+              <p><strong>You check:</strong> Verify GitHub, Netlify, and Sanity links exist. The site card appears on the Dashboard with <strong>Dev</strong> (Bethel dev server) and <strong>Main</strong> (production) preview buttons — use these throughout the build to preview your work without using build credits.</p>
               <p><strong>Advances automatically</strong> when infrastructure is created.</p>
             </div>
           </div>
@@ -193,7 +193,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
               <p><strong>Claude does:</strong> Creates a Stitch project and design system from extracted CSS tokens. Generates screens for every page. Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens BEFORE building pages. Builds all Astro pages using CSS variables only.</p>
-              <p><strong>You check:</strong> Compare Netlify preview against the original site. Colors, fonts, spacing, navigation, mobile.</p>
+              <p><strong>You check:</strong> Compare dev preview against the original site. Colors, fonts, spacing, navigation, mobile.</p>
               <p><strong>Say "continue"</strong> when the site matches the original.</p>
             </div>
           </div>
@@ -314,7 +314,7 @@ SMP Team</div>
             <li>When infrastructure is ready, move into the site directory:<br/>
               <code class="bg-white border border-stone-200 px-2 py-1 rounded text-xs font-mono mt-1 inline-block">cd ~/Sites/&lt;slug&gt; && claude</code></li>
             <li>Say <strong>"continue newsite"</strong> — Claude checks which phase you're on and picks up where you left off.</li>
-            <li>Claude pauses at checkpoints. It gives you the preview URL.</li>
+            <li>Claude pauses at checkpoints. Preview your work on the Bethel dev server (click <strong>Dev</strong> on the Dashboard).</li>
             <li>Say <strong>"continue"</strong> — Claude advances to the next phase.</li>
           </ol>
         </div>
@@ -341,7 +341,7 @@ SMP Team</div>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
               <p><strong>Claude does:</strong> Creates GitHub repo, Netlify site, Sanity project. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, dev branch. Adds the site card to the <a href="/dashboard" class="text-blue-700 hover:underline font-semibold">Dashboard</a>.</p>
-              <p><strong>You check:</strong> The site card appears on the Dashboard with <strong>Dev</strong> and <strong>Main</strong> preview buttons — use these throughout the build to preview your work.</p>
+              <p><strong>You check:</strong> The site card appears on the Dashboard with <strong>Dev</strong> (Bethel dev server) and <strong>Main</strong> (production) preview buttons — use these throughout the build to preview your work without using build credits.</p>
               <p><strong>Advances automatically.</strong></p>
             </div>
           </div>
@@ -366,7 +366,7 @@ SMP Team</div>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
               <p><strong>Claude does:</strong> Loads real fonts. Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens. Builds every page matching Stitch designs. Wires Sanity CMS: schemas, images, content, webhook. If the site needs a blog, say <code class="bg-stone-100 px-1 rounded">Use our blog protocol</code>.</p>
-              <p><strong>You check:</strong> Netlify preview looks right? Edit a doc in Sanity — change appears? Build succeeds?</p>
+              <p><strong>You check:</strong> Dev preview looks right? Edit a doc in Sanity — change appears? Build succeeds?</p>
               <p><strong>Say "continue"</strong> when the site works.</p>
             </div>
           </div>
