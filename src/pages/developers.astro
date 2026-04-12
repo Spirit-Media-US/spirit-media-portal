@@ -20,20 +20,15 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         <p class="text-stone-500 text-sm mt-3">Example: "SSH into Bethel, push to dev, admin approves merge to main."</p>
       </section>
 
-      <!-- SSH Access -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">SSH Access to Bethel</h2>
-        <p class="text-stone-600 mb-4">Connect to the development server via Tailscale:</p>
-        <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
-          <span>ssh bethel</span>
-        </div>
-        <p class="text-stone-500 text-sm mt-3">Requires Tailscale VPN. SSH config alias is set up in <code class="bg-stone-100 px-1 rounded text-xs">~/.ssh/config</code> pointing to <code class="bg-stone-100 px-1 rounded text-xs">100.114.220.65</code>. See <a href="/onboarding" class="text-red-700 hover:underline">Onboarding</a> for Tailscale setup.</p>
+      <!-- Getting Started -->
+      <section class="bg-stone-50 border border-stone-200 rounded-lg p-6">
+        <p class="text-stone-600 text-sm">New to the team? Start with the <a href="/onboarding" class="text-red-700 hover:underline font-semibold">Onboarding</a> page &mdash; it covers setup, training, rules, and your daily workflow. This page is a technical reference for once you&rsquo;re up and running.</p>
       </section>
 
       <!-- Developer Permissions -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Developer Permissions</h2>
-        <p class="text-stone-600 text-sm mb-4">All developers are in the <code class="bg-stone-100 px-1 rounded text-xs">deploy</code> group. Each developer has their own SSH account with access to all client sites.</p>
+        <p class="text-stone-600 text-sm mb-4">All developers are in the <code class="bg-stone-100 px-1 rounded text-xs">dev-team</code> group. Each developer has their own SSH account with access to all client sites.</p>
 
         <div class="grid grid-cols-2 gap-4 mb-4">
           <div class="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -101,62 +96,6 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         </ul>
       </section>
 
-      <!-- Session Best Practices -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Session Best Practices</h2>
-        <div class="space-y-4">
-          <div>
-            <p class="text-stone-600 mb-2">Start every session from the site directory:</p>
-            <div class="bg-stone-100 rounded px-4 py-3 font-mono text-sm text-stone-700">cd ~/Sites/&lt;slug&gt; && claude</div>
-          </div>
-          <div>
-            <p class="text-stone-600 mb-2">For migrations, say:</p>
-            <div class="bg-stone-100 rounded px-4 py-3 text-sm italic text-stone-700">"continue migration"</div>
-          </div>
-          <div>
-            <p class="text-stone-600 mb-2">For new site builds, say:</p>
-            <div class="bg-stone-100 rounded px-4 py-3 text-sm italic text-stone-700">"continue newsite"</div>
-          </div>
-          <div>
-            <p class="text-stone-600 mb-2">At the end of every session:</p>
-            <div class="bg-stone-100 rounded px-4 py-3 text-sm italic text-stone-700">"Update CLAUDE.md with what we did today"</div>
-          </div>
-        </div>
-        <p class="text-stone-500 text-xs mt-3">Claude reads the site's CLAUDE.md and the protocol automatically. It knows which phase you're on and what to do next.</p>
-      </section>
-
-      <!-- GitHub SSH Key Setup -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">GitHub SSH Key Setup</h2>
-        <p class="text-stone-600 mb-4">Generate an SSH key and add it to your GitHub account so you can push/pull without entering passwords.</p>
-        <div class="space-y-4">
-          <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 1 &mdash; Generate a key</p>
-            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
-              <span>ssh-keygen -t ed25519 -C "your@email.com"</span>
-              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy='ssh-keygen -t ed25519 -C "your@email.com"'>Copy</button>
-            </div>
-          </div>
-          <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 2 &mdash; Copy the public key</p>
-            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
-              <span>cat ~/.ssh/id_ed25519.pub</span>
-              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy="cat ~/.ssh/id_ed25519.pub">Copy</button>
-            </div>
-          </div>
-          <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 3 &mdash; Add to GitHub</p>
-            <p class="text-stone-600 text-sm">Go to <a href="https://github.com/settings/keys" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">github.com/settings/keys</a> &rarr; <strong>New SSH key</strong> &rarr; paste &rarr; Save.</p>
-          </div>
-          <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Step 4 &mdash; Test</p>
-            <div class="flex items-center justify-between bg-stone-100 px-4 py-3 rounded font-mono text-sm text-stone-700 overflow-x-auto">
-              <span>ssh -T git@github.com</span>
-              <button class="copy-btn px-3 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-xs font-semibold ml-4 font-sans" data-copy="ssh -T git@github.com">Copy</button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- Code Server -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
@@ -197,55 +136,11 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         </div>
       </section>
 
-      <!-- Rules -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Rules</h2>
-        <div class="space-y-3">
-          <div class="p-3 bg-stone-50 rounded-lg">
-            <p class="font-semibold text-stone-800 text-sm mb-1">Always start in the site directory</p>
-            <p class="text-stone-600 text-sm"><code class="bg-stone-100 px-2 py-1 rounded text-xs">cd ~/Sites/&lt;slug&gt; && claude</code> &mdash; running Claude from <code class="bg-stone-100 px-1 rounded text-xs">~/</code> or <code class="bg-stone-100 px-1 rounded text-xs">~/Sites/</code> is blocked by a hook.</p>
-          </div>
-          <div class="p-3 bg-stone-50 rounded-lg">
-            <p class="font-semibold text-stone-800 text-sm mb-1">All work goes to dev</p>
-            <p class="text-stone-600 text-sm">Never push to main. Only admin merges to main.</p>
-          </div>
-          <div class="p-3 bg-stone-50 rounded-lg">
-            <p class="font-semibold text-stone-800 text-sm mb-1">Media never goes in Git</p>
-            <p class="text-stone-600 text-sm">Images &rarr; Sanity. Audio &rarr; R2. Video &rarr; YouTube iframe.</p>
-          </div>
-          <div class="p-3 bg-stone-50 rounded-lg">
-            <p class="font-semibold text-stone-800 text-sm mb-1">MailtoLink required</p>
-            <p class="text-stone-600 text-sm">Every site uses a <code class="bg-stone-100 px-1 rounded text-xs">MailtoLink</code> component. Bare <code class="bg-stone-100 px-1 rounded text-xs">mailto:</code> links are banned.</p>
-          </div>
-          <div class="p-3 bg-stone-50 rounded-lg">
-            <p class="font-semibold text-stone-800 text-sm mb-1">CSP headers required</p>
-            <p class="text-stone-600 text-sm">Every site needs <code class="bg-stone-100 px-1 rounded text-xs">netlify.toml</code> with <code class="bg-stone-100 px-1 rounded text-xs">Content-Security-Policy</code> headers.</p>
-          </div>
-          <div class="p-3 bg-stone-50 rounded-lg">
-            <p class="font-semibold text-stone-800 text-sm mb-1">Sanity tokens are project-scoped</p>
-            <p class="text-stone-600 text-sm">Each Sanity project needs its own write token. Do not share tokens across projects.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Quick Start -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-red-700 mb-4">Quick Start Checklist</h2>
-        <ul class="space-y-2 text-stone-700">
-          <li>&check; Get your Bethel username from admin</li>
-          <li>&check; Set up <a href="/onboarding" class="text-red-700 hover:underline">Tailscale VPN</a></li>
-          <li>&check; SSH into Bethel: <code class="bg-stone-100 px-2 py-1 rounded text-xs">ssh bethel</code></li>
-          <li>&check; Set up your GitHub SSH key (see above)</li>
-          <li>&check; Read the <a href="/playbook" class="text-red-700 hover:underline">Playbook</a> for protocols</li>
-          <li>&check; Read the <a href="/onboarding" class="text-red-700 hover:underline">Onboarding</a> page for Claude setup</li>
-        </ul>
-      </section>
-
       <!-- Need Help -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Need Help?</h2>
         <p class="text-stone-600">
-          Check the <a href="/playbook" class="text-red-700 hover:underline">Playbook</a> for protocols and workflows, or message the admin on Slack.
+          Check the <a href="/onboarding" class="text-red-700 hover:underline">Onboarding</a> page for rules and workflow, the <a href="/playbook" class="text-red-700 hover:underline">Playbook</a> for build protocols, or message admin on Slack.
         </p>
       </section>
     </div>

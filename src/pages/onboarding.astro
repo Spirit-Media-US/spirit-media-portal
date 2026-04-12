@@ -119,17 +119,307 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">11.</span>
-            <div><strong>This is a one-time setup.</strong> Claude Code saves your session — future sessions just run <code class="bg-stone-100 px-1 rounded text-xs">claude</code> with no login prompt.</div>
+            <div><strong>Claude is now authenticated.</strong> Future sessions just run <code class="bg-stone-100 px-1 rounded text-xs">claude</code> with no login prompt.</div>
           </div>
         </div>
 
+        <h3 class="font-bold text-stone-800 mb-3">GitHub Access <span class="text-xs font-normal text-red-700 uppercase tracking-wide">Required for git push</span></h3>
+        <p class="text-stone-600 text-sm mb-3">You need GitHub org access and an SSH key on Bethel so you can push and pull code.</p>
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">12.</span>
+            <div>Accept your GitHub org invite at <a href="https://github.com/Spirit-Media-US/invitations" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-semibold">github.com/Spirit-Media-US/invitations</a>
+              <p class="text-xs text-stone-500 mt-1">Kevin sends the invite during onboarding. Without accepting it, you can&rsquo;t push to any repo.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">13.</span>
+            <div>On Bethel, run GitHub CLI login:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">gh auth login</div>
+              <p class="text-xs text-stone-500 mt-1">Follow the prompts (browser or token). Then add your Bethel SSH key to GitHub:</p>
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">gh ssh-key add ~/.ssh/id_ed25519.pub -t "bethel"</div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-red-700 font-bold shrink-0">14.</span>
+            <div>Test it:
+              <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">ssh -T git@github.com</div>
+              <p class="text-xs text-stone-500 mt-1">You should see <em>&ldquo;Hi yourusername! You&rsquo;ve been successfully authenticated.&rdquo;</em></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <p class="font-bold text-green-800 text-sm mb-1">You&rsquo;re all set!</p>
+          <p class="text-green-700 text-sm">Tailscale, SSH, Claude OAuth, and GitHub are all connected. Everything below is training &mdash; read it before your first task.</p>
+        </div>
+
+      </section>
+
+      <!-- Working with Claude Code -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">&#x1F4AC;</span>
+          <h2 class="text-2xl font-bold text-red-700">Working with Claude Code</h2>
+        </div>
+        <p class="text-stone-600 mb-4">Claude Code is the most powerful tool on your workbench &mdash; but it&rsquo;s a <strong>tool</strong>, not a new boss. You master the tool. The tool does not master you.</p>
+
+        <div class="space-y-6">
+
+          <!-- Talk to it -->
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">Talk to it like a person</h3>
+            <p class="text-stone-600 text-sm mb-3">Claude Code is conversational. You don&rsquo;t need to memorize commands or syntax. Talk to it the same way you&rsquo;d talk to any AI assistant &mdash; in plain English.</p>
+            <div class="bg-stone-100 rounded px-4 py-3 text-sm space-y-2">
+              <p class="italic text-stone-700">&ldquo;The hero image is too tall on mobile. Fix it.&rdquo;</p>
+              <p class="italic text-stone-700">&ldquo;Add a new section below the testimonials with a contact form.&rdquo;</p>
+              <p class="italic text-stone-700">&ldquo;I&rsquo;m not sure how the blog works on this site. Walk me through it.&rdquo;</p>
+              <p class="italic text-stone-700">&ldquo;What files did we change today?&rdquo;</p>
+            </div>
+          </div>
+
+          <!-- Ask for guidance -->
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">Ask Claude for guidance</h3>
+            <p class="text-stone-600 text-sm mb-3">If you&rsquo;re unsure about something &mdash; how a component works, what a file does, where to make a change &mdash; <strong>ask Claude first</strong>. It reads the project&rsquo;s CLAUDE.md, the playbook rules, the full codebase, and all site-specific configuration automatically. It already knows things that would take you an hour to find.</p>
+            <div class="bg-stone-100 rounded px-4 py-3 text-sm space-y-2">
+              <p class="italic text-stone-700">&ldquo;How do I add a new page to this site?&rdquo;</p>
+              <p class="italic text-stone-700">&ldquo;What&rsquo;s the correct way to add images here?&rdquo;</p>
+              <p class="italic text-stone-700">&ldquo;Show me the deploy workflow for this project.&rdquo;</p>
+            </div>
+          </div>
+
+          <!-- Push back -->
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">Push back when needed</h3>
+            <p class="text-stone-600 text-sm mb-3">Claude is smart but not perfect. If it says it can&rsquo;t do something, <strong>remind it that it can</strong>. If it suggests an approach that seems wrong, say so. If it starts rewriting code you didn&rsquo;t ask it to touch, stop it. You&rsquo;re the decision maker.</p>
+            <div class="bg-stone-100 rounded px-4 py-3 text-sm space-y-2">
+              <p class="italic text-stone-700">&ldquo;You can do this. Read the CLAUDE.md and try again.&rdquo;</p>
+              <p class="italic text-stone-700">&ldquo;I only asked you to change the heading. Don&rsquo;t touch the rest of the page.&rdquo;</p>
+              <p class="italic text-stone-700">&ldquo;That&rsquo;s not what I meant. Let me clarify.&rdquo;</p>
+            </div>
+          </div>
+
+          <!-- Stay on the road -->
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">Stay on the road</h3>
+            <p class="text-stone-600 text-sm mb-3">The playbook, pipelines, and protocols exist so Claude can help you at full power. It&rsquo;s already trained on our rules &mdash; the git workflow, media rules, deploy process, design systems, all of it. When you work within the system, Claude knows exactly what to do. When you go off-road, it loses context and you lose its help.</p>
+            <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
+              <strong>Use the tools we&rsquo;ve built.</strong> The pipelines, the playbook, the inspect commands, the QA tools &mdash; they exist so you don&rsquo;t have to reinvent the wheel. Ask Claude about them if you&rsquo;re not sure what&rsquo;s available.
+            </div>
+          </div>
+
+          <!-- Communicate breakdowns -->
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">Communicate breakdowns immediately</h3>
+            <p class="text-stone-600 text-sm mb-3">If Claude is stuck, if something breaks, if you hit a permission error, or if you&rsquo;re not sure what to do next &mdash; <strong>message the admin on Slack in real time</strong>. Don&rsquo;t spend an hour fighting a problem alone. We&rsquo;d rather help you in 2 minutes than debug a mess later.</p>
+            <div class="bg-stone-100 rounded px-4 py-3 text-sm space-y-2">
+              <p class="italic text-stone-700">&ldquo;Claude keeps saying it can&rsquo;t access this file&rdquo; &rarr; Slack admin</p>
+              <p class="italic text-stone-700">&ldquo;The build is failing and I don&rsquo;t know why&rdquo; &rarr; Slack admin</p>
+              <p class="italic text-stone-700">&ldquo;I&rsquo;m not sure if I should be changing this&rdquo; &rarr; Slack admin</p>
+            </div>
+          </div>
+
+          <!-- Terminal options -->
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">Terminal Options</h3>
+            <p class="text-stone-600 text-sm mb-3">Claude Code runs in any terminal that supports SSH. Use whichever you&rsquo;re comfortable with:</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+              <div class="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                <p class="font-bold text-stone-800">Alacritty</p>
+                <p class="text-stone-500 text-xs mt-1">Fast, GPU-accelerated, great for long sessions. Free and open source.</p>
+              </div>
+              <div class="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                <p class="font-bold text-stone-800">iTerm2 <span class="text-stone-400">(Mac)</span></p>
+                <p class="text-stone-500 text-xs mt-1">Most popular Mac terminal. Tabs, split panes, search. Free.</p>
+              </div>
+              <div class="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                <p class="font-bold text-stone-800">Terminal.app <span class="text-stone-400">(Mac)</span></p>
+                <p class="text-stone-500 text-xs mt-1">Built into macOS. Works fine &mdash; no install needed.</p>
+              </div>
+              <div class="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                <p class="font-bold text-stone-800">Windows Terminal</p>
+                <p class="text-stone-500 text-xs mt-1">Modern Windows terminal with tabs and WSL support. Free from Microsoft Store.</p>
+              </div>
+              <div class="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                <p class="font-bold text-stone-800">VS Code Terminal</p>
+                <p class="text-stone-500 text-xs mt-1">Built into VS Code. Convenient if you already use it for editing.</p>
+              </div>
+              <div class="bg-stone-50 border border-stone-200 rounded-lg p-3">
+                <p class="font-bold text-stone-800">Code Server</p>
+                <p class="text-stone-500 text-xs mt-1">VS Code in your browser at <a href="https://dev.spiritmediapublishing.com" class="text-red-700 hover:underline">dev.spiritmediapublishing.com</a>. Requires Tailscale.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- The Rules -->
+      <section class="bg-white border border-red-300 rounded-lg p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">&#x1F6A8;</span>
+          <h2 class="text-2xl font-bold text-red-700">The Rules</h2>
+        </div>
+        <p class="text-stone-600 mb-2">These are non-negotiable. They exist because breaking them has caused real damage &mdash; lost work, broken sites, wasted hours. Claude Code is trained on all of these, so when you follow them, Claude can protect you. When you don&rsquo;t, it can&rsquo;t.</p>
+
+        <div class="mt-4 mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p class="font-bold text-red-800 text-sm mb-1">If you remember nothing else, remember this:</p>
+          <p class="text-red-800 text-sm">Everything happens on Bethel. Follow the playbook. Ask Claude. Slack admin when stuck.</p>
+        </div>
+
+        <div class="space-y-3">
+
+          <h3 class="font-bold text-stone-800 mt-2 mb-1 text-sm uppercase tracking-wider text-red-700">Where You Work</h3>
+
+          <div class="p-3 bg-red-50 border border-red-200 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Never build locally</p>
+            <p class="text-stone-600 text-sm">All work happens on Bethel in <code class="bg-white px-1 rounded text-xs">~/Sites/&lt;slug&gt;</code>. Never clone a repo to your laptop and build there. Your local machine is just a terminal window into Bethel &mdash; nothing else. We&rsquo;ve lost completed work because a developer built on their local directory instead of the shared server.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Always start Claude from the site directory</p>
+            <p class="text-stone-600 text-sm"><code class="bg-stone-100 px-2 py-1 rounded text-xs">cd ~/Sites/&lt;slug&gt; && claude</code> &mdash; running Claude from <code class="bg-stone-100 px-1 rounded text-xs">~/</code> or <code class="bg-stone-100 px-1 rounded text-xs">~/Sites/</code> is blocked by a hook. Claude must read the site&rsquo;s CLAUDE.md to know what rules apply.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Tailscale must be connected</p>
+            <p class="text-stone-600 text-sm">Bethel is invisible without VPN. No Tailscale, no connection, no work. Keep it running.</p>
+          </div>
+
+          <h3 class="font-bold text-stone-800 mt-4 mb-1 text-sm uppercase tracking-wider text-red-700">Git &amp; Deploys</h3>
+
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">All work goes to dev</p>
+            <p class="text-stone-600 text-sm">Never push to main. Never merge to main. Only Kevin approves merges to main. Each push to main = one Netlify build credit (1,000/month).</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Never force push</p>
+            <p class="text-stone-600 text-sm">If you hit a merge conflict, <strong>stop</strong>. Message admin on Slack. Do not run <code class="bg-stone-100 px-1 rounded text-xs">git push --force</code> under any circumstances.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Build before pushing</p>
+            <p class="text-stone-600 text-sm">Always run <code class="bg-stone-100 px-1 rounded text-xs">npm run build</code> before pushing. If it fails, fix it before committing.</p>
+          </div>
+
+          <h3 class="font-bold text-stone-800 mt-4 mb-1 text-sm uppercase tracking-wider text-red-700">Media</h3>
+
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Media never goes in Git</p>
+            <p class="text-stone-600 text-sm">Images &rarr; Sanity CMS. Audio &rarr; Cloudflare R2. Video &rarr; YouTube iframe (never a <code class="bg-stone-100 px-1 rounded text-xs">&lt;video&gt;</code> tag). All repos block media via .gitignore.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Never rename or delete a live R2 file</p>
+            <p class="text-stone-600 text-sm">It will break every page that references it. Sanity handles its own references safely, but R2 URLs are hardcoded.</p>
+          </div>
+
+          <h3 class="font-bold text-stone-800 mt-4 mb-1 text-sm uppercase tracking-wider text-red-700">Code Standards</h3>
+
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">MailtoLink component required</p>
+            <p class="text-stone-600 text-sm">Every site uses a <code class="bg-stone-100 px-1 rounded text-xs">MailtoLink</code> component. Bare <code class="bg-stone-100 px-1 rounded text-xs">mailto:</code> links are banned &mdash; they expose emails to scrapers.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">CSP headers required</p>
+            <p class="text-stone-600 text-sm">Every site needs a <code class="bg-stone-100 px-1 rounded text-xs">netlify.toml</code> with <code class="bg-stone-100 px-1 rounded text-xs">Content-Security-Policy</code> headers.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Sanity tokens are project-scoped</p>
+            <p class="text-stone-600 text-sm">Each Sanity project needs its own write token. Never share tokens across projects.</p>
+          </div>
+
+          <h3 class="font-bold text-stone-800 mt-4 mb-1 text-sm uppercase tracking-wider text-red-700">Follow the Protocol</h3>
+
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Use the playbook</p>
+            <p class="text-stone-600 text-sm">Once a site directory is created, go there and follow the protocol. The <a href="/playbook" class="text-red-700 hover:underline font-semibold">Playbook</a> has the full build process. Don&rsquo;t improvise &mdash; the playbook exists so Claude can guide you through every phase.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">QA must pass before launch</p>
+            <p class="text-stone-600 text-sm">All 8 scans must pass at Phase 7. Nothing gets past The Gate (Phase 5) until critical fixes are resolved. Say <code class="bg-stone-100 px-1 rounded text-xs">Run Pre-Launch QA</code> in Claude.</p>
+          </div>
+
+          <h3 class="font-bold text-stone-800 mt-4 mb-1 text-sm uppercase tracking-wider text-red-700">Permissions &amp; Security</h3>
+
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Permission denied = stop</p>
+            <p class="text-stone-600 text-sm">Do not use sudo, change ownership, or create temp directories. Message admin on Slack immediately. Only the deploy admin fixes permissions.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Never commit secrets</p>
+            <p class="text-stone-600 text-sm">No passwords, API keys, or tokens in Git. All secrets are in <code class="bg-stone-100 px-1 rounded text-xs">~/.secrets</code> (deploy account only). Claude uses OAuth &mdash; no API key needed.</p>
+          </div>
+          <div class="p-3 bg-stone-50 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm mb-1">Don&rsquo;t touch server infrastructure</p>
+            <p class="text-stone-600 text-sm">You cannot restart services, modify nginx, change firewall rules, or edit SSH config. If something needs server-level changes, message admin on Slack.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Your Workflow -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">&#x1F6E0;</span>
+          <h2 class="text-2xl font-bold text-red-700">Your Workflow</h2>
+        </div>
+        <p class="text-stone-600 mb-4">Now that you know the rules, here&rsquo;s how a typical work session flows from start to finish. Claude handles most of this for you &mdash; but you need to understand the process so you can catch mistakes.</p>
+
+        <div class="space-y-5">
+
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">1. Start in the right place</h3>
+            <div class="bg-stone-100 rounded px-4 py-3 font-mono text-sm text-stone-700">ssh bethel<br/>cd ~/Sites/<span class="text-red-700">site-name</span> && claude</div>
+            <p class="text-stone-500 text-xs mt-2">Claude reads the site&rsquo;s CLAUDE.md and pulls the latest dev branch automatically. You&rsquo;re ready to work.</p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">2. Tell Claude what you need</h3>
+            <p class="text-stone-600 text-sm">Describe the task in plain English. Claude knows the stack, the design system, and the site&rsquo;s rules. For migrations and new builds, say <code class="bg-stone-100 px-1 rounded text-xs">continue migration</code> or <code class="bg-stone-100 px-1 rounded text-xs">continue newsite</code> &mdash; Claude picks up where the last session left off.</p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">3. Review before committing</h3>
+            <p class="text-stone-600 text-sm mb-2">Before every commit, Claude should show you the diff. <strong>Read it.</strong> Make sure nothing was accidentally removed &mdash; JSON-LD, YouTube iframes, SEO meta, MailtoLink components. If something looks wrong, say so.</p>
+            <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
+              <strong>Stage specific files only.</strong> Never use <code class="bg-white px-1 rounded text-xs">git add .</code> or <code class="bg-white px-1 rounded text-xs">git add -A</code> &mdash; these can accidentally stage secrets, large files, or changes you didn&rsquo;t intend. Always add files by name.
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">4. Push to dev and inspect</h3>
+            <p class="text-stone-600 text-sm mb-2">After reviewing the diff and committing, push to dev. Claude will ask for confirmation before pushing &mdash; say yes only when you&rsquo;re confident.</p>
+            <div class="bg-stone-100 rounded px-4 py-3 font-mono text-sm text-stone-700">git push origin dev</div>
+            <p class="text-stone-600 text-sm mt-3">Then run the dev preview inspector to catch errors before requesting a deploy:</p>
+            <div class="bg-stone-100 rounded px-4 py-3 mt-1 text-sm italic text-stone-700">&ldquo;inspect dev preview&rdquo;</div>
+            <p class="text-stone-500 text-xs mt-2">This runs technical and visual checks against the Netlify dev preview. Fix anything it flags before moving on.</p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">5. Request a deploy</h3>
+            <p class="text-stone-600 text-sm mb-2">When you&rsquo;re ready for the site to go live, use the deploy request script. <strong>Do not merge to main yourself.</strong> The script creates a request and texts Kevin automatically.</p>
+            <div class="bg-stone-100 rounded px-4 py-3 font-mono text-sm text-stone-700">/home/deploy/bin/request-deploy.sh "description of changes"</div>
+            <p class="text-stone-500 text-xs mt-2">Then stop. Kevin reviews and approves the merge.</p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-stone-800 mb-2">6. End your session</h3>
+            <p class="text-stone-600 text-sm mb-2">Before exiting, ask Claude to save its context so the next session can pick up where you left off:</p>
+            <div class="bg-stone-100 rounded px-4 py-3 text-sm italic text-stone-700">&ldquo;Update CLAUDE.md with what we did today&rdquo;</div>
+            <p class="text-stone-500 text-xs mt-2">Then type <code class="bg-stone-100 px-1 rounded text-xs">/exit</code> to end the session.</p>
+          </div>
+
+        </div>
+
+        <div class="mt-6 p-4 bg-stone-50 border border-stone-200 rounded-lg">
+          <p class="font-bold text-stone-800 text-sm mb-2">Auto-save is running in the background</p>
+          <p class="text-stone-600 text-sm">A cron job auto-commits and pushes any uncommitted changes on dev every 30 minutes. This is a safety net &mdash; not a replacement for proper commits. If you see commits you didn&rsquo;t make, that&rsquo;s the auto-save. Your intentional commits with clear messages are still expected.</p>
+        </div>
       </section>
 
       <!-- Every Session -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <div class="flex items-center gap-3 mb-4">
           <span class="text-2xl">&#x1F504;</span>
-          <h2 class="text-2xl font-bold text-red-700">Every Session</h2>
+          <h2 class="text-2xl font-bold text-red-700">Quick Reference &mdash; Every Session</h2>
         </div>
         <p class="text-stone-600 mb-4">Once setup is done, this is your daily workflow. Four steps, every time.</p>
 
