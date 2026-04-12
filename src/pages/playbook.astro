@@ -505,6 +505,69 @@ SMP Team</div>
       </section>
 
       <!-- ════════════════════════════════════════════════════
+           5b. PLAYWRIGHT MCP
+      ════════════════════════════════════════════════════ -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-2">Playwright — Browser Verification Tool</h2>
+        <p class="text-stone-600 text-sm mb-4"><strong>Playwright MCP</strong> runs headless Chrome on Bethel. It lets Claude Code open any URL, interact with the page, and verify that what you built actually works &mdash; before Kevin or the client ever sees it.</p>
+
+        <h3 class="font-bold text-stone-800 mb-2">When to Use Playwright</h3>
+        <ul class="space-y-1 text-stone-600 text-sm mb-6">
+          <li>&bull; After pushing to dev &mdash; verify the dev preview renders correctly</li>
+          <li>&bull; Pre-Launch QA (Phase 7) &mdash; automated browser checks</li>
+          <li>&bull; Post-Launch QA (Phase 8) &mdash; verify the live site after deploy</li>
+          <li>&bull; Debugging layout or rendering issues &mdash; see what the browser actually shows</li>
+        </ul>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="bg-green-50 border border-green-200 rounded-lg p-5">
+            <h3 class="font-bold text-green-800 mb-3">What Playwright does</h3>
+            <ul class="space-y-2 text-sm text-green-700">
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Open any URL in headless Chrome</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Click buttons, fill forms, navigate pages</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Verify text, images, and layout are rendering</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Check for broken links and missing assets</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Test responsive behavior at different screen sizes</li>
+            </ul>
+          </div>
+          <div class="bg-red-50 border border-red-200 rounded-lg p-5">
+            <h3 class="font-bold text-red-800 mb-3">What Playwright cannot do</h3>
+            <ul class="space-y-2 text-sm text-red-700">
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Generate designs or mockups (use Stitch)</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Edit code or files (Claude Code does that)</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Run Lighthouse or PageSpeed audits</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Access pages behind authentication</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">How to Use</h3>
+        <p class="text-stone-600 text-sm mb-3">Playwright is available automatically in every Claude Code session. Just ask Claude in plain English:</p>
+        <div class="space-y-3 mb-4">
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Verify a dev preview</p>
+            <p class="text-stone-500 text-sm italic">&ldquo;Open the dev preview and check if the hero section renders correctly&rdquo;</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Test navigation</p>
+            <p class="text-stone-500 text-sm italic">&ldquo;Click through every nav link and make sure none are broken&rdquo;</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Check mobile layout</p>
+            <p class="text-stone-500 text-sm italic">&ldquo;Open the site at mobile width and check the menu works&rdquo;</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Full inspection</p>
+            <p class="text-stone-500 text-sm italic">&ldquo;inspect dev preview&rdquo;</p>
+            <p class="text-stone-500 text-xs mt-1">This runs the standard technical + visual inspection against the Netlify dev preview.</p>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">Setup</h3>
+        <p class="text-stone-600 text-sm">Playwright is available in <strong>every site directory</strong> automatically via <code class="bg-stone-100 px-1 rounded text-xs">.mcp.json</code> symlink. No setup needed. Runs <code class="bg-stone-100 px-1 rounded text-xs">@playwright/mcp</code> with headless Chrome.</p>
+      </section>
+
+      <!-- ════════════════════════════════════════════════════
            6. MEDIA
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
