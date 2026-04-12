@@ -10,5 +10,5 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   output: "server",
-  adapter: (await import("@astrojs/netlify")).default(),
+  adapter: (await import("@astrojs/cloudflare")).default(),
 });
