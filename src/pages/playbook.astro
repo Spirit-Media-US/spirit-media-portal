@@ -29,7 +29,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </li>
           <li class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">4.</span>
-            <div><strong>Netlify</strong> — hosting, auto-deploys on push to <code class="bg-stone-100 px-1 rounded text-xs">main</code></div>
+            <div><strong>Cloudflare Pages</strong> — hosting, auto-deploys on push to <code class="bg-stone-100 px-1 rounded text-xs">main</code>, free dev previews on push to <code class="bg-stone-100 px-1 rounded text-xs">dev</code></div>
           </li>
           <li class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">5.</span>
@@ -167,8 +167,8 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               <span class="text-xs font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full">AUTOMATED</span>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Creates GitHub repo, Netlify site, Sanity project. Clones to Bethel. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, .gitignore, dev branch. Adds the site card to the <a href="/dashboard" class="text-rose-700 hover:underline font-semibold">Dashboard</a>.</p>
-              <p><strong>You check:</strong> Verify GitHub, Netlify, and Sanity links exist. The site card appears on the Dashboard with <strong>Dev</strong> (Bethel dev server) and <strong>Main</strong> (production) preview buttons — use these throughout the build to preview your work without using build credits.</p>
+              <p><strong>Claude does:</strong> Creates GitHub repo, Cloudflare Pages project, Sanity project. Clones to Bethel. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, .gitignore, dev branch. Adds the site card to the <a href="/dashboard" class="text-rose-700 hover:underline font-semibold">Dashboard</a>.</p>
+              <p><strong>You check:</strong> Verify GitHub, Cloudflare Pages, and Sanity links exist. The site card appears on the Dashboard with <strong>Dev</strong> and <strong>Main</strong> preview buttons — use these throughout the build to preview your work.</p>
               <p><strong>Advances automatically</strong> when infrastructure is created.</p>
             </div>
           </div>
@@ -204,7 +204,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               <p class="font-bold text-stone-800">Wire Sanity CMS</p>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Uploads images to Sanity. Defines schemas. Migrates content. Wires Astro pages to fetch from Sanity. Deploys schema. Sets up Sanity → Netlify webhook. If the site needs a blog, say <code class="bg-stone-100 px-1 rounded">Use our blog protocol</code>.</p>
+              <p><strong>Claude does:</strong> Uploads images to Sanity. Defines schemas. Migrates content. Wires Astro pages to fetch from Sanity. Deploys schema. If the site needs a blog, say <code class="bg-stone-100 px-1 rounded">Use our blog protocol</code>.</p>
               <p><strong>You check:</strong> Images loading from Sanity CDN? Schemas and docs look right in Studio? Edit a doc — does the change appear?</p>
               <p><strong>Say "continue"</strong> when CMS is wired and working.</p>
             </div>
@@ -340,7 +340,7 @@ SMP Team</div>
               <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">AUTOMATED</span>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Creates GitHub repo, Netlify site, Sanity project. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, dev branch. Adds the site card to the <a href="/dashboard" class="text-blue-700 hover:underline font-semibold">Dashboard</a>.</p>
+              <p><strong>Claude does:</strong> Creates GitHub repo, Cloudflare Pages project, Sanity project. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, dev branch. Adds the site card to the <a href="/dashboard" class="text-blue-700 hover:underline font-semibold">Dashboard</a>.</p>
               <p><strong>You check:</strong> The site card appears on the Dashboard with <strong>Dev</strong> (Bethel dev server) and <strong>Main</strong> (production) preview buttons — use these throughout the build to preview your work without using build credits.</p>
               <p><strong>Advances automatically.</strong></p>
             </div>
@@ -565,7 +565,7 @@ SMP Team</div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">Full inspection</p>
             <p class="text-stone-500 text-sm italic">&ldquo;inspect dev preview&rdquo;</p>
-            <p class="text-stone-500 text-xs mt-1">This runs the standard technical + visual inspection against the Netlify dev preview.</p>
+            <p class="text-stone-500 text-xs mt-1">This runs the standard technical + visual inspection against the Cloudflare Pages dev preview.</p>
           </div>
         </div>
 
@@ -650,7 +650,7 @@ SMP Team</div>
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Deployment Workflow</h2>
-        <p class="text-stone-500 text-sm mb-4">All work happens on <code class="bg-stone-100 px-1 rounded">dev</code>. Only merge to <code class="bg-stone-100 px-1 rounded">main</code> when ready to publish. Each push to main = one Netlify build credit (1,000/month).</p>
+        <p class="text-stone-500 text-sm mb-4">All work happens on <code class="bg-stone-100 px-1 rounded">dev</code>. Only merge to <code class="bg-stone-100 px-1 rounded">main</code> when ready to publish.</p>
         <div class="space-y-3">
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">1. Switch to dev</p>
@@ -699,7 +699,7 @@ SMP Team</div>
           </div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">CSP headers required</p>
-            <p class="text-stone-500 text-sm">Every site must have a <code class="bg-stone-100 px-1 rounded">netlify.toml</code> with <code class="bg-stone-100 px-1 rounded">Content-Security-Policy</code> headers.</p>
+            <p class="text-stone-500 text-sm">Every site must have a <code class="bg-stone-100 px-1 rounded">public/_headers</code> file with <code class="bg-stone-100 px-1 rounded">Content-Security-Policy</code> headers.</p>
           </div>
           <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
             <p class="font-semibold text-stone-700 text-sm mb-1">Project-scoped Sanity tokens</p>
@@ -719,7 +719,7 @@ SMP Team</div>
           <li><a href="https://docs.astro.build" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Astro Documentation</a></li>
           <li><a href="https://www.sanity.io/docs" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Sanity Documentation</a></li>
           <li><a href="https://tailwindcss.com/docs" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Tailwind CSS Documentation</a></li>
-          <li><a href="https://docs.netlify.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Netlify Documentation</a></li>
+          <li><a href="https://developers.cloudflare.com/pages" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Cloudflare Pages Documentation</a></li>
           <li><a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Cloudflare Dashboard</a></li>
           <li><a href="https://github.com/Spirit-Media-US" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Spirit-Media-US GitHub</a></li>
         </ul>
