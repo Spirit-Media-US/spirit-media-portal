@@ -349,7 +349,7 @@ const sites: Site[] = [
     try {
       const resp     = await fetch('/api/tools-projects');
       const projects = await resp.json();
-      const unknown  = (projects as any[]).filter(p => !KNOWN_SLUGS.has(p.slug));
+      const unknown  = (projects as any[]).filter(p => p.title && p.slug && !KNOWN_SLUGS.has(p.slug));
 
       // Built+ → inject into main grid in alpha order
       const active = unknown

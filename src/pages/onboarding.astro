@@ -2,22 +2,47 @@
 import PortalLayout from "../layouts/PortalLayout.astro";
 ---
 
-<PortalLayout title="Connecting" mainBg="#fdf2f8">
+<PortalLayout title="Onboarding" mainBg="#fdf2f8">
   <div class="max-w-4xl">
-    <h1 class="text-4xl font-bold mb-2">Connecting to Claude</h1>
-    <p class="text-stone-600 mb-8">Three ways to work with Claude depending on what you&rsquo;re doing</p>
+    <h1 class="text-4xl font-bold mb-2">Welcome to Our Dev Family!</h1>
+    <p class="text-stone-600 mb-8">Everything you need to get connected and building with us</p>
 
     <div class="space-y-8">
 
-      <!-- 1. Claude Console on Bethel -->
+      <!-- Welcome / How It Works -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-4">How We Build</h2>
+        <p class="text-stone-600 mb-4">At Spirit Media, you don&rsquo;t need a local dev environment. All code lives on our shared dev server called <strong>Bethel</strong>. You connect from your machine via SSH and use <strong>Claude Code</strong> &mdash; an AI assistant that reads the project&rsquo;s rules, knows the full stack, and does the heavy lifting for you.</p>
+
+        <p class="text-stone-600 mb-4">The more you work within the system, the more Claude can help. It reads each site&rsquo;s configuration automatically &mdash; design system, SEO rules, CMS setup, deploy workflow &mdash; so you don&rsquo;t have to memorize anything. Just follow the setup below and you&rsquo;ll be building in minutes.</p>
+
+        <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p class="font-bold text-red-800 text-sm mb-2">Three things are required &mdash; skip one and you&rsquo;re stuck</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+            <div class="bg-white border border-red-100 rounded-lg p-3 text-center">
+              <p class="font-bold text-stone-800">Tailscale VPN</p>
+              <p class="text-stone-500 text-xs mt-1">Bethel is invisible without it &mdash; no VPN, no connection</p>
+            </div>
+            <div class="bg-white border border-red-100 rounded-lg p-3 text-center">
+              <p class="font-bold text-stone-800">SSH Key</p>
+              <p class="text-stone-500 text-xs mt-1">Password login is disabled &mdash; your key is your identity</p>
+            </div>
+            <div class="bg-white border border-red-100 rounded-lg p-3 text-center">
+              <p class="font-bold text-stone-800">Claude OAuth</p>
+              <p class="text-stone-500 text-xs mt-1">Sign in with your Spirit Media email &mdash; no API keys</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- First-Time Setup -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <div class="flex items-center gap-3 mb-4">
           <span class="text-2xl">&#x1F5A5;</span>
-          <h2 class="text-2xl font-bold text-red-700">1. Claude Console on Bethel <span class="text-sm font-normal text-stone-500">(Developers)</span></h2>
+          <h2 class="text-2xl font-bold text-red-700">First-Time Setup</h2>
         </div>
-        <p class="text-stone-600 mb-4">For building, editing code, running builds, and deploying. Runs on the dev server so your Mac doesn&rsquo;t do the heavy lifting.</p>
+        <p class="text-stone-600 mb-4">Follow every step in order. Each one builds on the last.</p>
 
-        <h3 class="font-bold text-stone-800 mb-3">First-Time Setup</h3>
         <div class="space-y-4 mb-6">
           <div class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">1.</span>
@@ -98,9 +123,18 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
         </div>
 
-        <h3 class="font-bold text-stone-800 mb-3">Every Session <span class="text-xs font-normal text-red-700 uppercase tracking-wide">Mandatory</span></h3>
+      </section>
+
+      <!-- Every Session -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">&#x1F504;</span>
+          <h2 class="text-2xl font-bold text-red-700">Every Session</h2>
+        </div>
+        <p class="text-stone-600 mb-4">Once setup is done, this is your daily workflow. Four steps, every time.</p>
+
         <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-800">
-          <strong>Enforced by pre-edit hook.</strong> Running Claude from <code class="bg-white px-1 rounded text-xs">~/</code> or <code class="bg-white px-1 rounded text-xs">~/Sites/</code> is now blocked. You must cd into a specific site directory first. Sessions running from the wrong directory bypassed per-project CLAUDE.md, causing overwritten SEO, broken forms, and wrong design systems across 10 sites.
+          <strong>Enforced by pre-edit hook.</strong> You must start Claude from inside a specific site directory. Running it from <code class="bg-white px-1 rounded text-xs">~/</code> or <code class="bg-white px-1 rounded text-xs">~/Sites/</code> is blocked &mdash; this prevents Claude from applying the wrong rules to the wrong site.
         </div>
         <div class="space-y-4">
           <div class="flex gap-3">
@@ -113,7 +147,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <span class="text-red-700 font-bold shrink-0">2.</span>
             <div>Go to the site you want to work on <strong>and start Claude in one command</strong>:
               <div class="bg-stone-100 rounded px-3 py-2 mt-1 font-mono text-sm">cd ~/Sites/<span class="text-red-700">site-name</span> && claude</div>
-              <p class="text-xs text-stone-500 mt-1">This ensures Claude reads the project's CLAUDE.md with all site-specific rules. Do not run <code class="bg-stone-100 px-1 rounded text-xs">claude</code> from <code class="bg-stone-100 px-1 rounded text-xs">~/</code> or <code class="bg-stone-100 px-1 rounded text-xs">~/Sites/</code>.</p>
+              <p class="text-xs text-stone-500 mt-1">Claude reads the project&rsquo;s CLAUDE.md automatically &mdash; it knows the design system, CMS config, deploy rules, and everything specific to that site.</p>
             </div>
           </div>
           <div class="flex gap-3">
@@ -134,74 +168,6 @@ import PortalLayout from "../layouts/PortalLayout.astro";
 
         <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
           <p class="text-sm text-stone-700"><strong>Parallel sessions:</strong> Open multiple Terminal tabs, SSH into bethel in each, go to a different site, and run <code class="bg-white px-1 rounded text-xs">claude</code>. Each tab is its own independent session.</p>
-        </div>
-      </section>
-
-      <!-- 2. Claude AI for Developers (Planning) -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="text-2xl">&#x1F4AC;</span>
-          <h2 class="text-2xl font-bold text-red-700">2. Claude AI for Developers <span class="text-sm font-normal text-stone-500">(Planning &amp; Strategy)</span></h2>
-        </div>
-        <p class="text-stone-600 mb-4">For planning, strategy, reviewing screenshots, and multi-site coordination. No SSH or Terminal needed — runs in your browser.</p>
-
-        <div class="space-y-4">
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>Go to <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-bold">claude.ai</a> and sign in with your Spirit Media team email.</div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div><strong>Start every new conversation</strong> by pasting the team prompt below — this gives Claude full project context so you don&rsquo;t have to explain the stack every time.
-              <div class="bg-stone-100 rounded px-3 py-2 mt-2 text-sm leading-relaxed">
-                You are helping Spirit Media Publishing build and maintain websites. Stack: Astro + Tailwind CSS. GitHub org: Spirit-Media-US (all repos public). Hosting: Netlify, Spirit Media team, build = npm run build, publish = dist. DNS/SSL/CDN: Cloudflare, proxy active. Media: Sanity for images on media-heavy sites — auto-optimizes and serves via CDN. Cloudflare R2 for audio. Video goes on YouTube and is embedded on site. R2 is backup for video when YouTube isn&rsquo;t appropriate. Never put media in GitHub, all repos block this via .gitignore. Forms: GoHighLevel, all contacts tagged by site.<br/><br/>
-                This site: [site name] | Repo: github.com/Spirit-Media-US/[repo-name] | Domain: [domain] | R2 bucket: [bucket-name or n/a]<br/><br/>
-                Rules: Never push without local preview first (npm run dev). All work goes to the dev branch — never push directly to main. Only merge dev to main when Kevin says &ldquo;push to main.&rdquo; Pricing off all public pages. All contacts to GHL. Media always to R2 or Sanity.<br/><br/>
-                Today&rsquo;s task: [describe what you need]
-              </div>
-              <button class="copy-btn mt-2 px-3 py-1 bg-red-700 text-white rounded text-sm hover:bg-red-800 transition-colors" data-copy="You are helping Spirit Media Publishing build and maintain websites. Stack: Astro + Tailwind CSS. GitHub org: Spirit-Media-US (all repos public). Hosting: Netlify, Spirit Media team, build = npm run build, publish = dist. DNS/SSL/CDN: Cloudflare, proxy active. Media: Sanity for images on media-heavy sites — auto-optimizes and serves via CDN. Cloudflare R2 for audio. Video goes on YouTube and is embedded on site. R2 is backup for video when YouTube is not appropriate. Never put media in GitHub, all repos block this via .gitignore. Forms: GoHighLevel, all contacts tagged by site.&#10;&#10;This site: [site name] | Repo: github.com/Spirit-Media-US/[repo-name] | Domain: [domain] | R2 bucket: [bucket-name or n/a]&#10;&#10;Rules: Never push without local preview first (npm run dev). All work goes to the dev branch — never push directly to main. Only merge dev to main when Kevin says push to main. Pricing off all public pages. All contacts to GHL. Media always to R2 or Sanity.&#10;&#10;Today's task: [describe what you need]">Copy Prompt</button>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">3.</span>
-            <div>Fill in the bracketed fields, then describe what you need in plain English.</div>
-          </div>
-        </div>
-
-        <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
-          <p class="text-sm text-stone-700"><strong>When to use this vs Bethel:</strong> Use claude.ai for planning, reviewing, and strategy. Use Bethel (Section 1) for actually building, editing files, running builds, and deploying.</p>
-        </div>
-      </section>
-
-      <!-- 3. Claude AI for Clients -->
-      <section class="bg-white border border-stone-200 rounded-lg p-6">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="text-2xl">&#x1F3A8;</span>
-          <h2 class="text-2xl font-bold text-red-700">3. Claude AI for Clients</h2>
-        </div>
-        <p class="text-stone-600 mb-4">For content writing, design mockups, and planning site changes. Runs in your browser &mdash; no Terminal needed.</p>
-
-        <div class="space-y-4">
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div>Go to <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline font-bold">claude.ai</a> in your browser</div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">2.</span>
-            <div>Sign in to your Claude account</div>
-          </div>
-          <div class="flex gap-3">
-            <span class="text-red-700 font-bold shrink-0">3.</span>
-            <div>Follow the full client guide for prompts and instructions:
-              <div class="mt-2">
-                <a href="https://portal.spiritmediapublishing.com/clients" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-red-700 hover:bg-red-800 text-white font-semibold rounded-lg text-sm transition-colors">Client Guide &rarr;</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
-          <p class="text-sm text-stone-700"><strong>Important:</strong> Claude AI creates previews only &mdash; they are NOT your live website. Spirit Media must build and deploy all changes.</p>
         </div>
       </section>
 
