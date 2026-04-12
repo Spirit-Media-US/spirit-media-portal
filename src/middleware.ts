@@ -2,7 +2,7 @@ import { defineMiddleware } from "astro:middleware";
 
 const portalRoutes = [
 	"/dashboard",
-	"/connecting",
+	"/onboarding",
 	"/playbook",
 	"/developers",
 	"/templates",

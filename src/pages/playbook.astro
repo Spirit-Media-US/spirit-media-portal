@@ -17,7 +17,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
         <ol class="space-y-3">
           <li class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">1.</span>
-            <div><strong>Claude (<a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">claude.ai</a>)</strong> — conversational updates and builds</div>
+            <div><strong>Claude Code</strong> — AI development assistant on Bethel (OAuth, no API key)</div>
           </li>
           <li class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">2.</span>
@@ -57,7 +57,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </li>
           <li class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">11.</span>
-            <div><strong>Playwright</strong> — browser testing, screenshots, cross-browser QA (MCP connected)</div>
+            <div><strong>Playwright</strong> — headless Chrome for browser testing and verification (MCP connected)</div>
           </li>
           <li class="flex gap-3">
             <span class="text-red-700 font-bold shrink-0">12.</span>
@@ -444,7 +444,10 @@ SMP Team</div>
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Stitch — AI Design Tool</h2>
-        <p class="text-stone-600 text-sm mb-4"><strong>Google Stitch 2.0</strong> is an AI-powered design tool available as an MCP server on Bethel. It is the standard SMP workflow for all new site builds, major redesigns, and new page layouts.</p>
+        <p class="text-stone-600 text-sm mb-3"><strong>Google Stitch 2.0</strong> is an AI-powered design tool available as an MCP server on Bethel. It is the standard SMP workflow for all new site builds, major redesigns, and new page layouts.</p>
+        <div class="p-3 bg-stone-50 border border-stone-200 rounded-lg text-sm text-stone-700 mb-4">
+          <strong>Stitch designs the site. Playwright verifies it.</strong> Use Stitch <em>before</em> building to create the design. Use Playwright <em>after</em> building to confirm it works.
+        </div>
 
         <h3 class="font-bold text-stone-800 mb-2">When to Use Stitch</h3>
         <ul class="space-y-1 text-stone-600 text-sm mb-6">
@@ -502,6 +505,72 @@ SMP Team</div>
         <div class="bg-amber-50 border border-amber-200 rounded p-3 text-sm text-amber-800">
           Use <strong>Gemini 3.1 Pro</strong> in Stitch — not 3.0 Flash. This is set in the MCP config.
         </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════════════
+           5b. PLAYWRIGHT MCP
+      ════════════════════════════════════════════════════ -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-2">Playwright — Browser Verification Tool</h2>
+        <p class="text-stone-600 text-sm mb-3"><strong>Playwright MCP</strong> runs headless Chrome on Bethel. It lets Claude Code open any URL, interact with the page, and verify that what you built actually works &mdash; before Kevin or the client ever sees it.</p>
+        <div class="p-3 bg-stone-50 border border-stone-200 rounded-lg text-sm text-stone-700 mb-4">
+          <strong>Stitch designs the site. Playwright verifies it.</strong> Use Stitch <em>before</em> building to create the design. Use Playwright <em>after</em> building to confirm it works.
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">When to Use Playwright</h3>
+        <ul class="space-y-1 text-stone-600 text-sm mb-6">
+          <li>&bull; After pushing to dev &mdash; verify the dev preview renders correctly</li>
+          <li>&bull; Pre-Launch QA (Phase 7) &mdash; automated browser checks</li>
+          <li>&bull; Post-Launch QA (Phase 8) &mdash; verify the live site after deploy</li>
+          <li>&bull; Debugging layout or rendering issues &mdash; see what the browser actually shows</li>
+        </ul>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="bg-green-50 border border-green-200 rounded-lg p-5">
+            <h3 class="font-bold text-green-800 mb-3">What Playwright does</h3>
+            <ul class="space-y-2 text-sm text-green-700">
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Open any URL in headless Chrome</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Click buttons, fill forms, navigate pages</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Verify text, images, and layout are rendering</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Check for broken links and missing assets</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10003;</span> Test responsive behavior at different screen sizes</li>
+            </ul>
+          </div>
+          <div class="bg-red-50 border border-red-200 rounded-lg p-5">
+            <h3 class="font-bold text-red-800 mb-3">What Playwright cannot do</h3>
+            <ul class="space-y-2 text-sm text-red-700">
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Generate designs or mockups (use Stitch)</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Edit code or files (Claude Code does that)</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Run Lighthouse or PageSpeed audits</li>
+              <li class="flex gap-2"><span class="shrink-0">&#10007;</span> Access pages behind authentication</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">How to Use</h3>
+        <p class="text-stone-600 text-sm mb-3">Playwright is available automatically in every Claude Code session. Just ask Claude in plain English:</p>
+        <div class="space-y-3 mb-4">
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Verify a dev preview</p>
+            <p class="text-stone-500 text-sm italic">&ldquo;Open the dev preview and check if the hero section renders correctly&rdquo;</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Test navigation</p>
+            <p class="text-stone-500 text-sm italic">&ldquo;Click through every nav link and make sure none are broken&rdquo;</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Check mobile layout</p>
+            <p class="text-stone-500 text-sm italic">&ldquo;Open the site at mobile width and check the menu works&rdquo;</p>
+          </div>
+          <div class="bg-stone-50 border-l-4 border-red-700 px-4 py-3 rounded-r">
+            <p class="font-semibold text-stone-700 text-sm mb-1">Full inspection</p>
+            <p class="text-stone-500 text-sm italic">&ldquo;inspect dev preview&rdquo;</p>
+            <p class="text-stone-500 text-xs mt-1">This runs the standard technical + visual inspection against the Netlify dev preview.</p>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">Setup</h3>
+        <p class="text-stone-600 text-sm">Playwright is available in <strong>every site directory</strong> automatically via <code class="bg-stone-100 px-1 rounded text-xs">.mcp.json</code> symlink. No setup needed. Runs <code class="bg-stone-100 px-1 rounded text-xs">@playwright/mcp</code> with headless Chrome.</p>
       </section>
 
       <!-- ════════════════════════════════════════════════════
@@ -654,6 +723,32 @@ SMP Team</div>
           <li><a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Cloudflare Dashboard</a></li>
           <li><a href="https://github.com/Spirit-Media-US" target="_blank" rel="noopener noreferrer" class="text-red-700 hover:underline">&rarr; Spirit-Media-US GitHub</a></li>
         </ul>
+      </section>
+
+      <!-- Contribute -->
+      <section class="bg-green-50 border border-green-300 rounded-lg p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">&#x1F4A1;</span>
+          <h2 class="text-2xl font-bold text-green-800">Help Us Build the Playbook</h2>
+        </div>
+        <p class="text-stone-700 mb-4">This playbook is a living document. If you&rsquo;re running a process repeatedly that isn&rsquo;t here &mdash; a workflow you keep doing by hand, a checklist you follow from memory, a task Claude could automate &mdash; <strong>tell us about it</strong>.</p>
+
+        <div class="space-y-3 mb-4">
+          <div class="p-3 bg-white border border-green-200 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm">See a repeatable process?</p>
+            <p class="text-stone-600 text-sm mt-1">If you&rsquo;re doing the same steps more than twice, it should be a pipeline or a playbook entry. Message admin on Slack with what you&rsquo;re doing and we&rsquo;ll build it together.</p>
+          </div>
+          <div class="p-3 bg-white border border-green-200 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm">Found a better way to do something?</p>
+            <p class="text-stone-600 text-sm mt-1">If you&rsquo;ve discovered a faster or more reliable approach to an existing process, share it. We&rsquo;ll update the playbook so everyone benefits.</p>
+          </div>
+          <div class="p-3 bg-white border border-green-200 rounded-lg">
+            <p class="font-semibold text-stone-800 text-sm">Solve a real problem?</p>
+            <p class="text-stone-600 text-sm mt-1">If your idea becomes a new pipeline, tool, or playbook entry that saves the team time &mdash; you&rsquo;ll receive a <strong>one-time cash bonus</strong>. We reward people who make the system better.</p>
+          </div>
+        </div>
+
+        <p class="text-stone-500 text-sm">The best systems are built by the people who use them. Don&rsquo;t just follow the playbook &mdash; help us write it.</p>
       </section>
 
     </div>
