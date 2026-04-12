@@ -289,7 +289,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
 
           <div class="p-3 bg-stone-50 rounded-lg">
             <p class="font-semibold text-stone-800 text-sm mb-1">All work goes to dev</p>
-            <p class="text-stone-600 text-sm">Never push to main. Never merge to main. Only Kevin approves merges to main. Each push to main = one Netlify build credit (1,000/month).</p>
+            <p class="text-stone-600 text-sm">Never push to main. Never merge to main. Only Kevin approves merges to main.</p>
           </div>
           <div class="p-3 bg-stone-50 rounded-lg">
             <p class="font-semibold text-stone-800 text-sm mb-1">Never force push</p>
@@ -319,7 +319,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
           <div class="p-3 bg-stone-50 rounded-lg">
             <p class="font-semibold text-stone-800 text-sm mb-1">CSP headers required</p>
-            <p class="text-stone-600 text-sm">Every site needs a <code class="bg-stone-100 px-1 rounded text-xs">netlify.toml</code> with <code class="bg-stone-100 px-1 rounded text-xs">Content-Security-Policy</code> headers.</p>
+            <p class="text-stone-600 text-sm">Every site needs a <code class="bg-stone-100 px-1 rounded text-xs">public/_headers</code> file with <code class="bg-stone-100 px-1 rounded text-xs">Content-Security-Policy</code> headers.</p>
           </div>
           <div class="p-3 bg-stone-50 rounded-lg">
             <p class="font-semibold text-stone-800 text-sm mb-1">Sanity tokens are project-scoped</p>
@@ -390,7 +390,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <div class="bg-stone-100 rounded px-4 py-3 font-mono text-sm text-stone-700">git push origin dev</div>
             <p class="text-stone-600 text-sm mt-3">Then run the dev preview inspector to catch errors before requesting a deploy:</p>
             <div class="bg-stone-100 rounded px-4 py-3 mt-1 text-sm italic text-stone-700">&ldquo;inspect dev preview&rdquo;</div>
-            <p class="text-stone-500 text-xs mt-2">This runs technical and visual checks against the Netlify dev preview. Fix anything it flags before moving on.</p>
+            <p class="text-stone-500 text-xs mt-2">This runs technical and visual checks against the Cloudflare Pages dev preview. Fix anything it flags before moving on.</p>
           </div>
 
           <div>

@@ -4,114 +4,86 @@ import PortalLayout from "../layouts/PortalLayout.astro";
 interface Site {
 	name: string;
 	repo: string;
-	netlifyName: string;
-	netlifyPreview: string;
+	pagesProject: string; // Cloudflare Pages project name
 	sanity: string;
 	liveUrl: string; // empty string = not yet live → red dot
 }
 
 const sites: Site[] = [
 	{
-		name: "10 Billion Travelers",
-		repo: "10-billion-travelers",
-		netlifyName: "10-billion-travelers",
-		netlifyPreview: "10-billion-travelers.netlify.app",
-		sanity: "",
-		liveUrl: "",
-	},
-	{
 		name: "Arts By Justin",
 		repo: "artsbyjustin",
-		netlifyName: "artsbyjustin",
-		netlifyPreview: "artsbyjustin.netlify.app",
+		pagesProject: "artsbyjustin",
 		sanity: "artsbyjustin.sanity.studio",
 		liveUrl: "artsbyjustin.com",
 	},
 	{
 		name: "Clowning from the Heart",
 		repo: "clowning-from-the-heart",
-		netlifyName: "clowningfromtheheart",
-		netlifyPreview: "clowningfromtheheart.netlify.app",
+		pagesProject: "clowning-from-the-heart",
 		sanity: "clowningfromtheheart.sanity.studio",
 		liveUrl: "clowningfromtheheart.com",
 	},
 	{
-		name: "Global Hope India",
-		repo: "global-hope-india",
-		netlifyName: "global-hope-india",
-		netlifyPreview: "global-hope-india.netlify.app",
-		sanity: "",
-		liveUrl: "globalhopeindia.org",
-	},
-	{
-		name: "Grace Community Church",
-		repo: "grace-community-church",
-		netlifyName: "grace-community-church",
-		netlifyPreview: "grace-community-church.netlify.app",
-		sanity: "",
-		liveUrl: "",
-	},
-	{
 		name: "Father's Heart Bible",
 		repo: "FHB",
-		netlifyName: "fhbible",
-		netlifyPreview: "fhbible.netlify.app",
+		pagesProject: "fathersheartbible",
 		sanity: "fathersheartbible.sanity.studio",
 		liveUrl: "fathersheartbible.com",
 	},
 	{
+		name: "Global Hope India",
+		repo: "global-hope-india",
+		pagesProject: "global-hope-india",
+		sanity: "",
+		liveUrl: "globalhopeindia.org",
+	},
+	{
 		name: "Johnny Watts Agency",
 		repo: "john-watts-agency",
-		netlifyName: "john-watts-agency",
-		netlifyPreview: "john-watts-agency.netlify.app",
+		pagesProject: "john-watts-agency",
 		sanity: "johnnywattsagency.sanity.studio",
 		liveUrl: "johnnywattsagency.com",
 	},
 	{
 		name: "LionCrest Media",
 		repo: "lioncrest-media",
-		netlifyName: "lioncrest-media",
-		netlifyPreview: "lioncrest-media.netlify.app",
+		pagesProject: "lioncrest-media",
 		sanity: "",
 		liveUrl: "",
 	},
 	{
-		name: "SM Gives",
-		repo: "sm-gives",
-		netlifyName: "sm-gives",
-		netlifyPreview: "sm-gives.netlify.app",
-		sanity: "",
-		liveUrl: "smgives.org",
-	},
-	{
 		name: "Scripture Alive",
 		repo: "scripture-alive",
-		netlifyName: "scripture-alive",
-		netlifyPreview: "scripture-alive.netlify.app",
+		pagesProject: "scripture-alive",
 		sanity: "",
 		liveUrl: "scripturealive.com",
 	},
 	{
+		name: "SM Gives",
+		repo: "sm-gives",
+		pagesProject: "sm-gives",
+		sanity: "",
+		liveUrl: "smgives.org",
+	},
+	{
 		name: "Spirit Media Publishing",
 		repo: "spirit-media-publishing",
-		netlifyName: "spirit-media-publishing",
-		netlifyPreview: "spirit-media-publishing.netlify.app",
+		pagesProject: "spirit-media-publishing",
 		sanity: "spiritmediapublishing.sanity.studio",
 		liveUrl: "spiritmediapublishing.com",
 	},
 	{
 		name: "The Kohler Group",
 		repo: "the-kohler-group",
-		netlifyName: "the-kohler-group",
-		netlifyPreview: "the-kohler-group.netlify.app",
+		pagesProject: "the-kohler-group",
 		sanity: "thekohlergroup.sanity.studio",
 		liveUrl: "thekohlergroup.net",
 	},
 	{
 		name: "Work On Yourself",
 		repo: "WOY",
-		netlifyName: "woyourself",
-		netlifyPreview: "woyourself.netlify.app",
+		pagesProject: "woy",
 		sanity: "workonyourself.sanity.studio",
 		liveUrl: "workonyourself.com",
 	},
@@ -129,24 +101,23 @@ const sites: Site[] = [
       <div class="site-card">
         <div class="site-card-header">
           <h2>{site.name}</h2>
-          <span class="slug">{site.netlifyName}</span>
+          <span class="slug">{site.pagesProject}</span>
         </div>
         <div class="btn-grid">
-          <a href={site.liveUrl ? `https://${site.liveUrl}` : `https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn">
+          <a href={site.liveUrl ? `https://${site.liveUrl}` : `https://${site.pagesProject}.pages.dev`} target="_blank" rel="noopener noreferrer" class="btn">
             <span class={`status-lights${!site.liveUrl ? ' down' : ''}`} data-url={site.liveUrl || null}>
               <span class="light green"></span><span class="light red"></span>
             </span> Live
           </a>
-          <a href={`https://dev--${site.netlifyName}.netlify.app`} target="_blank" rel="noopener noreferrer" class="btn" title="Dev branch preview (free — no build credits)">👁 Dev</a>
-          <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn" title="Main branch (production)">🚀 Main</a>
-          <a href={site.sanity ? `https://${site.sanity}` : site.liveUrl ? `https://${site.liveUrl}/studio/` : `https://${site.netlifyPreview}/studio/`} target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>
+          <a href={`https://dev.${site.pagesProject}.pages.dev`} target="_blank" rel="noopener noreferrer" class="btn" title="Dev branch preview">👁 Dev</a>
+          <a href={`https://${site.pagesProject}.pages.dev`} target="_blank" rel="noopener noreferrer" class="btn" title="Main branch (production)">🚀 Main</a>
+          <a href={site.sanity ? `https://${site.sanity}` : site.liveUrl ? `https://${site.liveUrl}/studio/` : `https://${site.pagesProject}.pages.dev/studio/`} target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>
           <a href={`https://github.com/Spirit-Media-US/${site.repo}`} target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>
-          <a href={`https://app.netlify.com/projects/${site.netlifyName}/deploys`} target="_blank" rel="noopener noreferrer" class="btn" title="Netlify deploy logs">📋 Logs</a>
-          <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>
+          <a href={`https://dash.cloudflare.com/?to=/:account/pages/view/${site.pagesProject}`} target="_blank" rel="noopener noreferrer" class="btn" title="Cloudflare Pages dashboard">📋 Pages</a>
           <a href={site.liveUrl ? `https://search.google.com/search-console?resource_id=sc-domain:${site.liveUrl}` : '#'} target="_blank" rel="noopener noreferrer" class="btn">📊 Search</a>
           {site.liveUrl
             ? <a href={`https://${site.liveUrl}/studio/`} target="_blank" rel="noopener noreferrer" class="btn" title="Client link — Sanity Studio">🎨 Studio</a>
-            : <a href={`https://${site.netlifyPreview}/studio/`} target="_blank" rel="noopener noreferrer" class="btn" title="Sanity Studio">🎨 Studio</a>}
+            : <a href={`https://${site.pagesProject}.pages.dev/studio/`} target="_blank" rel="noopener noreferrer" class="btn" title="Sanity Studio">🎨 Studio</a>}
         </div>
       </div>
     ))}
@@ -278,15 +249,15 @@ const sites: Site[] = [
 
   function makeCard(p: any) {
     const isLive    = p.status === 'launched' && p.live_url;
-    const liveHref  = isLive ? `https://${p.live_url}` : (p.netlify_url || '#');
+    const pagesProject = p.slug;
+    const liveHref  = isLive ? `https://${p.live_url}` : `https://${pagesProject}.pages.dev`;
     const liveClass = isLive ? '' : ' down';
     const liveDataUrl = isLive ? p.live_url : null;
-    const netlifySlug = p.netlify_url ? p.netlify_url.replace('https://','').replace('.netlify.app','') : p.slug;
     return `
       <div class="site-card">
         <div class="site-card-header">
           <h2 title="${p.title}">${p.title}</h2>
-          <span class="slug">${netlifySlug}</span>
+          <span class="slug">${pagesProject}</span>
         </div>
         <div class="btn-grid">
           <a href="${liveHref}" target="_blank" rel="noopener noreferrer" class="btn">
@@ -294,34 +265,23 @@ const sites: Site[] = [
               <span class="light green"></span><span class="light red"></span>
             </span> Live
           </a>
-          ${p.netlify_url
-            ? `<a href="https://dev--${netlifySlug}.netlify.app" target="_blank" rel="noopener noreferrer" class="btn" title="Dev branch preview (free — no build credits)">👁 Dev</a>`
-            : `<span class="btn" style="opacity:.4;cursor:default">👁 Dev</span>`}
-          ${p.netlify_url
-            ? `<a href="${p.netlify_url}" target="_blank" rel="noopener noreferrer" class="btn" title="Main branch (production)">🚀 Main</a>`
-            : `<span class="btn" style="opacity:.4;cursor:default">🚀 Main</span>`}
+          <a href="https://dev.${pagesProject}.pages.dev" target="_blank" rel="noopener noreferrer" class="btn" title="Dev branch preview">👁 Dev</a>
+          <a href="https://${pagesProject}.pages.dev" target="_blank" rel="noopener noreferrer" class="btn" title="Main branch (production)">🚀 Main</a>
           ${p.sanity_studio
             ? `<a href="${p.sanity_studio}" target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>`
             : `<span class="btn" style="opacity:.4;cursor:default">✏️ Sanity</span>`}
-          ${isLive && p.live_url
-            ? `<a href="https://${p.live_url}/studio/" target="_blank" rel="noopener noreferrer" class="btn" title="Sanity Studio">🎨 Studio</a>`
-            : p.netlify_url
-              ? `<a href="${p.netlify_url}/studio/" target="_blank" rel="noopener noreferrer" class="btn" title="Sanity Studio">🎨 Studio</a>`
-              : `<span class="btn" style="opacity:.4;cursor:default">🎨 Studio</span>`}
           ${p.github
             ? `<a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>`
             : `<span class="btn" style="opacity:.4;cursor:default">🗂 GitHub</span>`}
-          ${p.netlify_url
-            ? `<a href="https://app.netlify.com/projects/${netlifySlug}/deploys" target="_blank" rel="noopener noreferrer" class="btn" title="Netlify deploy logs">📋 Logs</a>`
-            : `<span class="btn" style="opacity:.4;cursor:default">📋 Logs</span>`}
-          ${p.netlify_url
-            ? `<a href="https://app.netlify.com/projects/${netlifySlug}" target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>`
-            : `<span class="btn" style="opacity:.4;cursor:default">⚙️ Netlify</span>`}
+          <a href="https://dash.cloudflare.com/?to=/:account/pages/view/${pagesProject}" target="_blank" rel="noopener noreferrer" class="btn" title="Cloudflare Pages dashboard">📋 Pages</a>
           ${isLive && p.live_url
             ? `<a href="https://search.google.com/search-console?resource_id=sc-domain:${p.live_url}" target="_blank" rel="noopener noreferrer" class="btn">📊 Search</a>`
             : p.proposal_url
               ? `<a href="${p.proposal_url}" target="_blank" rel="noopener noreferrer" class="btn">📄 Proposal</a>`
               : `<span class="btn" style="opacity:.4;cursor:default">📄 Proposal</span>`}
+          ${isLive && p.live_url
+            ? `<a href="https://${p.live_url}/studio/" target="_blank" rel="noopener noreferrer" class="btn" title="Client link — Sanity Studio">🎨 Studio</a>`
+            : `<a href="https://${pagesProject}.pages.dev/studio/" target="_blank" rel="noopener noreferrer" class="btn" title="Sanity Studio">🎨 Studio</a>`}
         </div>
       </div>`;
   }
