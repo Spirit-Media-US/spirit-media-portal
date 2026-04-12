@@ -8,7 +8,6 @@ interface Site {
 	netlifyPreview: string;
 	sanity: string;
 	liveUrl: string; // empty string = not yet live → red dot
-	devPort: number; // Bethel dev server port (Tailscale only)
 }
 
 const sites: Site[] = [
@@ -19,7 +18,6 @@ const sites: Site[] = [
 		netlifyPreview: "10-billion-travelers.netlify.app",
 		sanity: "",
 		liveUrl: "",
-		devPort: 4330,
 	},
 	{
 		name: "Arts By Justin",
@@ -28,7 +26,6 @@ const sites: Site[] = [
 		netlifyPreview: "artsbyjustin.netlify.app",
 		sanity: "artsbyjustin.sanity.studio",
 		liveUrl: "artsbyjustin.com",
-		devPort: 4322,
 	},
 	{
 		name: "Clowning from the Heart",
@@ -37,16 +34,22 @@ const sites: Site[] = [
 		netlifyPreview: "clowningfromtheheart.netlify.app",
 		sanity: "clowningfromtheheart.sanity.studio",
 		liveUrl: "clowningfromtheheart.com",
-		devPort: 4328,
 	},
 	{
 		name: "Global Hope India",
 		repo: "global-hope-india",
 		netlifyName: "global-hope-india",
 		netlifyPreview: "global-hope-india.netlify.app",
-		sanity: "globalhopeindia.sanity.studio",
+		sanity: "",
+		liveUrl: "globalhopeindia.org",
+	},
+	{
+		name: "Grace Community Church",
+		repo: "grace-community-church",
+		netlifyName: "grace-community-church",
+		netlifyPreview: "grace-community-church.netlify.app",
+		sanity: "",
 		liveUrl: "",
-		devPort: 0,
 	},
 	{
 		name: "Father's Heart Bible",
@@ -55,7 +58,6 @@ const sites: Site[] = [
 		netlifyPreview: "fhbible.netlify.app",
 		sanity: "fathersheartbible.sanity.studio",
 		liveUrl: "fathersheartbible.com",
-		devPort: 4323,
 	},
 	{
 		name: "Johnny Watts Agency",
@@ -64,7 +66,6 @@ const sites: Site[] = [
 		netlifyPreview: "john-watts-agency.netlify.app",
 		sanity: "johnnywattsagency.sanity.studio",
 		liveUrl: "johnnywattsagency.com",
-		devPort: 4331,
 	},
 	{
 		name: "LionCrest Media",
@@ -73,7 +74,6 @@ const sites: Site[] = [
 		netlifyPreview: "lioncrest-media.netlify.app",
 		sanity: "",
 		liveUrl: "",
-		devPort: 0,
 	},
 	{
 		name: "SM Gives",
@@ -81,17 +81,15 @@ const sites: Site[] = [
 		netlifyName: "sm-gives",
 		netlifyPreview: "sm-gives.netlify.app",
 		sanity: "",
-		liveUrl: "",
-		devPort: 0,
+		liveUrl: "smgives.org",
 	},
 	{
 		name: "Scripture Alive",
 		repo: "scripture-alive",
 		netlifyName: "scripture-alive",
 		netlifyPreview: "scripture-alive.netlify.app",
-		sanity: "scripture-alive.sanity.studio",
-		liveUrl: "",
-		devPort: 4329,
+		sanity: "",
+		liveUrl: "scripturealive.com",
 	},
 	{
 		name: "Spirit Media Publishing",
@@ -100,7 +98,6 @@ const sites: Site[] = [
 		netlifyPreview: "spirit-media-publishing.netlify.app",
 		sanity: "spiritmediapublishing.sanity.studio",
 		liveUrl: "spiritmediapublishing.com",
-		devPort: 4321,
 	},
 	{
 		name: "The Kohler Group",
@@ -109,7 +106,6 @@ const sites: Site[] = [
 		netlifyPreview: "the-kohler-group.netlify.app",
 		sanity: "thekohlergroup.sanity.studio",
 		liveUrl: "thekohlergroup.net",
-		devPort: 4325,
 	},
 	{
 		name: "Work On Yourself",
@@ -118,7 +114,6 @@ const sites: Site[] = [
 		netlifyPreview: "woyourself.netlify.app",
 		sanity: "workonyourself.sanity.studio",
 		liveUrl: "workonyourself.com",
-		devPort: 4324,
 	},
 ];
 ---
@@ -142,14 +137,11 @@ const sites: Site[] = [
               <span class="light green"></span><span class="light red"></span>
             </span> Live
           </a>
-          {site.devPort > 0
-            ? <a href={`http://100.114.220.65:${site.devPort}`} target="_blank" rel="noopener noreferrer" class="btn" title={`Bethel dev server (Tailscale) — port ${site.devPort}`}>👁 Dev</a>
-            : <span class="btn" style="opacity:.4;cursor:default" title="No dev port assigned">👁 Dev</span>}
-          <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn" title="Main branch (production)">🚀 Main</a>
-          <a href={`https://${site.sanity}`} target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>
-          {site.devPort > 0
-            ? <a href={`http://100.114.220.65:${site.devPort}/studio/`} target="_blank" rel="noopener noreferrer" class="btn" title="Embedded Sanity Studio (dev server)">🎨 Studio</a>
-            : <span class="btn" style="opacity:.4;cursor:default">🎨 Studio</span>}
+          <a href={`https://dev--${site.netlifyName}.netlify.app`} target="_blank" rel="noopener noreferrer" class="btn" title="Dev branch preview (free — no build credits)">👁 Dev Preview</a>
+          <a href={`https://${site.netlifyPreview}`} target="_blank" rel="noopener noreferrer" class="btn" title="Main branch (production build)">🚀 Production</a>
+          {site.sanity
+            ? <a href={`https://${site.sanity}`} target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>
+            : <span class="btn" style="opacity:.4;cursor:default">✏️ Sanity</span>}
           <a href={`https://github.com/Spirit-Media-US/${site.repo}`} target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>
           <a href={`https://app.netlify.com/projects/${site.netlifyName}/deploys`} target="_blank" rel="noopener noreferrer" class="btn" title="Netlify deploy logs">📋 Logs</a>
           <a href={`https://app.netlify.com/projects/${site.netlifyName}`} target="_blank" rel="noopener noreferrer" class="btn">⚙️ Netlify</a>
@@ -264,16 +256,8 @@ const sites: Site[] = [
   // Load pipeline projects from registry (new clients not yet in hardcoded list)
   const KNOWN_SLUGS = new Set([
     '10-billion-travelers', 'artsbyjustin', 'clowning-from-the-heart', 'FHB',
-    'global-hope-india', 'john-watts-agency', 'lioncrest-media', 'sm-gives', 'scripture-alive', 'spirit-media-publishing', 'the-kohler-group', 'WOY',
+    'global-hope-india', 'grace-community-church', 'john-watts-agency', 'lioncrest-media', 'sm-gives', 'scripture-alive', 'spirit-media-publishing', 'the-kohler-group', 'WOY',
   ]);
-
-  // Bethel dev server ports (Tailscale only — no Netlify branch deploys)
-  const DEV_PORTS: Record<string, number> = {
-    'spirit-media-publishing': 4321, 'artsbyjustin': 4322, 'FHB': 4323,
-    'WOY': 4324, 'the-kohler-group': 4325, 'spirit-media-portal': 4326,
-    'clowning-from-the-heart': 4328, 'scripture-alive': 4329,
-    '10-billion-travelers': 4330, 'john-watts-agency': 4331,
-  };
 
   const STATUS_LABEL: Record<string, string> = {
     proposal_pending: 'Proposal Running',
@@ -309,24 +293,15 @@ const sites: Site[] = [
               <span class="light green"></span><span class="light red"></span>
             </span> Live
           </a>
-          ${(() => {
-              const port = DEV_PORTS[p.slug];
-              return port
-                ? `<a href="http://100.114.220.65:${port}" target="_blank" rel="noopener noreferrer" class="btn" title="Bethel dev server (Tailscale) — port ${port}">👁 Dev</a>`
-                : `<span class="btn" style="opacity:.4;cursor:default" title="No dev port assigned">👁 Dev</span>`;
-            })()}
           ${p.netlify_url
-            ? `<a href="${p.netlify_url}" target="_blank" rel="noopener noreferrer" class="btn" title="Main branch (production)">🚀 Main</a>`
-            : `<span class="btn" style="opacity:.4;cursor:default">🚀 Main</span>`}
+            ? `<a href="https://dev--${netlifySlug}.netlify.app" target="_blank" rel="noopener noreferrer" class="btn" title="Dev branch preview (free — no build credits)">👁 Dev Preview</a>`
+            : `<span class="btn" style="opacity:.4;cursor:default">👁 Dev Preview</span>`}
+          ${p.netlify_url
+            ? `<a href="${p.netlify_url}" target="_blank" rel="noopener noreferrer" class="btn" title="Main branch (production build)">🚀 Production</a>`
+            : `<span class="btn" style="opacity:.4;cursor:default">🚀 Production</span>`}
           ${p.sanity_studio
             ? `<a href="${p.sanity_studio}" target="_blank" rel="noopener noreferrer" class="btn">✏️ Sanity</a>`
             : `<span class="btn" style="opacity:.4;cursor:default">✏️ Sanity</span>`}
-          ${(() => {
-              const port = DEV_PORTS[p.slug];
-              return port
-                ? `<a href="http://100.114.220.65:${port}/studio/" target="_blank" rel="noopener noreferrer" class="btn" title="Embedded Sanity Studio (dev server)">🎨 Studio</a>`
-                : `<span class="btn" style="opacity:.4;cursor:default">🎨 Studio</span>`;
-            })()}
           ${p.github
             ? `<a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn">🗂 GitHub</a>`
             : `<span class="btn" style="opacity:.4;cursor:default">🗂 GitHub</span>`}
