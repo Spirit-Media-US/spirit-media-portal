@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__netlify__netlify-team-services-reader",
+      "mcp__netlify__netlify-project-services-reader"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "stitch",
+    "sanity",
+    "netlify",
+    "cloudflare",
+    "prod-ghl-mcp",
+    "google-docs"
+  ]
+}
