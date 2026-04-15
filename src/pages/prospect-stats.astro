@@ -1,0 +1,248 @@
+---
+import PortalLayout from "../layouts/PortalLayout.astro";
+---
+
+<PortalLayout title="Prospect Stats">
+  <div class="max-w-6xl">
+    <h1 class="text-4xl font-bold mb-2">Prospect Stats</h1>
+    <p class="text-stone-600 mb-8">Email outreach tracking — opens, clicks, follow-ups, and replies.</p>
+
+    <!-- Summary Cards -->
+    <div id="summary-cards" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white rounded-xl border border-stone-200 p-5 text-center">
+        <p class="text-3xl font-bold text-stone-800" id="stat-total">—</p>
+        <p class="text-xs text-stone-500 font-semibold uppercase tracking-wider mt-1">Total Sent</p>
+      </div>
+      <div class="bg-white rounded-xl border border-stone-200 p-5 text-center">
+        <p class="text-3xl font-bold text-blue-700" id="stat-opened">—</p>
+        <p class="text-xs text-stone-500 font-semibold uppercase tracking-wider mt-1">Opened <span id="stat-open-rate" class="text-stone-400"></span></p>
+      </div>
+      <div class="bg-white rounded-xl border border-stone-200 p-5 text-center">
+        <p class="text-3xl font-bold text-green-700" id="stat-clicked">—</p>
+        <p class="text-xs text-stone-500 font-semibold uppercase tracking-wider mt-1">Clicked <span id="stat-click-rate" class="text-stone-400"></span></p>
+      </div>
+      <div class="bg-white rounded-xl border border-stone-200 p-5 text-center">
+        <p class="text-3xl font-bold text-amber-600" id="stat-replied">—</p>
+        <p class="text-xs text-stone-500 font-semibold uppercase tracking-wider mt-1">Replied</p>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="flex items-center gap-3 mb-4 flex-wrap">
+      <div class="relative flex-1 min-w-[200px]">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+        <input id="search" type="search" placeholder="Search by name, email, or URL..."
+          class="w-full pl-9 pr-4 py-2 rounded-lg border border-stone-300 bg-stone-50 text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-blue-300" />
+      </div>
+      <select id="filter-status" class="border border-stone-300 rounded-lg px-3 py-2 text-sm text-stone-700 bg-white">
+        <option value="all">All Status</option>
+        <option value="opened">Opened</option>
+        <option value="clicked">Clicked</option>
+        <option value="replied">Replied</option>
+        <option value="no-engagement">No Engagement</option>
+      </select>
+      <button id="refresh-btn" class="border border-stone-300 rounded-lg px-4 py-2 text-sm font-semibold text-stone-600 hover:bg-stone-100 transition-colors">
+        Refresh
+      </button>
+    </div>
+
+    <!-- Results count -->
+    <p id="results-count" class="text-xs text-stone-400 mb-3"></p>
+
+    <!-- Loading -->
+    <div id="loading" class="flex items-center gap-3 text-stone-500 text-sm py-10">
+      <svg class="animate-spin h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+      Loading prospect data...
+    </div>
+
+    <!-- Error -->
+    <div id="error" class="hidden p-5 bg-red-50 border border-red-200 rounded-xl text-red-800 text-sm"></div>
+
+    <!-- Table -->
+    <div id="table-wrap" class="hidden bg-white rounded-xl border border-stone-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-stone-50 border-b border-stone-200 text-left">
+              <th class="px-4 py-3 font-semibold text-stone-600 cursor-pointer hover:text-stone-900" data-sort="siteName">Name</th>
+              <th class="px-4 py-3 font-semibold text-stone-600 cursor-pointer hover:text-stone-900" data-sort="email">Email</th>
+              <th class="px-4 py-3 font-semibold text-stone-600 text-center cursor-pointer hover:text-stone-900" data-sort="openCount">Opens</th>
+              <th class="px-4 py-3 font-semibold text-stone-600 text-center cursor-pointer hover:text-stone-900" data-sort="clickCount">Clicks</th>
+              <th class="px-4 py-3 font-semibold text-stone-600 text-center cursor-pointer hover:text-stone-900" data-sort="followUpsSent">Follow-ups</th>
+              <th class="px-4 py-3 font-semibold text-stone-600 cursor-pointer hover:text-stone-900" data-sort="sentAt">Sent</th>
+              <th class="px-4 py-3 font-semibold text-stone-600">Status</th>
+              <th class="px-4 py-3 font-semibold text-stone-600">Links</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div id="pagination" class="mt-4 flex items-center justify-center gap-2"></div>
+  </div>
+</PortalLayout>
+
+<script>
+  const PER_PAGE = 25;
+  let allProspects = [];
+  let filtered = [];
+  let currentPage = 1;
+  let sortField = 'sentAt';
+  let sortDir = 'desc';
+
+  async function loadStats() {
+    document.getElementById('loading')!.classList.remove('hidden');
+    document.getElementById('table-wrap')!.classList.add('hidden');
+    document.getElementById('error')!.classList.add('hidden');
+
+    try {
+      const resp = await fetch('/api/tools-prospect-stats');
+      if (!resp.ok) throw new Error(`API returned ${resp.status}`);
+      const data = await resp.json();
+      if (data.error) throw new Error(data.error);
+
+      // Summary
+      const s = data.summary;
+      document.getElementById('stat-total')!.textContent = s.total;
+      document.getElementById('stat-opened')!.textContent = s.opened;
+      document.getElementById('stat-clicked')!.textContent = s.clicked;
+      document.getElementById('stat-replied')!.textContent = s.replied;
+      document.getElementById('stat-open-rate')!.textContent = `(${s.openRate})`;
+      document.getElementById('stat-click-rate')!.textContent = `(${s.clickRate})`;
+
+      allProspects = data.prospects;
+      applyFilters();
+
+      document.getElementById('loading')!.classList.add('hidden');
+      document.getElementById('table-wrap')!.classList.remove('hidden');
+    } catch (err) {
+      document.getElementById('loading')!.classList.add('hidden');
+      const el = document.getElementById('error')!;
+      el.textContent = `Failed to load stats: ${err.message}`;
+      el.classList.remove('hidden');
+    }
+  }
+
+  function applyFilters() {
+    const q = (document.getElementById('search') as HTMLInputElement).value.toLowerCase().trim();
+    const status = (document.getElementById('filter-status') as HTMLSelectElement).value;
+
+    filtered = allProspects.filter(p => {
+      const matchQ = !q ||
+        p.siteName.toLowerCase().includes(q) ||
+        p.email.toLowerCase().includes(q) ||
+        (p.url || '').toLowerCase().includes(q);
+
+      let matchStatus = true;
+      if (status === 'opened') matchStatus = p.openCount > 0;
+      else if (status === 'clicked') matchStatus = p.clickCount > 0;
+      else if (status === 'replied') matchStatus = p.replied;
+      else if (status === 'no-engagement') matchStatus = p.openCount === 0 && p.clickCount === 0 && !p.replied;
+
+      return matchQ && matchStatus;
+    });
+
+    // Sort
+    filtered.sort((a, b) => {
+      let av = a[sortField] ?? '';
+      let bv = b[sortField] ?? '';
+      if (typeof av === 'number') return sortDir === 'asc' ? av - bv : bv - av;
+      av = String(av).toLowerCase();
+      bv = String(bv).toLowerCase();
+      return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+    });
+
+    currentPage = 1;
+    render();
+  }
+
+  function render() {
+    const start = (currentPage - 1) * PER_PAGE;
+    const page = filtered.slice(start, start + PER_PAGE);
+
+    document.getElementById('results-count')!.textContent =
+      `Showing ${start + 1}–${Math.min(start + PER_PAGE, filtered.length)} of ${filtered.length} prospects`;
+
+    const tbody = document.getElementById('table-body')!;
+    tbody.innerHTML = page.map(p => {
+      const sentDate = p.sentAt ? new Date(p.sentAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—';
+      const statusBadge = p.replied
+        ? '<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold">Replied</span>'
+        : p.clickCount > 0
+        ? '<span class="px-2 py-0.5 rounded-full bg-green-100 text-green-800 text-xs font-semibold">Clicked</span>'
+        : p.openCount > 0
+        ? '<span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 text-xs font-semibold">Opened</span>'
+        : '<span class="px-2 py-0.5 rounded-full bg-stone-100 text-stone-500 text-xs font-semibold">Sent</span>';
+
+      const links = [];
+      if (p.proposalUrl) links.push(`<a href="${p.proposalUrl}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Proposal</a>`);
+      if (p.url) links.push(`<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="text-stone-500 hover:underline">Site</a>`);
+
+      return `<tr class="border-b border-stone-100 hover:bg-stone-50">
+        <td class="px-4 py-3 font-medium text-stone-800 max-w-[200px] truncate" title="${p.siteName}">${p.siteName || '—'}</td>
+        <td class="px-4 py-3 text-stone-600 max-w-[200px] truncate" title="${p.email}">${p.email}</td>
+        <td class="px-4 py-3 text-center ${p.openCount > 0 ? 'text-blue-700 font-semibold' : 'text-stone-400'}">${p.openCount}</td>
+        <td class="px-4 py-3 text-center ${p.clickCount > 0 ? 'text-green-700 font-semibold' : 'text-stone-400'}">${p.clickCount}</td>
+        <td class="px-4 py-3 text-center text-stone-600">${p.followUpsSent}/6</td>
+        <td class="px-4 py-3 text-stone-500">${sentDate}</td>
+        <td class="px-4 py-3">${statusBadge}</td>
+        <td class="px-4 py-3 space-x-2 text-xs">${links.join(' · ')}</td>
+      </tr>`;
+    }).join('');
+
+    renderPagination();
+  }
+
+  function renderPagination() {
+    const el = document.getElementById('pagination')!;
+    const totalPages = Math.ceil(filtered.length / PER_PAGE);
+    if (totalPages <= 1) { el.innerHTML = ''; return; }
+
+    let html = '';
+    html += `<button data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${currentPage === 1 ? 'border-stone-200 text-stone-300 cursor-not-allowed' : 'border-stone-300 text-stone-600 hover:bg-stone-100'}">Prev</button>`;
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<button data-page="${i}" class="w-8 h-8 rounded-lg text-xs font-semibold transition-colors ${i === currentPage ? 'bg-stone-800 text-white' : 'border border-stone-300 text-stone-600 hover:bg-stone-100'}">${i}</button>`;
+    }
+    html += `<button data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${currentPage === totalPages ? 'border-stone-200 text-stone-300 cursor-not-allowed' : 'border-stone-300 text-stone-600 hover:bg-stone-100'}">Next</button>`;
+    el.innerHTML = html;
+  }
+
+  // Event listeners
+  document.getElementById('search')!.addEventListener('input', applyFilters);
+  document.getElementById('filter-status')!.addEventListener('change', applyFilters);
+  document.getElementById('refresh-btn')!.addEventListener('click', loadStats);
+
+  // Column sorting
+  document.querySelectorAll('[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const field = (th as HTMLElement).dataset.sort!;
+      if (sortField === field) {
+        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortField = field;
+        sortDir = field === 'sentAt' ? 'desc' : 'asc';
+      }
+      applyFilters();
+    });
+  });
+
+  // Pagination clicks
+  document.getElementById('pagination')!.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('button');
+    if (!btn || btn.disabled) return;
+    const page = parseInt(btn.dataset.page!);
+    const totalPages = Math.ceil(filtered.length / PER_PAGE);
+    if (page >= 1 && page <= totalPages) {
+      currentPage = page;
+      render();
+      document.getElementById('table-wrap')!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+
+  // Load on page load
+  loadStats();
+</script>
