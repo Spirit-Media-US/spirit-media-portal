@@ -6,6 +6,8 @@ export const GET: APIRoute = async () => {
 	try {
 		const resp = await fetch(`${apiUrl}/api/prospect/stats`, {
 			headers: { Authorization: `Bearer ${secret}` },
+			// @ts-expect-error
+			signal: AbortSignal.timeout(10_000),
 		});
 		const data = await resp.json();
 		return new Response(JSON.stringify(data), {
