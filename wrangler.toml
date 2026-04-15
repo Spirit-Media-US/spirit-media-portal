@@ -7,8 +7,7 @@ compatibility_date = "2024-09-23"
 pages_build_output_dir = "dist"
 
 [vars]
-# Non-secret env vars go here
+TOOLS_API_URL = "https://tools-api.spiritmediapublishing.com"
 
 # Secret bindings (values set via `wrangler pages secret put`)
-# TOOLS_API_URL — Tools API base URL
-# TOOLS_API_SECRET — Tools API auth token
+# TOOLS_API_SECRET — set for both production and preview environments
