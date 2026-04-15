@@ -1,0 +1,14 @@
+# Cloudflare Pages configuration for Spirit Media Portal
+# Secrets are set via: wrangler pages secret put <KEY> --project-name spirit-media-portal
+# Local dev uses .dev.vars (not committed)
+
+name = "spirit-media-portal"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "dist"
+
+[vars]
+# Non-secret env vars go here
+
+# Secret bindings (values set via `wrangler pages secret put`)
+# TOOLS_API_URL — Tools API base URL
+# TOOLS_API_SECRET — Tools API auth token
