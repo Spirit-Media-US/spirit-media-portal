@@ -24,8 +24,18 @@ LOG="/tmp/portal-rebuild-$(date +%Y%m%d-%H%M%S).log"
   export TOOLS_API_SECRET
   npm run build
 
-  echo "[$(date -Is)] Uploading dist/ to Cloudflare Pages..."
-  /home/deploy/bin/deploy-preview.sh --skip-push
+  # Deploy to BOTH branches so the Refresh button works the same whether
+  # the user clicked it on the dev preview or on production.
+  export CLOUDFLARE_ACCOUNT_ID=193f7a497a37609cd0be366ecbb19122
+  export CLOUDFLARE_API_TOKEN="$CLOUDFLARE_PAGES_TOKEN"
+
+  for TARGET in dev main; do
+    echo "[$(date -Is)] Uploading dist/ to Cloudflare Pages ($TARGET)..."
+    npx wrangler pages deploy dist/ \
+      --project-name=spirit-media-portal \
+      --branch="$TARGET" \
+      --commit-dirty=true 2>&1 | tail -3
+  done
 
   echo "[$(date -Is)] Rebuild complete."
 } >"$LOG" 2>&1
