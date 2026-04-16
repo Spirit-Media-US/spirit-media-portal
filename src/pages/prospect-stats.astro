@@ -1,8 +1,15 @@
 ---
-import PortalLayout from "../layouts/PortalLayout.astro";
 import baked from "../data/prospect-stats.json";
+import PortalLayout from "../layouts/PortalLayout.astro";
 
-const s = baked.summary ?? { total: 0, opened: 0, clicked: 0, replied: 0, openRate: "—", clickRate: "—" };
+const s = baked.summary ?? {
+	total: 0,
+	opened: 0,
+	clicked: 0,
+	replied: 0,
+	openRate: "—",
+	clickRate: "—",
+};
 const prospects = baked.prospects ?? [];
 const builtAt = baked.builtAt ?? "";
 const stale = baked.stale ?? false;

@@ -19,12 +19,15 @@ export const POST: APIRoute = async ({ locals }) => {
 	}
 
 	try {
-		const resp = await fetch(`${TOOLS_API_URL}/api/prospect/stats/rebuild-portal`, {
-			method: "POST",
-			headers: { Authorization: `Bearer ${secret}` },
-			// @ts-expect-error AbortSignal.timeout is available at runtime
-			signal: AbortSignal.timeout(10_000),
-		});
+		const resp = await fetch(
+			`${TOOLS_API_URL}/api/prospect/stats/rebuild-portal`,
+			{
+				method: "POST",
+				headers: { Authorization: `Bearer ${secret}` },
+				// @ts-expect-error AbortSignal.timeout is available at runtime
+				signal: AbortSignal.timeout(10_000),
+			},
+		);
 		const text = await resp.text();
 		return new Response(text, {
 			status: resp.status,
