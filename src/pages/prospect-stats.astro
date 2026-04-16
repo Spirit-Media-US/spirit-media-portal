@@ -257,7 +257,7 @@ const stale = baked.stale ?? false;
           const match = html.match(/data-iso="([^"]+)"/);
           if (match && match[1] && match[1] !== originalBuiltAt) {
             setStatus('Rebuild complete. Reloading...', 'success');
-            setTimeout(() => location.reload(), 800);
+            setTimeout(() => { location.href = `/prospect-stats?_=${Date.now()}`; }, 800);
             return;
           }
         } catch {}
