@@ -10,6 +10,22 @@ This site: Spirit Media Portal | Repo: github.com/Spirit-Media-US/spirit-media-p
 
 - `npm run dev` — local preview at localhost:4326
 - `npm run build` — runs `astro check && astro build`
+- `portal-health-check.sh` — post-deploy health check (runs automatically after `git pushd`)
+
+## Environment Variables — CRITICAL
+
+Portal API routes need `TOOLS_API_URL` and `TOOLS_API_SECRET` to reach the Tools API.
+
+- **`TOOLS_API_URL`** — set in `wrangler.toml` `[vars]` (not sensitive, available in all environments)
+- **`TOOLS_API_SECRET`** — set as CF Pages secret for BOTH production and preview environments
+
+If API routes return `undefined` errors or 502, the env vars are missing. Fix via CF API:
+```bash
+source /home/deploy/.secrets && source /home/deploy/bin/.env && source /home/deploy/bin/tools-api/.env
+curl -s -X PATCH "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/spirit-media-portal" \
+  -H "Authorization: Bearer $CLOUDFLARE_PAGES_TOKEN" -H "Content-Type: application/json" \
+  -d "{\"deployment_configs\":{\"preview\":{\"env_vars\":{\"TOOLS_API_SECRET\":{\"value\":\"$TOOLS_API_SECRET\",\"type\":\"secret_text\"}}}}}"
+```
 
 ## Mandatory — Before Starting Work
 Always start Claude sessions from inside this directory:

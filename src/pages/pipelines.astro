@@ -174,9 +174,11 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <svg class="animate-spin h-5 w-5 text-stone-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
             <span id="generate-status-text">Reading manuscript…</span>
           </div>
-          <div id="generate-result" class="hidden p-4 bg-green-50 border border-green-200 rounded-lg">
+          <div id="generate-result" class="hidden p-4 bg-green-50 border border-green-200 rounded-lg space-y-2">
             <p class="text-sm font-semibold text-green-800 mb-2">Done!</p>
-            <a id="generate-result-link" href="#" target="_blank" rel="noopener noreferrer" class="text-green-700 underline font-medium break-all"></a>
+            <div id="generate-result-review" class="hidden"><span class="text-xs font-semibold text-green-600 uppercase tracking-wider">Client Review:</span> <a id="generate-result-link" href="#" target="_blank" rel="noopener noreferrer" class="text-green-700 underline font-medium break-all"></a></div>
+            <div id="generate-result-eval" class="hidden"><span class="text-xs font-semibold text-green-600 uppercase tracking-wider">Internal Brief:</span> <a id="generate-result-eval-link" href="#" target="_blank" rel="noopener noreferrer" class="text-green-700 underline font-medium break-all"></a></div>
+            <div id="generate-result-verdict" class="hidden"><span class="text-xs font-semibold text-stone-500 uppercase tracking-wider">Verdict:</span> <span id="generate-verdict-text" class="text-sm font-bold text-stone-800"></span></div>
           </div>
           <div id="generate-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
             <p class="text-sm font-semibold text-red-800 mb-1">Error</p>
@@ -425,23 +427,42 @@ if (!(window as any).__portalInitialized) {
     document.getElementById('generate-status')!.classList.remove('hidden');
     document.getElementById('generate-spinner')!.classList.remove('hidden');
     ['generate-result','generate-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
-    const messages = ['Reading manuscript…', 'Generating review…', 'Creating Google Doc…'];
+    const messages = ['Reading manuscript…', 'Running genre diagnosis & review…', 'Generating reports…', 'Creating Google Docs…'];
     let msgIdx = 0;
     const statusText = document.getElementById('generate-status-text')!;
     statusText.textContent = messages[0];
     const interval = setInterval(() => { msgIdx = Math.min(msgIdx + 1, messages.length - 1); statusText.textContent = messages[msgIdx]; }, 15000);
     try {
       const fd = new FormData(form);
-      const resp = await fetch('/api/tools-generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ template_id: fd.get('template_id'), file_url: fd.get('file_url') }) });
+      const payload = { template_id: fd.get('template_id'), file_url: fd.get('file_url') };
+      // Fire both reports in parallel
+      const [reviewResp, evalResp] = await Promise.all([
+        fetch('/api/tools-generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }),
+        fetch('/api/tools-manuscript-eval', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ file_url: payload.file_url, title: 'Manuscript' }) }),
+      ]);
       clearInterval(interval);
-      const result = await resp.json();
-      if (result.doc_url) {
-        document.getElementById('generate-spinner')!.classList.add('hidden');
-        document.getElementById('generate-result')!.classList.remove('hidden');
+      const reviewResult = await reviewResp.json();
+      const evalResult = await evalResp.json();
+      const hasReview = reviewResult.doc_url;
+      const hasEval = evalResult.doc_url;
+      if (!hasReview && !hasEval) throw new Error(reviewResult.error || evalResult.error || 'Both reports failed');
+      document.getElementById('generate-spinner')!.classList.add('hidden');
+      document.getElementById('generate-result')!.classList.remove('hidden');
+      if (hasReview) {
+        document.getElementById('generate-result-review')!.classList.remove('hidden');
         const rl = document.getElementById('generate-result-link') as HTMLAnchorElement;
-        rl.href = result.doc_url; rl.textContent = result.doc_name || result.doc_url;
-        loadHistory();
-      } else { throw new Error(result.error || 'Unknown error'); }
+        rl.href = reviewResult.doc_url; rl.textContent = reviewResult.doc_name || reviewResult.doc_url;
+      }
+      if (hasEval) {
+        document.getElementById('generate-result-eval')!.classList.remove('hidden');
+        const el = document.getElementById('generate-result-eval-link') as HTMLAnchorElement;
+        el.href = evalResult.doc_url; el.textContent = evalResult.doc_name || evalResult.doc_url;
+        if (evalResult.verdict) {
+          document.getElementById('generate-result-verdict')!.classList.remove('hidden');
+          document.getElementById('generate-verdict-text')!.textContent = evalResult.verdict;
+        }
+      }
+      loadHistory();
     } catch (err: any) {
       clearInterval(interval);
       document.getElementById('generate-spinner')!.classList.add('hidden');
