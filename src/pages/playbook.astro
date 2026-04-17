@@ -440,7 +440,89 @@ SMP Team</div>
       </section>
 
       <!-- ════════════════════════════════════════════════════
-           5. STITCH — AI DESIGN TOOL
+           5. DOMAIN CONNECTION PATTERNS
+      ════════════════════════════════════════════════════ -->
+      <section class="bg-white border border-stone-200 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-red-700 mb-2">Domain Connection Patterns</h2>
+        <p class="text-stone-600 text-sm mb-4">Two DNS patterns exist for connecting a domain to Cloudflare Pages. They differ in one critical way: whether Cloudflare becomes authoritative for the domain's DNS. The pattern must be chosen <strong>before</strong> touching any DNS &mdash; never improvise.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+          <!-- Pattern 1 -->
+          <div class="bg-green-50 border-2 border-green-600 rounded-lg p-5">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs font-bold bg-green-600 text-white px-2 py-0.5 rounded">DEFAULT</span>
+              <h3 class="font-bold text-green-900">Pattern 1 &mdash; Point DNS to Pages</h3>
+            </div>
+            <p class="text-sm text-stone-700 mb-3"><strong>Nameservers stay at the registrar.</strong> DNS authority does not move.</p>
+            <ul class="text-sm text-stone-700 space-y-1 list-disc pl-5 mb-3">
+              <li>Only A / CNAME records are added at the registrar, pointing to <code class="bg-stone-100 px-1 rounded text-xs">SLUG.pages.dev</code></li>
+              <li>Existing MX / SPF / DKIM / DMARC / verification records stay <strong>untouched</strong></li>
+              <li>Zero risk to email</li>
+              <li>CF Pages still provides SSL, global CDN, and DDoS protection</li>
+            </ul>
+            <div class="text-sm bg-white border border-stone-200 rounded p-3">
+              <p class="font-semibold text-stone-700 mb-1">Trade-off</p>
+              <p class="text-stone-600">No orange-cloud proxy on the apex &mdash; no CF WAF, page rules, or workers on the root domain.</p>
+            </div>
+          </div>
+
+          <!-- Pattern 2 -->
+          <div class="bg-amber-50 border-2 border-amber-600 rounded-lg p-5">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs font-bold bg-amber-600 text-white px-2 py-0.5 rounded">OPT-IN ONLY</span>
+              <h3 class="font-bold text-amber-900">Pattern 2 &mdash; Move DNS to Cloudflare</h3>
+            </div>
+            <p class="text-sm text-stone-700 mb-3"><strong>Nameservers change to <code class="bg-stone-100 px-1 rounded text-xs">alexandra/bart.ns.cloudflare.com</code>.</strong> CF becomes full DNS authority.</p>
+            <ul class="text-sm text-stone-700 space-y-1 list-disc pl-5 mb-3">
+              <li>Every existing record must be migrated into the new CF zone <strong>before</strong> nameservers switch</li>
+              <li>Enables orange-cloud proxy, WAF, page rules, workers on the apex</li>
+              <li>Requires explicit opt-in line in the site's <code class="bg-stone-100 px-1 rounded text-xs">CLAUDE.md</code> + Kevin's approval</li>
+              <li>Requires full pre-cutover DNS audit (Step 1d in the pipeline)</li>
+            </ul>
+            <div class="text-sm bg-white border border-stone-200 rounded p-3">
+              <p class="font-semibold text-stone-700 mb-1">Trade-off</p>
+              <p class="text-stone-600">High risk of breaking email if the pre-cutover audit is skipped. This broke 10btravelers.com and smgives.org on 2026-04-14.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">Quick comparison</h3>
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="bg-stone-100">
+                <th class="px-3 py-2 text-left border border-stone-200"></th>
+                <th class="px-3 py-2 text-left border border-stone-200">Pattern 1 &mdash; Point DNS</th>
+                <th class="px-3 py-2 text-left border border-stone-200">Pattern 2 &mdash; Move NS to CF</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="px-3 py-2 border border-stone-200 font-semibold">Risk to email</td><td class="px-3 py-2 border border-stone-200 text-green-700">None &mdash; DNS authority unchanged</td><td class="px-3 py-2 border border-stone-200 text-amber-700">High &mdash; every non-web record must be migrated first</td></tr>
+              <tr><td class="px-3 py-2 border border-stone-200 font-semibold">CF proxy on apex (orange cloud)</td><td class="px-3 py-2 border border-stone-200">No</td><td class="px-3 py-2 border border-stone-200">Yes</td></tr>
+              <tr><td class="px-3 py-2 border border-stone-200 font-semibold">CF WAF / bot protection / page rules on apex</td><td class="px-3 py-2 border border-stone-200">No</td><td class="px-3 py-2 border border-stone-200">Yes</td></tr>
+              <tr><td class="px-3 py-2 border border-stone-200 font-semibold">Management surface</td><td class="px-3 py-2 border border-stone-200">Registrar + Cloudflare Pages</td><td class="px-3 py-2 border border-stone-200">Cloudflare only</td></tr>
+              <tr><td class="px-3 py-2 border border-stone-200 font-semibold">DNS propagation time</td><td class="px-3 py-2 border border-stone-200">Minutes (A/CNAME only)</td><td class="px-3 py-2 border border-stone-200">Up to 48h (NS change)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="font-bold text-stone-800 mb-2">Decision procedure</h3>
+        <ol class="text-sm text-stone-700 space-y-2 list-decimal pl-5 mb-4">
+          <li><strong>Check for email first:</strong> <code class="bg-stone-100 px-1 rounded text-xs">dig MX DOMAIN @1.1.1.1</code> &mdash; if an MX record exists, this domain hosts email and Pattern 1 is the safe default.</li>
+          <li><strong>Default to Pattern 1</strong> unless <em>both</em> of these are true: the site's <code class="bg-stone-100 px-1 rounded text-xs">CLAUDE.md</code> has an explicit opt-in line (e.g., <code class="bg-stone-100 px-1 rounded text-xs">DNS Pattern: 2 (CF nameservers &mdash; WAF required on apex)</code>) AND Kevin has approved Pattern 2 for this domain in chat.</li>
+          <li><strong>Record the chosen pattern</strong> in the site's <code class="bg-stone-100 px-1 rounded text-xs">CLAUDE.md</code> before touching any DNS.</li>
+          <li><strong>For Pattern 2:</strong> run the pre-cutover DNS audit. Copy every MX / SPF / DKIM / DMARC / verification record into the new CF zone <em>before</em> changing nameservers at the registrar.</li>
+          <li><strong>Within 5 min of any NS change:</strong> verify MX resolves via <code class="bg-stone-100 px-1 rounded text-xs">dig MX DOMAIN @1.1.1.1</code> and <code class="bg-stone-100 px-1 rounded text-xs">@8.8.8.8</code>. Empty result on a mail-hosting domain = stop and restore immediately.</li>
+        </ol>
+
+        <div class="bg-rose-50 border border-rose-200 rounded p-4 text-sm text-stone-700">
+          <p class="font-semibold text-rose-800 mb-1">Why this section exists</p>
+          <p>On 2026-04-14, 10btravelers.com and smgives.org both lost email delivery after a domain cutover. Both had been connected via the Cloudflare Pages &quot;Custom Domain&quot; flow, which creates a bare CF zone containing only the Pages CNAME. When nameservers switched, the MX records at the old registrar stopped being queried and email silently dropped. Restoring MX records to the new CF zone fixed it. This protocol exists so no site has to learn that lesson again.</p>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════════════════
+           6. STITCH — AI DESIGN TOOL
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Stitch — AI Design Tool</h2>
@@ -508,7 +590,7 @@ SMP Team</div>
       </section>
 
       <!-- ════════════════════════════════════════════════════
-           5b. PLAYWRIGHT MCP
+           6b. PLAYWRIGHT MCP
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Playwright — Browser Verification Tool</h2>
@@ -574,7 +656,7 @@ SMP Team</div>
       </section>
 
       <!-- ════════════════════════════════════════════════════
-           6. MEDIA
+           7. MEDIA
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Media</h2>
@@ -599,7 +681,7 @@ SMP Team</div>
       </section>
 
       <!-- ════════════════════════════════════════════════════
-           7. FORMS & GHL
+           8. FORMS & GHL
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-2">Forms &amp; GoHighLevel</h2>
@@ -627,7 +709,7 @@ SMP Team</div>
       </section>
 
       <!-- ════════════════════════════════════════════════════
-           8. DEVELOPMENT INFRASTRUCTURE
+           9. DEVELOPMENT INFRASTRUCTURE
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Development Infrastructure</h2>
@@ -646,7 +728,7 @@ SMP Team</div>
       </section>
 
       <!-- ════════════════════════════════════════════════════
-           9. DEPLOYMENT WORKFLOW
+           10. DEPLOYMENT WORKFLOW
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Deployment Workflow</h2>
@@ -668,7 +750,7 @@ SMP Team</div>
       </section>
 
       <!-- ════════════════════════════════════════════════════
-           10. BEST PRACTICES
+           11. BEST PRACTICES
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Best Practices</h2>
@@ -684,7 +766,7 @@ SMP Team</div>
       </section>
 
       <!-- ════════════════════════════════════════════════════
-           11. RULES
+           12. RULES
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Rules</h2>
@@ -709,7 +791,7 @@ SMP Team</div>
       </section>
 
       <!-- ════════════════════════════════════════════════════
-           12. NEED HELP?
+           13. NEED HELP?
       ════════════════════════════════════════════════════ -->
       <section class="bg-white border border-stone-200 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Need Help?</h2>
