@@ -1,8 +1,8 @@
 ---
-import "../styles/globals.css";
-
 // If user is already authed, go straight to dashboard.
 // Otherwise render login content directly (no redirect hop) — saves ~758ms on mobile PSI.
+// globals.css intentionally NOT imported — this page uses only inlined CSS below
+// to keep the login HTML self-contained (no render-blocking external CSS).
 const auth = Astro.cookies.get("portal_auth");
 if (auth && auth.value === "pin_030126") {
 	return Astro.redirect("/dashboard");
@@ -19,8 +19,9 @@ if (auth && auth.value === "pin_030126") {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
     <link rel="preload" as="image" href="https://cdn.sanity.io/images/pmowd8uo/production/dc16e3c604bd5d52de7647af46836ff418c22898-6575x656.png?w=440&h=88&fit=max&auto=format" fetchpriority="high" />
-    <link rel="stylesheet" href="https://spiritmediapublishing.com/spirit-media-tokens.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+    <!-- Async fonts: load without blocking render. font-display: swap handles the FOUT gracefully. -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" /></noscript>
   </head>
   <body>
     <div class="login-bg">
