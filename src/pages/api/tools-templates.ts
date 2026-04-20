@@ -12,16 +12,9 @@ export const GET: APIRoute = async () => {
 		return new Response(JSON.stringify(data), {
 			headers: { "Content-Type": "application/json" },
 		});
-	} catch (e: any) {
+	} catch (e) {
 		return new Response(
-			JSON.stringify({
-				error: "Could not reach Tools API",
-				apiUrl,
-				secretSet: !!secret,
-				errMessage: e?.message || String(e),
-				errName: e?.name,
-				errCause: e?.cause?.message || null,
-			}),
+			JSON.stringify({ error: "Could not reach Tools API" }),
 			{
 				status: 502,
 				headers: { "Content-Type": "application/json" },
