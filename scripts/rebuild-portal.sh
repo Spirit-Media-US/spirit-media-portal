@@ -7,6 +7,8 @@
 
 set -e
 
+export PATH="/home/deploy/.nvm/versions/node/v22.22.1/bin:$PATH"
+
 REPO="/srv/sites/spirit-media-portal"
 LOG="/tmp/portal-rebuild-$(date +%Y%m%d-%H%M%S).log"
 
