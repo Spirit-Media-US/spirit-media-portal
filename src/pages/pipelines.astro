@@ -149,15 +149,8 @@ import PortalLayout from "../layouts/PortalLayout.astro";
       <!-- Manuscript Review -->
       <div class="bg-white rounded-2xl border border-indigo-200 p-8 mb-6 shadow-sm">
         <h2 class="text-2xl font-bold mb-1">Manuscript Review Generator</h2>
-        <p class="text-stone-500 text-sm mb-6">Generate a review document from a template. Paste a Google Drive link — Google Doc, Word, or PDF all work.</p>
+        <p class="text-stone-500 text-sm mb-6">Paste a Google Drive link — Google Doc, Word, or PDF all work. Generates both the client review and internal brief.</p>
         <form id="generate-form" class="space-y-6">
-          <div>
-            <label for="template-select" class="block text-sm font-semibold text-stone-700 mb-2">Template</label>
-            <select id="template-select" name="template_id" required
-              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 focus:outline-none focus:ring-2 focus:ring-blue-300 bg-white">
-              <option value="">Loading templates…</option>
-            </select>
-          </div>
           <div>
             <label for="file-url" class="block text-sm font-semibold text-stone-700 mb-2">Manuscript Link</label>
             <input type="url" id="file-url" name="file_url" required placeholder="https://docs.google.com/document/d/…"
@@ -410,15 +403,6 @@ if (!(window as any).__portalInitialized) {
   // See Shared Tools section for command reference.
 
   // ── Manuscript Review ─────────────────────────────────────────
-  async function loadTemplates() {
-    const select = document.getElementById('template-select') as HTMLSelectElement;
-    try {
-      const resp = await fetch('/api/tools-templates');
-      const templates = await resp.json();
-      select.innerHTML = templates.map((t: any) => `<option value="${t.id}">${t.name}${t.description ? ` — ${t.description}` : ''}</option>`).join('');
-    } catch { select.innerHTML = '<option value="">Could not load templates</option>'; }
-  }
-
   document.getElementById('generate-form')!.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -434,7 +418,7 @@ if (!(window as any).__portalInitialized) {
     const interval = setInterval(() => { msgIdx = Math.min(msgIdx + 1, messages.length - 1); statusText.textContent = messages[msgIdx]; }, 15000);
     try {
       const fd = new FormData(form);
-      const payload = { template_id: fd.get('template_id'), file_url: fd.get('file_url') };
+      const payload = { template_id: 'manuscript-review', file_url: fd.get('file_url') };
       // Fire both reports in parallel
       const [reviewResp, evalResp] = await Promise.all([
         fetch('/api/tools-generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }),
@@ -740,7 +724,6 @@ if (!(window as any).__portalInitialized) {
 
   // Init
   // loadProjects removed
-  loadTemplates();
   loadHistory();
   // loadSiteUpdateSites removed — site updates now run via Claude Code commands
 }
