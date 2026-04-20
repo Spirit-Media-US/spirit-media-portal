@@ -1,13 +1,13 @@
 {
-  "builtAt": "2026-04-20T14:52:21.237Z",
+  "builtAt": "2026-04-20T21:50:46.684Z",
   "stale": false,
   "summary": {
     "total": 231,
-    "opened": 59,
-    "clicked": 3,
+    "opened": 60,
+    "clicked": 4,
     "replied": 0,
-    "openRate": "25.5%",
-    "clickRate": "1.3%"
+    "openRate": "26.0%",
+    "clickRate": "1.7%"
   },
   "prospects": [
     {
@@ -257,8 +257,8 @@
       "sentAt": "2026-04-19T12:01:05.537Z",
       "openCount": 3,
       "lastOpen": "2026-04-20T14:28:39.594818+00:00",
-      "clickCount": 0,
-      "lastClick": null,
+      "clickCount": 1,
+      "lastClick": "2026-04-20T17:15:04.494689+00:00",
       "followUpsSent": 1,
       "lastFollowUp": "2026-04-20T14:05:13.034Z",
       "replied": false,
@@ -374,15 +374,15 @@
       "url": "http://gfsanford.com/",
       "proposalUrl": "https://docs.google.com/document/d/1Rtf7PWUcak21J0bBKqWAHikXJxZBrh6OXU_IJWVLK24/edit",
       "sentAt": "2026-04-18T17:00:05.329Z",
-      "openCount": 0,
-      "lastOpen": null,
+      "openCount": 1,
+      "lastOpen": "2026-04-20T17:46:37.779381+00:00",
       "clickCount": 0,
       "lastClick": null,
       "followUpsSent": 1,
       "lastFollowUp": "2026-04-20T14:05:13.034Z",
       "replied": false,
       "status": "sent",
-      "realOpen": false
+      "realOpen": true
     },
     {
       "prospectId": "950f0ecf72",
@@ -3247,8 +3247,8 @@
       "url": "https://firstlovecm.org/contact-us/",
       "proposalUrl": "https://docs.google.com/document/d/1HVde6ZnJKSK1xaNQrUVwZfqjW3cWGSsLrWzIYlEdHMw/edit",
       "sentAt": "2026-04-10T12:00:00.000Z",
-      "openCount": 1,
-      "lastOpen": "2026-04-17T12:19:59.304800+00:00",
+      "openCount": 2,
+      "lastOpen": "2026-04-20T19:42:48.057588+00:00",
       "clickCount": 0,
       "lastClick": null,
       "followUpsSent": 4,
