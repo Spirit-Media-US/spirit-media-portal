@@ -1,8 +1,8 @@
 import type { APIRoute } from "astro";
 
-export const GET: APIRoute = async ({ url }) => {
-	const apiUrl = import.meta.env.TOOLS_API_URL;
-	const secret = import.meta.env.TOOLS_API_SECRET;
+import { getToolsApi } from "../../lib/runtime-env";
+export const GET: APIRoute = async ({ url, locals }) => {
+	const { apiUrl, secret } = getToolsApi(locals);
 	const jobId = url.searchParams.get("job_id");
 
 	if (!jobId) {

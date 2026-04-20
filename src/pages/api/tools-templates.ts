@@ -1,8 +1,8 @@
 import type { APIRoute } from "astro";
 
-export const GET: APIRoute = async () => {
-	const apiUrl = import.meta.env.TOOLS_API_URL;
-	const secret = import.meta.env.TOOLS_API_SECRET;
+import { getToolsApi } from "../../lib/runtime-env";
+export const GET: APIRoute = async ({ locals }) => {
+	const { apiUrl, secret } = getToolsApi(locals);
 
 	try {
 		const resp = await fetch(`${apiUrl}/api/templates`, {
