@@ -1,11 +1,11 @@
 import type { APIRoute } from "astro";
 
+import { getToolsApi } from "../../lib/runtime-env";
 // GET /api/tools-site-update?sites=1  → list available sites
 // POST /api/tools-site-update         → start update job
 
-export const GET: APIRoute = async ({ url }) => {
-	const apiUrl = import.meta.env.TOOLS_API_URL;
-	const secret = import.meta.env.TOOLS_API_SECRET;
+export const GET: APIRoute = async ({ url, locals }) => {
+	const { apiUrl, secret } = getToolsApi(locals);
 
 	try {
 		const resp = await fetch(`${apiUrl}/api/site-update/sites`, {
@@ -27,9 +27,8 @@ export const GET: APIRoute = async ({ url }) => {
 	}
 };
 
-export const POST: APIRoute = async ({ request }) => {
-	const apiUrl = import.meta.env.TOOLS_API_URL;
-	const secret = import.meta.env.TOOLS_API_SECRET;
+export const POST: APIRoute = async ({ request, locals }) => {
+	const { apiUrl, secret } = getToolsApi(locals);
 
 	const body = await request.json();
 

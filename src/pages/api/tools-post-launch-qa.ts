@@ -1,8 +1,8 @@
 import type { APIRoute } from "astro";
 
-export const POST: APIRoute = async ({ request }) => {
-	const apiUrl = import.meta.env.TOOLS_API_URL;
-	const secret = import.meta.env.TOOLS_API_SECRET;
+import { getToolsApi } from "../../lib/runtime-env";
+export const POST: APIRoute = async ({ request, locals }) => {
+	const { apiUrl, secret } = getToolsApi(locals);
 	const body = await request.json();
 	try {
 		const resp = await fetch(`${apiUrl}/api/post-launch-qa`, {
@@ -29,9 +29,8 @@ export const POST: APIRoute = async ({ request }) => {
 	}
 };
 
-export const GET: APIRoute = async ({ url }) => {
-	const apiUrl = import.meta.env.TOOLS_API_URL;
-	const secret = import.meta.env.TOOLS_API_SECRET;
+export const GET: APIRoute = async ({ url, locals }) => {
+	const { apiUrl, secret } = getToolsApi(locals);
 	const jobId = url.searchParams.get("job_id");
 	try {
 		const resp = await fetch(`${apiUrl}/api/post-launch-qa/status/${jobId}`, {

@@ -1,14 +1,10 @@
 import type { APIRoute } from "astro";
 
-const apiUrl = () => import.meta.env.TOOLS_API_URL;
-const secret = () => import.meta.env.TOOLS_API_SECRET;
-const headers = () => ({
-	Authorization: `Bearer ${secret()}`,
-	"Content-Type": "application/json",
-});
+import { getToolsApi } from "../../lib/runtime-env";
 
 // GET: fetch latest challenge screenshot
-export const GET: APIRoute = async ({ url }) => {
+export const GET: APIRoute = async ({ url, locals }) => {
+	const { apiUrl, secret } = getToolsApi(locals);
 	const jobId = url.searchParams.get("job_id");
 	if (!jobId)
 		return new Response(JSON.stringify({ error: "job_id required" }), {
@@ -17,8 +13,13 @@ export const GET: APIRoute = async ({ url }) => {
 		});
 	try {
 		const resp = await fetch(
-			`${apiUrl()}/api/proposal/challenge/screenshot/${jobId}`,
-			{ headers: headers() },
+			`${apiUrl}/api/proposal/challenge/screenshot/${jobId}`,
+			{
+				headers: {
+					Authorization: `Bearer ${secret}`,
+					"Content-Type": "application/json",
+				},
+			},
 		);
 		const data = await resp.json();
 		return new Response(JSON.stringify(data), {
@@ -34,7 +35,8 @@ export const GET: APIRoute = async ({ url }) => {
 };
 
 // POST: send click coordinates, get updated screenshot
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
+	const { apiUrl, secret } = getToolsApi(locals);
 	const body = await request.json();
 	const jobId = body.job_id;
 	if (!jobId)
@@ -44,10 +46,13 @@ export const POST: APIRoute = async ({ request }) => {
 		});
 	try {
 		const resp = await fetch(
-			`${apiUrl()}/api/proposal/challenge/click/${jobId}`,
+			`${apiUrl}/api/proposal/challenge/click/${jobId}`,
 			{
 				method: "POST",
-				headers: headers(),
+				headers: {
+					Authorization: `Bearer ${secret}`,
+					"Content-Type": "application/json",
+				},
 				body: JSON.stringify({ x: body.x, y: body.y }),
 			},
 		);

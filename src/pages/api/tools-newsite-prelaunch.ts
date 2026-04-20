@@ -1,8 +1,8 @@
 import type { APIRoute } from "astro";
 
-export const POST: APIRoute = async ({ request }) => {
-	const apiUrl = import.meta.env.TOOLS_API_URL;
-	const secret = import.meta.env.TOOLS_API_SECRET;
+import { getToolsApi } from "../../lib/runtime-env";
+export const POST: APIRoute = async ({ request, locals }) => {
+	const { apiUrl, secret } = getToolsApi(locals);
 
 	const body = await request.json();
 
