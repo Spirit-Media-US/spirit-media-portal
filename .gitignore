@@ -19,3 +19,9 @@ node_modules/
 *.pdf
 *.bak
 .mcp.json
+
+# Playwright MCP session logs
+.playwright-mcp/
+
+# Per-machine Claude Code settings
+.claude/settings.local.json
