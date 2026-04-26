@@ -85,7 +85,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <div class="flex items-start justify-between">
               <div>
                 <p class="font-bold text-stone-800 text-sm">Pre-Launch QA</p>
-                <p class="text-sm text-stone-500 mt-1">8 code scans + build gate. Generates a Google Doc report. Use at Phase 5 (The Gate) and Phase 7 (QA).</p>
+                <p class="text-sm text-stone-500 mt-1">9 code scans + build gate (includes the external image URL scan). Generates a Google Doc report. Use at Phase 5 (The Gate) and Phase 7 (QA).</p>
               </div>
               <a href="https://drive.google.com/drive/folders/1LiDlC_0SddKGXBpgAqlydUVWeLGdLZ2R?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-violet-700 hover:underline shrink-0 ml-4">Drive &rarr;</a>
             </div>
@@ -167,7 +167,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               <span class="text-xs font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full">AUTOMATED</span>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Creates GitHub repo, Cloudflare Pages project, Sanity project. Clones to Bethel. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, .gitignore, dev branch. Adds the site card to the <a href="/dashboard" class="text-rose-700 hover:underline font-semibold">Dashboard</a>.</p>
+              <p><strong>Claude does:</strong> Creates GitHub repo (cloned from <code class="bg-stone-100 px-1 rounded">spirit-media-template</code> — already ships the 8 perf-gate traits), Cloudflare Pages project, Sanity project. Clones to Bethel. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, .gitignore, dev branch. Applies the SMP Cloudflare zone standard: <code class="bg-stone-100 px-1 rounded">mirage=off</code>, <code class="bg-stone-100 px-1 rounded">0rtt=on</code>, <code class="bg-stone-100 px-1 rounded">early_hints=on</code>, bot management with AI crawler blocking + <code class="bg-stone-100 px-1 rounded">is_robots_txt_managed=false</code>. Adds the site card to the <a href="/dashboard" class="text-rose-700 hover:underline font-semibold">Dashboard</a>.</p>
               <p><strong>You check:</strong> Verify GitHub, Cloudflare Pages, and Sanity links exist. The site card appears on the Dashboard with <strong>Dev</strong> and <strong>Main</strong> preview buttons — use these throughout the build to preview your work.</p>
               <p><strong>Advances automatically</strong> when infrastructure is created.</p>
             </div>
@@ -179,7 +179,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               <p class="font-bold text-stone-800">Content + CSS Extraction</p>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Uses Playwright to crawl the original site at desktop (1280px) and mobile (375px). Extracts all content, computed CSS (colors, fonts, sizes, spacing), navigation structure, and catalogs all images.</p>
+              <p><strong>Claude does:</strong> Uses Playwright to crawl the original site at desktop (1280px) and mobile (375px). Extracts all content, computed CSS (colors, fonts, sizes, spacing), navigation structure, and catalogs all images. Also captures the original site's LCP element + hero image natural dimensions — needed so the new build can ship with explicit <code class="bg-stone-100 px-1 rounded">width=</code>/<code class="bg-stone-100 px-1 rounded">height=</code> on the hero (Trait 8) and to know whether the §6 mobile text-LCP rescue applies.</p>
               <p><strong>You check:</strong> Verify <code class="bg-stone-100 px-1 rounded">content/design-tokens.md</code> has real values. Page count in <code class="bg-stone-100 px-1 rounded">pages/</code> matches <code class="bg-stone-100 px-1 rounded">site-inventory.md</code>.</p>
               <p><strong>Say "continue"</strong> when verified.</p>
             </div>
@@ -192,7 +192,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full">Stitch MCP</span>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Creates a Stitch project and design system from extracted CSS tokens. Generates screens for every page. Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens BEFORE building pages. Builds all Astro pages using CSS variables only.</p>
+              <p><strong>Claude does:</strong> Creates a Stitch project and design system from extracted CSS tokens. Generates screens for every page. Self-hosts all fonts from R2 via <code class="bg-stone-100 px-1 rounded">gfonts-to-r2.mjs</code> (never <code class="bg-stone-100 px-1 rounded">fonts.googleapis.com</code>) with <code class="bg-stone-100 px-1 rounded">font-display: optional</code>. Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens BEFORE building pages. Builds Astro pages using CSS variables only and ports each page INTO the template's hero skeleton — the build ships with all 8 perf-gate traits in place from day one (preload + <code class="bg-stone-100 px-1 rounded">fetchpriority=high</code> on the hero, mobile-resized R2/Sanity WebP, explicit <code class="bg-stone-100 px-1 rounded">width=</code>/<code class="bg-stone-100 px-1 rounded">height=</code>, no animations on the first <code class="bg-stone-100 px-1 rounded">&lt;section&gt;</code>, deferred third-party JS, <code class="bg-stone-100 px-1 rounded">inlineStylesheets:'auto'</code> + async-css postbuild). Faithfully clones the original's design — does not import the original's broken patterns.</p>
               <p><strong>You check:</strong> Compare dev preview against the original site. Colors, fonts, spacing, navigation, mobile.</p>
               <p><strong>Say "continue"</strong> when the site matches the original.</p>
             </div>
@@ -204,9 +204,10 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               <p class="font-bold text-stone-800">Wire Sanity CMS</p>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Uploads images to Sanity. Defines schemas. Migrates content. Wires Astro pages to fetch from Sanity. Deploys schema. If the site needs a blog, say <code class="bg-stone-100 px-1 rounded">Use our blog protocol</code>.</p>
-              <p><strong>You check:</strong> Images loading from Sanity CDN? Schemas and docs look right in Studio? Edit a doc — does the change appear?</p>
-              <p><strong>Say "continue"</strong> when CMS is wired and working.</p>
+              <p><strong>Claude does:</strong> Uploads images to Sanity. Defines schemas. Migrates content. Wires Astro pages to fetch from Sanity. Deploys schema. Configures the Sanity → CF Pages auto-rebuild webhook (Publish in Studio → live site rebuilds in &lt;30s). If the site needs a blog, say <code class="bg-stone-100 px-1 rounded">Use our blog protocol</code>.</p>
+              <p class="bg-rose-50 border border-rose-200 rounded p-2"><strong>Phase 4 perf gate:</strong> before advancing, <code class="bg-stone-100 px-1 rounded">perf-traits-audit.sh --summary &lt;slug&gt;</code> must return 8/8. Phase 4 cannot complete with a missing trait — the cost of forcing a hero rebuild in Phase 7 was the original reason 100 Club was so painful on the legacy backlog.</p>
+              <p><strong>You check:</strong> Images loading from Sanity CDN? Schemas and docs look right in Studio? Edit a doc — does the change appear after rebuild? <code class="bg-stone-100 px-1 rounded">perf-traits-audit.sh</code> shows 8/8?</p>
+              <p><strong>Say "continue"</strong> when CMS is wired and the audit passes.</p>
             </div>
           </div>
 
@@ -218,7 +219,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             </div>
             <p class="text-rose-700 text-sm font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Runs Migration Fidelity checklist. Generates Transformation Layer Report (Google Doc) with Part One (delivered), Part Two (critical fixes), Part Three (improvements). Implements all critical fixes. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> to generate the 8-scan report.</p>
+              <p><strong>Claude does:</strong> Runs Migration Fidelity checklist. Generates Transformation Layer Report (Google Doc) with Part One (delivered), Part Two (critical fixes), Part Three (improvements). Implements all critical fixes. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> to generate the 9-scan report (the 9th scan blocks the build if any external CDN image URL remains).</p>
               <p><strong>You check:</strong> Review the report. Preview the site — are critical fixes resolved?</p>
               <p><strong>Say "continue"</strong> when all criticals are fixed.</p>
             </div>
@@ -244,8 +245,8 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               <span class="text-xs font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full">AUTOMATED + MANUAL</span>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Lighthouse audit, cross-browser testing (Playwright), form testing, console errors, mobile responsiveness. Fixes everything found. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> — all 8 scans must pass.</p>
-              <p><strong>You check:</strong> Lighthouse scores. Pre-Launch QA report is clean.</p>
+              <p><strong>Claude does:</strong> <em>Verifies</em> the perf bar (the 8 traits were already enforced at Phase 4) — runs <code class="bg-stone-100 px-1 rounded">perf-traits-audit.sh --summary &lt;slug&gt;</code> and <code class="bg-stone-100 px-1 rounded">psi-gate.sh https://dev.&lt;slug&gt;.pages.dev</code> (target: mobile PSI ≥ 98, desktop ≥ 99). Cross-browser testing (Playwright), form testing, console errors, mobile responsiveness. If any trait regressed during Phase 6 polish, fixes the specific regression — does not rebuild the hero. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> — all 9 scans must pass.</p>
+              <p><strong>You check:</strong> PSI mobile ≥ 98, desktop ≥ 99. Pre-Launch QA report is clean.</p>
               <p><strong>Say "continue"</strong> when all checks pass.</p>
             </div>
           </div>
@@ -340,7 +341,7 @@ SMP Team</div>
               <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">AUTOMATED</span>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Creates GitHub repo, Cloudflare Pages project, Sanity project. Sets up Astro 5 + Tailwind v4 scaffold, CLAUDE.md, dev branch. Adds the site card to the <a href="/dashboard" class="text-blue-700 hover:underline font-semibold">Dashboard</a>.</p>
+              <p><strong>Claude does:</strong> Creates GitHub repo from <code class="bg-stone-100 px-1 rounded">spirit-media-template</code> — the template ships with all 8 perf-gate traits already wired in (hero preload + <code class="bg-stone-100 px-1 rounded">fetchpriority=high</code>, mobile-resized srcset pattern, deferred third-party JS skeleton, <code class="bg-stone-100 px-1 rounded">inlineStylesheets:'auto'</code> + async-css postbuild, <code class="bg-stone-100 px-1 rounded">_headers</code> with CSP/security/Early Hints). Creates Cloudflare Pages project, Sanity project. Applies the SMP Cloudflare zone standard: <code class="bg-stone-100 px-1 rounded">mirage=off</code>, <code class="bg-stone-100 px-1 rounded">0rtt=on</code>, <code class="bg-stone-100 px-1 rounded">early_hints=on</code>, bot management with AI crawler blocking + <code class="bg-stone-100 px-1 rounded">is_robots_txt_managed=false</code>. Sets up CLAUDE.md, dev branch. Adds the site card to the <a href="/dashboard" class="text-blue-700 hover:underline font-semibold">Dashboard</a>.</p>
               <p><strong>You check:</strong> The site card appears on the Dashboard with <strong>Dev</strong> (Bethel dev server) and <strong>Main</strong> (production) preview buttons — use these throughout the build to preview your work without using build credits.</p>
               <p><strong>Advances automatically.</strong></p>
             </div>
@@ -365,9 +366,10 @@ SMP Team</div>
               <p class="font-bold text-stone-800">Build Pages + Sanity</p>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Loads real fonts. Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens. Builds every page matching Stitch designs. Wires Sanity CMS: schemas, images, content, webhook. If the site needs a blog, say <code class="bg-stone-100 px-1 rounded">Use our blog protocol</code>.</p>
-              <p><strong>You check:</strong> Dev preview looks right? Edit a doc in Sanity — change appears? Build succeeds?</p>
-              <p><strong>Say "continue"</strong> when the site works.</p>
+              <p><strong>Claude does:</strong> Self-hosts fonts from R2 via <code class="bg-stone-100 px-1 rounded">gfonts-to-r2.mjs</code> (never <code class="bg-stone-100 px-1 rounded">fonts.googleapis.com</code>) with <code class="bg-stone-100 px-1 rounded">font-display: optional</code>. Writes <code class="bg-stone-100 px-1 rounded">global.css</code> from design tokens. Builds every page <em>into</em> the template's hero skeleton — keeping the preload + <code class="bg-stone-100 px-1 rounded">fetchpriority=high</code>, srcset, explicit <code class="bg-stone-100 px-1 rounded">width=</code>/<code class="bg-stone-100 px-1 rounded">height=</code>, and no-animation-on-first-section pattern intact. Wires Sanity CMS: schemas, images, content, auto-rebuild webhook. If the site needs a blog, say <code class="bg-stone-100 px-1 rounded">Use our blog protocol</code>.</p>
+              <p class="bg-blue-50 border border-blue-200 rounded p-2"><strong>Phase 4 perf gate:</strong> before advancing, <code class="bg-stone-100 px-1 rounded">perf-traits-audit.sh --summary &lt;slug&gt;</code> must return 8/8. Phase 7 verifies the bar — Phase 4 enforces it.</p>
+              <p><strong>You check:</strong> Dev preview looks right? Edit a doc in Sanity — change appears after rebuild? Build succeeds? Audit shows 8/8?</p>
+              <p><strong>Say "continue"</strong> when the site works and the audit passes.</p>
             </div>
           </div>
 
@@ -379,8 +381,8 @@ SMP Team</div>
             </div>
             <p class="text-blue-700 text-sm font-semibold mb-3 ml-10">Nothing past Phase 5 until all critical fixes are resolved.</p>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Generates Transformation Layer Report (Google Doc). Implements all critical fixes. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> to generate the 8-scan report.</p>
-              <p><strong>You check:</strong> All 8 scans pass after fixes.</p>
+              <p><strong>Claude does:</strong> Generates Transformation Layer Report (Google Doc). Implements all critical fixes. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> to generate the 9-scan report (the 9th scan blocks the build if any external CDN image URL remains).</p>
+              <p><strong>You check:</strong> All 9 scans pass after fixes.</p>
               <p><strong>Say "continue"</strong> when all criticals are fixed.</p>
             </div>
           </div>
@@ -404,8 +406,8 @@ SMP Team</div>
               <p class="font-bold text-stone-800">QA</p>
             </div>
             <div class="ml-10 space-y-2 text-sm text-stone-600">
-              <p><strong>Claude does:</strong> Lighthouse, cross-browser (Playwright), form testing, console errors, mobile responsiveness. Fixes everything. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> — all 8 scans must pass.</p>
-              <p><strong>You check:</strong> Lighthouse scores. Pre-Launch QA report is clean.</p>
+              <p><strong>Claude does:</strong> <em>Verifies</em> the perf bar (the 8 traits were already enforced at Phase 4) — runs <code class="bg-stone-100 px-1 rounded">perf-traits-audit.sh --summary &lt;slug&gt;</code> and <code class="bg-stone-100 px-1 rounded">psi-gate.sh https://dev.&lt;slug&gt;.pages.dev</code> (target: mobile PSI ≥ 98, desktop ≥ 99). Cross-browser (Playwright), form testing, console errors, mobile responsiveness. If any trait regressed during Phase 6 polish, fixes the specific regression — does not rebuild the hero. Say <code class="bg-stone-100 px-1 rounded">Run Pre-Launch QA</code> — all 9 scans must pass.</p>
+              <p><strong>You check:</strong> PSI mobile ≥ 98, desktop ≥ 99. Pre-Launch QA report is clean.</p>
               <p><strong>Say "continue"</strong> when all checks pass.</p>
             </div>
           </div>

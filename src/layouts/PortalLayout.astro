@@ -1,5 +1,6 @@
 ---
 import "../styles/globals.css";
+import HundredClubBadge from "../components/HundredClubBadge.astro";
 import MailtoLink from "../components/MailtoLink.astro";
 
 interface Props {
@@ -63,7 +64,7 @@ const { title, mainBg } = Astro.props;
         </header>
         <slot />
         <footer class="portal-footer">
-          <p>Spirit Media Publishing &copy; 2026 | <MailtoLink email="hello@spiritmediapublishing.com" /> | Powered by <a href="https://spiritmediapublishing.com" target="_blank" rel="noopener noreferrer">Spirit Media Publishing</a></p>
+          <p>Spirit Media Publishing &copy; 2026 | <MailtoLink email="hello@spiritmediapublishing.com" /> | Powered by <a href="https://spiritmediapublishing.com" target="_blank" rel="noopener noreferrer">Spirit Media Publishing</a> <HundredClubBadge /></p>
         </footer>
       </main>
 
