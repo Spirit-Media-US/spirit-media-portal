@@ -192,8 +192,16 @@ import PortalLayout from "../layouts/PortalLayout.astro";
       <!-- Blog Post Publisher -->
       <div class="bg-white rounded-2xl border border-emerald-200 p-8 mb-6 shadow-sm">
         <h2 class="text-2xl font-bold mb-1">Publish Blog Post</h2>
-        <p class="text-stone-500 text-sm mb-6">Paste your content — Claude extracts all fields and publishes directly to Sanity.</p>
+        <p class="text-stone-500 text-sm mb-6">Pick a site, paste your content — Claude extracts all fields and saves to Sanity as a draft for review.</p>
         <form id="blog-form" class="space-y-5">
+          <div>
+            <label for="blog-site" class="block text-sm font-semibold text-stone-700 mb-2">Site</label>
+            <select id="blog-site" name="site" required
+              class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 focus:outline-none focus:ring-2 focus:ring-emerald-300 bg-white">
+              <option value="" disabled>Loading sites…</option>
+            </select>
+            <p class="text-xs text-stone-400 mt-1">The post will land as a Sanity draft on the selected site. You publish from Sanity Studio.</p>
+          </div>
           <div>
             <label for="blog-content" class="block text-sm font-semibold text-stone-700 mb-2">Blog Content</label>
             <textarea id="blog-content" name="content" required rows="14" placeholder="Paste everything here — title, body, SEO title, meta description, whatever you have. Claude will sort it out."
@@ -201,13 +209,13 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
           <div>
             <label for="hero-image-url" class="block text-sm font-semibold text-stone-700 mb-2">Feature Image URL <span class="text-stone-400 font-normal">(optional)</span></label>
-            <input type="url" id="hero-image-url" name="hero_image_url" placeholder="https://cdn.sanity.io/images/pmowd8uo/production/…"
+            <input type="url" id="hero-image-url" name="hero_image_url" placeholder="https://cdn.sanity.io/images/{project}/production/…"
               class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-300" />
-            <p class="text-xs text-stone-400 mt-1">Upload in Sanity Studio → copy the CDN URL → paste here.</p>
+            <p class="text-xs text-stone-400 mt-1">Upload in the site's Sanity Studio → copy the CDN URL → paste here. Must be from the same site's Sanity project.</p>
           </div>
           <button type="submit" id="blog-submit-btn"
             class="w-full bg-green-200 hover:bg-green-300 text-green-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Publish to Sanity
+            Save Draft to Sanity
           </button>
         </form>
         <div id="blog-status" class="hidden mt-6">
@@ -216,9 +224,11 @@ import PortalLayout from "../layouts/PortalLayout.astro";
             <span id="blog-status-text">Parsing content…</span>
           </div>
           <div id="blog-result" class="hidden p-5 bg-green-50 border border-green-200 rounded-lg space-y-2">
-            <p class="text-sm font-semibold text-green-800">Published!</p>
-            <a id="blog-live-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-sm text-green-700 underline font-medium break-all"></a>
-            <a id="blog-studio-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-xs text-green-600 underline break-all"></a>
+            <p class="text-sm font-semibold text-green-800">Draft saved!</p>
+            <p class="text-xs text-green-700">Open in Sanity Studio to review, then click Publish when ready:</p>
+            <a id="blog-studio-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-sm text-green-700 underline font-medium break-all"></a>
+            <p class="text-xs text-green-600 mt-2">Live URL once published:</p>
+            <a id="blog-live-url" href="#" target="_blank" rel="noopener noreferrer" class="block text-xs text-green-600 underline break-all"></a>
           </div>
           <div id="blog-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
             <p class="text-sm font-semibold text-red-800 mb-1">Error</p>
@@ -457,6 +467,24 @@ if (!(window as any).__portalInitialized) {
   });
 
   // ── Blog Post Publisher ───────────────────────────────────────
+  // Populate site dropdown from tools-api on page load
+  (async () => {
+    try {
+      const resp = await fetch('/api/blog-sites');
+      const data = await resp.json();
+      const sel = document.getElementById('blog-site') as HTMLSelectElement;
+      sel.innerHTML = '<option value="" disabled selected>Choose a site…</option>'
+        + (data.sites || []).map((s: any) =>
+            `<option value="${s.slug}">${s.label}</option>`).join('');
+      // Default to FHB if available (current priority)
+      if ((data.sites || []).some((s: any) => s.slug === 'fhb')) {
+        sel.value = 'fhb';
+      }
+    } catch (err) {
+      console.error('Failed to load blog sites:', err);
+    }
+  })();
+
   document.getElementById('blog-form')!.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -465,14 +493,14 @@ if (!(window as any).__portalInitialized) {
     document.getElementById('blog-status')!.classList.remove('hidden');
     document.getElementById('blog-spinner')!.classList.remove('hidden');
     ['blog-result','blog-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
-    const messages = ['Parsing content…', 'Extracting fields…', 'Publishing to Sanity…'];
+    const messages = ['Parsing content…', 'Extracting fields…', 'Saving draft to Sanity…'];
     let msgIdx = 0;
     const statusText = document.getElementById('blog-status-text')!;
     statusText.textContent = messages[0];
     const interval = setInterval(() => { msgIdx = Math.min(msgIdx + 1, messages.length - 1); statusText.textContent = messages[msgIdx]; }, 8000);
     try {
       const fd = new FormData(form);
-      const resp = await fetch('/api/blog-post', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: fd.get('content'), hero_image_url: fd.get('hero_image_url') || '' }) });
+      const resp = await fetch('/api/blog-post', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ site: fd.get('site'), content: fd.get('content'), hero_image_url: fd.get('hero_image_url') || '' }) });
       clearInterval(interval);
       const result = await resp.json();
       if (result.url) {
