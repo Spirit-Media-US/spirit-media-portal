@@ -191,8 +191,8 @@ import PortalLayout from "../layouts/PortalLayout.astro";
 
       <!-- Blog Post Publisher -->
       <div class="bg-white rounded-2xl border border-emerald-200 p-8 mb-6 shadow-sm">
-        <h2 class="text-2xl font-bold mb-1">Publish Blog Post</h2>
-        <p class="text-stone-500 text-sm mb-6">Pick a site, paste your content — Claude extracts all fields and saves to Sanity as a draft for review.</p>
+        <h2 class="text-2xl font-bold mb-1">Compose Blog Post</h2>
+        <p class="text-stone-500 text-sm mb-6">Pick a site and paste any raw source — voice memo, notes, ideas, an article from elsewhere. Claude writes a polished post in your voice for that site's audience and saves it as a Sanity draft for your review.</p>
         <form id="blog-form" class="space-y-5">
           <div>
             <label for="blog-site" class="block text-sm font-semibold text-stone-700 mb-2">Site</label>
@@ -200,12 +200,13 @@ import PortalLayout from "../layouts/PortalLayout.astro";
               class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 focus:outline-none focus:ring-2 focus:ring-emerald-300 bg-white">
               <option value="" disabled>Loading sites…</option>
             </select>
-            <p class="text-xs text-stone-400 mt-1">The post will land as a Sanity draft on the selected site. You publish from Sanity Studio.</p>
+            <p class="text-xs text-stone-400 mt-1">The post lands as a Sanity draft on the selected site. You review and publish from Sanity Studio.</p>
           </div>
           <div>
-            <label for="blog-content" class="block text-sm font-semibold text-stone-700 mb-2">Blog Content</label>
-            <textarea id="blog-content" name="content" required rows="14" placeholder="Paste everything here — title, body, SEO title, meta description, whatever you have. Claude will sort it out."
+            <label for="blog-content" class="block text-sm font-semibold text-stone-700 mb-2">Source Material</label>
+            <textarea id="blog-content" name="content" required rows="14" placeholder="Paste anything — a voice memo transcript, rough notes, bullet points, an article you want to riff off, or a draft from elsewhere. The messier the better. Claude turns it into a polished post in your voice for this site's audience."
               class="w-full border border-stone-300 rounded-lg px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-300 font-mono text-sm resize-y"></textarea>
+            <p class="text-xs text-stone-400 mt-1">Composition takes ~30-60 seconds — Claude is writing 600-1200 words tailored to the site.</p>
           </div>
           <div>
             <label for="hero-image-url" class="block text-sm font-semibold text-stone-700 mb-2">Feature Image URL <span class="text-stone-400 font-normal">(optional)</span></label>
@@ -215,7 +216,7 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
           <button type="submit" id="blog-submit-btn"
             class="w-full bg-green-200 hover:bg-green-300 text-green-900 font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            Save Draft to Sanity
+            Compose &amp; Save Draft
           </button>
         </form>
         <div id="blog-status" class="hidden mt-6">
@@ -493,7 +494,7 @@ if (!(window as any).__portalInitialized) {
     document.getElementById('blog-status')!.classList.remove('hidden');
     document.getElementById('blog-spinner')!.classList.remove('hidden');
     ['blog-result','blog-error'].forEach(id => document.getElementById(id)!.classList.add('hidden'));
-    const messages = ['Parsing content…', 'Extracting fields…', 'Saving draft to Sanity…'];
+    const messages = ['Reading source material…', 'Composing post in your voice…', 'Polishing SEO + tags…', 'Saving draft to Sanity…'];
     let msgIdx = 0;
     const statusText = document.getElementById('blog-status-text')!;
     statusText.textContent = messages[0];
