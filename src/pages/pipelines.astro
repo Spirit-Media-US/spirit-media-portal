@@ -179,6 +179,130 @@ import PortalLayout from "../layouts/PortalLayout.astro";
           </div>
         </div>
       </div>
+      <!-- Cover Generator -->
+      <div class="bg-white rounded-2xl border border-indigo-200 p-8 shadow-sm">
+        <h2 class="text-2xl font-bold mb-1">Cover Generator</h2>
+        <p class="text-stone-500 text-sm mb-6">Upload a finished front cover, fill in the back-cover content, get a print-ready KDP wrap PDF + preview. Per-book folder lives at <code class="bg-stone-100 px-1 rounded text-xs">/home/deploy/covers/&lt;slug&gt;</code>; refine with Claude on Bethel by slug after generation.</p>
+        <form id="cover-form" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">Title <span class="text-red-600">*</span></label>
+              <input type="text" name="title" required class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">Subtitle</label>
+              <input type="text" name="subtitle" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">Author <span class="text-red-600">*</span></label>
+              <input type="text" name="author_primary" required class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">Slug <span class="text-stone-400 font-normal">(auto from title)</span></label>
+              <input type="text" name="slug" placeholder="lowercase-with-hyphens" pattern="[a-z0-9][a-z0-9-]*" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-300" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-stone-700 mb-1">Top Headline (italic, above description) <span class="text-red-600">*</span></label>
+            <input type="text" name="back_headline_top" required class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-stone-700 mb-1">Book Description <span class="text-red-600">*</span></label>
+            <textarea name="book_description" required rows="5" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-stone-700 mb-1">Bottom Headline <span class="text-stone-400 font-normal">(optional, between description and bio)</span></label>
+            <input type="text" name="back_headline_bottom" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-stone-700 mb-1">Author Bio <span class="text-red-600">*</span></label>
+            <textarea name="author_bio" required rows="4" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-2">
+              <label class="block text-sm font-semibold text-stone-700 mb-1">BISAC <span class="text-red-600">*</span></label>
+              <input type="text" name="bisac" required placeholder="Christian Books & Bibles / Christian Fiction / Inspirational" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
+              <p class="text-xs text-stone-500 mt-1">Slash-separated; renders with bullet separators on the cover.</p>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">Price (USD) <span class="text-red-600">*</span></label>
+              <input type="number" name="price_usd" required step="0.01" min="0.99" max="99.99" placeholder="14.99" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">ISBN-13 <span class="text-red-600">*</span></label>
+              <input type="text" name="isbn" required placeholder="979-8-89307-263-1" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-300" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">Pages <span class="text-stone-400 font-normal">(for spine width)</span></label>
+              <input type="number" name="pages" min="24" max="828" placeholder="220" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">Paper</label>
+              <select name="paper_type" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                <option value="white">White (default)</option>
+                <option value="cream">Cream</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="border-t border-stone-200 pt-4 space-y-3">
+            <p class="text-sm font-semibold text-stone-700">Files</p>
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">Front Cover <span class="text-red-600">*</span></label>
+              <input type="file" name="front_cover" accept="image/png" required class="w-full text-sm text-stone-700 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:bg-indigo-100 file:text-indigo-800 file:text-sm file:font-semibold hover:file:bg-indigo-200" />
+              <p class="text-xs text-stone-500 mt-1">PNG at trim+bleed. Carries any sub-brand badge (Express Books etc.) baked in.</p>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">Author Headshot <span class="text-red-600">*</span></label>
+              <input type="file" name="headshot" accept="image/png,image/jpeg" required class="w-full text-sm text-stone-700 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:bg-indigo-100 file:text-indigo-800 file:text-sm file:font-semibold hover:file:bg-indigo-200" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-stone-700 mb-1">Back Painting Wrap <span class="text-stone-400 font-normal">(optional — wrap-width painting; falls back to front cover)</span></label>
+              <input type="file" name="back_painting_wrap" accept="image/png" class="w-full text-sm text-stone-700 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:bg-indigo-100 file:text-indigo-800 file:text-sm file:font-semibold hover:file:bg-indigo-200" />
+            </div>
+          </div>
+
+          <button type="submit" id="cover-btn"
+            class="w-full bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Generate Cover
+          </button>
+        </form>
+
+        <div id="cover-status" class="hidden mt-6">
+          <div id="cover-spinner" class="hidden flex items-center gap-3 text-stone-600 text-sm">
+            <svg class="animate-spin h-5 w-5 text-indigo-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+            <span id="cover-status-text">Building cover — 30-60s…</span>
+          </div>
+          <div id="cover-result" class="hidden p-5 bg-indigo-50 border border-indigo-200 rounded-xl space-y-3">
+            <p class="text-sm font-bold text-indigo-800">Cover ready!</p>
+            <p class="text-xs text-stone-600"><span class="font-semibold">Slug:</span> <code id="cover-result-slug" class="bg-white px-1.5 py-0.5 rounded font-mono"></code> &nbsp; <span class="font-semibold">Spine:</span> <span id="cover-result-spine"></span></p>
+            <img id="cover-result-preview" src="" alt="Cover preview" class="w-full rounded-lg border border-stone-300 shadow-sm" />
+            <div class="flex gap-3">
+              <a id="cover-result-pdf" href="#" download class="inline-flex items-center gap-2 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-2 px-4 rounded-lg text-sm transition-colors">
+                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                Download KDP PDF
+              </a>
+              <a id="cover-result-png" href="#" download class="inline-flex items-center gap-2 border border-indigo-300 text-indigo-800 font-semibold py-2 px-4 rounded-lg text-sm hover:bg-indigo-100 transition-colors">
+                Download Preview PNG
+              </a>
+            </div>
+            <p class="text-xs text-stone-500 pt-1">To refine: <code class="bg-stone-100 px-1 rounded">cd /home/deploy/covers/&lt;slug&gt; &amp;&amp; claude</code> on Bethel.</p>
+          </div>
+          <div id="cover-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p class="text-sm font-bold text-red-800 mb-1">Error</p>
+            <p id="cover-error-text" class="text-sm text-red-700 font-mono whitespace-pre-wrap"></p>
+          </div>
+        </div>
+      </div>
+
     </div><!-- end Publishing -->
 
     <!-- ══════════════════════════════════════════════════════════
@@ -755,5 +879,100 @@ if (!(window as any).__portalInitialized) {
   // loadProjects removed
   loadHistory();
   // loadSiteUpdateSites removed — site updates now run via Claude Code commands
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// COVER GENERATOR
+// ════════════════════════════════════════════════════════════════════════════
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve((reader.result as string).split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+const coverForm = document.getElementById('cover-form') as HTMLFormElement | null;
+if (coverForm) {
+  coverForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('cover-btn') as HTMLButtonElement;
+    const status = document.getElementById('cover-status')!;
+    const spinner = document.getElementById('cover-spinner')!;
+    const result = document.getElementById('cover-result')!;
+    const errorBox = document.getElementById('cover-error')!;
+
+    btn.disabled = true;
+    status.classList.remove('hidden');
+    spinner.classList.remove('hidden');
+    result.classList.add('hidden');
+    errorBox.classList.add('hidden');
+
+    const fd = new FormData(coverForm);
+
+    // Build payload with text fields
+    const payload: any = {};
+    for (const [key, value] of fd.entries()) {
+      if (value instanceof File) continue;
+      const v = (value as string).trim();
+      if (v) payload[key] = v;
+    }
+    if (payload.price_usd) payload.price_usd = parseFloat(payload.price_usd);
+    if (payload.pages) payload.pages = parseInt(payload.pages, 10);
+
+    // Encode files to base64
+    try {
+      const front = fd.get('front_cover') as File;
+      const headshot = fd.get('headshot') as File;
+      const wrap = fd.get('back_painting_wrap') as File;
+      payload.front_cover_b64 = await fileToBase64(front);
+      payload.headshot_b64 = await fileToBase64(headshot);
+      if (wrap && wrap.size > 0) {
+        payload.back_painting_wrap_b64 = await fileToBase64(wrap);
+      }
+    } catch (err: any) {
+      spinner.classList.add('hidden');
+      errorBox.classList.remove('hidden');
+      (document.getElementById('cover-error-text') as HTMLElement).textContent = `File read failed: ${err.message || err}`;
+      btn.disabled = false;
+      return;
+    }
+
+    try {
+      const resp = await fetch('/api/tools-cover-generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await resp.json();
+      spinner.classList.add('hidden');
+
+      if (!resp.ok) {
+        errorBox.classList.remove('hidden');
+        (document.getElementById('cover-error-text') as HTMLElement).textContent =
+          data.error || data.stderr || 'Unknown error';
+        btn.disabled = false;
+        return;
+      }
+
+      // Wire up result block
+      (document.getElementById('cover-result-slug') as HTMLElement).textContent = data.slug;
+      (document.getElementById('cover-result-spine') as HTMLElement).textContent =
+        data.spine_width_in ? `${data.spine_width_in}"` : '—';
+      const previewUrl = `/api/tools-cover-file?slug=${encodeURIComponent(data.slug)}&file=${encodeURIComponent(data.version + '-preview.png')}`;
+      const pdfUrl = `/api/tools-cover-file?slug=${encodeURIComponent(data.slug)}&file=${encodeURIComponent(data.version + '-kdp.pdf')}`;
+      (document.getElementById('cover-result-preview') as HTMLImageElement).src = previewUrl;
+      (document.getElementById('cover-result-pdf') as HTMLAnchorElement).href = pdfUrl;
+      (document.getElementById('cover-result-png') as HTMLAnchorElement).href = previewUrl;
+      result.classList.remove('hidden');
+    } catch (err: any) {
+      spinner.classList.add('hidden');
+      errorBox.classList.remove('hidden');
+      (document.getElementById('cover-error-text') as HTMLElement).textContent = err.message || String(err);
+    } finally {
+      btn.disabled = false;
+    }
+  });
 }
 </script>
