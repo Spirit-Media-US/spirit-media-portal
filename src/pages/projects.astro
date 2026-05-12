@@ -1,0 +1,481 @@
+---
+import PortalLayout from "../layouts/PortalLayout.astro";
+
+interface ProjectRow {
+	projectId: string;
+	title?: string;
+	status?: string;
+	priority?: string;
+	assignee?: string | null;
+	architect?: string;
+	created?: string;
+	started?: string | null;
+	completed?: string | null;
+	googleDocUrl?: string;
+	estimatedHours?: string;
+	deliverables?: Array<{ id: number; name: string; done: boolean }>;
+}
+
+interface ProjectsPayload {
+	generated?: string;
+	projects: ProjectRow[];
+}
+
+const R2_URL = "https://assets.spiritmediapublishing.com/portal/projects.json";
+
+let data: ProjectsPayload = { projects: [] };
+let fetchError: string | null = null;
+try {
+	const res = await fetch(R2_URL, {
+		headers: { "cache-control": "no-cache" },
+	});
+	if (!res.ok) throw new Error(`R2 fetch failed: ${res.status}`);
+	data = await res.json();
+} catch (err: any) {
+	fetchError = err?.message || "Unable to fetch projects";
+}
+
+const PRIORITY_RANK: Record<string, number> = {
+	urgent: 0,
+	high: 1,
+	medium: 2,
+	low: 3,
+	none: 4,
+};
+const STATUS_RANK: Record<string, number> = {
+	in_progress: 0,
+	review: 1,
+	assigned: 2,
+	open: 3,
+	done: 4,
+};
+
+const projects = [...(data.projects || [])].sort((a, b) => {
+	const sa = STATUS_RANK[a.status || "open"] ?? 9;
+	const sb = STATUS_RANK[b.status || "open"] ?? 9;
+	if (sa !== sb) return sa - sb;
+	const pa = PRIORITY_RANK[a.priority || "none"] ?? 9;
+	const pb = PRIORITY_RANK[b.priority || "none"] ?? 9;
+	if (pa !== pb) return pa - pb;
+	return (a.projectId || "").localeCompare(b.projectId || "");
+});
+
+const priorityChipClass = (p?: string) => {
+	switch (p) {
+		case "urgent":
+			return "chip chip-urgent";
+		case "high":
+			return "chip chip-high";
+		case "medium":
+			return "chip chip-medium";
+		case "low":
+			return "chip chip-low";
+		default:
+			return "chip chip-none";
+	}
+};
+
+const statusChipClass = (s?: string) => {
+	switch (s) {
+		case "in_progress":
+			return "chip chip-status-progress";
+		case "review":
+			return "chip chip-status-review";
+		case "assigned":
+			return "chip chip-status-assigned";
+		case "done":
+			return "chip chip-status-done";
+		default:
+			return "chip chip-status-open";
+	}
+};
+
+const statusLabel = (s?: string) =>
+	(
+		({
+			open: "Open",
+			assigned: "Assigned",
+			in_progress: "In Progress",
+			review: "Review",
+			done: "Done",
+		}) as Record<string, string>
+	)[s || "open"] || s;
+
+const priorityLabel = (p?: string) =>
+	(
+		({
+			urgent: "Urgent",
+			high: "High",
+			medium: "Medium",
+			low: "Low",
+			none: "—",
+		}) as Record<string, string>
+	)[p || "none"] || p;
+
+const counts = {
+	open: projects.filter((p) => p.status === "open").length,
+	assigned: projects.filter((p) => p.status === "assigned").length,
+	in_progress: projects.filter((p) => p.status === "in_progress").length,
+	review: projects.filter((p) => p.status === "review").length,
+	done: projects.filter((p) => p.status === "done").length,
+};
+const activeCount =
+	counts.open + counts.assigned + counts.in_progress + counts.review;
+
+const fmtDate = (d?: string | null) => {
+	if (!d) return "";
+	try {
+		return new Date(d).toLocaleDateString("en-US", {
+			year: "numeric",
+			month: "short",
+			day: "numeric",
+		});
+	} catch {
+		return d;
+	}
+};
+---
+
+<PortalLayout title="Projects">
+  <div class="projects-page">
+    <header class="page-header">
+      <div>
+        <h1>Projects</h1>
+        <p class="lede">Dev team assignments. Source of truth is <code>/home/deploy/projects/</code> on Bethel — managed via the <code>project</code> CLI.</p>
+      </div>
+      <div class="header-stats">
+        <div class="stat-pill"><strong>{activeCount}</strong> active</div>
+        <div class="stat-pill stat-done"><strong>{counts.done}</strong> done</div>
+      </div>
+    </header>
+
+    {fetchError && (
+      <div class="banner banner-error">
+        Could not load projects: {fetchError}. Run <code>project sync</code> on Bethel and refresh.
+      </div>
+    )}
+
+    {!fetchError && projects.length === 0 && (
+      <div class="banner">
+        No projects yet. Create one on Bethel: <code>project new &lt;slug&gt; "Title" --doc URL</code>
+      </div>
+    )}
+
+    {projects.length > 0 && (
+      <div class="status-counts">
+        {(["in_progress", "review", "assigned", "open", "done"] as const).map((s) => counts[s] > 0 && (
+          <span class={`count-tag ${statusChipClass(s)}`}>
+            {statusLabel(s)}: <strong>{counts[s]}</strong>
+          </span>
+        ))}
+      </div>
+    )}
+
+    {projects.length > 0 && (
+      <div class="project-table-wrap">
+        <table class="project-table">
+          <thead>
+            <tr>
+              <th class="th-priority">Priority</th>
+              <th class="th-status">Status</th>
+              <th>Project</th>
+              <th>Assignee</th>
+              <th class="th-dates">Created</th>
+              <th class="th-doc">Spec</th>
+            </tr>
+          </thead>
+          <tbody>
+            {projects.map((p) => (
+              <tr>
+                <td><span class={priorityChipClass(p.priority)}>{priorityLabel(p.priority)}</span></td>
+                <td><span class={statusChipClass(p.status)}>{statusLabel(p.status)}</span></td>
+                <td>
+                  <div class="project-title">{p.title || p.projectId}</div>
+                  <div class="project-slug"><code>{p.projectId}</code></div>
+                  {p.deliverables && p.deliverables.length > 0 && (
+                    <div class="deliverable-bar">
+                      <span class="deliverable-count">
+                        {p.deliverables.filter((d) => d.done).length} / {p.deliverables.length} deliverables
+                      </span>
+                      <div class="progress-bar">
+                        <div class="progress-fill" style={`width: ${(p.deliverables.filter((d) => d.done).length / p.deliverables.length) * 100}%`}></div>
+                      </div>
+                    </div>
+                  )}
+                </td>
+                <td>
+                  {p.assignee ? <span class="assignee-name">{p.assignee}</span> : <span class="unassigned">—</span>}
+                </td>
+                <td class="cell-date">{fmtDate(p.created)}</td>
+                <td>
+                  {p.googleDocUrl ? (
+                    <a href={p.googleDocUrl} target="_blank" rel="noopener noreferrer" class="doc-link">Open ↗</a>
+                  ) : (
+                    <span class="unassigned">—</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+
+    <section class="cli-cheatsheet">
+      <h2>CLI on Bethel</h2>
+      <p class="lede">Writes happen via the <code>project</code> command. The dashboard is read-only and reflects state from R2 (synced after every CLI action).</p>
+      <pre class="cli-pre">project list                       # all projects
+project show &lt;slug&gt;                full status + log
+project new &lt;slug&gt; "Title" --doc URL
+project assign &lt;slug&gt; &lt;dev&gt;       # Kevin
+project priority &lt;slug&gt; &lt;urgent|high|medium|low|none&gt;
+project start &lt;slug&gt;               # dev marks in-progress
+project update &lt;slug&gt; "note"
+project complete &lt;slug&gt;            # dev marks ready-for-review
+project verify &lt;slug&gt;              # Kevin marks done
+project doc &lt;slug&gt;                 # print spec URL</pre>
+    </section>
+
+    {data.generated && (
+      <p class="last-sync">Last synced from Bethel: {fmtDate(data.generated)}</p>
+    )}
+  </div>
+</PortalLayout>
+
+<style>
+  .projects-page {
+    max-width: 1200px;
+  }
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .page-header h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 0 0.25rem 0;
+  }
+  .lede {
+    color: #57534e;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+  .lede code, .cli-cheatsheet code {
+    background: #f5f5f4;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+  }
+  .header-stats {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .stat-pill {
+    background: #f5f5f4;
+    border: 1px solid #e7e5e4;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: #57534e;
+  }
+  .stat-pill strong {
+    color: #1a1a1a;
+    font-size: 1rem;
+  }
+  .stat-pill.stat-done strong {
+    color: #16a34a;
+  }
+  .banner {
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    color: #78350f;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .banner-error {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #991b1b;
+  }
+  .status-counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .count-tag {
+    font-size: 0.8rem;
+  }
+  .count-tag strong {
+    margin-left: 0.25rem;
+  }
+  .project-table-wrap {
+    background: white;
+    border: 1px solid #e7e5e4;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .project-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+  .project-table thead {
+    background: #fafaf9;
+  }
+  .project-table th {
+    text-align: left;
+    padding: 0.85rem 1rem;
+    font-weight: 600;
+    color: #44403c;
+    border-bottom: 1px solid #e7e5e4;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .project-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #f5f5f4;
+    vertical-align: top;
+  }
+  .project-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .project-table tbody tr:hover {
+    background: #fafaf9;
+  }
+  .th-priority { width: 110px; }
+  .th-status { width: 130px; }
+  .th-dates { width: 110px; }
+  .th-doc { width: 80px; }
+  .project-title {
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 0.2rem;
+  }
+  .project-slug {
+    font-size: 0.75rem;
+    color: #78716c;
+  }
+  .project-slug code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+  }
+  .deliverable-bar {
+    margin-top: 0.6rem;
+    max-width: 360px;
+  }
+  .deliverable-count {
+    font-size: 0.72rem;
+    color: #78716c;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .progress-bar {
+    background: #f5f5f4;
+    height: 4px;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    background: #16a34a;
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+  }
+  .cell-date {
+    color: #78716c;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  .assignee-name {
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+  .unassigned {
+    color: #a8a29e;
+  }
+  .doc-link {
+    color: #b91c1c;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .doc-link:hover {
+    text-decoration: underline;
+  }
+  .chip {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .chip-urgent { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+  .chip-high   { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+  .chip-medium { background: #ede9fe; color: #5b21b6; border-color: #ddd6fe; }
+  .chip-low    { background: #f1f5f9; color: #475569; border-color: #e2e8f0; }
+  .chip-none   { background: #fafaf9; color: #a8a29e; border-color: #f5f5f4; }
+  .chip-status-progress { background: #fef9c3; color: #854d0e; border-color: #fde68a; }
+  .chip-status-review   { background: #fed7aa; color: #9a3412; border-color: #fdba74; }
+  .chip-status-assigned { background: #ede9fe; color: #5b21b6; border-color: #ddd6fe; }
+  .chip-status-open     { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
+  .chip-status-done     { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+  .cli-cheatsheet {
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .cli-cheatsheet h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: #fafaf9;
+  }
+  .cli-cheatsheet .lede {
+    color: #a8a29e;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .cli-cheatsheet code {
+    background: #292524;
+    color: #fef3c7;
+  }
+  .cli-pre {
+    background: #0c0a09;
+    padding: 1rem;
+    border-radius: 0.4rem;
+    overflow-x: auto;
+    font-size: 0.8rem;
+    line-height: 1.65;
+    margin: 0;
+    color: #d6d3d1;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  .last-sync {
+    color: #a8a29e;
+    font-size: 0.78rem;
+    text-align: right;
+    margin: 1rem 0 0 0;
+  }
+  @media (max-width: 768px) {
+    .project-table th:nth-child(5),
+    .project-table td:nth-child(5) {
+      display: none;
+    }
+    .page-header {
+      flex-direction: column;
+    }
+  }
+</style>
