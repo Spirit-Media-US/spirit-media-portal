@@ -6,6 +6,7 @@ const portalRoutes = [
 	"/playbook",
 	"/developers",
 	"/templates",
+	"/projects",
 ];
 const clientRoutes = ["/clients"];
 const publicRoutes = ["/login", "/client-login", "/site-update"];
