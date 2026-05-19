@@ -9,13 +9,15 @@ if (!auth || auth.value !== "pin_030126") {
 	return Astro.redirect("/login");
 }
 
-const LOG_URL =
-	"https://assets.spiritmediapublishing.com/100club-baselines/_logs/latest.json";
+// Cache-bust via query param — CF Workers runtime doesn't implement
+// the standard `cache: 'no-store'` RequestInit field. Per-second salt is
+// fine for an internal dashboard (fresh data every page load).
+const LOG_URL = `https://assets.spiritmediapublishing.com/100club-baselines/_logs/latest.json?t=${Math.floor(Date.now() / 1000)}`;
 
 let log: any = null;
 let fetchError: string | null = null;
 try {
-	const r = await fetch(LOG_URL, { cache: "no-store" });
+	const r = await fetch(LOG_URL);
 	if (!r.ok) throw new Error(`HTTP ${r.status}`);
 	log = await r.json();
 } catch (e: any) {
