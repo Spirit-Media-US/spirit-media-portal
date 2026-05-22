@@ -554,14 +554,33 @@ if (!(window as any).__portalInitialized) {
     try {
       const fd = new FormData(form);
       const payload = { template_id: 'manuscript-review', file_url: fd.get('file_url') };
-      // Fire both reports in parallel
-      const [reviewResp, evalResp] = await Promise.all([
-        fetch('/api/tools-generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }),
-        fetch('/api/tools-manuscript-eval', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ file_url: payload.file_url, title: 'Manuscript' }) }),
+
+      // Kick off both async jobs in parallel
+      const [reviewStart, evalStart] = await Promise.all([
+        fetch('/api/tools-generate-start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).then(r => r.json()),
+        fetch('/api/tools-manuscript-eval-start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ file_url: payload.file_url, title: 'Manuscript' }) }).then(r => r.json()),
+      ]);
+      if (!reviewStart.job_id) throw new Error(reviewStart.error || 'Could not start manuscript review');
+      if (!evalStart.job_id) throw new Error(evalStart.error || 'Could not start manuscript eval');
+
+      // Poll both job statuses every 5s, up to 15 minutes
+      const POLL_MS = 5000;
+      const MAX_MS = 15 * 60 * 1000;
+      const startedAt = Date.now();
+      const pollOne = async (endpoint: string, jobId: string): Promise<any> => {
+        while (Date.now() - startedAt < MAX_MS) {
+          await new Promise(r => setTimeout(r, POLL_MS));
+          const resp = await fetch(`${endpoint}?job_id=${encodeURIComponent(jobId)}`);
+          const data = await resp.json();
+          if (data.status === 'done' || data.status === 'failed') return data;
+        }
+        return { status: 'failed', error: 'Timed out after 15 minutes' };
+      };
+      const [reviewResult, evalResult] = await Promise.all([
+        pollOne('/api/tools-generate-status', reviewStart.job_id),
+        pollOne('/api/tools-manuscript-eval-status', evalStart.job_id),
       ]);
       clearInterval(interval);
-      const reviewResult = await reviewResp.json();
-      const evalResult = await evalResp.json();
       const hasReview = reviewResult.doc_url;
       const hasEval = evalResult.doc_url;
       if (!hasReview && !hasEval) throw new Error(reviewResult.error || evalResult.error || 'Both reports failed');
