@@ -1,0 +1,148 @@
+---
+// /100club — fleet perf + visual regression dashboard.
+// Reads the daily log written by /home/deploy/bin/100club-guard/guard-cron.sh,
+// published to R2 at 100club-baselines/_logs/latest.json. Server-rendered so
+// the data is fresh every page load — no client JS dependency.
+
+const auth = Astro.cookies.get("portal_auth");
+if (!auth || auth.value !== "pin_030126") {
+	return Astro.redirect("/login");
+}
+
+// Cache-bust via query param — CF Workers runtime doesn't implement
+// the standard `cache: 'no-store'` RequestInit field. Per-second salt is
+// fine for an internal dashboard (fresh data every page load).
+const LOG_URL = `https://assets.spiritmediapublishing.com/100club-baselines/_logs/latest.json?t=${Math.floor(Date.now() / 1000)}`;
+
+let log: any = null;
+let fetchError: string | null = null;
+try {
+	const r = await fetch(LOG_URL);
+	if (!r.ok) throw new Error(`HTTP ${r.status}`);
+	log = await r.json();
+} catch (e: any) {
+	fetchError = e.message;
+}
+
+const visualResults = log?.visual?.result?.results || [];
+const psiResult = log?.psi?.result || null;
+
+function statusFor(r: any): { label: string; bg: string; fg: string } {
+	if (r.verdict === "PASS") return { label: "PASS", bg: "#0e8a3f", fg: "#fff" };
+	if (r.verdict === "NO-BASELINE")
+		return { label: "NO BASELINE", bg: "#6b6b6b", fg: "#fff" };
+	if (r.verdict === "ERROR")
+		return { label: "ERROR", bg: "#7a1a1a", fg: "#fff" };
+	return { label: "FAIL", bg: "#c43030", fg: "#fff" };
+}
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>100 Club Guard | Spirit Media Portal</title>
+    <style is:global>
+      body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; background: #f5f5f5; color: #1a1a1a; }
+      .wrap { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+      h1 { margin: 0 0 .5rem; font-size: 1.75rem; }
+      .sub { color: #5a5a5a; margin-bottom: 1.5rem; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+      .card { background: #fff; border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+      .card h3 { margin: 0 0 .5rem; font-size: 1.05rem; }
+      .row { display: flex; justify-content: space-between; align-items: center; gap: .75rem; font-size: .85rem; padding: .25rem 0; border-bottom: 1px solid #eee; }
+      .row:last-child { border-bottom: 0; }
+      .label { color: #5a5a5a; }
+      .badge { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: .72rem; font-weight: 700; letter-spacing: .04em; }
+      .stamp { font-size: .8rem; color: #5a5a5a; margin-bottom: 1.5rem; }
+      .links { display: flex; gap: .75rem; margin-top: .5rem; }
+      .links a { color: #2855c4; text-decoration: none; font-size: .8rem; }
+      .empty { padding: 2rem; background: #fff; border-radius: 10px; text-align: center; color: #5a5a5a; }
+      .findings { font-size: .78rem; color: #b03030; margin-top: .25rem; }
+      details { font-size: .78rem; margin-top: .5rem; }
+      details summary { cursor: pointer; color: #2855c4; }
+      details pre { background: #f9f9f9; padding: .5rem; border-radius: 6px; overflow-x: auto; max-height: 240px; }
+      @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>100 Club Guard</h1>
+      <p class="sub">Daily PSI median-of-5 + visual screenshot diff + DOM regression check, fleet-wide.</p>
+
+      {fetchError && (
+        <div class="empty">
+          <strong>No log available yet.</strong><br/>
+          The first daily run hasn't completed. Cron fires at 04:00 UTC.<br/>
+          Run manually: <code>/home/deploy/bin/100club-guard/guard-cron.sh</code><br/>
+          <small>Fetch error: {fetchError}</small>
+        </div>
+      )}
+
+      {log && (
+        <>
+          <p class="stamp">
+            Last run: <strong>{log.date}</strong> · generated {log.generatedAt} · PSI exit code {log.psi?.exit ?? "n/a"} · visual exit code {log.visual?.exit ?? "n/a"}
+          </p>
+
+          <div class="grid">
+            {visualResults.map((r: any) => {
+              const s = statusFor(r);
+              return (
+                <div class="card">
+                  <h3>
+                    {r.slug}
+                    <span class="badge" style={`background:${s.bg};color:${s.fg};margin-left:.5rem;`}>{s.label}</span>
+                  </h3>
+                  <div style="font-size:.78rem;color:#5a5a5a;margin-bottom:.5rem;word-break:break-all;">{r.url}</div>
+
+                  {["mobile","desktop"].map((vp: string) => {
+                    const v = r.viewports?.[vp];
+                    if (!v) return null;
+                    return (
+                      <div class="row">
+                        <span class="label">{vp}</span>
+                        <span>
+                          {v.status === "pass" ? "✓" : v.status === "no-baseline" ? "—" : "✗"}
+                          {" "}
+                          {v.pixelDiff && (
+                            <span style="color:#5a5a5a;font-size:.75rem;">
+                              ({v.pixelDiff.pctDifferent}% diff)
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                    );
+                  })}
+
+                  {(Object.values(r.viewports || {}) as any[]).flatMap((v: any) => v.domFindings || []).length > 0 && (
+                    <details>
+                      <summary>{(Object.values(r.viewports || {}) as any[]).flatMap((v: any) => v.domFindings || []).length} DOM findings</summary>
+                      <pre>{JSON.stringify((Object.values(r.viewports || {}) as any[]).flatMap((v: any) => v.domFindings || []), null, 2)}</pre>
+                    </details>
+                  )}
+
+                  <div class="links">
+                    {r.viewports?.mobile?.artifacts?.current && <a href={r.viewports.mobile.artifacts.current} target="_blank">mobile</a>}
+                    {r.viewports?.desktop?.artifacts?.current && <a href={r.viewports.desktop.artifacts.current} target="_blank">desktop</a>}
+                    {r.viewports?.mobile?.artifacts?.diff && r.viewports.mobile.status !== "pass" && (
+                      <a href={r.viewports.mobile.artifacts.diff} target="_blank">mobile diff</a>
+                    )}
+                    {r.viewports?.desktop?.artifacts?.diff && r.viewports.desktop.status !== "pass" && (
+                      <a href={r.viewports.desktop.artifacts.diff} target="_blank">desktop diff</a>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {visualResults.length === 0 && (
+            <div class="empty">No site results in latest log.</div>
+          )}
+        </>
+      )}
+    </div>
+  </body>
+</html>
